@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What is Sublimation Printing? Complete Guide to Dye Sublimation (2026) | ASPA</title>
+    <meta name="description" content="What is sublimation printing and how does it work? Learn the science, equipment, materials, pros, cons, and business applications from ASPA.">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ========================================
+           DESIGN SYSTEM & ROOT VARIABLES
+           ======================================== */
+        :root {
+            --ink-black: #0a0a0a;
+            --ink-dark: #1a1a2e;
+            --ink-purple: #6c2bd9;
+            --ink-magenta: #e91e8c;
+            --ink-cyan: #00d4ff;
+            --ink-yellow: #ffd400;
+            --ink-orange: #ff6b35;
+            --ink-white: #f8f8f8;
+            --ink-gray: #b0b0b0;
+            --ink-gray-dark: #2a2a3e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--ink-black);
+            color: var(--ink-white);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ========================================
+           NAVIGATION BAR
+           ======================================== */
+        nav {
+            background-color: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 0 24px;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .nav-logo {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .nav-logo-main {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--ink-white);
+            letter-spacing: 2px;
+        }
+
+        .nav-logo-sub {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 9px;
+            font-weight: 600;
+            color: var(--ink-cyan);
+            letter-spacing: 1.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--ink-gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--ink-cyan);
+        }
+
+        .nav-links a.active {
+            color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            color: var(--ink-black);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background-color: var(--ink-white);
+            border-radius: 2px;
+            transition: 0.3s ease;
+        }
+
+        /* ========================================
+           ARTICLE HEADER
+           ======================================== */
+        .article-header {
+            background: linear-gradient(135deg, rgba(108, 43, 217, 0.1) 0%, rgba(233, 30, 140, 0.05) 100%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 48px 24px;
+        }
+
+        .article-header-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            color: var(--ink-gray);
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+        }
+
+        .breadcrumb a {
+            color: var(--ink-cyan);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--ink-yellow);
+        }
+
+        .category-tag {
+            display: inline-block;
+            background-color: rgba(108, 43, 217, 0.15);
+            border: 1px solid rgba(108, 43, 217, 0.4);
+            color: var(--ink-purple);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .article-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--ink-white);
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+            line-height: 1.2;
+        }
+
+        .article-meta {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            color: var(--ink-gray);
+            margin-bottom: 24px;
+            letter-spacing: 0.3px;
+        }
+
+        .article-intro {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #d0d0d0;
+        }
+
+        /* ========================================
+           ARTICLE LAYOUT (TOC + Content)
+           ======================================== */
+        .article-wrapper {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        /* ========================================
+           TABLE OF CONTENTS (Sidebar)
+           ======================================== */
+        .toc-sidebar {
+            position: sticky;
+            top: 90px;
+            height: fit-content;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+        }
+
+        .toc-sidebar h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--ink-purple);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        .toc-list {
+            list-style: none;
+        }
+
+        .toc-list li {
+            margin-bottom: 10px;
+        }
+
+        .toc-list a {
+            font-size: 14px;
+            color: var(--ink-gray);
+            text-decoration: none;
+            transition: color 0.2s ease;
+            padding-left: 12px;
+            border-left: 2px solid transparent;
+            display: block;
+            transition: all 0.2s ease;
+        }
+
+        .toc-list a:hover {
+            color: var(--ink-purple);
+            border-left-color: var(--ink-purple);
+        }
+
+        .toc-list a.active {
+            color: var(--ink-purple);
+            border-left-color: var(--ink-purple);
+            font-weight: 600;
+        }
+
+        /* ========================================
+           ARTICLE CONTENT
+           ======================================== */
+        .article-content {
+            max-width: 800px;
+        }
+
+        article h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--ink-white);
+            margin-top: 48px;
+            margin-bottom: 20px;
+            padding-left: 16px;
+            border-left: 4px solid var(--ink-purple);
+            letter-spacing: 0.5px;
+        }
+
+        article h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--ink-white);
+            margin-top: 32px;
+            margin-bottom: 16px;
+            letter-spacing: 0.3px;
+        }
+
+        article p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 18px;
+            color: #e0e0e0;
+        }
+
+        article strong {
+            color: var(--ink-white);
+            font-weight: 600;
+        }
+
+        article em {
+            color: var(--ink-purple);
+            font-style: italic;
+        }
+
+        .highlight-term {
+            color: var(--ink-purple);
+            font-weight: 600;
+        }
+
+        article ul, article ol {
+            margin: 20px 0 20px 24px;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        article li {
+            margin-bottom: 12px;
+            color: #e0e0e0;
+        }
+
+        /* ========================================
+           CALLOUT BOXES
+           ======================================== */
+        .pro-tip {
+            background-color: rgba(0, 212, 255, 0.1);
+            border-left: 4px solid var(--ink-cyan);
+            border-radius: 4px;
+            padding: 20px;
+            margin: 28px 0;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .pro-tip strong {
+            color: var(--ink-cyan);
+            font-weight: 700;
+        }
+
+        .safety-warning {
+            background-color: rgba(255, 107, 53, 0.1);
+            border-left: 4px solid var(--ink-orange);
+            border-radius: 4px;
+            padding: 20px;
+            margin: 28px 0;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .safety-warning strong {
+            color: var(--ink-orange);
+            font-weight: 700;
+        }
+
+        .budget-breakdown {
+            background-color: rgba(108, 43, 217, 0.08);
+            border: 1px solid rgba(108, 43, 217, 0.3);
+            border-radius: 8px;
+            padding: 24px;
+            margin: 28px 0;
+        }
+
+        .budget-breakdown h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--ink-purple);
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+        }
+
+        .budget-breakdown ul {
+            list-style: none;
+            margin: 0;
+        }
+
+        .budget-breakdown li {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 1.05rem;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(108, 43, 217, 0.1);
+        }
+
+        .budget-breakdown li:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .budget-range {
+            color: var(--ink-purple);
+            font-weight: 600;
+        }
+
+        /* ========================================
+           NUMBERED STEPS
+           ======================================== */
+        .step {
+            margin: 32px 0;
+            padding: 24px;
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: 4px;
+            border-left: 4px solid var(--ink-purple);
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--ink-purple), var(--ink-magenta));
+            color: var(--ink-white);
+            border-radius: 50%;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .step h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--ink-white);
+            margin-bottom: 12px;
+        }
+
+        .step p {
+            margin-bottom: 12px;
+        }
+
+        .step p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ========================================
+           RELATED ARTICLES SECTION
+           ======================================== */
+        .related-articles {
+            margin-top: 60px;
+            padding: 40px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .related-articles h2 {
+            margin-top: 0;
+            border-left: none;
+            padding-left: 0;
+            margin-bottom: 32px;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .article-card {
+            background-color: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 8px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .article-card:hover {
+            border-color: var(--ink-purple);
+            background-color: rgba(108, 43, 217, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .article-card h3 {
+            margin-top: 0;
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        .article-card p {
+            font-size: 14px;
+            color: var(--ink-gray);
+            flex-grow: 1;
+            margin-bottom: 16px;
+        }
+
+        .article-card a {
+            color: var(--ink-purple);
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            transition: color 0.2s ease;
+            align-self: flex-start;
+        }
+
+        .article-card a:hover {
+            color: var(--ink-cyan);
+        }
+
+        .article-card .category-badge {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 12px;
+            margin-top: 12px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .category-badge.getting-started {
+            background-color: rgba(0, 212, 255, 0.15);
+            color: var(--ink-cyan);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+
+        .category-badge.equipment {
+            background-color: rgba(255, 107, 53, 0.15);
+            color: var(--ink-orange);
+            border: 1px solid rgba(255, 107, 53, 0.3);
+        }
+
+        /* ========================================
+           CTA BANNER
+           ======================================== */
+        .cta-banner {
+            background: linear-gradient(135deg, rgba(108, 43, 217, 0.2) 0%, rgba(233, 30, 140, 0.1) 100%);
+            border: 1px solid rgba(108, 43, 217, 0.3);
+            border-radius: 12px;
+            padding: 40px;
+            margin-top: 60px;
+            text-align: center;
+        }
+
+        .cta-banner h2 {
+            border-left: none;
+            padding-left: 0;
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 32px;
+        }
+
+        .cta-banner p {
+            font-size: 18px;
+            color: #d0d0d0;
+            margin-bottom: 28px;
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .cta-btn-primary {
+            background: linear-gradient(135deg, var(--ink-purple), var(--ink-magenta));
+            color: var(--ink-white);
+            border: none;
+        }
+
+        .cta-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(108, 43, 217, 0.3);
+        }
+
+        .cta-btn-secondary {
+            background-color: transparent;
+            color: var(--ink-purple);
+            border: 2px solid var(--ink-purple);
+        }
+
+        .cta-btn-secondary:hover {
+            background-color: rgba(108, 43, 217, 0.1);
+            border-color: var(--ink-cyan);
+            color: var(--ink-cyan);
+        }
+
+        /* ========================================
+           FOOTER
+           ======================================== */
+        footer {
+            background-color: var(--ink-dark);
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 40px 24px 20px;
+            margin-top: 60px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--ink-cyan);
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            display: block;
+            color: var(--ink-gray);
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 12px;
+            transition: color 0.2s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--ink-cyan);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            color: var(--ink-gray);
+            font-size: 13px;
+        }
+
+        /* ========================================
+           MOBILE RESPONSIVE
+           ======================================== */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .article-title {
+                font-size: 32px;
+            }
+
+            .article-wrapper {
+                grid-template-columns: 1fr;
+                gap: 24px;
+                padding: 24px 16px;
+            }
+
+            .toc-sidebar {
+                position: static;
+                top: auto;
+                max-height: none;
+                margin-bottom: 24px;
+                padding: 20px;
+                background-color: rgba(255, 255, 255, 0.03);
+                border-radius: 8px;
+                border-left: 4px solid var(--ink-purple);
+            }
+
+            .toc-list a {
+                font-size: 13px;
+            }
+
+            article h2 {
+                font-size: 24px;
+                margin-top: 32px;
+            }
+
+            article h3 {
+                font-size: 18px;
+            }
+
+            article p {
+                font-size: 1rem;
+            }
+
+            .cta-banner {
+                padding: 24px;
+            }
+
+            .cta-banner h2 {
+                font-size: 24px;
+            }
+
+            .cta-banner p {
+                font-size: 16px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .cta-btn {
+                width: 100%;
+            }
+
+            .related-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ========================================
+           SCROLLBAR STYLING
+           ======================================== */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--ink-purple);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--ink-magenta);
+        }
+    </style>
+</head>
+<body>
+    <!-- ========================================
+         NAVIGATION
+         ======================================== -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="nav-logo-main">ASPA</div>
+                <div class="nav-logo-sub">Since 2004</div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="directory.html">Directory</a></li>
+                <li><a href="certified-roster.html">Certified</a></li>
+                <li><a href="exam.html">Certification</a></li>
+                <li><a href="join.html">Membership</a></li>
+                <li><a href="resources.html">Resources</a></li>
+            </ul>
+            <a href="join.html" class="nav-cta">Join ASPA</a>
+            <button class="hamburger" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ========================================
+         ARTICLE HEADER
+         ======================================== -->
+    <div class="article-header">
+        <div class="article-header-container">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a> > <a href="resources.html">Resources</a> > <a href="resources.html">How-To Guides</a> > What is Sublimation Printing?
+            </div>
+            <span class="category-tag">How-To Guides</span>
+            <h1 class="article-title">What is Sublimation Printing? Complete Guide to Dye Sublimation</h1>
+            <div class="article-meta">Updated March 2026 · 12 min read</div>
+            <p class="article-intro">
+                If you're exploring the garment decoration world, you'll keep hearing about sublimation. It's not screen printing—but it's a powerful complementary method that many screen printing shops add to their services. This guide explains what sublimation is, how it works, where it excels, and where it falls short.
+            </p>
+        </div>
+    </div>
+
+    <!-- ========================================
+         ARTICLE WRAPPER (TOC + Content)
+         ======================================== -->
+    <div class="article-wrapper">
+        <!-- TABLE OF CONTENTS SIDEBAR -->
+        <aside class="toc-sidebar">
+            <h3>Contents</h3>
+            <ul class="toc-list">
+                <li><a href="#introduction">Introduction</a></li>
+                <li><a href="#science">How It Works</a></li>
+                <li><a href="#equipment">Equipment You Need</a></li>
+                <li><a href="#limitations">What You Can Print</a></li>
+                <li><a href="#pros">Pros of Sublimation</a></li>
+                <li><a href="#cons">Cons & Limitations</a></li>
+                <li><a href="#comparison">vs Screen Printing</a></li>
+                <li><a href="#applications">Business Applications</a></li>
+                <li><a href="#getting-started">Getting Started</a></li>
+                <li><a href="#conclusion">The Bottom Line</a></li>
+            </ul>
+        </aside>
+
+        <!-- MAIN ARTICLE CONTENT -->
+        <article class="article-content">
+            <!-- INTRODUCTION -->
+            <section id="introduction">
+                <h2>Introduction: The Other Printing Method</h2>
+                <p>
+                    Screen printing gets most of the spotlight in the apparel decoration world, but sublimation is quietly powering a massive segment of the industry. From esports team jerseys to personalized mugs in print-on-demand shops, sublimation delivers results that screen printing simply cannot match in certain niches.
+                </p>
+                <p>
+                    The <span class="highlight-term">sublimation process</span> works through a different chemistry than screen printing. While screen printing deposits ink on top of fabric, sublimation actually transforms fabric at the molecular level. The result? Prints with zero texture, unlimited colors, and exceptional durability.
+                </p>
+                <p>
+                    This guide covers the complete sublimation story: what it is, how the science works, what equipment you need, where it excels, and most importantly—where it doesn't. By the end, you'll understand whether sublimation makes sense for your business or if it complements your existing screen printing operation.
+                </p>
+            </section>
+
+            <!-- SECTION 1: HOW SUBLIMATION WORKS -->
+            <section id="science">
+                <h2>How Sublimation Works: The Science</h2>
+                <p>
+                    <span class="highlight-term">Sublimation</span> is a chemical process where a solid transforms directly into a gas, bypassing the liquid state entirely. In sublimation printing, special inks exploit this property to bond permanently with polyester fabric at the molecular level.
+                </p>
+
+                <h3>The Process Step-by-Step</h3>
+                <p>
+                    Here's what happens when you sublimate a design:
+                </p>
+                <ol>
+                    <li><strong>Design to Transfer:</strong> You create artwork and print it using a sublimation printer onto special sublimation transfer paper. The ink sits on the surface of the paper, looking vibrant and glossy.</li>
+                    <li><strong>Heat & Pressure:</strong> The transfer paper is placed face-down on your substrate (polyester shirt, mug, mouspad) and fed into a heat press set to approximately 400°F under pressure for 30-60 seconds depending on the substrate.</li>
+                    <li><strong>Molecular Transformation:</strong> At that extreme temperature, the sublimation ink converts from a solid to a gas without ever becoming liquid. This gas penetrates the polyester fibers and bonds with them chemically.</li>
+                    <li><strong>Cooling & Permanence:</strong> As the substrate cools, the gas solidifies back into a dye state, but now it's locked inside the fibers themselves—not sitting on top like screen printed ink.</li>
+                </ol>
+
+                <h3>Why Polyester Matters</h3>
+                <p>
+                    Sublimation only works with polyester (or polyester-coated hard goods) because of how polyester's molecular structure works. When heated above 390°F, polyester fibers actually expand slightly, creating gaps that allow the sublimation dye to penetrate. Cotton and natural fabrics don't have this property, making sublimation impossible on them.
+                </p>
+
+                <p>
+                    Think of it this way: sublimation is <em>dyeing specific areas of the fabric in full color</em>. The dye is literally part of the material. Once it cools, it can never wash out because it's chemically bonded—not physically deposited.
+                </p>
+
+                <div class="pro-tip">
+                    <strong>Pro Tip:</strong> Sublimation is a dye process, not an ink deposit. This is why sublimation prints have zero texture and feel exactly like the fabric beneath. There's no ink layer sitting on top—it's integrated into the fibers.
+                </div>
+            </section>
+
+            <!-- SECTION 2: EQUIPMENT -->
+            <section id="equipment">
+                <h2>Equipment You Need</h2>
+                <p>
+                    The startup cost for sublimation is lower than many people expect, and the equipment is straightforward. Let's break down each component you'll need.
+                </p>
+
+                <h3>Sublimation Printer</h3>
+                <p>
+                    You need a printer specifically modified or designed for sublimation ink. Options:
+                </p>
+                <ul>
+                    <li><strong>Converted Epson Printers:</strong> The most affordable route. Popular models include the EcoTank ET-2850 and ET-15000. These are standard inkjet printers converted with sublimation cartridges. Cost: $250-$500. Perfect for beginners and small operations.</li>
+                    <li><strong>Dedicated Sublimation Printers:</strong> Purpose-built machines like the Sawgrass SG500 or SG1000 offer better color accuracy and longevity. Cost: $400-$800+. Worth the investment if you're printing seriously.</li>
+                </ul>
+                <p>
+                    Critical: You cannot use regular inkjet ink for sublimation. Sublimation ink is specially formulated and costs more, but it's the only ink that will sublimate properly.
+                </p>
+
+                <h3>Heat Press</h3>
+                <p>
+                    Your heat press is where the magic happens. Types:
+                </p>
+                <ul>
+                    <li><strong>Flat Press (for textiles):</strong> Presses flat items like t-shirts and fabric blanks. Minimum 15x15 inches recommended. Cost: $200-$600.</li>
+                    <li><strong>Mug Press:</strong> Specifically designed for cylindrical mugs and drinkware. Holds the mug in place for even heat distribution. Cost: $150-$400.</li>
+                    <li><strong>Cap Press:</strong> Specialized for baseball caps and hats. Cost: $300-$800.</li>
+                    <li><strong>Multi-Function Press:</strong> Some units swap heads, allowing you to handle multiple substrate types. Cost: $400-$1,000.</li>
+                </ul>
+
+                <h3>Sublimation Ink</h3>
+                <p>
+                    Sublimation inks are the lifeblood of the process. Unlike screen printing inks, sublimation inks are formulated to sublimate at 400°F. Expect to pay $8-$20 per color (CMYK set: $30-$60). Quality matters here—cheap sublimation ink produces dull colors and poor saturation.
+                </p>
+
+                <h3>Sublimation Transfer Paper</h3>
+                <p>
+                    This is specially coated paper that holds sublimation ink temporarily before transferring it to fabric. Standard letter-size sheets cost $0.20-$0.40 per sheet. A 100-sheet pack runs $20-$40. Never try to use regular paper—the coating is critical for proper ink transfer.
+                </p>
+
+                <h3>Substrates (What You Print On)</h3>
+                <ul>
+                    <li><strong>Polyester garments:</strong> 100% polyester t-shirts, jerseys, hoodies, athletic wear. Cost: $2-$8 per blank depending on quality.</li>
+                    <li><strong>Poly-coated hard goods:</strong> Mugs (ceramic with polyester coating), mousepads, phone cases, tiles, keychains, ornaments, license plates. Cost: $1-$20 each depending on item.</li>
+                </ul>
+
+                <div class="budget-breakdown">
+                    <h4>Startup Budget: Basic Sublimation Setup</h4>
+                    <ul>
+                        <li>
+                            <span>Converted Epson Printer + Ink</span>
+                            <span class="budget-range">$250–$500</span>
+                        </li>
+                        <li>
+                            <span>Flat Heat Press (15x15")</span>
+                            <span class="budget-range">$200–$400</span>
+                        </li>
+                        <li>
+                            <span>Sublimation Ink & Transfer Paper</span>
+                            <span class="budget-range">$50–$100</span>
+                        </li>
+                        <li>
+                            <span>Starter Blanks & Supplies</span>
+                            <span class="budget-range">$50–$150</span>
+                        </li>
+                        <li>
+                            <span class="highlight-term">Total Startup</span>
+                            <span class="budget-range">$550–$1,150</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <p>
+                    This is significantly cheaper than a screen printing startup. You can get sublimation running for under $1,500 with quality equipment. Compare that to a full screen printing setup ($2,000-$5,000+) and sublimation looks very attractive.
+                </p>
+            </section>
+
+            <!-- SECTION 3: LIMITATIONS -->
+            <section id="limitations">
+                <h2>What You Can (and Can't) Sublimate</h2>
+                <p>
+                    This is the critical section. Understanding what sublimation can and cannot do will determine whether it fits your business model.
+                </p>
+
+                <h3>What You CAN Sublimate</h3>
+                <ul>
+                    <li><strong>100% Polyester Fabric:</strong> Any color works, but prints show best on WHITE or light polyester. Bold colors and dark shades work fine too.</li>
+                    <li><strong>Polyester Blends:</strong> 65%+ polyester blends work reasonably well. Lower ratios (50/50 cotton-poly) will have reduced vibrancy.</li>
+                    <li><strong>Poly-Coated Hard Goods:</strong> Mugs, tiles, ornaments, mousepads, coasters, phone cases, water bottles, keychains, license plates, awards, plaques, sublimation blanks in virtually any shape.</li>
+                    <li><strong>Athletic & Performance Wear:</strong> Moisture-wicking polyester shirts, jerseys, and athletic gear are IDEAL for sublimation.</li>
+                </ul>
+
+                <h3>What You CANNOT Sublimate</h3>
+                <ul>
+                    <li><strong>Cotton:</strong> Sublimation dye won't bond to cotton. The design will wash out completely. Full stop—no workarounds.</li>
+                    <li><strong>Dark-Colored Polyester:</strong> Sublimation inks are transparent/translucent. There's no white ink, so printing on dark polyester results in dull, muddy colors. You need a white or light base.</li>
+                    <li><strong>Natural Fibers:</strong> Wool, silk, linen, etc. won't work. Sublimation requires polyester's specific molecular properties.</li>
+                    <li><strong>Uncoated Metals/Glass/Ceramics:</strong> Bare ceramics, uncoated glass, and raw metals won't accept sublimation. They must be polyester-coated specifically for sublimation.</li>
+                </ul>
+
+                <div class="safety-warning">
+                    <strong>Critical Limitation:</strong> If you want to print on cotton t-shirts, sublimation is not the answer. This is THE deal-breaker for many people. If your market is 100% cotton apparel, skip sublimation entirely. Screen printing is the correct method for cotton.
+                </div>
+            </section>
+
+            <!-- SECTION 4: PROS -->
+            <section id="pros">
+                <h2>Pros of Sublimation: Where It Excels</h2>
+                <p>
+                    Sublimation isn't right for everyone, but where it fits, it delivers exceptional results. Here's why successful shops love it.
+                </p>
+
+                <h3>Zero Hand Feel</h3>
+                <p>
+                    The print IS part of the fabric. There's no texture, no raised ink, no cracking. Run your hand over a sublimated print and it feels exactly like unprinted fabric. For athletic wear and high-end apparel, this is a massive advantage over screen printing's texture.
+                </p>
+
+                <h3>Full-Bleed & All-Over Printing</h3>
+                <p>
+                    Unlike screen printing (which is limited by screen size), sublimation can print edge-to-edge and cover the entire garment. Want a design that wraps all the way around a sleeve? Sublimation handles it without limitations.
+                </p>
+
+                <h3>Unlimited Colors at No Extra Cost</h3>
+                <p>
+                    Screen printing charges per color. A 4-color design requires 4 screens and 4 print strokes. Sublimation prints full CMYK process—unlimited colors in a single pass. A photographic image with 1,000 color variations costs the same as a solid color design.
+                </p>
+
+                <h3>Exceptional Durability</h3>
+                <p>
+                    The dye is chemically bonded to the fiber. It won't crack, peel, fade (excessively), or wash out. Proper sublimation prints survive 50+ washes without visible degradation. This equals customer satisfaction and repeat business.
+                </p>
+
+                <h3>Low Per-Unit Cost</h3>
+                <p>
+                    After the equipment investment, the cost per print is incredibly low. A shirt-sized transfer uses maybe $0.50-$1.00 in sublimation ink. Add transfer paper and blank cost, and you're at $1-$3 all-in per garment. Profit margins are excellent, especially on high-volume runs.
+                </p>
+
+                <h3>No Minimums</h3>
+                <p>
+                    You can sublimate one item profitably. No screen setup cost, no color charges, no minimum order requirements. Perfect for print-on-demand and custom orders.
+                </p>
+
+                <h3>Diverse Product Range</h3>
+                <p>
+                    The same printer handles shirts, mugs, mousepads, phone cases, tiles, ornaments, and more. One piece of equipment can service multiple product categories. Screen printing presses only print fabric.
+                </p>
+            </section>
+
+            <!-- SECTION 5: CONS -->
+            <section id="cons">
+                <h2>Cons of Sublimation: Honest Limitations</h2>
+                <p>
+                    Sublimation isn't perfect. These limitations are real and will affect your decision to invest.
+                </p>
+
+                <h3>Polyester Only (Or Poly-Coated)</h3>
+                <p>
+                    This is the biggest limitation. If your customers want 100% cotton t-shirts, sublimation won't work. Many custom apparel buyers specifically request cotton, which locks you into screen printing or DTG methods.
+                </p>
+
+                <h3>Light Substrates Only</h3>
+                <p>
+                    Dark colors and black polyester don't work. The transparent dye looks dull on dark fabric. You're limited to white and light-colored blanks for best results. This eliminates a whole market segment.
+                </p>
+
+                <h3>Color Shift Risk</h3>
+                <p>
+                    Sublimation requires precise calibration. If your heat press temperature is off by 10-15°F, colors shift. If pressure is uneven, colors vary across the print. This requires learning <span class="highlight-term">ICC color profiles</span> and testing extensively.
+                </p>
+
+                <h3>No Specialty Effects</h3>
+                <p>
+                    You cannot do puff ink, metallic foil, glitter, glow-in-the-dark, or raised texture effects. Sublimation is flat color only. If customers want specialty effects, you'll need additional equipment or partner with other services.
+                </p>
+
+                <h3>Printer Maintenance</h3>
+                <p>
+                    Sublimation printers are sensitive. If you don't print at least weekly, the print heads dry out and clog. Fixing clogs is time-consuming and expensive. You need regular use to keep the printer healthy. This isn't a "turn it on when you need it" tool.
+                </p>
+
+                <h3>Transfer Paper Waste</h3>
+                <p>
+                    If you make a mistake or a print fails, you've wasted transfer paper and sublimation ink. You can't reprint on the same sheet. Screen printing lets you reuse screens; sublimation doesn't.
+                </p>
+
+                <h3>Learning Curve for Color Accuracy</h3>
+                <p>
+                    Getting colors to match screen perfectly requires understanding sublimation chemistry, ICC profiles, and printer calibration. The learning curve is steeper than screen printing's "load ink, print" simplicity.
+                </p>
+            </section>
+
+            <!-- SECTION 6: COMPARISON -->
+            <section id="comparison">
+                <h2>Sublimation vs Screen Printing: When to Use Each</h2>
+                <p>
+                    The best answer isn't "which is better"—it's "which is right for this job?" Most successful shops use BOTH, understanding each method's strengths.
+                </p>
+
+                <h3>Volume & Economics</h3>
+                <ul>
+                    <li><strong>Small Volume (1-12 items):</strong> Sublimation wins. No screen setup, no color charges, profitable at low volume.</li>
+                    <li><strong>Medium Volume (12-50 items):</strong> Sublimation still wins unless you need cotton or special effects.</li>
+                    <li><strong>Large Volume (50+ items):</strong> Screen printing becomes competitive or cheaper. Faster prints, no transfer paper waste, proven at scale.</li>
+                </ul>
+
+                <h3>Fabric & Substrates</h3>
+                <ul>
+                    <li><strong>Cotton t-shirts:</strong> Screen printing only. Sublimation won't work.</li>
+                    <li><strong>Polyester athletic wear:</strong> Sublimation preferred. Better feel, unlimited colors, full-bleed capability.</li>
+                    <li><strong>Hard goods (mugs, tiles, etc.):</strong> Sublimation only. Screen printing can't handle hard surfaces.</li>
+                    <li><strong>Dark fabric:</strong> Screen printing. Sublimation produces dull results on dark colors.</li>
+                </ul>
+
+                <h3>Design Complexity</h3>
+                <ul>
+                    <li><strong>Bold, solid colors (1-4 colors):</strong> Screen printing is faster and cheaper per unit.</li>
+                    <li><strong>Photographic or multi-color designs:</strong> Sublimation wins. Unlimited colors at no extra cost.</li>
+                    <li><strong>Specialty effects (puff, foil, metallic):</strong> Screen printing offers options sublimation cannot.</li>
+                </ul>
+
+                <h3>Durability & Feel</h3>
+                <ul>
+                    <li><strong>Flat, soft feel required:</strong> Sublimation. Screen printing has texture.</li>
+                    <li><strong>Heavy-duty wear (work wear, industrial):</strong> Both are durable. Screen printing may be more robust for extreme conditions.</li>
+                </ul>
+
+                <div class="pro-tip">
+                    <strong>Best Practice:</strong> If you're a screen printing shop, adding a sublimation printer opens up product categories your press cannot touch—mugs alone can be a significant revenue stream. Think of sublimation as a COMPLEMENT to screen printing, not a replacement.
+                </div>
+            </section>
+
+            <!-- SECTION 7: BUSINESS APPLICATIONS -->
+            <section id="applications">
+                <h2>Business Applications: Where Sublimation Makes Money</h2>
+                <p>
+                    Understanding where sublimation creates profit is key to deciding if it's right for you. Here are the most successful applications.
+                </p>
+
+                <h3>Esports & Gaming Jerseys</h3>
+                <p>
+                    Esports teams need custom polyester performance jerseys with full-bleed, all-over designs. Sublimation is perfect—players want the light feel, teams want unlimited color designs, and the no-texture fit is ideal for competitive wear. This is a growth market.
+                </p>
+
+                <h3>Sportswear & Athletic Apparel</h3>
+                <p>
+                    Moisture-wicking polyester is already the industry standard for athletes. Sublimation adds value by enabling custom designs without adding weight or texture. Soccer jerseys, volleyball uniforms, running shirts—all ideal sublimation candidates.
+                </p>
+
+                <h3>Promotional Products</h3>
+                <p>
+                    Personalized mugs, mousepads, keychains, phone cases, and branded items are a huge market. Companies want custom branding without minimum orders. Sublimation's "one item profitably" model fits perfectly.
+                </p>
+
+                <h3>Awards & Recognition</h3>
+                <p>
+                    Sublimation shines on plaques, trophies, name plates, medals, and awards. Custom photo-quality images are achievable cost-effectively. Schools and corporations love this.
+                </p>
+
+                <h3>Home Décor & Personalization</h3>
+                <p>
+                    Polyester pillows, blankets, tiles, coasters, and wall décor benefit from custom photo sublimation. The market for personalized home items is exploding on Etsy and Shopify.
+                </p>
+
+                <h3>Print-On-Demand Services</h3>
+                <p>
+                    Etsy sellers, Shopify stores, and print-on-demand platforms rely on sublimation's ability to handle single-item orders profitably. No minimums, no waste, full-bleed capability—perfect for e-commerce.
+                </p>
+
+                <div class="pro-tip">
+                    <strong>Profit Opportunity:</strong> If you're a screen printing shop, add a sublimation printer. The market for mugs alone is substantial—higher margin, lower volume dependency, and complements your existing screen work perfectly.
+                </div>
+            </section>
+
+            <!-- SECTION 8: GETTING STARTED -->
+            <section id="getting-started">
+                <h2>Getting Started with Sublimation</h2>
+                <p>
+                    Ready to add sublimation to your operation? Here's a practical roadmap.
+                </p>
+
+                <h3>Step 1: Start with Affordable Equipment</h3>
+                <p>
+                    Buy a converted Epson EcoTank printer ($250-$500), a basic flat heat press ($200-$400), and starter supplies. Total investment: under $1,200. This is genuinely affordable to test the market.
+                </p>
+
+                <h3>Step 2: Practice & Learn</h3>
+                <p>
+                    Don't try to sell to customers immediately. Practice on cheap polyester blanks and mugs. Learn your equipment's quirks:
+                </p>
+                <ul>
+                    <li>How hot does your press actually get? (temperature guns are essential)</li>
+                    <li>What's the ideal pressure for even results?</li>
+                    <li>How long should you press different substrates?</li>
+                    <li>What does proper transfer look like?</li>
+                </ul>
+
+                <h3>Step 3: Master Color Management</h3>
+                <p>
+                    Sublimation color accuracy requires <span class="highlight-term">ICC color profiles</span>. These are calibration files that tell your printer how to reproduce colors accurately. Research your printer's profiles and learn how to use them. Many printer companies provide free profiles; use them.
+                </p>
+
+                <h3>Step 4: Join Communities & Learn</h3>
+                <p>
+                    Join sublimation Facebook groups, watch YouTube tutorials from experienced printers, and connect with other sublimators. The community is collaborative and helpful.
+                </p>
+
+                <h3>Step 5: Test Products & Pricing</h3>
+                <p>
+                    Start selling small batches of items—custom mugs, mousepads, personalized gifts. Get customer feedback. Adjust your pricing based on actual costs and market demand. Most shops find they can charge premium prices for personalized sublimated items.
+                </p>
+
+                <h3>Consider Sublimation as a Complement</h3>
+                <p>
+                    If you already do screen printing, view sublimation as opening new revenue streams—mugs, hard goods, specialty items, and low-volume polyester orders that your screen press isn't ideal for. You're not replacing screen printing; you're expanding your service menu.
+                </p>
+            </section>
+
+            <!-- SECTION 9: CONCLUSION -->
+            <section id="conclusion">
+                <h2>The Bottom Line</h2>
+                <p>
+                    Sublimation printing is a powerful, versatile technology with a specific niche. It's not a screen printing replacement—it's a screen printing complement. And for certain applications, it's unbeatable.
+                </p>
+
+                <p>
+                    <strong>Sublimation is right for you if:</strong>
+                </p>
+                <ul>
+                    <li>You need to print on polyester or hard goods</li>
+                    <li>Your customers want personalization or small-volume orders</li>
+                    <li>You need all-over prints with unlimited colors</li>
+                    <li>You want soft, flat prints without texture</li>
+                    <li>You're operating print-on-demand or e-commerce</li>
+                </ul>
+
+                <p>
+                    <strong>Skip sublimation if:</strong>
+                </p>
+                <ul>
+                    <li>Your market is exclusively 100% cotton t-shirts</li>
+                    <li>You only print bold, single-color designs</li>
+                    <li>You need specialty effects (puff, foil, metallic)</li>
+                    <li>You want high-volume production primarily</li>
+                </ul>
+
+                <p>
+                    Many of the most successful custom apparel shops offer both screen printing AND sublimation. They understand that different methods serve different markets. A client needing 500 cotton t-shirts with a simple logo? Screen printing. A client needing 5 custom polyester esports jerseys? Sublimation. A client wanting personalized mugs? Sublimation.
+                </p>
+
+                <p>
+                    If sublimation fits your market, the entry cost is reasonable, the learning curve is manageable, and the profit potential is real. Start small, test the market, and scale what works.
+                </p>
+            </section>
+
+            <!-- RELATED ARTICLES -->
+            <section class="related-articles">
+                <h2>Related Articles</h2>
+                <div class="related-grid">
+                    <div class="article-card">
+                        <span class="category-badge getting-started">Getting Started</span>
+                        <h3>Screen Printing vs DTG vs Sublimation: Which Method is Right for You?</h3>
+                        <p>Compare the three major apparel decoration methods side-by-side. Understand the pros, cons, costs, and best applications for each.</p>
+                        <a href="article-screen-print-vs-dtg.html">Read Article →</a>
+                    </div>
+                    <div class="article-card">
+                        <span class="category-badge equipment">Equipment & Supplies</span>
+                        <h3>Screen Printing Equipment Guide for Beginners</h3>
+                        <p>In-depth reviews and comparisons of presses, dryers, and exposure units. Find the right gear for your skill level and budget.</p>
+                        <a href="article-equipment-guide.html">Read Article →</a>
+                    </div>
+                    <div class="article-card">
+                        <span class="category-badge getting-started">Getting Started</span>
+                        <h3>How to Screen Print T-Shirts: Complete Beginner's Guide</h3>
+                        <p>Master the fundamentals of screen printing from scratch. Step-by-step instructions on equipment, screens, exposure, and printing techniques.</p>
+                        <a href="article-how-to-screen-print.html">Read Article →</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA BANNER -->
+            <div class="cta-banner">
+                <h2>Expand Your Printing Services</h2>
+                <p>Whether you're adding sublimation to existing screen printing or launching a new specialty product line, ASPA resources and community support can accelerate your success. Join 1,200+ printing professionals.</p>
+                <div class="cta-buttons">
+                    <a href="resources.html" class="cta-btn cta-btn-primary">Explore More Resources →</a>
+                    <a href="join.html" class="cta-btn cta-btn-secondary">Join ASPA</a>
+                </div>
+            </div>
+        </article>
+    </div>
+
+    <!-- ========================================
+         FOOTER
+         ======================================== -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Directory</h4>
+                    <ul>
+                        <li><a href="directory.html">Member Directory</a></li>
+                        <li><a href="certified-roster.html">CSP Certification</a></li>
+                        <li><a href="join.html">Membership Tiers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Certification</h4>
+                    <ul>
+                        <li><a href="certified-roster.html">CSP Roster</a></li>
+                        <li><a href="exam.html">CSP Program</a></li>
+                        <li><a href="#">Certification Standards</a></li>
+                        <li><a href="#">Apply for Certification</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Association</h4>
+                    <ul>
+                        <li><a href="about.html">About ASPA</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                Copyright © 2004-2026 American Screen Printing Association. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========================================
+         JAVASCRIPT - TOC Active State & Mobile Menu
+         ======================================== -->
+    <script>
+        // Table of Contents - Active State Management
+        const tocLinks = document.querySelectorAll('.toc-list a');
+        const sections = document.querySelectorAll('section[id]');
+
+        function updateActiveTOC() {
+            let current = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 150;
+                if (window.pageYOffset >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveTOC);
+        window.addEventListener('load', updateActiveTOC);
+
+        // Smooth scroll for TOC links
+        tocLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Mobile Menu Toggle (Placeholder)
+        function toggleMobileMenu() {
+            console.log('Mobile menu toggled');
+        }
+    </script>
+</body>
+</html>

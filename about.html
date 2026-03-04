@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About ASPA — American Screen Printing Association</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --ink-black: #0a0a0a;
+            --ink-dark: #1a1a2e;
+            --ink-purple: #6c2bd9;
+            --ink-magenta: #e91e8c;
+            --ink-cyan: #00d4ff;
+            --ink-yellow: #ffd400;
+            --ink-orange: #ff6b35;
+            --ink-white: #f8f8f8;
+            --ink-gray: #b0b0b0;
+            --ink-gray-dark: #2a2a3e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            background-color: var(--ink-black);
+            color: var(--ink-white);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: var(--ink-dark);
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--ink-gray-dark);
+        }
+
+        .nav-logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.25rem;
+        }
+
+        .nav-logo {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.75rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            color: var(--ink-cyan);
+            text-decoration: none;
+        }
+
+        .nav-subtitle {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            color: var(--ink-gray);
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--ink-white);
+            text-decoration: none;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            letter-spacing: 0.05em;
+        }
+
+        .nav-links a:hover {
+            color: var(--ink-cyan);
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--ink-purple), var(--ink-magenta));
+            color: var(--ink-white);
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            letter-spacing: 0.05em;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(230, 30, 140, 0.3);
+        }
+
+        .hamburger-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 0.5rem;
+        }
+
+        .hamburger-menu span {
+            width: 25px;
+            height: 3px;
+            background-color: var(--ink-white);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        /* Animations */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-up {
+            animation: fadeUp 0.6s ease-out;
+        }
+
+        .fade-up-1 {
+            animation-delay: 0.1s;
+        }
+
+        .fade-up-2 {
+            animation-delay: 0.2s;
+        }
+
+        .fade-up-3 {
+            animation-delay: 0.3s;
+        }
+
+        .fade-up-4 {
+            animation-delay: 0.4s;
+        }
+
+        .fade-up-5 {
+            animation-delay: 0.5s;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--ink-dark), var(--ink-gray-dark));
+            padding: 6rem 2rem;
+            text-align: center;
+            border-bottom: 2px solid var(--ink-purple);
+        }
+
+        .hero-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            color: var(--ink-cyan);
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .hero-title {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 4rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--ink-gray);
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        /* Section Styling */
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: var(--ink-white);
+        }
+
+        .section-title.accent {
+            background: linear-gradient(135deg, var(--ink-purple), var(--ink-magenta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Overview Section */
+        .overview-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .overview-text h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--ink-cyan);
+        }
+
+        .overview-text p {
+            margin-bottom: 1.5rem;
+            color: var(--ink-gray);
+            line-height: 1.8;
+        }
+
+        .overview-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .stat-card {
+            background-color: var(--ink-gray-dark);
+            padding: 2rem;
+            border-radius: 0.5rem;
+            border-left: 4px solid var(--ink-purple);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            background-color: var(--ink-dark);
+            transform: translateY(-4px);
+            border-left-color: var(--ink-magenta);
+        }
+
+        .stat-number {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 2.5rem;
+            color: var(--ink-cyan);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--ink-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Mission Section */
+        .mission-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .mission-card {
+            background-color: var(--ink-gray-dark);
+            padding: 2.5rem;
+            border-radius: 0.5rem;
+            border-top: 3px solid var(--ink-purple);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .mission-card:nth-child(2) {
+            border-top-color: var(--ink-magenta);
+        }
+
+        .mission-card:nth-child(3) {
+            border-top-color: var(--ink-cyan);
+        }
+
+        .mission-card:hover {
+            background-color: var(--ink-dark);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 32px rgba(108, 43, 217, 0.2);
+        }
+
+        .mission-icon {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .mission-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--ink-white);
+        }
+
+        .mission-card p {
+            color: var(--ink-gray);
+            line-height: 1.7;
+        }
+
+        /* Certification Section */
+        .cert-content {
+            background-color: var(--ink-gray-dark);
+            padding: 3rem;
+            border-radius: 0.5rem;
+            border-left: 6px solid var(--ink-cyan);
+        }
+
+        .cert-content h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--ink-cyan);
+        }
+
+        .cert-content ul {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .cert-content li {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--ink-gray);
+            line-height: 1.8;
+        }
+
+        .cert-content li:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: var(--ink-cyan);
+            font-weight: bold;
+        }
+
+        .cert-link {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--ink-cyan), #00a8cc);
+            color: var(--ink-black);
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .cert-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
+        }
+
+        /* ASPA Institute Section */
+        .institute-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .institute-content h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--ink-orange);
+        }
+
+        .institute-content p {
+            margin-bottom: 1.5rem;
+            color: var(--ink-gray);
+            line-height: 1.8;
+        }
+
+        .institute-highlight {
+            background-color: var(--ink-gray-dark);
+            padding: 2rem;
+            border-radius: 0.5rem;
+            border-top: 3px solid var(--ink-orange);
+        }
+
+        .institute-highlight strong {
+            color: var(--ink-orange);
+        }
+
+        /* Leadership Section */
+        .leadership-placeholder {
+            background: linear-gradient(135deg, var(--ink-gray-dark), var(--ink-dark));
+            padding: 3rem;
+            border-radius: 0.5rem;
+            border-left: 6px solid var(--ink-yellow);
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .leadership-placeholder h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: var(--ink-yellow);
+            margin-bottom: 1rem;
+        }
+
+        .leadership-placeholder p {
+            color: var(--ink-gray);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .address-card {
+            background-color: var(--ink-dark);
+            padding: 2rem;
+            border-radius: 0.5rem;
+            border: 1px solid var(--ink-gray-dark);
+            margin-top: 2rem;
+        }
+
+        .address-card h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--ink-gray);
+            margin-bottom: 1rem;
+        }
+
+        .address-card p {
+            color: var(--ink-white);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 0.5rem;
+        }
+
+        .address-note {
+            color: var(--ink-gray);
+            font-size: 0.85rem;
+            margin-top: 1rem;
+            font-style: italic;
+        }
+
+        /* Domains Section */
+        .domains-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .domain-card {
+            background-color: var(--ink-gray-dark);
+            padding: 2rem;
+            border-radius: 0.5rem;
+            border: 1px solid var(--ink-purple);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .domain-card:hover {
+            background-color: var(--ink-dark);
+            border-color: var(--ink-cyan);
+            transform: translateY(-4px);
+        }
+
+        .domain-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--ink-gray);
+            margin-bottom: 0.5rem;
+        }
+
+        .domain-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--ink-cyan);
+            word-break: break-word;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--ink-dark);
+            padding: 4rem 2rem 2rem;
+            border-top: 1px solid var(--ink-gray-dark);
+            margin-top: 5rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--ink-cyan);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-section a {
+            color: var(--ink-gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .footer-section a:hover {
+            color: var(--ink-cyan);
+        }
+
+        .footer-divider {
+            border-top: 1px solid var(--ink-gray-dark);
+            padding-top: 2rem;
+            text-align: center;
+        }
+
+        .footer-copyright {
+            color: var(--ink-gray);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger-menu {
+                display: flex;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 1.75rem;
+            }
+
+            .overview-grid,
+            .institute-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .mission-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-card {
+                margin-bottom: 1rem;
+            }
+
+            .hero {
+                padding: 4rem 1.5rem;
+            }
+
+            .section {
+                padding: 3rem 1.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav {
+                padding: 1rem 1.5rem;
+            }
+
+            .nav-logo {
+                font-size: 1.35rem;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .mission-icon {
+                font-size: 2.25rem;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            .section {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="nav-logo-container">
+            <span class="nav-logo">ASPA</span>
+            <span class="nav-subtitle">Screen Printing</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="directory.html">Directory</a></li>
+            <li><a href="certified-roster.html">Certified</a></li>
+            <li><a href="index.html#certification">Certification</a></li>
+            <li><a href="index.html#membership">Membership</a></li>
+            <li><a href="resources.html">Resources</a></li>
+            <li><a href="join.html" class="nav-cta">Join ASPA</a></li>
+        </ul>
+        <div class="hamburger-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero fade-up fade-up-1">
+        <p class="hero-label">About</p>
+        <h1 class="hero-title">ABOUT ASPA</h1>
+        <p class="hero-subtitle">The American Screen Printing Association — serving the global screen printing community since 2004.</p>
+    </section>
+
+    <!-- Overview Section -->
+    <section class="section fade-up fade-up-2">
+        <div class="overview-grid">
+            <div class="overview-text">
+                <h3>Who We Are</h3>
+                <p>ASPA is a privately held corporation founded in 2004, dedicated to serving the global screen printing industry. We provide comprehensive information on screen printing technology, training programs, and professional certification for industry professionals.</p>
+                <p>Our community includes thousands of members worldwide — certified screen printers, embroidery shops, sign shops, graphic artists, equipment suppliers, and manufacturers. Members represent over 100 countries, and our platform serves millions of page views annually.</p>
+            </div>
+            <div class="overview-stats">
+                <div class="stat-card fade-up fade-up-3">
+                    <div class="stat-number">2004</div>
+                    <div class="stat-label">Founded</div>
+                </div>
+                <div class="stat-card fade-up fade-up-4">
+                    <div class="stat-number">100+</div>
+                    <div class="stat-label">Member Countries</div>
+                </div>
+                <div class="stat-card fade-up fade-up-5">
+                    <div class="stat-number">Millions</div>
+                    <div class="stat-label">Annual Page Views</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="section fade-up fade-up-2">
+        <h2 class="section-title accent">Our Mission</h2>
+        <div class="mission-grid">
+            <div class="mission-card fade-up fade-up-2">
+                <div class="mission-icon">📚</div>
+                <h3>Education</h3>
+                <p>Comprehensive how-to resources and information on screen printing techniques, best practices, and industry standards.</p>
+            </div>
+            <div class="mission-card fade-up fade-up-3">
+                <div class="mission-icon">✓</div>
+                <h3>Certification</h3>
+                <p>Establish professional competency standards through our Certified Screen Printer (CSP) program — the industry's only official certification.</p>
+            </div>
+            <div class="mission-card fade-up fade-up-4">
+                <div class="mission-icon">🌐</div>
+                <h3>Community</h3>
+                <p>A global directory connecting screen printing professionals, enabling businesses to promote their services and build meaningful networks.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certification Section -->
+    <section class="section fade-up fade-up-2">
+        <h2 class="section-title">The ASPA Certification Program</h2>
+        <div class="cert-content fade-up fade-up-3">
+            <h3>Professional Recognition in Screen Printing</h3>
+            <ul>
+                <li>The only certification program in the industry for verifying screen printers' general knowledge of standards, practices, and procedures</li>
+                <li>Open to screen printers worldwide</li>
+                <li>Recognized standard of excellence in the screen printing profession</li>
+                <li>Demonstrates commitment to professional development and industry standards</li>
+            </ul>
+            <a href="exam.html" class="cert-link">Learn About the CSP Exam</a>
+        </div>
+    </section>
+
+    <!-- ASPA Institute Section -->
+    <section class="section fade-up fade-up-2">
+        <h2 class="section-title">ASPA Institute</h2>
+        <div class="institute-grid">
+            <div class="institute-content fade-up fade-up-3">
+                <h3>Online Education for Screen Printing</h3>
+                <p>The ASPA Institute is the education division of ASPA, dedicated to making professional screen printing education accessible worldwide.</p>
+                <p><strong>Diploma in Screen Printing Course</strong> — Created in September 2013, our comprehensive online training has enrolled hundreds of students throughout the US and worldwide.</p>
+                <p>Learn screen printing techniques at your own pace from anywhere in the world. No geographic limitations, no schedule constraints — just professional education when and where you need it.</p>
+            </div>
+            <div class="institute-highlight fade-up fade-up-4">
+                <strong style="color: var(--ink-orange); display: block; margin-bottom: 1rem;">Totally Online Training</strong>
+                <p style="color: var(--ink-gray); margin-bottom: 1rem;">Study screen printing techniques at your own pace with our comprehensive diploma program.</p>
+                <p style="color: var(--ink-gray-dark); font-size: 0.9rem; font-style: italic;">Hundreds of graduates from the US and worldwide. Learn anywhere, anytime.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Leadership Section -->
+    <section class="section fade-up fade-up-2">
+        <h2 class="section-title">Association Leadership</h2>
+        <div class="leadership-placeholder fade-up fade-up-3">
+            <h3>Leadership Information Coming Soon</h3>
+            <p>ASPA is currently transitioning to new management. Updated leadership information will be available soon.</p>
+        </div>
+        <div class="address-card fade-up fade-up-4">
+            <h4>Association Address</h4>
+            <p>105 Mockingbird Dr.<br>Butler, PA 16001<br>Phone: (724) 886-3535</p>
+            <p class="address-note">*Address may be updated during leadership transition.</p>
+        </div>
+    </section>
+
+    <!-- Domains Section -->
+    <section class="section fade-up fade-up-2">
+        <h2 class="section-title">Associated Domains</h2>
+        <div class="domains-grid">
+            <div class="domain-card fade-up fade-up-2">
+                <div class="domain-label">Primary Domain</div>
+                <div class="domain-name">screen-printing.us</div>
+            </div>
+            <div class="domain-card fade-up fade-up-3">
+                <div class="domain-label">Full Name Domain</div>
+                <div class="domain-name">americanscreenprintingassociation.com</div>
+            </div>
+            <div class="domain-card fade-up fade-up-4">
+                <div class="domain-label">Alternative Domain</div>
+                <div class="domain-name">screenprinting-aspa.com</div>
+            </div>
+            <div class="domain-card fade-up fade-up-5">
+                <div class="domain-label">Regional Domain</div>
+                <div class="domain-name">aspaUSA.com</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="fade-up fade-up-2">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Directory</h4>
+                <ul>
+                    <li><a href="directory.html">Browse Members</a></li>
+                    <li><a href="directory.html#category=tshirt">Certified Printers</a></li>
+                    <li><a href="directory.html#category=supplier">Equipment Suppliers</a></li>
+                    <li><a href="directory.html#category=vendor">Service Providers</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Certification</h4>
+                <ul>
+                    <li><a href="certified-roster.html">CSP Roster</a></li>
+                    <li><a href="exam.html">CSP Exam Info</a></li>
+                    <li><a href="index.html#certification">Certification Program</a></li>
+                    <li><a href="index.html#certification">Study Resources</a></li>
+                    <li><a href="index.html#certification">Exam Schedule</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Association</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-divider">
+            <p class="footer-copyright">&copy; 2004-2026 American Screen Printing Association. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Fade-up animation trigger on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-up').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+            observer.observe(el);
+        });
+
+        // Hamburger menu functionality
+        const hamburger = document.querySelector('.hamburger-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        if (hamburger) {
+            hamburger.addEventListener('click', () => {
+                navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+                navLinks.style.position = 'absolute';
+                navLinks.style.top = '60px';
+                navLinks.style.left = '0';
+                navLinks.style.right = '0';
+                navLinks.style.flexDirection = 'column';
+                navLinks.style.gap = '1rem';
+                navLinks.style.padding = '2rem';
+                navLinks.style.backgroundColor = 'var(--ink-dark)';
+                navLinks.style.borderBottom = '1px solid var(--ink-gray-dark)';
+            });
+        }
+    </script>
+</body>
+</html>

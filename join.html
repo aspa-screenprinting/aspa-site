@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join ASPA — American Screen Printing Association</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --ink-black: #0a0a0a; --ink-dark: #1a1a2e; --ink-purple: #6c2bd9;
+            --ink-magenta: #e91e8c; --ink-cyan: #00d4ff; --ink-yellow: #ffd400;
+            --ink-orange: #ff6b35; --ink-white: #f8f8f8; --ink-gray: #b0b0b0;
+            --ink-gray-dark: #2a2a3e; --ink-green: #00e676; --ink-red: #ff3d5a;
+            --font-display: 'Bebas Neue', sans-serif;
+            --font-heading: 'Space Grotesk', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-body); background: var(--ink-black); color: var(--ink-white); line-height: 1.6; min-height: 100vh; }
+        a { color: var(--ink-cyan); text-decoration: none; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+        /* NAV */
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 16px 0; background: rgba(10,10,10,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.06); }
+        nav .container { display: flex; align-items: center; justify-content: space-between; }
+        .logo { font-family: var(--font-display); font-size: 2rem; letter-spacing: 3px; color: var(--ink-white); display: flex; align-items: center; gap: 10px; }
+        .logo-accent { color: var(--ink-cyan); }
+        .nav-back { color: var(--ink-gray); font-family: var(--font-heading); font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
+        .nav-back:hover { color: var(--ink-cyan); }
+
+        /* BUTTONS */
+        .btn { display: inline-flex; align-items: center; gap: 8px; padding: 16px 32px; border-radius: 8px; font-family: var(--font-heading); font-weight: 600; font-size: 1rem; letter-spacing: 0.5px; cursor: pointer; border: none; transition: all 0.3s; }
+        .btn-primary { background: linear-gradient(135deg, var(--ink-magenta), var(--ink-purple)); color: white; }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(233,30,140,0.35); }
+        .btn-outline { background: transparent; border: 2px solid rgba(255,255,255,0.2); color: var(--ink-white); }
+        .btn-outline:hover { border-color: var(--ink-cyan); color: var(--ink-cyan); transform: translateY(-3px); }
+        .btn-green { background: linear-gradient(135deg, #00c853, #00897b); color: white; }
+        .btn-green:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,200,83,0.35); }
+        .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; }
+        .btn-block { width: 100%; justify-content: center; }
+
+        .section-label { font-family: var(--font-heading); font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 3px; color: var(--ink-magenta); margin-bottom: 12px; }
+        .section-title { font-family: var(--font-display); font-size: clamp(2.5rem,5vw,4rem); letter-spacing: 2px; margin-bottom: 16px; line-height: 1; }
+        .gradient-text { background: linear-gradient(135deg, var(--ink-cyan) 0%, var(--ink-magenta) 50%, var(--ink-yellow) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+        /* SCREENS */
+        .screen { display: none; padding-top: 100px; min-height: 100vh; }
+        .screen.active { display: block; }
+
+        /* ===== SCREEN 1: PLAN SELECTION ===== */
+        .plans-header { text-align: center; max-width: 650px; margin: 0 auto 64px; }
+        .plans-header p { color: var(--ink-gray); font-size: 1.1rem; line-height: 1.7; }
+
+        .one-time-banner {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(0,230,118,0.08); border: 1px solid rgba(0,230,118,0.2);
+            padding: 10px 24px; border-radius: 50px; margin-bottom: 24px;
+            font-family: var(--font-heading); font-size: 0.85rem; font-weight: 600;
+            color: var(--ink-green); text-transform: uppercase; letter-spacing: 1.5px;
+        }
+
+        .plans-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; padding-bottom: 80px; }
+
+        .plan-card {
+            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 20px; padding: 40px 32px; position: relative; transition: all 0.4s;
+            display: flex; flex-direction: column;
+        }
+        .plan-card:hover { transform: translateY(-6px); border-color: rgba(108,43,217,0.3); }
+        .plan-card.featured { border-color: rgba(233,30,140,0.3); background: linear-gradient(145deg, rgba(233,30,140,0.06), rgba(108,43,217,0.06)); }
+        .plan-card.featured::before {
+            content: 'MOST POPULAR'; position: absolute; top: -1px; left: 50%; transform: translateX(-50%);
+            background: linear-gradient(90deg, var(--ink-magenta), var(--ink-purple)); color: white;
+            font-family: var(--font-heading); font-size: 0.7rem; font-weight: 700; letter-spacing: 2px;
+            padding: 6px 20px; border-radius: 0 0 8px 8px;
+        }
+
+        .plan-icon { font-size: 2.5rem; margin-bottom: 16px; }
+        .plan-type { font-family: var(--font-heading); font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--ink-magenta); margin-bottom: 8px; }
+        .plan-card h3 { font-family: var(--font-display); font-size: 2rem; letter-spacing: 2px; margin-bottom: 12px; }
+        .plan-card .price-row { display: flex; align-items: baseline; gap: 8px; margin-bottom: 4px; }
+        .plan-card .price { font-family: var(--font-display); font-size: 3rem; color: var(--ink-cyan); }
+        .plan-card .price-note { font-size: 0.85rem; color: var(--ink-gray); margin-bottom: 24px; }
+
+        .plan-features { list-style: none; display: flex; flex-direction: column; gap: 14px; margin-bottom: 32px; flex: 1; }
+        .plan-features li { display: flex; align-items: flex-start; gap: 12px; font-size: 0.9rem; color: var(--ink-gray); line-height: 1.5; }
+        .plan-features .check { color: var(--ink-cyan); font-size: 1.1rem; flex-shrink: 0; margin-top: 2px; }
+
+        .plan-desc { font-size: 0.85rem; color: var(--ink-gray); line-height: 1.6; margin-bottom: 24px; padding: 16px; background: rgba(255,255,255,0.02); border-radius: 10px; border: 1px solid rgba(255,255,255,0.04); }
+
+        /* Comparison table */
+        .compare-section { padding: 80px 0; }
+        .compare-section h3 { font-family: var(--font-display); font-size: 2rem; letter-spacing: 2px; text-align: center; margin-bottom: 40px; }
+
+        .compare-table { width: 100%; border-collapse: collapse; }
+        .compare-table th, .compare-table td { padding: 16px 20px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .compare-table th { font-family: var(--font-heading); font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--ink-gray); }
+        .compare-table th:not(:first-child) { text-align: center; }
+        .compare-table td:not(:first-child) { text-align: center; font-size: 1.1rem; }
+        .compare-table td:first-child { font-size: 0.9rem; color: var(--ink-gray); }
+        .compare-table tr:hover td { background: rgba(255,255,255,0.02); }
+        .compare-table .col-featured { background: rgba(233,30,140,0.03); }
+        .tbl-yes { color: var(--ink-cyan); }
+        .tbl-no { color: rgba(255,255,255,0.15); }
+
+        /* FAQ */
+        .faq-section { padding: 0 0 100px; }
+        .faq-section h3 { font-family: var(--font-display); font-size: 2rem; letter-spacing: 2px; text-align: center; margin-bottom: 40px; }
+        .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 900px; margin: 0 auto; }
+        .faq-item { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 24px; }
+        .faq-item h5 { font-family: var(--font-heading); font-size: 0.95rem; font-weight: 600; margin-bottom: 8px; color: var(--ink-white); }
+        .faq-item p { font-size: 0.85rem; color: var(--ink-gray); line-height: 1.6; margin: 0; }
+
+        /* ===== SCREEN 2: SIGNUP FORM ===== */
+        .signup-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; padding-bottom: 80px; }
+        .signup-summary { padding-top: 24px; }
+        .signup-summary h2 { font-family: var(--font-display); font-size: 2.5rem; letter-spacing: 2px; margin-bottom: 16px; }
+        .signup-summary p { color: var(--ink-gray); font-size: 1rem; line-height: 1.7; margin-bottom: 24px; }
+
+        .selected-plan-card {
+            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px; padding: 28px; margin-bottom: 24px;
+        }
+        .selected-plan-card .plan-type { margin-bottom: 4px; }
+        .selected-plan-card h4 { font-family: var(--font-display); font-size: 1.6rem; letter-spacing: 2px; margin-bottom: 4px; }
+        .selected-plan-card .sp-price { font-family: var(--font-display); font-size: 2rem; color: var(--ink-cyan); }
+        .selected-plan-card .sp-note { font-size: 0.8rem; color: var(--ink-gray); }
+        .change-plan { font-size: 0.85rem; color: var(--ink-gray); cursor: pointer; margin-top: 12px; display: inline-block; }
+        .change-plan:hover { color: var(--ink-cyan); }
+
+        .signup-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 40px; }
+        .signup-card h3 { font-family: var(--font-heading); font-size: 1.2rem; font-weight: 600; margin-bottom: 28px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-family: var(--font-heading); font-size: 0.85rem; font-weight: 500; color: var(--ink-gray); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%; padding: 14px 18px; border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05);
+            color: var(--ink-white); font-family: var(--font-body); font-size: 1rem; outline: none;
+            transition: border-color 0.3s; resize: vertical;
+        }
+        .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(176,176,176,0.5); }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--ink-cyan); }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+        .payment-methods { display: flex; gap: 12px; margin-bottom: 24px; }
+        .payment-method { flex: 1; padding: 14px; border-radius: 10px; border: 2px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.03); cursor: pointer; text-align: center; transition: all 0.3s; font-family: var(--font-heading); font-size: 0.85rem; font-weight: 600; color: var(--ink-gray); text-transform: uppercase; letter-spacing: 1px; }
+        .payment-method.selected { border-color: var(--ink-cyan); color: var(--ink-cyan); background: rgba(0,212,255,0.06); }
+
+        .mock-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,212,0,0.1); border: 1px solid rgba(255,212,0,0.25); color: var(--ink-yellow); padding: 8px 16px; border-radius: 50px; font-family: var(--font-heading); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 20px; }
+        .secure-note { display: flex; align-items: center; gap: 8px; margin-top: 16px; font-size: 0.8rem; color: var(--ink-gray); }
+
+        /* ===== SCREEN 3: WELCOME / CONFIRMATION ===== */
+        .welcome-center { max-width: 700px; margin: 0 auto; text-align: center; padding-bottom: 80px; }
+
+        .welcome-cert {
+            margin: 40px auto; max-width: 480px;
+            background: linear-gradient(145deg, var(--ink-gray-dark), rgba(42,42,62,0.5));
+            border: 1px solid rgba(255,255,255,0.08); border-radius: 20px;
+            padding: 40px; position: relative; overflow: hidden;
+        }
+        .welcome-cert::before { content: ''; position: absolute; inset: 8px; border: 1px solid rgba(255,255,255,0.06); border-radius: 14px; pointer-events: none; }
+        .welcome-cert .seal { font-size: 3rem; margin-bottom: 12px; }
+        .welcome-cert h4 { font-family: var(--font-display); font-size: 1.6rem; letter-spacing: 3px; margin-bottom: 4px; }
+        .welcome-cert .wc-sub { font-family: var(--font-heading); font-size: 0.8rem; color: var(--ink-cyan); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }
+        .welcome-cert .wc-name { font-family: var(--font-display); font-size: 2rem; color: var(--ink-yellow); margin-bottom: 4px; }
+        .welcome-cert .wc-company { font-size: 0.9rem; color: var(--ink-gray); margin-bottom: 4px; }
+        .welcome-cert .wc-date { font-size: 0.8rem; color: var(--ink-gray); }
+        .welcome-cert .wc-id { font-family: var(--font-heading); font-size: 0.7rem; color: var(--ink-gray); margin-top: 16px; letter-spacing: 1px; }
+
+        .welcome-benefits {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+            margin: 40px 0; text-align: left;
+        }
+        .wb-item {
+            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 12px; padding: 20px;
+        }
+        .wb-item h5 { font-family: var(--font-heading); font-size: 0.9rem; font-weight: 600; margin-bottom: 4px; }
+        .wb-item p { font-size: 0.8rem; color: var(--ink-gray); margin: 0; line-height: 1.5; }
+
+        .welcome-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-top: 40px; }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) { .plans-grid { grid-template-columns: 1fr; max-width: 450px; margin: 0 auto; padding-bottom: 80px; } }
+        @media (max-width: 768px) {
+            .signup-layout { grid-template-columns: 1fr; gap: 32px; }
+            .form-row { grid-template-columns: 1fr; }
+            .faq-grid { grid-template-columns: 1fr; }
+            .welcome-benefits { grid-template-columns: 1fr; }
+            .welcome-actions { flex-direction: column; }
+            .btn { justify-content: center; }
+            .compare-table { font-size: 0.85rem; }
+            .compare-table th, .compare-table td { padding: 12px 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container">
+            <a href="index.html" class="logo"><span class="logo-accent">ASPA</span> <span style="font-size:0.6em;letter-spacing:1px;opacity:0.7;margin-top:4px;">MEMBERSHIP</span></a>
+            <a href="index.html" class="nav-back">&larr; Back to Home</a>
+        </div>
+    </nav>
+
+    <!-- ==================== SCREEN 1: PLAN SELECTION ==================== -->
+    <div class="screen active" id="screenPlans">
+        <div class="container">
+            <div class="plans-header">
+                <div class="one-time-banner" style="background:linear-gradient(135deg, rgba(0,212,255,0.15), rgba(108,43,217,0.15)); border-color:rgba(0,212,255,0.3);">&#9733; ASPA+ Annual Membership &mdash; Discounts, CE Credits &amp; More</div>
+                <div class="section-label">Membership</div>
+                <h2 class="section-title">JOIN <span class="gradient-text">ASPA+</span></h2>
+                <p>Choose the ASPA+ membership that fits your business. Low annual fee, maximum value. Every membership includes ASPA directory listing, web exposure, industry discounts, CE credits, and access to the screen printing community.</p>
+            </div>
+
+            <div class="plans-grid">
+                <!-- ASPA+ BUSINESS -->
+                <div class="plan-card featured">
+                    <div class="plan-icon">&#128085;</div>
+                    <div class="plan-type">For Printers &amp; Shops</div>
+                    <h3>ASPA+ BUSINESS</h3>
+                    <div class="price-row"><span class="price">$49</span><span style="font-size:1rem; color:var(--ink-gray);">/year</span></div>
+                    <div class="price-note">Annual membership &mdash; renews yearly.</div>
+                    <div class="plan-desc">For screen printing shops, custom t-shirt businesses, sign shops, and embroidery operations looking to grow their visibility and credibility.</div>
+                    <ul class="plan-features">
+                        <li><span class="check">&#10003;</span> Listed in ASPA Member Directory</li>
+                        <li><span class="check">&#10003;</span> Website link on your listing</li>
+                        <li><span class="check">&#10003;</span> YouTube video link placement</li>
+                        <li><span class="check">&#10003;</span> ASPA Membership Certificate</li>
+                        <li><span class="check">&#10003;</span> CSP Certification exam access</li>
+                        <li><span class="check">&#10003;</span> "Featured New Member" promotion</li>
+                        <li><span class="check">&#10003;</span> "ASPA Certified" badge (after passing CSP)</li>
+                        <li><span class="check">&#10003;</span> Free video advertising exposure</li>
+                        <li style="color:var(--ink-cyan);"><span class="check" style="color:var(--ink-cyan);">&#9733;</span> <strong>Industry supplier discounts</strong></li>
+                        <li style="color:var(--ink-cyan);"><span class="check" style="color:var(--ink-cyan);">&#9733;</span> <strong>CE credits (continuing education)</strong></li>
+                        <li style="color:var(--ink-cyan);"><span class="check" style="color:var(--ink-cyan);">&#9733;</span> <strong>Annual CSP recertification included</strong></li>
+                        <li style="color:var(--ink-cyan);"><span class="check" style="color:var(--ink-cyan);">&#9733;</span> <strong>Priority directory placement</strong></li>
+                        <li style="color:var(--ink-cyan);"><span class="check" style="color:var(--ink-cyan);">&#9733;</span> <strong>Exclusive webinars &amp; resources</strong></li>
+                    </ul>
+                    <button class="btn btn-primary btn-block" onclick="selectPlan('business')">Join ASPA+ Business &#8594;</button>
+                </div>
+
+                <!-- ASPA+ SUPPLIER -->
+                <div class="plan-card">
+                    <div class="plan-icon">&#128230;</div>
+                    <div class="plan-type">For Equipment &amp; Ink Companies</div>
+                    <h3>ASPA+ SUPPLIER</h3>
+                    <div class="price-row"><span class="price">$99</span><span style="font-size:1rem; color:var(--ink-gray);">/year</span></div>
+                    <div class="price-note">Annual membership &mdash; renews yearly.</div>
+                    <div class="plan-desc">For ink manufacturers, equipment makers, blank apparel suppliers, and vendors serving the screen printing industry.</div>
+                    <ul class="plan-features">
+                        <li><span class="check">&#10003;</span> Equipment &amp; Supplies Directory listing</li>
+                        <li><span class="check">&#10003;</span> Website link on your listing</li>
+                        <li><span class="check">&#10003;</span> YouTube video link placement</li>
+                        <li><span class="check">&#10003;</span> ASPA Membership Certificate</li>
+                        <li><span class="check">&#10003;</span> Exposure to thousands of daily buyers</li>
+                        <li><span class="check">&#10003;</span> Free video advertising exposure</li>
+                        <li style="color:var(--ink-cyan);"><span class="check" style="color:var(--ink-cyan);">&#9733;</span> <strong>Featured supplier spotlights</strong></li>
+                        <li style="color:var(--ink-cyan);"><span class="check" style="color:var(--ink-cyan);">&#9733;</span> <strong>Priority directory placement</strong></li>
+                        <li style="color:var(--ink-cyan);"><span class="check" style="color:var(--ink-cyan);">&#9733;</span> <strong>Member-to-supplier deal promotions</strong></li>
+                    </ul>
+                    <button class="btn btn-outline btn-block" onclick="selectPlan('supplier')">Join ASPA+ Supplier &#8594;</button>
+                </div>
+
+                <!-- ASPA+ TRAINING -->
+                <div class="plan-card">
+                    <div class="plan-icon">&#127891;</div>
+                    <div class="plan-type">For Educators &amp; Students</div>
+                    <h3>ASPA+ TRAINING</h3>
+                    <div class="price-row"><span class="price">$79</span><span style="font-size:1rem; color:var(--ink-gray);">/year</span></div>
+                    <div class="price-note">Annual access &mdash; always up-to-date content.</div>
+                    <div class="plan-desc">For schools, career centers, and training facilities that teach screen printing. Includes a complete curriculum with 22+ online modules, updated annually.</div>
+                    <ul class="plan-features">
+                        <li><span class="check">&#10003;</span> Complete screen printing curriculum</li>
+                        <li><span class="check">&#10003;</span> 22+ online training video modules</li>
+                        <li><span class="check">&#10003;</span> Ready-made lesson plans</li>
+                        <li><span class="check">&#10003;</span> Student assessment tools</li>
+                        <li><span class="check">&#10003;</span> Certificate of completion for students</li>
+                        <li><span class="check">&#10003;</span> Educational facility directory listing</li>
+                        <li style="color:var(--ink-cyan);"><span class="check" style="color:var(--ink-cyan);">&#9733;</span> <strong>New modules &amp; updated content yearly</strong></li>
+                        <li style="color:var(--ink-cyan);"><span class="check" style="color:var(--ink-cyan);">&#9733;</span> <strong>CE credits for educators</strong></li>
+                        <li style="color:var(--ink-cyan);"><span class="check" style="color:var(--ink-cyan);">&#9733;</span> <strong>Exclusive webinars &amp; resources</strong></li>
+                    </ul>
+                    <button class="btn btn-outline btn-block" onclick="selectPlan('training')">Join ASPA+ Training &#8594;</button>
+                </div>
+            </div>
+
+            <!-- LEGACY UPGRADE BANNER -->
+            <div style="text-align:center; margin:32px 0 0; padding:24px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:12px;">
+                <p style="color:var(--ink-gray); margin:0 0 8px; font-size:0.95rem;">
+                    <strong style="color:var(--ink-white);">Already a Legacy member?</strong> Your existing benefits are fully grandfathered &mdash; nothing changes.
+                </p>
+                <p style="color:var(--ink-gray); margin:0; font-size:0.9rem;">
+                    Want the new ASPA+ perks? <a href="#" onclick="selectPlan('legacy_upgrade'); return false;" style="color:var(--ink-cyan);">Upgrade at a special Legacy discount &rarr;</a>
+                </p>
+            </div>
+
+            <!-- COMPARISON TABLE -->
+            <div class="compare-section">
+                <h3>COMPARE ASPA+ PLANS</h3>
+                <table class="compare-table">
+                    <thead>
+                        <tr>
+                            <th style="width:40%;">Feature</th>
+                            <th class="col-featured">ASPA+ Business $49/yr</th>
+                            <th>ASPA+ Supplier $99/yr</th>
+                            <th>ASPA+ Training $79/yr</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>ASPA Directory Listing</td><td class="col-featured tbl-yes">&#10003;</td><td class="tbl-yes">&#10003;</td><td class="tbl-yes">&#10003;</td></tr>
+                        <tr><td>Website Link</td><td class="col-featured tbl-yes">&#10003;</td><td class="tbl-yes">&#10003;</td><td class="tbl-no">&mdash;</td></tr>
+                        <tr><td>YouTube Video Placement</td><td class="col-featured tbl-yes">&#10003;</td><td class="tbl-yes">&#10003;</td><td class="tbl-no">&mdash;</td></tr>
+                        <tr><td>Membership Certificate</td><td class="col-featured tbl-yes">&#10003;</td><td class="tbl-yes">&#10003;</td><td class="tbl-yes">&#10003;</td></tr>
+                        <tr><td>Featured New Member Promo</td><td class="col-featured tbl-yes">&#10003;</td><td class="tbl-no">&mdash;</td><td class="tbl-no">&mdash;</td></tr>
+                        <tr><td>CSP Exam Access</td><td class="col-featured tbl-yes">&#10003;</td><td class="tbl-no">&mdash;</td><td class="tbl-no">&mdash;</td></tr>
+                        <tr><td>"ASPA Certified" Badge</td><td class="col-featured tbl-yes">&#10003;</td><td class="tbl-no">&mdash;</td><td class="tbl-no">&mdash;</td></tr>
+                        <tr><td>Equipment &amp; Supplies Directory</td><td class="col-featured tbl-no">&mdash;</td><td class="tbl-yes">&#10003;</td><td class="tbl-no">&mdash;</td></tr>
+                        <tr><td>22+ Training Video Modules</td><td class="col-featured tbl-no">&mdash;</td><td class="tbl-no">&mdash;</td><td class="tbl-yes">&#10003;</td></tr>
+                        <tr><td>Lesson Plans &amp; Curriculum</td><td class="col-featured tbl-no">&mdash;</td><td class="tbl-no">&mdash;</td><td class="tbl-yes">&#10003;</td></tr>
+                        <tr><td>Free Video Advertising</td><td class="col-featured tbl-yes">&#10003;</td><td class="tbl-yes">&#10003;</td><td class="tbl-no">&mdash;</td></tr>
+                        <tr style="background:rgba(0,212,255,0.05);"><td><strong style="color:var(--ink-cyan);">&#9733; Industry Discounts Program</strong></td><td class="col-featured tbl-yes" style="color:var(--ink-cyan);">&#10003;</td><td class="tbl-yes" style="color:var(--ink-cyan);">&#10003;</td><td class="tbl-no">&mdash;</td></tr>
+                        <tr style="background:rgba(0,212,255,0.05);"><td><strong style="color:var(--ink-cyan);">&#9733; CE Credits</strong></td><td class="col-featured tbl-yes" style="color:var(--ink-cyan);">&#10003;</td><td class="tbl-no">&mdash;</td><td class="tbl-yes" style="color:var(--ink-cyan);">&#10003;</td></tr>
+                        <tr style="background:rgba(0,212,255,0.05);"><td><strong style="color:var(--ink-cyan);">&#9733; Annual CSP Recertification</strong></td><td class="col-featured tbl-yes" style="color:var(--ink-cyan);">&#10003;</td><td class="tbl-no">&mdash;</td><td class="tbl-no">&mdash;</td></tr>
+                        <tr style="background:rgba(0,212,255,0.05);"><td><strong style="color:var(--ink-cyan);">&#9733; Priority Directory Placement</strong></td><td class="col-featured tbl-yes" style="color:var(--ink-cyan);">&#10003;</td><td class="tbl-yes" style="color:var(--ink-cyan);">&#10003;</td><td class="tbl-no">&mdash;</td></tr>
+                        <tr style="background:rgba(0,212,255,0.05);"><td><strong style="color:var(--ink-cyan);">&#9733; Exclusive Webinars &amp; Resources</strong></td><td class="col-featured tbl-yes" style="color:var(--ink-cyan);">&#10003;</td><td class="tbl-yes" style="color:var(--ink-cyan);">&#10003;</td><td class="tbl-yes" style="color:var(--ink-cyan);">&#10003;</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- FAQ -->
+            <div class="faq-section">
+                <h3>COMMON QUESTIONS</h3>
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <h5>How does annual billing work?</h5>
+                        <p>ASPA+ memberships renew annually. You'll receive a reminder before each renewal. Cancel anytime &mdash; your benefits remain active through the end of your paid period.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h5>I'm a Legacy member. What changes for me?</h5>
+                        <p>Nothing! Your existing membership and all benefits are fully grandfathered. You can optionally upgrade to ASPA+ at a discounted rate to unlock new perks like discounts, CE credits, and priority placement.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h5>What are CE credits?</h5>
+                        <p>Continuing Education credits track your professional development. ASPA+ members earn CE credits through webinars, training, and annual recertification &mdash; demonstrating ongoing expertise to clients.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h5>Do I need a membership to take the CSP exam?</h5>
+                        <p>No. The CSP exam ($59) is available to anyone. However, ASPA+ Business members get annual recertification included and the "ASPA Certified" badge on their directory listing.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h5>How quickly will my listing go live?</h5>
+                        <p>Business and Supplier listings are typically activated within 24-48 hours of enrollment. ASPA+ members receive priority placement in directory search results.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h5>What payment methods do you accept?</h5>
+                        <p>We accept all major credit cards (Visa, MasterCard, Discover, Amex) and PayPal. Annual billing is automatic with easy cancellation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== SCREEN 2: SIGNUP FORM ==================== -->
+    <div class="screen" id="screenSignup">
+        <div class="container">
+            <div class="signup-layout">
+                <div class="signup-summary">
+                    <div class="section-label">Almost There</div>
+                    <h2>COMPLETE YOUR <span class="gradient-text">ENROLLMENT</span></h2>
+                    <p>Fill in your details below to activate your ASPA membership. You'll receive your membership certificate and directory listing confirmation via email.</p>
+
+                    <div class="selected-plan-card">
+                        <div class="plan-type" id="selectedPlanType"></div>
+                        <h4 id="selectedPlanName"></h4>
+                        <div style="display:flex;align-items:baseline;gap:8px;">
+                            <span class="sp-price" id="selectedPlanPrice"></span>
+                            <span class="sp-note">/year</span>
+                        </div>
+                        <a class="change-plan" onclick="showScreen('screenPlans')">&larr; Change plan</a>
+                    </div>
+
+                    <div style="padding:20px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:12px;">
+                        <p style="font-size:0.85rem; color:var(--ink-gray); margin:0;">
+                            <strong style="color:var(--ink-white);">What happens next:</strong> After payment, you'll receive a welcome email with your ASPA+ membership certificate, directory listing setup instructions, and access to all your ASPA+ perks.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="signup-card">
+                    <div class="mock-badge">&#9888; Demo Mode — Payment Simulated</div>
+                    <h3>Your Information</h3>
+                    <form onsubmit="return false;">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>First Name</label>
+                                <input type="text" id="mFirstName" placeholder="John" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <input type="text" id="mLastName" placeholder="Smith" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" id="mEmail" placeholder="john@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Business / Shop Name</label>
+                            <input type="text" id="mCompany" placeholder="Your Print Shop" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>City</label>
+                                <input type="text" id="mCity" placeholder="Austin">
+                            </div>
+                            <div class="form-group">
+                                <label>State</label>
+                                <input type="text" id="mState" placeholder="TX" maxlength="2">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Website URL (Optional)</label>
+                            <input type="url" id="mWebsite" placeholder="https://yourshop.com">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Payment Method</label>
+                            <div class="payment-methods">
+                                <div class="payment-method selected" onclick="selectPayment(this,'card')">&#128179; Card</div>
+                                <div class="payment-method" onclick="selectPayment(this,'paypal')">&#127920; PayPal</div>
+                            </div>
+                        </div>
+                        <div id="mCardFields">
+                            <div class="form-group">
+                                <label>Card Number</label>
+                                <input type="text" placeholder="4242 4242 4242 4242" maxlength="19">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Expiry</label>
+                                    <input type="text" placeholder="MM / YY" maxlength="7">
+                                </div>
+                                <div class="form-group">
+                                    <label>CVC</label>
+                                    <input type="text" placeholder="123" maxlength="4">
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn btn-primary btn-block" onclick="processPayment()" id="payBtn">
+                            Complete Enrollment &#8594;
+                        </button>
+                        <div class="secure-note">&#128274; Secure checkout — your information is encrypted</div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== SCREEN 3: WELCOME ==================== -->
+    <div class="screen" id="screenWelcome">
+        <div class="container">
+            <div class="welcome-center">
+                <div style="font-size:4rem; margin-bottom:12px;">&#127881;</div>
+                <div class="section-label">Welcome to ASPA!</div>
+                <h2 class="section-title">YOU'RE <span class="gradient-text">IN!</span></h2>
+                <p style="color:var(--ink-gray); font-size:1.1rem; line-height:1.7;">
+                    Welcome aboard, <strong id="welcomeName" style="color:var(--ink-white);"></strong>! Your <span id="welcomePlanLabel" style="color:var(--ink-cyan);"></span> is now active. We've sent a confirmation to <strong id="welcomeEmail" style="color:var(--ink-cyan);"></strong>.
+                </p>
+
+                <!-- Membership Certificate Preview -->
+                <div class="welcome-cert">
+                    <div class="seal">&#11088;</div>
+                    <h4>ASPA MEMBER</h4>
+                    <div class="wc-sub" id="wcType"></div>
+                    <div class="wc-name" id="wcName"></div>
+                    <div class="wc-company" id="wcCompany"></div>
+                    <div class="wc-date" id="wcDate"></div>
+                    <div class="wc-id" id="wcId"></div>
+                </div>
+
+                <div class="welcome-benefits">
+                    <div class="wb-item">
+                        <h5>&#128196; Membership Certificate</h5>
+                        <p>Download your official ASPA membership certificate below.</p>
+                    </div>
+                    <div class="wb-item">
+                        <h5>&#128205; Directory Listing</h5>
+                        <p>Your listing will be live within 24-48 hours.</p>
+                    </div>
+                    <div class="wb-item">
+                        <h5>&#127942; Get CSP Certified</h5>
+                        <p>Take the CSP exam to earn your "ASPA Certified" badge.</p>
+                    </div>
+                    <div class="wb-item">
+                        <h5>&#128231; Check Your Email</h5>
+                        <p>We've sent setup instructions for your directory listing.</p>
+                    </div>
+                </div>
+
+                <div class="welcome-actions">
+                    <button class="btn btn-primary" id="downloadCertBtn">&#128196; Download Membership Certificate</button>
+                    <a href="exam.html" class="btn btn-outline">&#127942; Take the CSP Exam</a>
+                    <a href="index.html" class="btn btn-outline">&larr; Back to Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // ===== PLAN DATA =====
+    const plans = {
+        business: { type: 'For Printers & Shops', name: 'ASPA+ BUSINESS', price: '$49', amount: 49, label: 'ASPA+ Business Membership', period: '/year' },
+        supplier: { type: 'For Equipment & Ink Companies', name: 'ASPA+ SUPPLIER', price: '$99', amount: 99, label: 'ASPA+ Supplier Membership', period: '/year' },
+        training: { type: 'For Educators & Students', name: 'ASPA+ TRAINING', price: '$79', amount: 79, label: 'ASPA+ Training Access', period: '/year' }
+    };
+
+    let selectedPlan = null;
+    let memberData = {};
+
+    // ===== SCREEN 1 =====
+    function selectPlan(planKey) {
+        selectedPlan = plans[planKey];
+        document.getElementById('selectedPlanType').textContent = selectedPlan.type;
+        document.getElementById('selectedPlanName').textContent = selectedPlan.name;
+        document.getElementById('selectedPlanPrice').textContent = selectedPlan.price;
+        document.getElementById('payBtn').textContent = `Pay ${selectedPlan.price} & Complete Enrollment \u2192`;
+        showScreen('screenSignup');
+        window.scrollTo(0, 0);
+    }
+
+    // ===== SCREEN 2 =====
+    function selectPayment(el, type) {
+        document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('mCardFields').style.display = type === 'card' ? 'block' : 'none';
+    }
+
+    function processPayment() {
+        const fn = document.getElementById('mFirstName').value.trim();
+        const ln = document.getElementById('mLastName').value.trim();
+        const em = document.getElementById('mEmail').value.trim();
+        const co = document.getElementById('mCompany').value.trim();
+        const city = document.getElementById('mCity').value.trim();
+        const state = document.getElementById('mState').value.trim();
+        const web = document.getElementById('mWebsite').value.trim();
+
+        if (!fn || !ln || !em || !co) {
+            alert('Please fill in your name, email, and business name.');
+            return;
+        }
+
+        memberData = { name: fn + ' ' + ln, email: em, company: co, city, state, website: web };
+
+        const btn = document.getElementById('payBtn');
+        btn.disabled = true;
+        btn.innerHTML = '&#9203; Processing Payment...';
+        setTimeout(() => {
+            btn.innerHTML = '&#9989; Payment Confirmed!';
+            setTimeout(() => showWelcome(), 800);
+        }, 1500);
+    }
+
+    // ===== SCREEN 3 =====
+    function showWelcome() {
+        const memberId = 'ASPA-' + Date.now().toString(36).toUpperCase() + '-' + Math.random().toString(36).substring(2, 5).toUpperCase();
+        const dateStr = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+        document.getElementById('welcomeName').textContent = memberData.name;
+        document.getElementById('welcomeEmail').textContent = memberData.email;
+        document.getElementById('welcomePlanLabel').textContent = selectedPlan.label;
+
+        document.getElementById('wcType').textContent = selectedPlan.label.toUpperCase();
+        document.getElementById('wcName').textContent = memberData.name.toUpperCase();
+        document.getElementById('wcCompany').textContent = memberData.company;
+        document.getElementById('wcDate').textContent = 'Member Since: ' + dateStr;
+        document.getElementById('wcId').textContent = 'Member ID: ' + memberId;
+
+        document.getElementById('downloadCertBtn').onclick = () => downloadMemberCert(memberData.name, memberData.company, dateStr, memberId, selectedPlan.label);
+
+        showScreen('screenWelcome');
+        window.scrollTo(0, 0);
+    }
+
+    // ===== MEMBERSHIP CERTIFICATE PDF =====
+    function downloadMemberCert(name, company, date, memberId, planLabel) {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+        const w = 297, h = 210;
+
+        doc.setFillColor(10, 10, 10); doc.rect(0, 0, w, h, 'F');
+        doc.setDrawColor(108, 43, 217); doc.setLineWidth(0.5); doc.roundedRect(10, 10, w-20, h-20, 3, 3);
+        doc.setDrawColor(60, 60, 80); doc.setLineWidth(0.3); doc.roundedRect(14, 14, w-28, h-28, 2, 2);
+
+        const cl = 20; doc.setDrawColor(0, 212, 255); doc.setLineWidth(1);
+        doc.line(14,14,14+cl,14); doc.line(14,14,14,14+cl);
+        doc.line(w-14,14,w-14-cl,14); doc.line(w-14,14,w-14,14+cl);
+        doc.line(14,h-14,14+cl,h-14); doc.line(14,h-14,14,h-14-cl);
+        doc.line(w-14,h-14,w-14-cl,h-14); doc.line(w-14,h-14,w-14,h-14-cl);
+
+        doc.setTextColor(0, 212, 255); doc.setFontSize(16); doc.setFont('helvetica', 'bold');
+        doc.text('AMERICAN SCREEN PRINTING ASSOCIATION', w/2, 38, {align:'center'});
+
+        doc.setTextColor(248, 248, 248); doc.setFontSize(36); doc.setFont('helvetica', 'bold');
+        doc.text('CERTIFICATE OF MEMBERSHIP', w/2, 58, {align:'center'});
+
+        doc.setTextColor(233, 30, 140); doc.setFontSize(14);
+        doc.text(planLabel.toUpperCase(), w/2, 68, {align:'center'});
+
+        doc.setDrawColor(108, 43, 217); doc.setLineWidth(0.5); doc.line(w/2-60, 76, w/2+60, 76);
+
+        doc.setTextColor(176, 176, 176); doc.setFontSize(11); doc.setFont('helvetica', 'normal');
+        doc.text('This is to certify that', w/2, 90, {align:'center'});
+
+        doc.setTextColor(255, 212, 0); doc.setFontSize(30); doc.setFont('helvetica', 'bold');
+        doc.text(name.toUpperCase(), w/2, 108, {align:'center'});
+        const nw = doc.getTextWidth(name.toUpperCase());
+        doc.setDrawColor(255, 212, 0); doc.setLineWidth(0.3); doc.line(w/2-nw/2, 111, w/2+nw/2, 111);
+
+        if (company) {
+            doc.setTextColor(176, 176, 176); doc.setFontSize(14); doc.setFont('helvetica', 'normal');
+            doc.text(company, w/2, 122, {align:'center'});
+        }
+
+        doc.setTextColor(176, 176, 176); doc.setFontSize(11);
+        doc.text('is a registered member of the American Screen Printing Association', w/2, 136, {align:'center'});
+        doc.text('and is entitled to all rights, privileges, and benefits of membership.', w/2, 144, {align:'center'});
+
+        doc.setTextColor(248, 248, 248); doc.setFontSize(12); doc.setFont('helvetica', 'bold');
+        doc.text('Date: ' + date, w/2-50, 162, {align:'center'});
+        doc.text('Member ID: ' + memberId, w/2+50, 162, {align:'center'});
+
+        doc.setDrawColor(60, 60, 80); doc.setLineWidth(0.3); doc.line(40, 170, w-40, 170);
+
+        doc.setTextColor(108, 43, 217); doc.setFontSize(8); doc.setFont('helvetica', 'normal');
+        doc.text('ASPA \u2014 American Screen Printing Association | www.screen-printing.us', w/2, 180, {align:'center'});
+        doc.text('Serving Screen Printers Worldwide Since 2004', w/2, 186, {align:'center'});
+
+        doc.save('ASPA_Membership_Certificate_' + name.replace(/\s+/g, '_') + '.pdf');
+    }
+
+    function showScreen(id) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+    }
+    </script>
+</body>
+</html>

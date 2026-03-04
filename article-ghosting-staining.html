@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Prevent Ghosting and Staining on Screens (2026) | ASPA</title>
+    <meta name="description" content="Learn how to prevent and remove ghost images and stains on screen printing screens. Causes, solutions, and best practices from ASPA.">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ========================================
+           DESIGN SYSTEM & ROOT VARIABLES
+           ======================================== */
+        :root {
+            --ink-black: #0a0a0a;
+            --ink-dark: #1a1a2e;
+            --ink-purple: #6c2bd9;
+            --ink-magenta: #e91e8c;
+            --ink-cyan: #00d4ff;
+            --ink-yellow: #ffd400;
+            --ink-orange: #ff6b35;
+            --ink-white: #f8f8f8;
+            --ink-gray: #b0b0b0;
+            --ink-gray-dark: #2a2a3e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--ink-black);
+            color: var(--ink-white);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ========================================
+           NAVIGATION BAR
+           ======================================== */
+        nav {
+            background-color: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 0 24px;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .nav-logo {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .nav-logo-main {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--ink-white);
+            letter-spacing: 2px;
+        }
+
+        .nav-logo-sub {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 9px;
+            font-weight: 600;
+            color: var(--ink-cyan);
+            letter-spacing: 1.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--ink-gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--ink-cyan);
+        }
+
+        .nav-links a.active {
+            color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            color: var(--ink-black);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background-color: var(--ink-white);
+            border-radius: 2px;
+            transition: 0.3s ease;
+        }
+
+        /* ========================================
+           ARTICLE HEADER
+           ======================================== */
+        .article-header {
+            background: linear-gradient(135deg, rgba(255, 212, 0, 0.05) 0%, rgba(255, 212, 0, 0.02) 100%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 48px 24px;
+        }
+
+        .article-header-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            color: var(--ink-gray);
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+        }
+
+        .breadcrumb a {
+            color: var(--ink-cyan);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--ink-yellow);
+        }
+
+        .category-tag {
+            display: inline-block;
+            background-color: rgba(255, 212, 0, 0.15);
+            border: 1px solid rgba(255, 212, 0, 0.4);
+            color: var(--ink-yellow);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .article-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--ink-white);
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+            line-height: 1.2;
+        }
+
+        .article-meta {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            color: var(--ink-gray);
+            margin-bottom: 24px;
+            letter-spacing: 0.3px;
+        }
+
+        .article-intro {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #d0d0d0;
+        }
+
+        /* ========================================
+           ARTICLE LAYOUT (TOC + Content)
+           ======================================== */
+        .article-wrapper {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        /* ========================================
+           TABLE OF CONTENTS (Sidebar)
+           ======================================== */
+        .toc-sidebar {
+            position: sticky;
+            top: 90px;
+            height: fit-content;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+        }
+
+        .toc-sidebar h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--ink-cyan);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        .toc-list {
+            list-style: none;
+        }
+
+        .toc-list li {
+            margin-bottom: 10px;
+        }
+
+        .toc-list a {
+            font-size: 14px;
+            color: var(--ink-gray);
+            text-decoration: none;
+            transition: color 0.2s ease;
+            padding-left: 12px;
+            border-left: 2px solid transparent;
+            display: block;
+            transition: all 0.2s ease;
+        }
+
+        .toc-list a:hover {
+            color: var(--ink-cyan);
+            border-left-color: var(--ink-cyan);
+        }
+
+        .toc-list a.active {
+            color: var(--ink-cyan);
+            border-left-color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        /* ========================================
+           ARTICLE CONTENT
+           ======================================== */
+        .article-content {
+            max-width: 800px;
+        }
+
+        article h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--ink-white);
+            margin-top: 48px;
+            margin-bottom: 20px;
+            padding-left: 16px;
+            border-left: 4px solid var(--ink-cyan);
+            letter-spacing: 0.5px;
+        }
+
+        article h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--ink-white);
+            margin-top: 32px;
+            margin-bottom: 16px;
+            letter-spacing: 0.3px;
+        }
+
+        article p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 18px;
+            color: #e0e0e0;
+        }
+
+        article strong {
+            color: var(--ink-white);
+            font-weight: 600;
+        }
+
+        article em {
+            color: var(--ink-cyan);
+            font-style: italic;
+        }
+
+        .highlight-term {
+            color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        article ul, article ol {
+            margin: 20px 0 20px 24px;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        article li {
+            margin-bottom: 12px;
+            color: #e0e0e0;
+        }
+
+        /* ========================================
+           CALLOUT BOXES
+           ======================================== */
+        .pro-tip {
+            background-color: rgba(108, 43, 217, 0.15);
+            border-left: 4px solid var(--ink-cyan);
+            border-radius: 4px;
+            padding: 20px;
+            margin: 28px 0;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .pro-tip strong {
+            color: var(--ink-cyan);
+            font-weight: 700;
+        }
+
+        .safety-warning {
+            background-color: rgba(255, 107, 53, 0.1);
+            border-left: 4px solid var(--ink-orange);
+            border-radius: 4px;
+            padding: 20px;
+            margin: 28px 0;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .safety-warning strong {
+            color: var(--ink-orange);
+            font-weight: 700;
+        }
+
+        /* ========================================
+           NUMBERED STEPS
+           ======================================== */
+        .step {
+            margin: 32px 0;
+            padding: 24px;
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: 4px;
+            border-left: 4px solid var(--ink-purple);
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            color: var(--ink-black);
+            border-radius: 50%;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .step h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--ink-white);
+            margin-bottom: 12px;
+        }
+
+        .step p {
+            margin-bottom: 12px;
+        }
+
+        .step p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ========================================
+           RELATED ARTICLES SECTION
+           ======================================== */
+        .related-articles {
+            margin-top: 60px;
+            padding: 40px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .related-articles h2 {
+            margin-top: 0;
+            border-left: none;
+            padding-left: 0;
+            margin-bottom: 32px;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .article-card {
+            background-color: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 8px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .article-card:hover {
+            border-color: var(--ink-cyan);
+            background-color: rgba(0, 212, 255, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .article-card h3 {
+            margin-top: 0;
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        .article-card p {
+            font-size: 14px;
+            color: var(--ink-gray);
+            flex-grow: 1;
+            margin-bottom: 16px;
+        }
+
+        .article-card a {
+            color: var(--ink-cyan);
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            transition: color 0.2s ease;
+            align-self: flex-start;
+        }
+
+        .article-card a:hover {
+            color: var(--ink-yellow);
+        }
+
+        .category-badge-purple {
+            display: inline-block;
+            background-color: rgba(108, 43, 217, 0.15);
+            border: 1px solid rgba(108, 43, 217, 0.4);
+            color: var(--ink-purple);
+            padding: 4px 10px;
+            border-radius: 16px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .category-badge-yellow {
+            display: inline-block;
+            background-color: rgba(255, 212, 0, 0.15);
+            border: 1px solid rgba(255, 212, 0, 0.4);
+            color: var(--ink-yellow);
+            padding: 4px 10px;
+            border-radius: 16px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        /* ========================================
+           CTA BANNER
+           ======================================== */
+        .cta-banner {
+            background: linear-gradient(135deg, rgba(108, 43, 217, 0.2) 0%, rgba(233, 30, 140, 0.1) 100%);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 12px;
+            padding: 40px;
+            margin-top: 60px;
+            text-align: center;
+        }
+
+        .cta-banner h2 {
+            border-left: none;
+            padding-left: 0;
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 32px;
+        }
+
+        .cta-banner p {
+            font-size: 18px;
+            color: #d0d0d0;
+            margin-bottom: 28px;
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .cta-btn-primary {
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            color: var(--ink-black);
+            border: none;
+        }
+
+        .cta-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
+        }
+
+        .cta-btn-secondary {
+            background-color: transparent;
+            color: var(--ink-cyan);
+            border: 2px solid var(--ink-cyan);
+        }
+
+        .cta-btn-secondary:hover {
+            background-color: rgba(0, 212, 255, 0.1);
+            border-color: var(--ink-yellow);
+            color: var(--ink-yellow);
+        }
+
+        /* ========================================
+           FOOTER
+           ======================================== */
+        footer {
+            background-color: var(--ink-dark);
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 40px 24px 20px;
+            margin-top: 60px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--ink-cyan);
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            display: block;
+            color: var(--ink-gray);
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 12px;
+            transition: color 0.2s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--ink-cyan);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            color: var(--ink-gray);
+            font-size: 13px;
+        }
+
+        /* ========================================
+           MOBILE RESPONSIVE
+           ======================================== */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .article-title {
+                font-size: 32px;
+            }
+
+            .article-wrapper {
+                grid-template-columns: 1fr;
+                gap: 24px;
+                padding: 24px 16px;
+            }
+
+            .toc-sidebar {
+                position: static;
+                top: auto;
+                max-height: none;
+                margin-bottom: 24px;
+                padding: 20px;
+                background-color: rgba(255, 255, 255, 0.03);
+                border-radius: 8px;
+                border-left: 4px solid var(--ink-cyan);
+            }
+
+            .toc-list a {
+                font-size: 13px;
+            }
+
+            article h2 {
+                font-size: 24px;
+                margin-top: 32px;
+            }
+
+            article h3 {
+                font-size: 18px;
+            }
+
+            article p {
+                font-size: 1rem;
+            }
+
+            .cta-banner {
+                padding: 24px;
+            }
+
+            .cta-banner h2 {
+                font-size: 24px;
+            }
+
+            .cta-banner p {
+                font-size: 16px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .cta-btn {
+                width: 100%;
+            }
+
+            .related-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ========================================
+           SCROLLBAR STYLING
+           ======================================== */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--ink-cyan);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--ink-magenta);
+        }
+    </style>
+</head>
+<body>
+    <!-- ========================================
+         NAVIGATION
+         ======================================== -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="nav-logo-main">ASPA</div>
+                <div class="nav-logo-sub">Since 2004</div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="directory.html">Directory</a></li>
+                <li><a href="certified-roster.html">Certified</a></li>
+                <li><a href="index.html#certification">Certification</a></li>
+                <li><a href="index.html#membership">Membership</a></li>
+                <li><a href="resources.html">Resources</a></li>
+            </ul>
+            <a href="join.html" class="nav-cta">Join ASPA</a>
+            <button class="hamburger" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ========================================
+         ARTICLE HEADER
+         ======================================== -->
+    <div class="article-header">
+        <div class="article-header-container">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a> > <a href="resources.html">Resources</a> > <a href="resources.html#tips-tricks">Tips & Tricks</a> > How to Prevent Ghosting and Staining on Screens
+            </div>
+            <span class="category-tag">Tips & Tricks</span>
+            <h1 class="article-title">How to Prevent Ghosting and Staining on Screens</h1>
+            <div class="article-meta">Updated March 2026 · 12 min read</div>
+            <p class="article-intro">
+                You've reclaimed a screen, washed off the emulsion, but there's still a faint image of your last design staring back at you. That's a ghost image (or screen stain), and it's one of the most common frustrations in screen printing. This guide explains what causes ghosting, how to prevent it, and how to remove it when it happens.
+            </p>
+        </div>
+    </div>
+
+    <!-- ========================================
+         ARTICLE WRAPPER (TOC + Content)
+         ======================================== -->
+    <div class="article-wrapper">
+        <!-- TABLE OF CONTENTS SIDEBAR -->
+        <aside class="toc-sidebar">
+            <h3>Contents</h3>
+            <ul class="toc-list">
+                <li><a href="#introduction">The Ghost in Your Screen</a></li>
+                <li><a href="#difference">Ghosting vs. Staining</a></li>
+                <li><a href="#causes">What Causes Ghosting</a></li>
+                <li><a href="#prevention">Prevention Best Practices</a></li>
+                <li><a href="#removal">Removing Ghost Images</a></li>
+                <li><a href="#stubborn">Dealing with Stubborn Stains</a></li>
+                <li><a href="#ink-specific">Ink-Specific Tips</a></li>
+                <li><a href="#maintenance">Screen Maintenance</a></li>
+                <li><a href="#conclusion">The Bottom Line</a></li>
+            </ul>
+        </aside>
+
+        <!-- MAIN ARTICLE CONTENT -->
+        <article class="article-content">
+            <!-- SECTION 1: INTRODUCTION -->
+            <section id="introduction">
+                <h2>The Ghost in Your Screen</h2>
+                <p>
+                    Every screen printer has experienced it: you finish a print run, reclaim the screen carefully, and suddenly you're staring at a ghostly outline of your previous design. Ghost images are persistent reminders that ink can bond deeply with screen mesh if given the chance, and they're one of the most common complaints in the industry.
+                </p>
+                <p>
+                    The good news? Ghosting and staining are <span class="highlight-term">largely preventable</span> problems. With the right techniques and habits, you can keep your screens clean and ghost-free for hundreds of prints. And when ghosts do appear despite your best efforts, you'll have the knowledge to eliminate them.
+                </p>
+                <p>
+                    This comprehensive guide walks through the root causes of ghosting and staining, proven prevention strategies, step-by-step removal techniques, and ink-specific best practices. Whether you're running a small hobby operation or managing a full production facility, these principles will help you extend the life of your screens and maintain consistent print quality.
+                </p>
+            </section>
+
+            <!-- SECTION 2: GHOSTING VS. STAINING -->
+            <section id="difference">
+                <h2>Ghosting vs. Staining: What's the Difference?</h2>
+                <p>
+                    Before we dive into solutions, let's clarify two related but distinct problems that plague screen printers.
+                </p>
+
+                <h3>Ghost Image</h3>
+                <p>
+                    A <span class="highlight-term">ghost image</span> is a faint shadow of a previous design visible in the mesh after emulsion removal. It's caused by ink particles trapped deep in the mesh fibers, bonded at a microscopic level. A ghost might look barely visible to the naked eye, but under certain light conditions, it becomes obvious.
+                </p>
+                <p>
+                    The critical thing to understand: if a ghost image doesn't block light during exposure, it won't affect your next stencil. The emulsion will still cure properly, and your print quality remains unaffected. However, severe ghosts that create raised ink deposits can interfere with ink passage and cause print quality issues.
+                </p>
+
+                <h3>Staining</h3>
+                <p>
+                    <span class="highlight-term">Staining</span> is discoloration of the mesh itself, usually from ink pigments—especially red, yellow, and fluorescent inks. The mesh takes on a permanent color tint that won't wash out. This is more cosmetic than functional in mild cases, but heavy staining can block ink passage and reduce print sharpness.
+                </p>
+                <p>
+                    Staining is particularly problematic with discharge inks (formaldehyde-based) and fluorescents, which are chemically aggressive and bond more permanently to mesh fibers.
+                </p>
+
+                <div class="pro-tip">
+                    <strong>Pro tip:</strong> To check if a ghost image is cosmetic or functional, hold the screen up to a bright light source (window or exposure unit). If light passes through clearly, the ghost won't affect your next stencil. If you see blocked areas, the ghost is too dense and should be removed before re-coating.
+                </div>
+            </section>
+
+            <!-- SECTION 3: WHAT CAUSES GHOSTING -->
+            <section id="causes">
+                <h2>What Causes Ghosting</h2>
+                <p>
+                    Ghost images don't appear by accident. Understanding the root causes helps you eliminate them at the source.
+                </p>
+
+                <h3>Leaving Ink in the Screen Too Long</h3>
+                <p>
+                    This is the #1 cause of ghosting. Ink that sits in the mesh for hours or days bonds progressively with the fibers. Fresh ink is relatively easy to remove. Dried ink—especially water-based inks—becomes nearly permanent.
+                </p>
+                <p>
+                    The timeline matters: ink cleaned within minutes of printing is trivial to remove. Ink left overnight becomes significantly harder. Ink left for days can become semi-permanent, requiring aggressive chemicals or multiple treatments.
+                </p>
+
+                <h3>Underexposed Screens</h3>
+                <p>
+                    If emulsion wasn't fully cured during exposure, the mesh remains partially soft even after initial wash-out. Ink seeps underneath the remaining emulsion, trapping pigments directly against the mesh fibers. When you finally remove the emulsion completely, the ink remains bonded.
+                </p>
+
+                <h3>Wrong Mesh Count for the Ink</h3>
+                <p>
+                    Using too low a mesh count (110-mesh with fine detail work) allows ink to penetrate deeper into the fiber structure than higher mesh counts. Finer meshes keep ink closer to the surface, reducing ghosting risk.
+                </p>
+
+                <h3>Inadequate Cleaning Products</h3>
+                <p>
+                    Cheap or generic cleaners don't fully dissolve all ink types. You need the right chemistry for the ink you're using: plastisol requires oil-based solvents; water-based ink requires water-based removers; discharge demands discharge-specific cleaners.
+                </p>
+
+                <h3>High-Pigment Inks</h3>
+                <p>
+                    Some colors are inherently more prone to staining. Fluorescent inks have extremely high pigment loads and bond more aggressively. Reds and yellows follow closely behind. Blacks and whites are typically easiest to clean.
+                </p>
+
+                <h3>Low Mesh Tension</h3>
+                <p>
+                    Loose mesh allows ink to push deeper into the fiber structure during the print stroke. Higher tension keeps the mesh taut and reduces ink penetration depth. A tension gauge helps maintain consistent 20-30 N/cm² (depending on mesh count).
+                </p>
+
+                <h3>Poor Emulsion Application</h3>
+                <p>
+                    Inconsistent emulsion coating—thin spots, incomplete coverage—creates weak points where ink can reach the mesh directly. Double-coating with consistent, even strokes prevents ink from finding a path to the fibers underneath.
+                </p>
+            </section>
+
+            <!-- SECTION 4: PREVENTION -->
+            <section id="prevention">
+                <h2>Prevention: The Best Cure</h2>
+                <p>
+                    Preventing ghosting is far easier than removing it. These proven habits will keep your screens ghost-free.
+                </p>
+
+                <h3>Clean Screens Immediately After Printing</h3>
+                <p>
+                    This cannot be overstated: <span class="highlight-term">clean your screens within minutes of finishing a print run</span>, not hours. The difference between ink cleaned immediately and ink cleaned at the end of the day is dramatic.
+                </p>
+                <p>
+                    Even 30 minutes allows pigments to bond more tightly. Build this into your workflow: finish printing one design, immediately rinse the screen, clean it, and move to the next. Your future self will thank you.
+                </p>
+
+                <h3>Use Proper Ink Degradent / Spot Cleaner</h3>
+                <p>
+                    Don't rely on water alone (for plastisol) or a quick hose rinse (for water-based). Use a chemistry-matched cleaner:
+                </p>
+                <ul>
+                    <li><strong>Plastisol:</strong> Press wash, ink degradent, or haze remover—oil-based products that dissolve plastisol chemistry.</li>
+                    <li><strong>Water-based:</strong> Water-based ink remover or dedicated water-based cleaner. Regular water helps but isn't enough.</li>
+                    <li><strong>Discharge:</strong> Discharge-specific cleaner designed to break down formaldehyde chemistry.</li>
+                    <li><strong>UV Inks:</strong> Solvent-based cleaners; water won't work.</li>
+                </ul>
+
+                <h3>Degrease Screens Before Coating</h3>
+                <p>
+                    Clean mesh receives emulsion more evenly and creates a stronger bond. Oils from handling, dust, and old ink residue create weak spots. Use a degreaser spray, let it sit briefly, then pressure wash. This foundation prevents future problems.
+                </p>
+
+                <h3>Expose Screens Correctly</h3>
+                <p>
+                    Properly exposed emulsion strips away completely and cleanly. Underexposed emulsion leaves residue that traps ink. Test your exposure times: push the button on a test screen, and the emulsion should wash out completely with moderate water pressure. If you need aggressive scrubbing, you're underexposed.
+                </p>
+
+                <h3>Use the Right Mesh for the Job</h3>
+                <p>
+                    Higher mesh counts = less ink penetration = less ghosting. For fine-detail work or discharge inks, step up to 156 or 230-mesh. Bold graphics with low detail can get by with 110-mesh. Match mesh to application, not just availability.
+                </p>
+
+                <h3>Apply Emulsion Properly</h3>
+                <p>
+                    Consistent, even coats on both sides ensure complete coverage. Single-coat emulsion is risky; double-coat for reliability. Thin spots create ink pathways directly to the fibers.
+                </p>
+
+                <h3>Maintain Mesh Tension</h3>
+                <p>
+                    Higher tension (within safe limits) keeps the mesh structure tighter and reduces ink penetration. Check tension quarterly with a tension gauge. Loose mesh prints poorly AND ghosts more easily.
+                </p>
+
+                <div class="safety-warning">
+                    <strong>Orange warning:</strong> The single biggest prevention tip—clean your screens within minutes of finishing a print run, not hours. This one habit eliminates 70% of ghosting problems. Build it into your workflow, not as an afterthought.
+                </div>
+            </section>
+
+            <!-- SECTION 5: REMOVAL STEPS -->
+            <section id="removal">
+                <h2>Removing Ghost Images: Step by Step</h2>
+                <p>
+                    When prevention fails or you inherit screens from legacy inventory, here's how to remove ghost images systematically.
+                </p>
+
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h4>Remove All Emulsion First</h4>
+                    <p>
+                        Use your standard reclaim process with emulsion remover. Rinse thoroughly until water runs clear. The screen must be completely bare of emulsion before proceeding to the next step.
+                    </p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h4>Apply Haze Remover (Dedicated Ghost Remover Product)</h4>
+                    <p>
+                        This is NOT emulsion remover—it's a separate product designed specifically to dissolve trapped ink pigments. Popular brands include Franmar Greeneway Haze Remover, CCI GR Haze Remover, and Ulano #5 Haze Remover. These are solvent-based products that attack ink chemistry directly.
+                    </p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h4>Scrub Both Sides with a Brush</h4>
+                    <p>
+                        Apply the haze remover liberally, then scrub both front and back of the screen with a soft brush. Let the chemical sit for 2-5 minutes (check product instructions—don't let it dry). Work it into the fibers. The goal is to break down the bond between ink particles and mesh.
+                    </p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h4>Pressure Wash Both Sides</h4>
+                    <p>
+                        Use a strong spray from a pressure washer or high-pressure hose (1500+ PSI works well). Work both sides of the screen systematically, working the haze remover out and rinsing it away completely. Take your time—rushing reduces effectiveness.
+                    </p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <h4>Inspect Against Light</h4>
+                    <p>
+                        Hold the screen up to a bright light source or against your exposure unit. If the ghost remains visible, repeat the application. Some stubborn stains require 2-3 complete treatment cycles.
+                    </p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">6</div>
+                    <h4>Assess Remaining Staining</h4>
+                    <p>
+                        If after 2-3 treatments the ghost persists or staining is still visible, the screen may have permanent discoloration. The good news: screens that are permanently stained but don't block light can often still be used. Test with a new coating and exposure to confirm it doesn't affect print quality.
+                    </p>
+                </div>
+            </section>
+
+            <!-- SECTION 6: STUBBORN STAINS -->
+            <section id="stubborn">
+                <h2>Dealing with Stubborn Stains</h2>
+                <p>
+                    When standard haze remover isn't enough, you have stronger options—but they come with tradeoffs.
+                </p>
+
+                <h3>Mesh Prep / Dehazer Concentrate</h3>
+                <p>
+                    Stronger than standard haze remover. Products like Mesh Prep are highly concentrated and tackle stains that regular haze remover won't touch. Use sparingly and follow safety instructions—these are aggressive chemicals that can degrade mesh if used excessively.
+                </p>
+
+                <h3>Sodium Metaperiodate-Based Products</h3>
+                <p>
+                    Very effective on stubborn fluorescent and discharge staining. These oxidizing agents break down pigment molecules. However, they're harsh: wear full PPE (gloves, safety glasses, respirator), ensure excellent ventilation, and follow instructions precisely. Risk of mesh damage increases with concentration and contact time.
+                </p>
+
+                <h3>Bleach Paste (Last Resort)</h3>
+                <p>
+                    Some veteran printers swear by bleach paste for extreme staining. It's effective but degrades mesh fibers over time, reducing screen lifespan. Not recommended for regular use, and only on screens you're willing to eventually retire.
+                </p>
+
+                <h3>When to Retire a Screen</h3>
+                <p>
+                    Consider retirement when:
+                </p>
+                <ul>
+                    <li>A screen has been re-meshed multiple times and stains affect ink deposit</li>
+                    <li>Mesh is physically degraded from harsh chemical treatments</li>
+                    <li>Tension won't hold above minimum usable levels (typically 18 N/cm²)</li>
+                    <li>Permanent staining blocks light and interferes with exposure</li>
+                </ul>
+
+                <div class="safety-warning">
+                    <strong>Orange warning:</strong> Aggressive dehazing chemicals degrade mesh fibers over time. It's far better to prevent ghosting than to rely on strong chemicals to remove it. Heavy chemical treatments should be reserved for salvaging valuable screens, not routine maintenance.
+                </div>
+            </section>
+
+            <!-- SECTION 7: INK-SPECIFIC TIPS -->
+            <section id="ink-specific">
+                <h2>Ink-Specific Tips</h2>
+                <p>
+                    Different inks ghost differently. Here's what you need to know for each type.
+                </p>
+
+                <h3>Plastisol Ink</h3>
+                <p>
+                    Plastisol doesn't dry in the screen (no air-dry requirement), but pigments still bond over time. Clean with ink degradent, press wash, or standard haze remover. The good news: plastisol staining is usually less aggressive than water-based or discharge. Clean within hours and you'll rarely see ghosting.
+                </p>
+
+                <h3>Water-Based Ink</h3>
+                <p>
+                    MORE prone to ghosting than plastisol because it dries in the screen. Once water-based ink dries in mesh fibers, it's exponentially harder to remove. The strategy: <span class="highlight-term">clean IMMEDIATELY—within minutes</span>. Use dedicated water-based ink remover, not just water. Once water-based dries completely, standard haze removers become less effective.
+                </p>
+
+                <h3>Discharge Ink</h3>
+                <p>
+                    Discharge ink (formaldehyde-based) is very prone to staining. The chemistry is aggressive and bonds permanently if left to dry. Use discharge-specific cleaner and accept that some residual staining is inevitable with discharge work. Rotating discharge screens (alternating with other jobs) gives them time to air between uses and reduces saturation.
+                </p>
+
+                <h3>UV Ink</h3>
+                <p>
+                    Requires solvent-based cleaners. Water alone won't work. Clean immediately with UV ink remover (solvent-based). UV inks don't typically ghost as aggressively as water-based, but they'll stain if left to cure in the mesh.
+                </p>
+
+                <h3>Fluorescent Inks</h3>
+                <p>
+                    Notorious for staining due to extremely high pigment concentration. These inks bond aggressively and seem to remember every screen they've ever touched. Clean immediately, use haze remover as standard practice, and accept some permanent tinting. The silver lining: fluorescent stains usually don't block light, so cosmetic staining rarely affects print quality.
+                </p>
+            </section>
+
+            <!-- SECTION 8: MAINTENANCE -->
+            <section id="maintenance">
+                <h2>Screen Maintenance Best Practices</h2>
+                <p>
+                    Long-term screen care is about establishing routines and tracking usage.
+                </p>
+
+                <h3>Establish a Cleaning Routine</h3>
+                <p>
+                    Follow this sequence for every screen reclaim:
+                </p>
+                <ol>
+                    <li><strong>Ink removal:</strong> Appropriate cleaner for the ink type (plastisol, water-based, discharge, etc.)</li>
+                    <li><strong>Emulsion removal:</strong> Standard emulsion remover, thorough rinse</li>
+                    <li><strong>Degreasing:</strong> Degreaser spray, brief contact, pressure wash</li>
+                    <li><strong>Haze treatment (if needed):</strong> Haze remover if any ghost or staining appears</li>
+                    <li><strong>Final rinse:</strong> Clean water until run-off is clear</li>
+                    <li><strong>Dry:</strong> Air dry completely or squeegee-dry</li>
+                    <li><strong>Inspect:</strong> Hold to light, check for damage or residue</li>
+                </ol>
+
+                <h3>Keep a Screen Log</h3>
+                <p>
+                    Track how many times each screen has been used and reclaimed. Mesh doesn't last forever. Most screens handle 30-50 reclaim cycles before quality suffers. A simple spreadsheet helps you plan for mesh replacement before screens start failing mid-production.
+                </p>
+
+                <h3>Store Screens Properly</h3>
+                <p>
+                    Store clean, dry screens vertically in a dust-free area. Horizontal stacking can warp frames; vertical storage maintains flatness. Humidity and temperature fluctuations cause mesh tension to drift, so a climate-controlled storage area is ideal.
+                </p>
+
+                <h3>Monitor Mesh Tension</h3>
+                <p>
+                    Inspect mesh tension quarterly. Use a tension gauge (relatively inexpensive tool) to track changes. Tension typically drops 1-2 N/cm² per reclaim cycle. When tension drops below 18-20 N/cm² (depending on mesh count), it's time to re-mesh.
+                </p>
+
+                <h3>Replace Mesh When Needed</h3>
+                <p>
+                    Plan for replacement when:
+                </p>
+                <ul>
+                    <li>Tension drops below usable levels</li>
+                    <li>Mesh is physically damaged (tears, holes, snags)</li>
+                    <li>Staining is irreversible and affects print quality</li>
+                    <li>Screen has reached end-of-life cycle (typically 30-50 reclaims)</li>
+                </ul>
+
+                <div class="pro-tip">
+                    <strong>Pro tip:</strong> Label your screens with a number. Track uses per screen. Replace mesh before quality suffers. A screen with low tension prints poorly AND ghosts more easily—fixing one problem often solves the other.
+                </div>
+            </section>
+
+            <!-- SECTION 9: CONCLUSION -->
+            <section id="conclusion">
+                <h2>The Bottom Line: Clean Screens, Clean Prints</h2>
+                <p>
+                    Ghosting and staining are preventable problems. The formula is straightforward: clean promptly, use the right products, maintain your screens, and expose properly. When ghosts do appear, treat them early—the longer you wait, the harder removal becomes.
+                </p>
+                <p>
+                    Your screens are a recurring investment in your business. Proper maintenance extends their lifespan, improves print quality, and ultimately saves money. A screen reclaimed properly and stored correctly will serve you hundreds of times. Neglect, and you'll be replacing mesh every few months.
+                </p>
+                <p>
+                    Screen maintenance—including ghosting prevention—is a core knowledge area in ASPA certification. These practices represent decades of collective experience from the American screen printing community. Follow them, and you'll print cleaner, maintain higher standards, and keep your costs down.
+                </p>
+            </section>
+
+            <!-- RELATED ARTICLES SECTION -->
+            <section class="related-articles">
+                <h2>Related Articles</h2>
+                <div class="related-grid">
+                    <div class="article-card">
+                        <span class="category-badge-purple">How-To Guides</span>
+                        <h3>How to Coat and Expose a Screen: Step-by-Step</h3>
+                        <p>Master the critical emulsion coating and exposure process. Learn proper technique, timing, and troubleshooting to consistently produce sharp, clean stencils.</p>
+                        <a href="article-coat-and-expose.html">Read Article →</a>
+                    </div>
+                    <div class="article-card">
+                        <span class="category-badge-yellow">Tips & Tricks</span>
+                        <h3>10 Common Screen Printing Mistakes and How to Fix Them</h3>
+                        <p>Avoid costly errors. Learn the top mistakes made by screen printers and proven solutions to fix registration, ink flow, exposure, and tension issues.</p>
+                        <a href="article-common-mistakes.html">Read Article →</a>
+                    </div>
+                    <div class="article-card">
+                        <span class="category-badge-purple">How-To Guides</span>
+                        <h3>Understanding Mesh Counts: Which Screen for Which Job</h3>
+                        <p>Select the right mesh count for every application. Learn how mesh affects ink flow, detail, and print quality across different designs and substrates.</p>
+                        <a href="article-mesh-counts.html">Read Article →</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA BANNER -->
+            <div class="cta-banner">
+                <h2>Master Screen Printing with ASPA</h2>
+                <p>Become a certified screen printing professional. Access advanced resources, join our community, and stay current with industry best practices.</p>
+                <div class="cta-buttons">
+                    <a href="join.html" class="cta-btn cta-btn-primary">Join ASPA Today</a>
+                    <a href="certification.html" class="cta-btn cta-btn-secondary">Learn About Certification</a>
+                </div>
+            </div>
+        </article>
+    </div>
+
+    <!-- ========================================
+         FOOTER
+         ======================================== -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>About ASPA</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="history.html">History & Mission</a></li>
+                        <li><a href="leadership.html">Leadership Team</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="resources.html">All Resources</a></li>
+                        <li><a href="articles.html">Articles & Guides</a></li>
+                        <li><a href="certified-roster.html">Certified Professionals</a></li>
+                        <li><a href="directory.html">Directory</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Membership</h4>
+                    <ul>
+                        <li><a href="join.html">Join ASPA</a></li>
+                        <li><a href="membership-benefits.html">Membership Benefits</a></li>
+                        <li><a href="certification.html">Certification Program</a></li>
+                        <li><a href="events.html">Events & Training</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <ul>
+                        <li><a href="https://facebook.com/asprintorg">Facebook</a></li>
+                        <li><a href="https://twitter.com/asprintorg">Twitter</a></li>
+                        <li><a href="https://linkedin.com/company/aspa">LinkedIn</a></li>
+                        <li><a href="newsletter.html">Newsletter</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2004-2026 American Screen Printing Association. All rights reserved. | <a href="privacy.html" style="color: var(--ink-gray); text-decoration: none;">Privacy Policy</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ========================================
+        // TOC INTERSECTION OBSERVER
+        // ========================================
+        const observerOptions = {
+            root: null,
+            rootMargin: '-100px 0px -66%',
+            threshold: 0
+        };
+
+        const headings = document.querySelectorAll('article h2, article h3');
+        const tocLinks = document.querySelectorAll('.toc-list a');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.id;
+                    tocLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        headings.forEach(heading => {
+            observer.observe(heading);
+        });
+
+        // ========================================
+        // MOBILE MENU
+        // ========================================
+        function toggleMobileMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        }
+    </script>
+</body>
+</html>

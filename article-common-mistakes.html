@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10 Common Screen Printing Mistakes and How to Fix Them (2026) | ASPA</title>
+    <meta name="description" content="Avoid the most common screen printing mistakes. Expert troubleshooting guide covering registration issues, ink problems, exposure errors, and more from ASPA.">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ========================================
+           DESIGN SYSTEM & ROOT VARIABLES
+           ======================================== */
+        :root {
+            --ink-black: #0a0a0a;
+            --ink-dark: #1a1a2e;
+            --ink-purple: #6c2bd9;
+            --ink-magenta: #e91e8c;
+            --ink-cyan: #00d4ff;
+            --ink-yellow: #ffd400;
+            --ink-orange: #ff6b35;
+            --ink-white: #f8f8f8;
+            --ink-gray: #b0b0b0;
+            --ink-gray-dark: #2a2a3e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--ink-black);
+            color: var(--ink-white);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ========================================
+           NAVIGATION BAR
+           ======================================== */
+        nav {
+            background-color: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 0 24px;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .nav-logo {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .nav-logo-main {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--ink-white);
+            letter-spacing: 2px;
+        }
+
+        .nav-logo-sub {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 9px;
+            font-weight: 600;
+            color: var(--ink-cyan);
+            letter-spacing: 1.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--ink-gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--ink-cyan);
+        }
+
+        .nav-links a.active {
+            color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            color: var(--ink-black);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background-color: var(--ink-white);
+            border-radius: 2px;
+            transition: 0.3s ease;
+        }
+
+        /* ========================================
+           ARTICLE HEADER
+           ======================================== */
+        .article-header {
+            background: linear-gradient(135deg, rgba(108, 43, 217, 0.1) 0%, rgba(233, 30, 140, 0.05) 100%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 48px 24px;
+        }
+
+        .article-header-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            color: var(--ink-gray);
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+        }
+
+        .breadcrumb a {
+            color: var(--ink-cyan);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--ink-yellow);
+        }
+
+        .category-tag {
+            display: inline-block;
+            background-color: rgba(255, 212, 0, 0.15);
+            border: 1px solid rgba(255, 212, 0, 0.4);
+            color: var(--ink-yellow);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .article-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--ink-white);
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+            line-height: 1.2;
+        }
+
+        .article-meta {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            color: var(--ink-gray);
+            margin-bottom: 24px;
+            letter-spacing: 0.3px;
+        }
+
+        .article-intro {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #d0d0d0;
+        }
+
+        /* ========================================
+           ARTICLE LAYOUT (TOC + Content)
+           ======================================== */
+        .article-wrapper {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        /* ========================================
+           TABLE OF CONTENTS (Sidebar)
+           ======================================== */
+        .toc-sidebar {
+            position: sticky;
+            top: 90px;
+            height: fit-content;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+        }
+
+        .toc-sidebar h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--ink-cyan);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        .toc-list {
+            list-style: none;
+        }
+
+        .toc-list li {
+            margin-bottom: 10px;
+        }
+
+        .toc-list a {
+            font-size: 14px;
+            color: var(--ink-gray);
+            text-decoration: none;
+            transition: color 0.2s ease;
+            padding-left: 12px;
+            border-left: 2px solid transparent;
+            display: block;
+            transition: all 0.2s ease;
+        }
+
+        .toc-list a:hover {
+            color: var(--ink-cyan);
+            border-left-color: var(--ink-cyan);
+        }
+
+        .toc-list a.active {
+            color: var(--ink-cyan);
+            border-left-color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        /* ========================================
+           ARTICLE CONTENT
+           ======================================== */
+        .article-content {
+            max-width: 800px;
+        }
+
+        article h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--ink-white);
+            margin-top: 48px;
+            margin-bottom: 20px;
+            padding-left: 16px;
+            border-left: 4px solid var(--ink-cyan);
+            letter-spacing: 0.5px;
+        }
+
+        article h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--ink-white);
+            margin-top: 32px;
+            margin-bottom: 16px;
+            letter-spacing: 0.3px;
+        }
+
+        article p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 18px;
+            color: #e0e0e0;
+        }
+
+        article strong {
+            color: var(--ink-white);
+            font-weight: 600;
+        }
+
+        article em {
+            color: var(--ink-cyan);
+            font-style: italic;
+        }
+
+        .highlight-term {
+            color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        article ul, article ol {
+            margin: 20px 0 20px 24px;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        article li {
+            margin-bottom: 12px;
+            color: #e0e0e0;
+        }
+
+        /* ========================================
+           CALLOUT BOXES
+           ======================================== */
+        .pro-tip {
+            background-color: rgba(0, 212, 255, 0.1);
+            border-left: 4px solid var(--ink-cyan);
+            border-radius: 4px;
+            padding: 20px;
+            margin: 28px 0;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .pro-tip strong {
+            color: var(--ink-cyan);
+            font-weight: 700;
+        }
+
+        .safety-warning {
+            background-color: rgba(255, 107, 53, 0.1);
+            border-left: 4px solid var(--ink-orange);
+            border-radius: 4px;
+            padding: 20px;
+            margin: 28px 0;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .safety-warning strong {
+            color: var(--ink-orange);
+            font-weight: 700;
+        }
+
+        /* ========================================
+           RELATED ARTICLES SECTION
+           ======================================== */
+        .related-articles {
+            margin-top: 60px;
+            padding: 40px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .related-articles h2 {
+            margin-top: 0;
+            border-left: none;
+            padding-left: 0;
+            margin-bottom: 32px;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .article-card {
+            background-color: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 8px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .article-card:hover {
+            border-color: var(--ink-cyan);
+            background-color: rgba(0, 212, 255, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .article-card h3 {
+            margin-top: 0;
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        .article-card p {
+            font-size: 14px;
+            color: var(--ink-gray);
+            flex-grow: 1;
+            margin-bottom: 16px;
+        }
+
+        .article-card a {
+            color: var(--ink-cyan);
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            transition: color 0.2s ease;
+            align-self: flex-start;
+        }
+
+        .article-card a:hover {
+            color: var(--ink-yellow);
+        }
+
+        .article-card .category-label {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            margin-top: 12px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .category-cyan {
+            background-color: rgba(0, 212, 255, 0.15);
+            color: var(--ink-cyan);
+        }
+
+        .category-purple {
+            background-color: rgba(108, 43, 217, 0.15);
+            color: #a78bfa;
+        }
+
+        .category-yellow {
+            background-color: rgba(255, 212, 0, 0.15);
+            color: var(--ink-yellow);
+        }
+
+        /* ========================================
+           CTA BANNER
+           ======================================== */
+        .cta-banner {
+            background: linear-gradient(135deg, rgba(108, 43, 217, 0.2) 0%, rgba(233, 30, 140, 0.1) 100%);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 12px;
+            padding: 40px;
+            margin-top: 60px;
+            text-align: center;
+        }
+
+        .cta-banner h2 {
+            border-left: none;
+            padding-left: 0;
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 32px;
+        }
+
+        .cta-banner p {
+            font-size: 18px;
+            color: #d0d0d0;
+            margin-bottom: 28px;
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .cta-btn-primary {
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            color: var(--ink-black);
+            border: none;
+        }
+
+        .cta-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
+        }
+
+        .cta-btn-secondary {
+            background-color: transparent;
+            color: var(--ink-cyan);
+            border: 2px solid var(--ink-cyan);
+        }
+
+        .cta-btn-secondary:hover {
+            background-color: rgba(0, 212, 255, 0.1);
+            border-color: var(--ink-yellow);
+            color: var(--ink-yellow);
+        }
+
+        /* ========================================
+           FOOTER
+           ======================================== */
+        footer {
+            background-color: var(--ink-dark);
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 40px 24px 20px;
+            margin-top: 60px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--ink-cyan);
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            display: block;
+            color: var(--ink-gray);
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 12px;
+            transition: color 0.2s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--ink-cyan);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            color: var(--ink-gray);
+            font-size: 13px;
+        }
+
+        /* ========================================
+           MOBILE RESPONSIVE
+           ======================================== */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .article-title {
+                font-size: 32px;
+            }
+
+            .article-wrapper {
+                grid-template-columns: 1fr;
+                gap: 24px;
+                padding: 24px 16px;
+            }
+
+            .toc-sidebar {
+                position: static;
+                top: auto;
+                max-height: none;
+                margin-bottom: 24px;
+                padding: 20px;
+                background-color: rgba(255, 255, 255, 0.03);
+                border-radius: 8px;
+                border-left: 4px solid var(--ink-cyan);
+            }
+
+            .toc-list a {
+                font-size: 13px;
+            }
+
+            article h2 {
+                font-size: 24px;
+                margin-top: 32px;
+            }
+
+            article h3 {
+                font-size: 18px;
+            }
+
+            article p {
+                font-size: 1rem;
+            }
+
+            .cta-banner {
+                padding: 24px;
+            }
+
+            .cta-banner h2 {
+                font-size: 24px;
+            }
+
+            .cta-banner p {
+                font-size: 16px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .cta-btn {
+                width: 100%;
+            }
+
+            .related-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ========================================
+           SCROLLBAR STYLING
+           ======================================== */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--ink-cyan);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--ink-magenta);
+        }
+    </style>
+</head>
+<body>
+    <!-- ========================================
+         NAVIGATION
+         ======================================== -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="nav-logo-main">ASPA</div>
+                <div class="nav-logo-sub">Since 2004</div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="directory.html">Directory</a></li>
+                <li><a href="certified-roster.html">Certified</a></li>
+                <li><a href="exam.html">Certification</a></li>
+                <li><a href="join.html">Membership</a></li>
+                <li><a href="resources.html">Resources</a></li>
+            </ul>
+            <a href="join.html" class="nav-cta">Join ASPA</a>
+            <button class="hamburger" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ========================================
+         ARTICLE HEADER
+         ======================================== -->
+    <div class="article-header">
+        <div class="article-header-container">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a> > <a href="resources.html">Resources</a> > <a href="resources.html">Tips & Tricks</a> > 10 Common Screen Printing Mistakes
+            </div>
+            <span class="category-tag">Tips & Tricks</span>
+            <h1 class="article-title">10 Common Screen Printing Mistakes and How to Fix Them</h1>
+            <div class="article-meta">Updated March 2026 · 16 min read · By ASPA Editorial Team</div>
+            <p class="article-intro">
+                Even experienced screen printers make mistakes sometimes. Whether you're just starting out or refining your craft, understanding and avoiding common pitfalls can save you time, money, and frustration. This comprehensive guide covers the ten most frequent issues we see in print shops, the warning signs to watch for, and the proven fixes that work.
+            </p>
+        </div>
+    </div>
+
+    <!-- ========================================
+         ARTICLE WRAPPER (TOC + Content)
+         ======================================== -->
+    <div class="article-wrapper">
+        <!-- TABLE OF CONTENTS SIDEBAR -->
+        <aside class="toc-sidebar">
+            <h3>Contents</h3>
+            <ul class="toc-list">
+                <li><a href="#introduction">Introduction</a></li>
+                <li><a href="#mistake-1">Poor Screen Tension</a></li>
+                <li><a href="#mistake-2">Wrong Mesh Count</a></li>
+                <li><a href="#mistake-3">Exposure Errors</a></li>
+                <li><a href="#mistake-4">Squeegee Pressure</a></li>
+                <li><a href="#mistake-5">Skipping Test Prints</a></li>
+                <li><a href="#mistake-6">Not Degreasing Screens</a></li>
+                <li><a href="#mistake-7">Wrong Off-Contact</a></li>
+                <li><a href="#mistake-8">Undercuring Ink</a></li>
+                <li><a href="#mistake-9">Bad Artwork</a></li>
+                <li><a href="#mistake-10">Rushing the Process</a></li>
+                <li><a href="#conclusion">Conclusion</a></li>
+            </ul>
+        </aside>
+
+        <!-- MAIN ARTICLE CONTENT -->
+        <article class="article-content">
+            <!-- INTRODUCTION -->
+            <section id="introduction">
+                <h2>Introduction: Learn From Others' Mistakes</h2>
+                <p>
+                    Every screen printer has a story about a job that went wrong. Loose screens that produced blurry prints. Artwork that didn't separate properly. Ink that washed out after one wear. Exposure units that were set to the wrong time. The good news? Most of these disasters are completely preventable.
+                </p>
+                <p>
+                    The <span class="highlight-term">American Screen Printing Association (ASPA)</span> works with professional printers, equipment manufacturers, and educators across the industry. Over the years, we've documented the ten mistakes that show up most frequently—in beginner shops and professional facilities alike. Some are technical, some are procedural, and some are about rushing when you should be patient.
+                </p>
+                <p>
+                    This guide walks you through each mistake: what causes it, how to recognize it, and exactly how to fix it. Whether you're printing your first shirt or running a high-volume production line, you'll find value here. Let's dive in.
+                </p>
+            </section>
+
+            <!-- MISTAKE 1: POOR SCREEN TENSION -->
+            <section id="mistake-1">
+                <h2>Mistake #1: Poor Screen Tension</h2>
+                <p>
+                    The foundation of quality screen printing is a properly tensioned screen. When mesh tension is too loose, the screen flexes too much during the print stroke, resulting in soft, inconsistent ink deposits and blurry images. When screens are warped or bent, no amount of technique can overcome it.
+                </p>
+                <p>
+                    <strong>What goes wrong:</strong> Loose or warped screens allow excessive deflection during the squeegee pass. Instead of maintaining crisp contact with the garment, the mesh moves and bounces, creating registration problems and uneven ink deposit. The symptoms are immediately obvious: your prints look soft and fuzzy compared to your artwork, or certain parts of the image print darker than others.
+                </p>
+                <p>
+                    <strong>How to fix it:</strong> Invest in retensionable aluminum frames and quality mesh. When stretching new screens, use a mesh stretcher and apply tension evenly. Industry standard is 25-30 Newtons per centimeter (N/cm) for most textile work. Sounds technical, but it's simple: <span class="highlight-term">buy a tension meter</span> (they cost $150-$400) and check your screens regularly. Once you know the number, you'll never guess again.
+                </p>
+                <div class="pro-tip">
+                    <strong>Pro Tip:</strong> Tension decreases over time as mesh relaxes, especially with high-volume printing. Check your screens every 50-100 prints. If tension drops below 20 N/cm, it's time to re-tension or retire the screen. Keep a logbook—yes, really. Date each screen and note the tension when new. You'll spot trends and know exactly when problems start.
+                </div>
+                <p>
+                    Retensionable frames are the gold standard because you can remove the mesh, replace it, and re-tension without buying new frames. Yes, they're more expensive upfront ($30-$50 per frame vs. $15-$25 for fixed ones), but they'll save you money over time and give you professional-quality consistency.
+                </p>
+            </section>
+
+            <!-- MISTAKE 2: WRONG MESH COUNT -->
+            <section id="mistake-2">
+                <h2>Mistake #2: Wrong Mesh Count for the Job</h2>
+                <p>
+                    Using the wrong mesh count is like trying to paint a portrait with a house brush. It technically works, but the results are disappointing. Too coarse a mesh and you lose fine detail. Too fine and your ink deposits get too light, requiring multiple passes to build opacity. Mesh count matters—a lot.
+                </p>
+                <p>
+                    <strong>What goes wrong:</strong> New printers often buy one size of mesh and try to do everything with it. A 110-mesh screen is designed for athletic wear and heavy deposits—bold logos, solid colors, minimal detail. A 230-mesh screen is built for halftones and photographic images with thousands of tiny dots. Using 110 for fine detail? The details blur. Using 230 for heavy athletic wear? You'll need four or five passes just to get solid coverage.
+                </p>
+                <p>
+                    <strong>Quick reference:</strong> 110 mesh for heavy athletic and basic graphics, 156 mesh for general-purpose printing and moderate detail, 180 mesh for fine detail and small text, 200-230 mesh for halftone images and photographic work, 280+ mesh for ultra-high-detail specialty applications.
+                </p>
+                <div class="pro-tip">
+                    <strong>Pro Tip:</strong> Most professional shops maintain at least three mesh counts: 110 (bold work), 156 (versatile workhorse), and 230 (detail work). This gives you flexibility and lets you match mesh to job requirements. Screens are cheap compared to reprinting jobs with poor detail.
+                </div>
+                <p>
+                    The science here is straightforward: thicker mesh (lower count) has larger openings and allows more ink through with each pass. Finer mesh (higher count) creates more controlled deposits and sharper detail but requires precise exposure and technique. Match the mesh to the artwork, not the other way around.
+                </p>
+            </section>
+
+            <!-- MISTAKE 3: EXPOSURE ERRORS -->
+            <section id="mistake-3">
+                <h2>Mistake #3: Under-Exposing or Over-Exposing Screens</h2>
+                <p>
+                    Improper exposure is probably the single most common stencil failure in screen printing. If your exposure time is off, the emulsion doesn't cure correctly, and your print quality suffers—or the screen fails entirely. The solution sounds simple but requires discipline: <span class="highlight-term">never guess exposure times</span>.
+                </p>
+                <p>
+                    <strong>Under-exposure symptoms:</strong> You expose the screen but the emulsion in the image areas doesn't fully harden. When you washout, weak areas of emulsion break down. You'll see pinholes (tiny holes in solid areas), ghost images where ink bleeds where it shouldn't, or sections of the stencil that deteriorate during printing.
+                </p>
+                <p>
+                    <strong>Over-exposure symptoms:</strong> The entire screen—including the image areas—hardens too much. You'll have trouble washing out the image. The stencil might be so hard it becomes brittle and cracks. Fine details fill in. What should be an open area becomes partially closed.
+                </p>
+                <p>
+                    <strong>How to fix it:</strong> Perform an <span class="highlight-term">exposure calculation test</span> (also called a step test) every time you change emulsion types, mesh counts, light sources, or UV bulbs. Create a test film with a grid of boxes, each with slightly different density. Expose the screen in increments—1 minute, 2 minutes, 3 minutes, etc. Washout each and examine the results. The proper exposure will be sharp and clean without pinholes or edge softness.
+                </p>
+                <div class="safety-warning">
+                    <strong>Warning:</strong> Don't guess exposure times based on what worked last month. UV bulbs degrade, emulsion ages, and ambient light conditions change. A test that took 2 minutes in January might need 2.5 minutes in July. Professional shops perform exposure tests monthly, minimum. One bad exposure can ruin a press run.
+                </div>
+                <p>
+                    Exposure times vary with emulsion type (diazo, dual-cure, photopolymer), mesh count, film density, and UV source intensity. There's no universal "correct" answer—you have to find your specific setup's sweet spot. Once you do, document it and check it regularly.
+                </p>
+            </section>
+
+            <!-- MISTAKE 4: INCONSISTENT SQUEEGEE PRESSURE -->
+            <section id="mistake-4">
+                <h2>Mistake #4: Inconsistent Squeegee Pressure</h2>
+                <p>
+                    Squeegee pressure is one of those variables that seems invisible but creates huge results. Too much pressure and ink bleeds everywhere, creating soft edges and color mixing. Too little pressure and you get light, spotty coverage with pinholes. The sweet spot is precise.
+                </p>
+                <p>
+                    <strong>What goes wrong:</strong> Novice printers often press down hard on the squeegee, thinking more pressure equals more ink. It's the opposite. Excessive pressure forces ink through unintended openings, distorts the mesh, and causes the blade to skip and chatter. You'll see bleeding edges, ink on areas that should be blank, and a spongy feel to the print. Conversely, pressing too lightly means the squeegee doesn't fully deposit ink. You get pinholes, light coverage, and prints that feel thin.
+                </p>
+                <p>
+                    <strong>The "butter on toast" analogy:</strong> Proper squeegee pressure should feel like spreading butter on warm toast—smooth, controlled, just enough pressure to do the job without gouging. The squeegee blade should bend slightly but not excessively. It should move smoothly across the mesh without skipping or chattering.
+                </p>
+                <div class="pro-tip">
+                    <strong>Pro Tip:</strong> Squeegee angle matters as much as pressure. Your blade should approach the screen at a 45-60 degree angle. Below 45 degrees and you'll skip; above 60 degrees and you'll deposit too much ink. Keep your elbows locked and use your body weight, not arm strength. Let your legs and hips do the work on manual presses. This keeps pressure consistent and prevents fatigue.
+                </div>
+                <p>
+                    The blade itself matters too. A dull or worn squeegee blade spreads ink inconsistently. Sharp blades are critical. Replace squeegees every 100-200 prints or when edges become dull. Keep multiple squeegees on hand so you can rotate them—a fresh blade every print helps.
+                </p>
+            </section>
+
+            <!-- MISTAKE 5: SKIPPING TEST PRINTS -->
+            <section id="mistake-5">
+                <h2>Mistake #5: Skipping the Test Print</h2>
+                <p>
+                    When you're eager to start production, it's tempting to skip the test print and dive straight into the run. This is a false economy. A single failed test can ruin an entire batch and cost far more than a few test pieces.
+                </p>
+                <p>
+                    <strong>What goes wrong:</strong> You've coated your screens, adjusted your press, mixed your inks, and you're ready to go. But you haven't actually tested the whole setup on real garment material. Maybe your registration is slightly off. Maybe the ink isn't quite opaque enough. Maybe the off-contact distance is creating distortion. When you discover these issues three-quarters way through the run, you've wasted hundreds of shirts and hours of time.
+                </p>
+                <p>
+                    <strong>How to fix it:</strong> Always—and we mean always—print at least one test garment on scrap material before starting the production run. Check three critical things: (1) <span class="highlight-term">Registration</span>—do the colors line up perfectly? (2) <span class="highlight-term">Opacity</span>—is the ink dark enough or do you need an extra pass? (3) <span class="highlight-term">Feel</span>—does the print feel good on the fabric? Not stiff, not thin, just right.
+                </p>
+                <div class="pro-tip">
+                    <strong>Pro Tip:</strong> Keep a stock of blank garments specifically for test prints—old inventory, overstock, or damaged goods that you're not selling. Use these for every run. It's cheaper to waste one shirt than ruin a thousand. Also, make sure your test prints dry fully before evaluating them. Wet ink looks different from cured ink. Wait at least 15 minutes for plastisol, longer for water-based.
+                </div>
+                <p>
+                    Test prints catch problems early. A quick fix at the start saves time later. This five-minute step prevents disasters. Build it into your workflow as non-negotiable.
+                </p>
+            </section>
+
+            <!-- MISTAKE 6: NOT DEGREASING SCREENS -->
+            <section id="mistake-6">
+                <h2>Mistake #6: Not Degreasing Screens Before Coating</h2>
+                <p>
+                    Here's one of the easiest mistakes to fix, and it causes more problems than people realize. Screen mesh has a slightly oily residue from manufacturing. If you don't remove it, emulsion won't adhere properly. You'll get uneven coating, pinholes, and weak stencils.
+                </p>
+                <p>
+                    <strong>What goes wrong:</strong> You receive new screens (or reclaim old screens) and immediately coat them with emulsion. But oils on the mesh prevent emulsion adhesion. When you washout, the emulsion in certain areas washes away or flakes off. Your stencil is weak. Pinholes appear. The screen fails during printing.
+                </p>
+                <p>
+                    <strong>How to fix it:</strong> Degrease every screen before coating, even brand new ones. Use a dedicated screen degreaser (cost: $15-$30 per bottle). Wet the screen with water, scrub both sides with the degreaser using a soft brush, rinse thoroughly with clean water, and air dry completely. This takes two minutes. That two-minute step prevents hours of headache.
+                </p>
+                <div class="pro-tip">
+                    <strong>Pro Tip:</strong> Make degreasing part of your pre-coating ritual. Set up a simple degreasing station with a sink, brush, and degreaser bottle. Treat it like a mandatory step, not an optional one. Once screens are degreased and dry, store them upright to keep dust off. Dust on a degreased screen will cause problems.
+                </div>
+                <p>
+                    Degreasing is preventative maintenance that costs almost nothing but delivers huge returns in print quality and screen longevity. Don't skip it.
+                </p>
+            </section>
+
+            <!-- MISTAKE 7: WRONG OFF-CONTACT DISTANCE -->
+            <section id="mistake-7">
+                <h2>Mistake #7: Wrong Off-Contact Distance</h2>
+                <p>
+                    Off-contact distance is the gap between the screen mesh and the garment surface when the screen is at rest. Get this wrong and you'll get ink bleeding, image distortion, or incomplete coverage. Get it right and your prints will snap off the screen with crisp detail.
+                </p>
+                <p>
+                    <strong>What goes wrong:</strong> If the screen sits directly on the garment (zero off-contact), the mesh drags across the surface during the print stroke. Ink bleeds underneath the squeegee, creating soft, blurry edges. You might see halos around the image where ink seeped under the stencil. If off-contact is too large—say, ¼ inch or more—the screen angles as it snaps back, causing image distortion and misalignment.
+                </p>
+                <p>
+                    <strong>How to fix it:</strong> For manual presses, the ideal off-contact is <span class="highlight-term">1/16 inch to 1/8 inch (1.6mm to 3.2mm)</span>. Your press should have adjustable feet or springs that let you set this precisely. Check the manual for your specific press model. Most manual presses have bolts you can tighten or loosen to adjust height. Automatic presses have this built in.
+                </p>
+                <p>
+                    To find your sweet spot: place a piece of masking tape under the back of the screen, then lower the screen until it just barely touches a test garment. The tape should still slide underneath with slight resistance. That's your off-contact. Mark it and measure it. Consistency is everything.
+                </p>
+                <div class="pro-tip">
+                    <strong>Pro Tip:</strong> Different garments and print thicknesses might require slight adjustments. Heavy hoodies might need ¼ inch. Fine detail on a t-shirt might need 1/16 inch. Don't assume it's perfect from run to run. Do a quick visual test on the first few shirts. If edges are bleeding, increase off-contact. If coverage is thin, decrease it slightly. Fine-tuning takes 30 seconds and prevents problems.
+                </div>
+                <p>
+                    Off-contact is one of those variables that's easy to set and easy to forget. Check it monthly and before each major run. Presses settle over time, and threads or debris can change the gap.
+                </p>
+            </section>
+
+            <!-- MISTAKE 8: UNDERCURING THE INK -->
+            <section id="mistake-8">
+                <h2>Mistake #8: Undercuring the Ink (The #1 Reason Prints Wash Out)</h2>
+                <p>
+                    This is it. This is the single most frequent reason customers complain about screen-printed shirts washing out. The print looked perfect when it came off the press. But after two washes, it started cracking and peeling. That's undercuring. And it's completely preventable.
+                </p>
+                <p>
+                    <strong>What goes wrong:</strong> Plastisol ink cures at 320°F (160°C) throughout the entire ink deposit, not just the surface. Many printers think a quick heat press or light flash dry is enough. It's not. Only the outermost layer of ink gets hot enough to set. The inside stays soft. When the shirt flexes, the ink cracks. When it washes, the soft ink releases from the fabric.
+                </p>
+                <p>
+                    <strong>How to fix it:</strong> Invest in proper curing equipment. A <span class="highlight-term">flash dryer</span> is designed to heat ink between color passes. A <span class="highlight-term">conveyor dryer</span> is designed for final cure. Both should reach 320°F throughout the entire ink deposit. Don't trust eyeballing it. Use a <span class="highlight-term">temperature gun</span> (infrared thermometer, $20-$50) to verify that the ink reaches 320°F.
+                </p>
+                <p>
+                    Here's the key: the temperature must be maintained for a sufficient dwell time. A quick 5-second flash at 320°F isn't the same as sustained 320°F for 15-30 seconds. Read your dryer manual and follow the recommendations. If your dryer can't reach 320°F, don't use it. Period.
+                </p>
+                <div class="safety-warning">
+                    <strong>Warning:</strong> Undercuring is insidious because it doesn't show up immediately. The print feels fine in the shop. But after three washes, customers complain. Your reputation takes a hit. Never skip the cure step. If you don't have a proper dryer, don't accept orders. It's that important.
+                </div>
+                <p>
+                    For professional quality, most shops recommend a wash test before shipping. Print a sample, cure it properly, then wash it 10+ times. If the print survives, you know your process is sound. This takes one day but saves your reputation.
+                </p>
+            </section>
+
+            <!-- MISTAKE 9: BAD ARTWORK PREPARATION -->
+            <section id="mistake-9">
+                <h2>Mistake #9: Bad Artwork Preparation (Garbage In = Garbage Out)</h2>
+                <p>
+                    No amount of technical skill can fix bad artwork. A blurry image, a poor color separation, an image with too many colors for your press—these create problems that equipment and technique can't overcome. Artwork quality is the foundation.
+                </p>
+                <p>
+                    <strong>What goes wrong:</strong> Customers hand you a JPG from their phone that's 400 x 300 pixels. You try to print it on a 12-inch wide design. The image is full of artifacts and noise. Or they give you a multi-color photograph and expect you to print it perfectly without doing proper halftone separation. Or they supply artwork at 72 DPI when you need 300+ DPI for halftones.
+                </p>
+                <p>
+                    <strong>How to fix it:</strong> Start with <span class="highlight-term">vector artwork</span> in industry-standard formats (AI, EPS, PDF). Vector is infinitely scalable and produces crisp edges. If you only have raster (JPG, PNG), minimum resolution is 300 DPI. Use proper <span class="highlight-term">RIP software</span> (Raster Image Processor) to convert artwork into film positives. Don't print from cheap inkjet machines. Professional film costs a few dollars per positive but guarantees clean halftones and accurate separations.
+                </p>
+                <p>
+                    For color separations: <span class="highlight-term">spot color work</span> (flat colors) is straightforward. Each color gets its own screen. But <span class="highlight-term">simulated process (4-color CMYK)</span> requires halftone screening to simulate photographic gradients. This is advanced and requires knowledge of screen angles, LPI (lines per inch), and dot patterns.
+                </p>
+                <div class="pro-tip">
+                    <strong>Pro Tip:</strong> Invest in professional design software (Adobe Illustrator, $20-$30/month) and a good RIP program ($500-$2000 one-time). These tools handle separations, halftones, and film output automatically. Yes, there's a cost. But it eliminates guesswork and ensures professional results. When customers see perfect prints, they pay premium rates. The investment pays for itself.
+                </div>
+                <p>
+                    Always request artwork in vector format. If customers can't provide it, charge a redesign/separation fee or decline the job. Bad artwork creates bad prints, and bad prints damage your reputation.
+                </p>
+            </section>
+
+            <!-- MISTAKE 10: RUSHING THE PROCESS -->
+            <section id="mistake-10">
+                <h2>Mistake #10: Rushing the Process (Patience is a Virtue)</h2>
+                <p>
+                    Screen printing rewards patience. There are several steps that have minimum time requirements, and cutting corners creates disasters. From letting emulsion dry fully before exposing, to allowing ink to cool between flashes, to reclaiming screens properly, patience is built into the process.
+                </p>
+                <p>
+                    <strong>What goes wrong:</strong> You coat a screen and immediately expose it while the emulsion is still wet. The chemistry doesn't work. You expose to flash-dry between color passes without waiting for the ink to cool. The next color doesn't adhere properly. You try to reclaim a screen while it's still warm and damp. The emulsion releases unevenly and you have to redo it.
+                </p>
+                <p>
+                    <strong>How to fix it:</strong> Build time into your workflow. After coating with emulsion, allow 2-4 hours of drying in darkness, depending on humidity. After flash drying, allow 30-60 seconds for ink to cool before the next color pass. After printing, allow 24+ hours before washing out emulsion (the stencil sets more completely over time). These waiting periods aren't wasted time—they're part of the actual process.
+                </p>
+                <div class="pro-tip">
+                    <strong>Pro Tip:</strong> Create a standard operating procedure (SOP) checklist for every print job. List every step, including wait times. Laminate it and post it at your press station. Use it for every run without exception. Consistency in procedure leads to consistency in results. New team members follow the checklist instead of guessing. This one document will improve your quality and efficiency more than almost anything else you can do.
+                </div>
+                <p>
+                    High-volume production doesn't mean skipping steps. It means planning your schedule so you can run multiple jobs in sequence, each waiting for its time to cure, while you move to the next job. Batch process with patience, and you'll have quality prints and happy customers.
+                </p>
+            </section>
+
+            <!-- CONCLUSION -->
+            <section id="conclusion">
+                <h2>Conclusion: Build Good Habits Early</h2>
+                <p>
+                    Screen printing is a craft that rewards attention to detail, patience, and systematic procedure. Every one of the ten mistakes covered in this guide is completely preventable. You've learned what causes them, how to recognize them, and exactly how to fix them.
+                </p>
+                <p>
+                    The most successful printers aren't the ones with the fanciest equipment. They're the ones who have built rock-solid fundamentals: proper screen tension, exposure testing, equipment maintenance, and systematic procedures. These things eliminate most of the problems you'll encounter.
+                </p>
+                <p>
+                    If you're serious about screen printing—whether as a hobby, a side hustle, or a full-time business—consider pursuing <span class="highlight-term">ASPA Certified Screen Printer (CSP) certification</span>. The certification process covers all these fundamentals in depth, from color theory and exposure science to equipment selection and production workflow. It's proof that you've mastered the craft and commands respect in the industry.
+                </p>
+                <p>
+                    The screen printing industry is collaborative and supportive. Reach out to experienced printers in your area, ask questions, and don't hesitate to admit when you're struggling with something. Most of us have been where you are. We've made these mistakes. We've fixed them. And we're happy to share what we've learned.
+                </p>
+                <p>
+                    Screen printing has been thriving for over a century because it works. Good equipment lasts decades. Proven techniques never go out of style. The fundamentals are solid. Master them, avoid these ten mistakes, and you'll produce prints that customers love and that last.
+                </p>
+            </section>
+
+            <!-- RELATED ARTICLES -->
+            <section class="related-articles">
+                <h2>Related Articles</h2>
+                <div class="related-grid">
+                    <div class="article-card">
+                        <h3>How to Screen Print T-Shirts: Complete Beginner's Guide</h3>
+                        <p>Learn how to screen print t-shirts from start to finish. Step-by-step guide covering equipment, artwork, exposure, printing, and curing.</p>
+                        <span class="category-label category-cyan">Getting Started</span>
+                        <a href="article-how-to-screen-print.html">Read Article →</a>
+                    </div>
+                    <div class="article-card">
+                        <h3>How to Coat and Expose a Screen: Step-by-Step</h3>
+                        <p>Master the critical emulsion coating and UV exposure process. Learn exposure testing, proper technique, and troubleshooting for perfect stencils.</p>
+                        <span class="category-label category-purple">How-To Guides</span>
+                        <a href="#">Read Article →</a>
+                    </div>
+                    <div class="article-card">
+                        <h3>How to Prevent Ghosting and Staining on Screens</h3>
+                        <p>Solve persistent staining issues that create ghost images on future prints. Comprehensive cleaning and reclamation strategies from ASPA experts.</p>
+                        <span class="category-label category-yellow">Tips & Tricks</span>
+                        <a href="#">Read Article →</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA BANNER -->
+            <div class="cta-banner">
+                <h2>Master Your Craft—Get Certified</h2>
+                <p>Join 1,200+ CSP-certified screen printers worldwide. Our comprehensive certification proves you've mastered the fundamentals and commands premium rates in the industry.</p>
+                <div class="cta-buttons">
+                    <a href="exam.html" class="cta-btn cta-btn-primary">Start CSP Exam →</a>
+                    <a href="join.html" class="cta-btn cta-btn-secondary">Join ASPA+</a>
+                </div>
+            </div>
+        </article>
+    </div>
+
+    <!-- ========================================
+         FOOTER
+         ======================================== -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Directory</h4>
+                    <ul>
+                        <li><a href="directory.html">Member Directory</a></li>
+                        <li><a href="exam.html">CSP Certification</a></li>
+                        <li><a href="join.html">Membership Tiers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Certification</h4>
+                    <ul>
+                        <li><a href="certified-roster.html">CSP Roster</a></li>
+                        <li><a href="exam.html">CSP Program</a></li>
+                        <li><a href="#">Certification Standards</a></li>
+                        <li><a href="#">Apply for Certification</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Association</h4>
+                    <ul>
+                        <li><a href="about.html">About ASPA</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                Copyright © 2004-2026 American Screen Printing Association. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========================================
+         JAVASCRIPT - TOC Active State & Mobile Menu
+         ======================================== -->
+    <script>
+        // Table of Contents - Active State Management
+        const tocLinks = document.querySelectorAll('.toc-list a');
+        const sections = document.querySelectorAll('section[id]');
+
+        function updateActiveTOC() {
+            let current = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 150;
+                if (window.pageYOffset >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveTOC);
+        window.addEventListener('load', updateActiveTOC);
+
+        // Smooth scroll for TOC links
+        tocLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Mobile Menu Toggle (Placeholder)
+        function toggleMobileMenu() {
+            console.log('Mobile menu toggled');
+        }
+    </script>
+</body>
+</html>

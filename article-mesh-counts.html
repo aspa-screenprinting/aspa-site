@@ -1,0 +1,1491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screen Printing Mesh Count Guide: Which Screen for Which Job (2026) | ASPA</title>
+    <meta name="description" content="Complete guide to screen printing mesh counts. Learn which mesh count to use for different inks, designs, and substrates. Expert guide from ASPA.">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ========================================
+           DESIGN SYSTEM & ROOT VARIABLES
+           ======================================== */
+        :root {
+            --ink-black: #0a0a0a;
+            --ink-dark: #1a1a2e;
+            --ink-purple: #6c2bd9;
+            --ink-magenta: #e91e8c;
+            --ink-cyan: #00d4ff;
+            --ink-yellow: #ffd400;
+            --ink-orange: #ff6b35;
+            --ink-white: #f8f8f8;
+            --ink-gray: #b0b0b0;
+            --ink-gray-dark: #2a2a3e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--ink-black);
+            color: var(--ink-white);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ========================================
+           NAVIGATION BAR
+           ======================================== */
+        nav {
+            background-color: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 0 24px;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .nav-logo {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .nav-logo-main {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--ink-white);
+            letter-spacing: 2px;
+        }
+
+        .nav-logo-sub {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 9px;
+            font-weight: 600;
+            color: var(--ink-cyan);
+            letter-spacing: 1.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--ink-gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--ink-cyan);
+        }
+
+        .nav-links a.active {
+            color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            color: var(--ink-black);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background-color: var(--ink-white);
+            border-radius: 2px;
+            transition: 0.3s ease;
+        }
+
+        /* ========================================
+           ARTICLE HEADER
+           ======================================== */
+        .article-header {
+            background: linear-gradient(135deg, rgba(108, 43, 217, 0.1) 0%, rgba(233, 30, 140, 0.05) 100%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 48px 24px;
+        }
+
+        .article-header-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            color: var(--ink-gray);
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+        }
+
+        .breadcrumb a {
+            color: var(--ink-cyan);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--ink-yellow);
+        }
+
+        .category-tag {
+            display: inline-block;
+            background-color: rgba(108, 43, 217, 0.15);
+            border: 1px solid rgba(108, 43, 217, 0.4);
+            color: var(--ink-purple);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .article-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--ink-white);
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+            line-height: 1.2;
+        }
+
+        .article-meta {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            color: var(--ink-gray);
+            margin-bottom: 24px;
+            letter-spacing: 0.3px;
+        }
+
+        .article-intro {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #d0d0d0;
+        }
+
+        /* ========================================
+           ARTICLE LAYOUT (TOC + Content)
+           ======================================== */
+        .article-wrapper {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        /* ========================================
+           TABLE OF CONTENTS (Sidebar)
+           ======================================== */
+        .toc-sidebar {
+            position: sticky;
+            top: 90px;
+            height: fit-content;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+        }
+
+        .toc-sidebar h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--ink-cyan);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        .toc-list {
+            list-style: none;
+        }
+
+        .toc-list li {
+            margin-bottom: 10px;
+        }
+
+        .toc-list a {
+            font-size: 14px;
+            color: var(--ink-gray);
+            text-decoration: none;
+            transition: color 0.2s ease;
+            padding-left: 12px;
+            border-left: 2px solid transparent;
+            display: block;
+            transition: all 0.2s ease;
+        }
+
+        .toc-list a:hover {
+            color: var(--ink-cyan);
+            border-left-color: var(--ink-cyan);
+        }
+
+        .toc-list a.active {
+            color: var(--ink-cyan);
+            border-left-color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        /* ========================================
+           ARTICLE CONTENT
+           ======================================== */
+        .article-content {
+            max-width: 800px;
+        }
+
+        article h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--ink-white);
+            margin-top: 48px;
+            margin-bottom: 20px;
+            padding-left: 16px;
+            border-left: 4px solid var(--ink-cyan);
+            letter-spacing: 0.5px;
+        }
+
+        article h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--ink-white);
+            margin-top: 32px;
+            margin-bottom: 16px;
+            letter-spacing: 0.3px;
+        }
+
+        article p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 18px;
+            color: #e0e0e0;
+        }
+
+        article strong {
+            color: var(--ink-white);
+            font-weight: 600;
+        }
+
+        article em {
+            color: var(--ink-cyan);
+            font-style: italic;
+        }
+
+        .highlight-term {
+            color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        article ul, article ol {
+            margin: 20px 0 20px 24px;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        article li {
+            margin-bottom: 12px;
+            color: #e0e0e0;
+        }
+
+        /* ========================================
+           CALLOUT BOXES
+           ======================================== */
+        .pro-tip {
+            background-color: rgba(0, 212, 255, 0.08);
+            border-left: 4px solid var(--ink-cyan);
+            border-radius: 4px;
+            padding: 20px;
+            margin: 28px 0;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .pro-tip strong {
+            color: var(--ink-cyan);
+            font-weight: 700;
+        }
+
+        .safety-warning {
+            background-color: rgba(255, 107, 53, 0.1);
+            border-left: 4px solid var(--ink-orange);
+            border-radius: 4px;
+            padding: 20px;
+            margin: 28px 0;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .safety-warning strong {
+            color: var(--ink-orange);
+            font-weight: 700;
+        }
+
+        .budget-breakdown {
+            background-color: rgba(0, 212, 255, 0.08);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 8px;
+            padding: 24px;
+            margin: 28px 0;
+        }
+
+        .budget-breakdown h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--ink-cyan);
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+        }
+
+        .budget-breakdown ul {
+            list-style: none;
+            margin: 0;
+        }
+
+        .budget-breakdown li {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 1.05rem;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        .budget-breakdown li:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .budget-range {
+            color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        /* ========================================
+           NUMBERED STEPS
+           ======================================== */
+        .step {
+            margin: 32px 0;
+            padding: 24px;
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: 4px;
+            border-left: 4px solid var(--ink-purple);
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            color: var(--ink-black);
+            border-radius: 50%;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .step h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--ink-white);
+            margin-bottom: 12px;
+        }
+
+        .step p {
+            margin-bottom: 12px;
+        }
+
+        .step p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ========================================
+           RELATED ARTICLES SECTION
+           ======================================== */
+        .related-articles {
+            margin-top: 60px;
+            padding: 40px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .related-articles h2 {
+            margin-top: 0;
+            border-left: none;
+            padding-left: 0;
+            margin-bottom: 32px;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .article-card {
+            background-color: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 8px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .article-card:hover {
+            border-color: var(--ink-cyan);
+            background-color: rgba(0, 212, 255, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .article-card h3 {
+            margin-top: 0;
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        .article-card p {
+            font-size: 14px;
+            color: var(--ink-gray);
+            flex-grow: 1;
+            margin-bottom: 16px;
+        }
+
+        .article-card a {
+            color: var(--ink-cyan);
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            transition: color 0.2s ease;
+            align-self: flex-start;
+        }
+
+        .article-card a:hover {
+            color: var(--ink-yellow);
+        }
+
+        /* ========================================
+           CTA BANNER
+           ======================================== */
+        .cta-banner {
+            background: linear-gradient(135deg, rgba(108, 43, 217, 0.2) 0%, rgba(233, 30, 140, 0.1) 100%);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 12px;
+            padding: 40px;
+            margin-top: 60px;
+            text-align: center;
+        }
+
+        .cta-banner h2 {
+            border-left: none;
+            padding-left: 0;
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 32px;
+        }
+
+        .cta-banner p {
+            font-size: 18px;
+            color: #d0d0d0;
+            margin-bottom: 28px;
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .cta-btn-primary {
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            color: var(--ink-black);
+            border: none;
+        }
+
+        .cta-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
+        }
+
+        .cta-btn-secondary {
+            background-color: transparent;
+            color: var(--ink-cyan);
+            border: 2px solid var(--ink-cyan);
+        }
+
+        .cta-btn-secondary:hover {
+            background-color: rgba(0, 212, 255, 0.1);
+            border-color: var(--ink-yellow);
+            color: var(--ink-yellow);
+        }
+
+        /* ========================================
+           FOOTER
+           ======================================== */
+        footer {
+            background-color: var(--ink-dark);
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 40px 24px 20px;
+            margin-top: 60px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--ink-cyan);
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            display: block;
+            color: var(--ink-gray);
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 12px;
+            transition: color 0.2s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--ink-cyan);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            color: var(--ink-gray);
+            font-size: 13px;
+        }
+
+        /* ========================================
+           MOBILE RESPONSIVE
+           ======================================== */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .article-title {
+                font-size: 32px;
+            }
+
+            .article-wrapper {
+                grid-template-columns: 1fr;
+                gap: 24px;
+                padding: 24px 16px;
+            }
+
+            .toc-sidebar {
+                position: static;
+                top: auto;
+                max-height: none;
+                margin-bottom: 24px;
+                padding: 20px;
+                background-color: rgba(255, 255, 255, 0.03);
+                border-radius: 8px;
+                border-left: 4px solid var(--ink-cyan);
+            }
+
+            .toc-list a {
+                font-size: 13px;
+            }
+
+            article h2 {
+                font-size: 24px;
+                margin-top: 32px;
+            }
+
+            article h3 {
+                font-size: 18px;
+            }
+
+            article p {
+                font-size: 1rem;
+            }
+
+            .cta-banner {
+                padding: 24px;
+            }
+
+            .cta-banner h2 {
+                font-size: 24px;
+            }
+
+            .cta-banner p {
+                font-size: 16px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .cta-btn {
+                width: 100%;
+            }
+
+            .related-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ========================================
+           SCROLLBAR STYLING
+           ======================================== */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--ink-cyan);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--ink-magenta);
+        }
+    </style>
+</head>
+<body>
+    <!-- ========================================
+         NAVIGATION
+         ======================================== -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="nav-logo-main">ASPA</div>
+                <div class="nav-logo-sub">Since 2004</div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="directory.html">Directory</a></li>
+                <li><a href="certified-roster.html">Certified</a></li>
+                <li><a href="index.html#certification">Certification</a></li>
+                <li><a href="index.html#membership">Membership</a></li>
+                <li><a href="resources.html">Resources</a></li>
+            </ul>
+            <a href="join.html" class="nav-cta">Join ASPA</a>
+            <button class="hamburger" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ========================================
+         ARTICLE HEADER
+         ======================================== -->
+    <div class="article-header">
+        <div class="article-header-container">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a> > <a href="resources.html">Resources</a> > <a href="resources.html">How-To Guides</a> > Understanding Mesh Counts
+            </div>
+            <span class="category-tag">How-To Guides</span>
+            <h1 class="article-title">Understanding Mesh Counts: Which Screen for Which Job</h1>
+            <div class="article-meta">Updated March 2026 · 14 min read</div>
+            <p class="article-intro">
+                Mesh count is one of the most misunderstood variables in screen printing. Choose the wrong mesh and you'll either watch ink refuse to flow through, or lose all the detail in your design. Understanding mesh count means understanding ink deposit—and ink deposit controls everything: opacity, feel, detail, and durability. This guide cuts through the confusion and shows you exactly which mesh to use for every type of job.
+            </p>
+        </div>
+    </div>
+
+    <!-- ========================================
+         ARTICLE WRAPPER (TOC + Content)
+         ======================================== -->
+    <div class="article-wrapper">
+        <!-- TABLE OF CONTENTS SIDEBAR -->
+        <aside class="toc-sidebar">
+            <h3>Contents</h3>
+            <ul class="toc-list">
+                <li><a href="#introduction">Why Mesh Matters</a></li>
+                <li><a href="#what-is-mesh">What is Mesh Count?</a></li>
+                <li><a href="#mesh-spectrum">The Mesh Spectrum</a></li>
+                <li><a href="#ink-type">Mesh & Ink Type</a></li>
+                <li><a href="#design-complexity">Design Complexity</a></li>
+                <li><a href="#substrate">Mesh & Substrate</a></li>
+                <li><a href="#tension">Screen Tension</a></li>
+                <li><a href="#framework">Decision Framework</a></li>
+                <li><a href="#inventory">Building Your Inventory</a></li>
+                <li><a href="#mastery">Mesh Mastery</a></li>
+            </ul>
+        </aside>
+
+        <!-- MAIN ARTICLE CONTENT -->
+        <article class="article-content">
+            <!-- INTRODUCTION -->
+            <section id="introduction">
+                <h2>Why Mesh Count Matters More Than You Think</h2>
+                <p>
+                    Mesh count is fundamentally about controlling ink deposit. Too coarse and you're dumping so much ink onto the shirt that colors bleed, details vanish, and the print feels heavy. Too fine and the ink refuses to flow, or flows so slowly that you pull the squeegee across nothing but a thin, ghostly whisper of color.
+                </p>
+                <p>
+                    The <span class="highlight-term">wrong mesh count</span> can turn excellent artwork and an expensive press into disappointment. The right mesh count, paired with proper ink selection and substrate choice, separates amateur prints from professional work.
+                </p>
+                <p>
+                    This is core knowledge for the <span class="highlight-term">Certified Screen Printer (CSP)</span> exam—one of the most-tested areas. Understanding mesh helps you troubleshoot problems, scale operations, and most importantly, deliver consistent quality that customers trust.
+                </p>
+            </section>
+
+            <!-- SECTION 1: WHAT IS MESH COUNT -->
+            <section id="what-is-mesh">
+                <h2>What is Mesh Count?</h2>
+                <p>
+                    <span class="highlight-term">Mesh count</span> is measured in threads per inch (TPI). A 110-mesh screen has 110 threads per inch. Simple as that.
+                </p>
+                <p>
+                    Higher mesh count = finer weave = smaller openings between threads = less ink passes through.
+                </p>
+                <p>
+                    Lower mesh count = coarser weave = larger openings between threads = more ink passes through.
+                </p>
+                <p>
+                    In metric countries, mesh is expressed as threads per centimeter. To convert: multiply threads per cm by 2.54 to get threads per inch.
+                </p>
+                <p>
+                    Common mesh counts you'll encounter:
+                </p>
+                <ul>
+                    <li>40 mesh (very coarse)</li>
+                    <li>60 mesh (coarse)</li>
+                    <li>86 mesh (medium-coarse)</li>
+                    <li>110 mesh (medium, the workhorse)</li>
+                    <li>156 mesh (medium-fine)</li>
+                    <li>200 mesh (fine)</li>
+                    <li>230 mesh (very fine)</li>
+                    <li>280-305 mesh (ultra-fine)</li>
+                    <li>355 mesh (specialty)</li>
+                </ul>
+                <p>
+                    But mesh count alone doesn't tell the whole story. <span class="highlight-term">Thread diameter</span> also matters. A screen might be labeled 110 mesh, but the actual thread thickness determines how much open area exists. Thinner threads = larger openings even at the same mesh count. This is why specifications matter: always ask vendors for both mesh count AND thread diameter (monofilament diameter), typically measured in microns.
+                </p>
+                <p>
+                    Standard vs. high-tension screens: High-tension screens maintain pressure consistency better during long production runs, but cost more. For hobby and small shops, standard tension is fine.
+                </p>
+            </section>
+
+            <!-- SECTION 2: MESH SPECTRUM -->
+            <section id="mesh-spectrum">
+                <h2>The Mesh Count Spectrum</h2>
+                <p>
+                    Let's walk through each common mesh count and understand what it's actually for. This is where theory meets practical printing.
+                </p>
+
+                <h3>40-60 Mesh: The Thick Deposit Zone</h3>
+                <p>
+                    These screens are coarse—like painting through a screen door. They're not for detail work. They're for <strong>maximum ink transfer</strong>.
+                </p>
+                <ul>
+                    <li><strong>Best for:</strong> Glitter inks (particles won't fit through finer mesh), puff ink (needs thick base), specialty coatings, athletic/heavily textured apparel</li>
+                    <li><strong>Ink deposit:</strong> Maximum. You're moving a lot of ink.</li>
+                    <li><strong>Detail:</strong> Virtually none. Bold shapes only.</li>
+                </ul>
+                <p>
+                    If you're printing sparkly, puffy, or specialty inks with visible particles, go low mesh. Don't try a 40-mesh glitter through 110-mesh—the particles will bridge across openings and clog your screen.
+                </p>
+
+                <h3>86 Mesh: The Athletic Workhorse</h3>
+                <p>
+                    This is the mesh for athletic and performance applications—heavy coverage on dark garments, shimmer inks, metallic effects.
+                </p>
+                <ul>
+                    <li><strong>Best for:</strong> Athletic/mesh apparel, dark t-shirt bases (white underbase), heavy metallic deposits</li>
+                    <li><strong>Ink deposit:</strong> Heavy, good for opacity</li>
+                    <li><strong>Detail:</strong> Limited. Works for bold text and shapes.</li>
+                </ul>
+                <p>
+                    When you're printing white base on a black hoodie and need serious opacity, 86 mesh gets ink through. Pair it with thicker plastisol for maximum coverage.
+                </p>
+
+                <h3>110 Mesh: The Universal Standard</h3>
+                <p>
+                    This is <span class="highlight-term">the most common mesh for a reason</span>. It's the default for most screen printing shops. If you had to pick one mesh count to own, this is it.
+                </p>
+                <ul>
+                    <li><strong>Best for:</strong> General-purpose printing, white on dark, solid colors, moderate-detail logos</li>
+                    <li><strong>Ink deposit:</strong> Good opacity, decent detail. Balanced.</li>
+                    <li><strong>Detail:</strong> Acceptable for most work. Fine lines will be slightly soft.</li>
+                    <li><strong>Works with:</strong> Plastisol, water-based, discharge (with care)</li>
+                </ul>
+                <p>
+                    If you're a beginner, buy 110-mesh screens first. They'll handle 80% of your work.
+                </p>
+
+                <h3>156 Mesh: The All-Rounder</h3>
+                <p>
+                    Step up from 110, 156 gives you more detail while maintaining reasonable ink deposit. It's the sweet spot for balanced work.
+                </p>
+                <ul>
+                    <li><strong>Best for:</strong> Medium-detail logos, lighter ink deposits on light substrates, general multi-color work</li>
+                    <li><strong>Ink deposit:</strong> Moderate. Less ink than 110, but still good coverage.</li>
+                    <li><strong>Detail:</strong> Better. Can handle smaller text and fine lines.</li>
+                </ul>
+                <p>
+                    Many shops use 156 as their primary mesh after experience. It's versatile.
+                </p>
+
+                <h3>200 Mesh: Fine Detail Territory</h3>
+                <p>
+                    Now you're in fine-detail land. 200 mesh requires thinner inks and proper technique, but the results are sharp and clean.
+                </p>
+                <ul>
+                    <li><strong>Best for:</strong> CMYK process printing, detailed logos, small text (under 12pt), photographic halftones</li>
+                    <li><strong>Ink deposit:</strong> Light. Ink flow requires pressure and technique.</li>
+                    <li><strong>Detail:</strong> Excellent. Fine lines and small text print cleanly.</li>
+                    <li><strong>Pairing:</strong> Use with reduced-viscosity plastisol or water-based inks</li>
+                </ul>
+                <p>
+                    If you're new to screen printing, master 110-156 before attempting 200.
+                </p>
+
+                <h3>230 Mesh: Water-Based & Discharge Territory</h3>
+                <p>
+                    230 is beloved for water-based and discharge printing. The finer mesh combined with thinner inks creates beautiful detail and soft hand feel.
+                </p>
+                <ul>
+                    <li><strong>Best for:</strong> Water-based inks, discharge printing, fine detail, soft hand feel on printed areas</li>
+                    <li><strong>Ink deposit:</strong> Very light. Perfect for avoiding heavy, stiff prints.</li>
+                    <li><strong>Detail:</strong> Excellent. Very sharp registration on fine work.</li>
+                </ul>
+                <p>
+                    Water-based inks flow through 230 mesh better than they flow through 110. The match is intentional.
+                </p>
+
+                <h3>280-305 Mesh: Ultra-Fine Detail & Simulated Process</h3>
+                <p>
+                    These are the finest you'll use in most shops. They require precise exposure, proper tension, and thinner inks—but deliver stunning photographic results.
+                </p>
+                <ul>
+                    <li><strong>Best for:</strong> Simulated process (4-color CMYK), photographic images, halftone dots (45-55 LPI), extreme detail</li>
+                    <li><strong>Ink deposit:</strong> Minimal. Halftone dots print small and clean.</li>
+                    <li><strong>Detail:</strong> Outstanding. Photographic sharpness.</li>
+                    <li><strong>Tension requirement:</strong> Critical. Under-tensioned screens fail.</li>
+                </ul>
+                <p>
+                    Rule of thumb: mesh count should be roughly 4x your halftone LPI. For 45 LPI, use 180+ mesh. For 55 LPI, use 220+ mesh.
+                </p>
+
+                <h3>355 Mesh: Specialty & Industrial</h3>
+                <p>
+                    You'll rarely see this in a typical shop, but it exists for specialty applications—UV inks, industrial applications, extremely fine work.
+                </p>
+            </section>
+
+            <!-- SECTION 3: MESH & INK TYPE -->
+            <section id="ink-type">
+                <h2>Mesh Count and Ink Type: Critical Pairing</h2>
+                <p>
+                    You can't choose mesh count without considering your ink. The ink and mesh must work together.
+                </p>
+
+                <h3>Plastisol (Standard)</h3>
+                <p>
+                    Standard plastisol inks are thick. They need reasonable openings to flow.
+                </p>
+                <ul>
+                    <li><strong>General work:</strong> 110-156 mesh</li>
+                    <li><strong>Detail work:</strong> 200+ mesh (may need reduced-viscosity plastisol)</li>
+                    <li><strong>Heavy coverage:</strong> 60-86 mesh</li>
+                </ul>
+                <p>
+                    If you force standard plastisol through 230 mesh, you'll have a bad time. The ink is too thick to flow efficiently.
+                </p>
+
+                <h3>Plastisol (Athletic/Performance)</h3>
+                <p>
+                    These thicker, more opaque plastisols demand lower mesh to move the volume needed.
+                </p>
+                <ul>
+                    <li><strong>Athletic prints:</strong> 60-86 mesh preferred</li>
+                    <li><strong>Minimum:</strong> 110 mesh (but challenging)</li>
+                </ul>
+
+                <h3>Water-Based Inks</h3>
+                <p>
+                    Water-based inks are thinner. They flow through finer mesh more easily. Use higher mesh with water-based.
+                </p>
+                <ul>
+                    <li><strong>General work:</strong> 156-230 mesh</li>
+                    <li><strong>Detail work:</strong> 230+ mesh works beautifully</li>
+                    <li><strong>Minimum:</strong> 110 mesh (inefficient)</li>
+                </ul>
+
+                <h3>Discharge Printing</h3>
+                <p>
+                    Discharge inks are designed to bleach dye from fabric. They're thinner than plastisol but need reasonable openings.
+                </p>
+                <ul>
+                    <li><strong>Standard:</strong> 156-230 mesh</li>
+                    <li><strong>Fine detail:</strong> 230 mesh ideal</li>
+                </ul>
+
+                <h3>Specialty Inks (Puff, Glitter, Shimmer, Metallic)</h3>
+                <p>
+                    These contain visible particles. The particles must physically fit through the mesh openings. This is <strong>non-negotiable</strong>.
+                </p>
+                <ul>
+                    <li><strong>Glitter/Puff:</strong> 40-60 mesh (particles typically 100-200 microns)</li>
+                    <li><strong>Shimmer:</strong> 60-110 mesh</li>
+                    <li><strong>Metallic:</strong> 86-156 mesh (depends on particle size)</li>
+                </ul>
+
+                <div class="pro-tip">
+                    <strong>Pro Tip:</strong> If your ink contains visible particles (glitter, metallic flake, puff polymer), go low mesh. When in doubt, go one mesh count lower. A particle-filled ink through too-fine mesh will clog immediately.
+                </div>
+            </section>
+
+            <!-- SECTION 4: DESIGN COMPLEXITY -->
+            <section id="design-complexity">
+                <h2>Mesh Count and Design Complexity</h2>
+                <p>
+                    Your design's detail level should inform mesh selection.
+                </p>
+
+                <h3>Bold Text, Simple Shapes, Large Fills</h3>
+                <p>
+                    110 mesh handles this easily. You don't need fine mesh for bold work.
+                </p>
+
+                <h3>Medium-Detail Logos, Moderate Text</h3>
+                <p>
+                    150-200 mesh is appropriate. Text down to 10-12pt prints cleanly.
+                </p>
+
+                <h3>Fine Lines, Small Text (Under 8pt), Gradients</h3>
+                <p>
+                    200-230 mesh. At this level, each line needs support from fine mesh.
+                </p>
+
+                <h3>Halftones & Simulated Process/CMYK</h3>
+                <p>
+                    This is critical: your mesh must be fine enough to resolve halftone dots. General rule: <strong>mesh count should be approximately 4x your halftone LPI</strong>.
+                </p>
+                <ul>
+                    <li>45 LPI (coarse halftone): use 180+ mesh minimum, 200+ ideal</li>
+                    <li>55 LPI (standard): use 220+ mesh minimum, 230-280 ideal</li>
+                    <li>65-85 LPI (fine photo): use 260+ mesh minimum</li>
+                </ul>
+
+                <div class="safety-warning">
+                    <strong>Warning:</strong> Trying to print fine detail on low mesh is like trying to paint a portrait with a house brush. The tool limits the result. If you have fine lines and small text, commit to higher mesh. Don't cheap out on mesh count and expect detail to print.
+                </div>
+            </section>
+
+            <!-- SECTION 5: MESH & SUBSTRATE -->
+            <section id="substrate">
+                <h2>Mesh Count and Substrate: What You're Printing On Matters</h2>
+                <p>
+                    Different materials absorb ink differently. The substrate you're printing on should influence your mesh choice.
+                </p>
+
+                <h3>Dark Cotton T-Shirts</h3>
+                <p>
+                    You need opacity. A thin white line on black is invisible. Go lower mesh for more ink deposit.
+                </p>
+                <ul>
+                    <li><strong>Single hit white:</strong> 110 mesh (might need 2-3 hits for full opacity)</li>
+                    <li><strong>White underbase:</strong> 110 mesh, often 2 hits</li>
+                    <li><strong>Light colors on darks:</strong> 110-156 mesh</li>
+                </ul>
+
+                <h3>Light Cotton T-Shirts</h3>
+                <p>
+                    The white background reflects. You don't need heavy ink deposit. Higher mesh is fine.
+                </p>
+                <ul>
+                    <li><strong>Standard:</strong> 156-200 mesh</li>
+                    <li><strong>Black/dark colors:</strong> 156 acceptable, even 200 works</li>
+                </ul>
+
+                <h3>Performance/Polyester Apparel</h3>
+                <p>
+                    Polyester can trap heat. Thin deposits reduce dye migration (color bleeding into fabric). Use higher mesh.
+                </p>
+                <ul>
+                    <li><strong>Standard:</strong> 156 mesh</li>
+                    <li><strong>Moisture management:</strong> 156-200 mesh keeps prints light</li>
+                </ul>
+
+                <h3>Paper & Poster Prints</h3>
+                <p>
+                    Paper is smooth and doesn't absorb like fabric. You can use finer mesh and still get clean deposit.
+                </p>
+                <ul>
+                    <li><strong>Standard:</strong> 200-305 mesh</li>
+                    <li><strong>Detail work:</strong> 230-280 mesh ideal</li>
+                </ul>
+
+                <h3>Tote Bags (Canvas)</h3>
+                <p>
+                    Canvas is textured. Ink needs to be pushed into the texture. Go lower mesh.
+                </p>
+                <ul>
+                    <li><strong>Standard:</strong> 86-110 mesh</li>
+                    <li><strong>Fine detail:</strong> 156 mesh maximum</li>
+                </ul>
+
+                <h3>Heavy Fabrics (Hoodies, Sweatshirts)</h3>
+                <p>
+                    Thick, absorbent fabric. You want ink to sit on top and cure there, not soak in.
+                </p>
+                <ul>
+                    <li><strong>Standard:</strong> 110 mesh</li>
+                    <li><strong>Light deposits:</strong> 156 mesh</li>
+                </ul>
+            </section>
+
+            <!-- SECTION 6: SCREEN TENSION -->
+            <section id="tension">
+                <h2>Screen Tension: The Other Half of the Equation</h2>
+                <p>
+                    Mesh count without proper <span class="highlight-term">screen tension</span> is half a story. You can have perfect 110-mesh screens that print garbage if they're under-tensioned.
+                </p>
+
+                <h3>Why Tension Matters</h3>
+                <p>
+                    Tension keeps mesh taut and flat. Under-tensioned screens cause:
+                </p>
+                <ul>
+                    <li>Poor ink deposit (sagging mesh doesn't transfer ink efficiently)</li>
+                    <li>Bad registration (screen flexes during the print stroke)</li>
+                    <li>Blurry prints (lack of snap-off when screen lifts)</li>
+                    <li>Inconsistent results (same settings, different outcomes)</li>
+                </ul>
+
+                <h3>Ideal Tension Specs</h3>
+                <p>
+                    Most professionals use 25-30 N/cm² (Newton per centimeter squared). This is the sweet spot for most applications.
+                </p>
+                <ul>
+                    <li><strong>Too loose (under 20):</strong> Poor print quality, registration issues</li>
+                    <li><strong>Perfect (25-30):</strong> Crisp prints, consistent detail, reliable registration</li>
+                    <li><strong>Too tight (over 35):</strong> Risk of frame warping, harder on equipment, no benefit</li>
+                </ul>
+
+                <h3>Measuring Tension</h3>
+                <p>
+                    Use a <span class="highlight-term">tension meter</span> (also called mesh tension gauge). Professional meters cost $100-$300 but are invaluable. Cheapskate method: tap the screen—it should sound like a drum head. But a meter gives you numbers.
+                </p>
+
+                <h3>Frame Types & Tension</h3>
+                <p>
+                    <strong>Pre-stretched aluminum frames</strong> come tension-set. They cost $15-$25 but you can't adjust. Works fine for shops doing standard work.
+                </p>
+                <p>
+                    <strong>Retensionable frames</strong> cost $50-$100+ but let you adjust tension as needed. Essential if you're doing detail work or want to restretch aging frames.
+                </p>
+
+                <p>
+                    <strong>Aluminum vs. wood frames:</strong> Aluminum is better. It's lighter, more consistent, holds tension longer. Wood frames warp over time. If you're upgrading equipment, go aluminum.
+                </p>
+
+                <div class="pro-tip">
+                    <strong>Pro Tip:</strong> Poor tension is the #1 hidden cause of print quality problems. Before blaming your ink, mesh, or technique, check your screen tension. Invest in a tension meter. It pays for itself immediately.
+                </div>
+            </section>
+
+            <!-- SECTION 7: DECISION FRAMEWORK -->
+            <section id="framework">
+                <h2>How to Choose: A Decision Framework</h2>
+                <p>
+                    Stop guessing. Use this framework to choose the right mesh every time.
+                </p>
+
+                <h3>Step 1: What's the Ink?</h3>
+                <p>
+                    Start here. Ink dictates minimum mesh options.
+                </p>
+                <ul>
+                    <li>Specialty ink with particles? → Go 40-60 mesh</li>
+                    <li>Standard plastisol? → 110-200 available</li>
+                    <li>Water-based? → 156-230 ideal</li>
+                    <li>Discharge? → 156-230 ideal</li>
+                </ul>
+
+                <h3>Step 2: How Much Detail?</h3>
+                <p>
+                    Consider your design's finest element.
+                </p>
+                <ul>
+                    <li>Bold shapes and text only? → 110 mesh fine</li>
+                    <li>Medium detail (10-12pt text)? → 156 mesh</li>
+                    <li>Fine lines and small text? → 200+ mesh</li>
+                    <li>Halftones/photos? → 230+ mesh</li>
+                </ul>
+
+                <h3>Step 3: What Are You Printing On?</h3>
+                <p>
+                    Substrate informs ink deposit needs.
+                </p>
+                <ul>
+                    <li>Dark tee (need opacity)? → Lower mesh (110)</li>
+                    <li>Light tee (less opacity needed)? → Higher mesh (156-200)</li>
+                    <li>Paper (smooth, doesn't absorb)? → Fine mesh (200+)</li>
+                    <li>Textured fabric? → Lower mesh (86-110)</li>
+                </ul>
+
+                <h3>Step 4: Adjust for Color</h3>
+                <p>
+                    Light colors on dark substrates need opacity. Go one mesh count lower.
+                </p>
+                <p>
+                    Dark colors on light substrates don't need heavy deposit. Fine mesh is okay.
+                </p>
+
+                <h3>The Quick Reference</h3>
+                <p>
+                    For 80% of jobs, these three meshes cover everything:
+                </p>
+                <ul>
+                    <li><strong>110 mesh:</strong> Dark tees, heavy coverage, general work</li>
+                    <li><strong>156 mesh:</strong> Light tees, medium detail, most versatile</li>
+                    <li><strong>230 mesh:</strong> Water-based, discharge, fine detail, soft hand</li>
+                </ul>
+
+                <p>
+                    Master these three, and you can handle nearly any job.
+                </p>
+            </section>
+
+            <!-- SECTION 8: SCREEN INVENTORY -->
+            <section id="inventory">
+                <h2>Building Your Screen Inventory: What to Buy</h2>
+                <p>
+                    You don't need to own every mesh count. Strategic purchases cover 95% of work.
+                </p>
+
+                <h3>Beginner Setup (Home/Garage)</h3>
+                <p>
+                    Budget: 6 screens total
+                </p>
+                <ul>
+                    <li>Four 110-mesh screens (your workhorse)</li>
+                    <li>Two 156-mesh screens (for detail/light substrates)</li>
+                </ul>
+                <p>
+                    This covers 80% of beginner jobs. Cost: $90-$150 for pre-stretched aluminum screens.
+                </p>
+
+                <h3>Growing Shop</h3>
+                <p>
+                    Budget: 12 screens total
+                </p>
+                <ul>
+                    <li>Two 86-mesh (athletic/heavy coverage)</li>
+                    <li>Four 110-mesh (standard work)</li>
+                    <li>Four 156-mesh (detail/light work)</li>
+                    <li>Two 200-mesh (fine detail)</li>
+                    <li>Two 230-mesh (water-based/discharge)</li>
+                </ul>
+                <p>
+                    This covers 95% of work. Cost: $200-$350.
+                </p>
+
+                <h3>Production Shop</h3>
+                <p>
+                    You need range. Full selection:
+                </p>
+                <ul>
+                    <li>Multiple 60-86 (specialty/athletic)</li>
+                    <li>Multiple 110 (standard work)</li>
+                    <li>Multiple 156 (detail/light)</li>
+                    <li>Multiple 200 (fine work)</li>
+                    <li>Multiple 230 (water-based/discharge/process)</li>
+                    <li>Some 280+ (simulated process/photo)</li>
+                </ul>
+                <p>
+                    Consider retensionable frames (more expensive but reusable) as you scale. Aluminum pre-stretched frames are budget-friendly for beginners but limited.
+                </p>
+
+                <h3>Screen Size Considerations</h3>
+                <p>
+                    <strong>20x24":</strong> Standard t-shirt work. Fits most presses. Good for beginners.
+                </p>
+                <p>
+                    <strong>23x31":</strong> Larger format for all-over prints, bigger garments, multiple-shirt layouts. Consider if you do big work.
+                </p>
+                <p>
+                    <strong>Larger:</strong> 25x36" and beyond for production shops. Overkill for beginners.
+                </p>
+
+                <h3>Budget Estimates</h3>
+                <ul>
+                    <li>Pre-stretched aluminum: $15-$25 per screen</li>
+                    <li>Retensionable frames: $50-$100+ per frame</li>
+                </ul>
+
+                <p>
+                    Buy pre-stretched to start. Upgrade to retensionable as you commit to detail work.
+                </p>
+            </section>
+
+            <!-- SECTION 9: MASTERY -->
+            <section id="mastery">
+                <h2>Mesh Mastery = Print Mastery</h2>
+                <p>
+                    Understanding mesh count separates amateur printers from professionals. The fundamentals are simple: match mesh to ink, match mesh to design, match mesh to substrate. But executing this consistently across hundreds of jobs requires knowledge and habit.
+                </p>
+
+                <h3>Building Your System</h3>
+                <p>
+                    Start a <strong>job log</strong>. For every job, record:
+                </p>
+                <ul>
+                    <li>Mesh count used</li>
+                    <li>Ink type and color</li>
+                    <li>Substrate (t-shirt, canvas, paper, etc.)</li>
+                    <li>Results (what worked, what didn't)</li>
+                </ul>
+                <p>
+                    After 50 jobs, you'll have a personal reference library. "White on black hoodies: use 110 mesh, 2 hits, 3.5 seconds flash time." That knowledge compounds.
+                </p>
+
+                <h3>CSP Exam & Beyond</h3>
+                <p>
+                    The <span class="highlight-term">Certified Screen Printer (CSP)</span> exam from ASPA tests mesh knowledge extensively. Understanding mesh count, thread diameter, tension, and pairing meshes with inks and designs is fundamental certification material.
+                </p>
+                <p>
+                    <a href="exam.html">Learn more about the CSP certification and exam requirements</a>.
+                </p>
+
+                <h3>Continuous Learning</h3>
+                <p>
+                    Mesh technology evolves. New emulsions perform differently on different meshes. New inks have different flow characteristics. Stay current:
+                </p>
+                <ul>
+                    <li>Experiment with new ink suppliers' recommendations</li>
+                    <li>Test high-tension mesh against standard tension</li>
+                    <li>Try specialty meshes (3D, advanced weaves) as you scale</li>
+                    <li>Join ASPA to access industry resources and expert advice</li>
+                    <li>Connect with experienced printers in <a href="directory.html">the ASPA Member Directory</a></li>
+                </ul>
+
+                <p>
+                    Mesh count seems simple, but it's a variable you'll spend your entire career refining. The best screen printers obsess over it.
+                </p>
+            </section>
+
+            <!-- RELATED ARTICLES -->
+            <section class="related-articles">
+                <h2>Related Articles</h2>
+                <div class="related-grid">
+                    <div class="article-card">
+                        <h3>How to Coat and Expose a Screen: Step-by-Step</h3>
+                        <p>Master the critical process of coating screens with emulsion and exposing them to create your stencil. Detailed walkthrough from ASPA experts.</p>
+                        <a href="article-coat-and-expose.html">Read Article →</a>
+                    </div>
+                    <div class="article-card">
+                        <h3>Screen Printing Equipment Guide for Beginners</h3>
+                        <p>In-depth reviews and comparisons of presses, dryers, and equipment. Find the right gear for your skill level and budget.</p>
+                        <a href="article-equipment-guide.html">Read Article →</a>
+                    </div>
+                    <div class="article-card">
+                        <h3>Plastisol vs Water-Based Ink: When to Use Each</h3>
+                        <p>Compare the two major ink types in screen printing. Learn pros, cons, and when each ink is the right choice for your job.</p>
+                        <a href="article-plastisol-vs-water-based.html">Read Article →</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA BANNER -->
+            <div class="cta-banner">
+                <h2>Ready to Master Screen Printing?</h2>
+                <p>Get CSP certified and join 1,200+ screen printing professionals worldwide. Mesh count knowledge is core to the certification. Boost your credibility, command premium rates, and access exclusive ASPA resources.</p>
+                <div class="cta-buttons">
+                    <a href="exam.html" class="cta-btn cta-btn-primary">Start CSP Exam →</a>
+                    <a href="join.html" class="cta-btn cta-btn-secondary">Join ASPA+</a>
+                </div>
+            </div>
+        </article>
+    </div>
+
+    <!-- ========================================
+         FOOTER
+         ======================================== -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Directory</h4>
+                    <ul>
+                        <li><a href="directory.html">Member Directory</a></li>
+                        <li><a href="index.html#certification">CSP Certification</a></li>
+                        <li><a href="index.html#membership">Membership Tiers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Certification</h4>
+                    <ul>
+                        <li><a href="certified-roster.html">CSP Roster</a></li>
+                        <li><a href="index.html#certification">CSP Program</a></li>
+                        <li><a href="#">Certification Standards</a></li>
+                        <li><a href="#">Apply for Certification</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Association</h4>
+                    <ul>
+                        <li><a href="about.html">About ASPA</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                Copyright © 2004-2026 American Screen Printing Association. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========================================
+         JAVASCRIPT - TOC Active State & Mobile Menu
+         ======================================== -->
+    <script>
+        // Table of Contents - Active State Management
+        const tocLinks = document.querySelectorAll('.toc-list a');
+        const sections = document.querySelectorAll('section[id]');
+
+        function updateActiveTOC() {
+            let current = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 150;
+                if (window.pageYOffset >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveTOC);
+        window.addEventListener('load', updateActiveTOC);
+
+        // Smooth scroll for TOC links
+        tocLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Mobile Menu Toggle (Placeholder)
+        function toggleMobileMenu() {
+            console.log('Mobile menu toggled');
+        }
+    </script>
+</body>
+</html>

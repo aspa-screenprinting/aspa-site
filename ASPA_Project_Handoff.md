@@ -1,0 +1,617 @@
+# ASPA Website Refresh — Project Handoff
+
+**Project:** screen-printing.us redesign
+**Client:** Dustin Cochran (cochran.dustin@gmail.com)
+**Date:** March 3–4, 2026 (last updated: Session 5)
+**Status:** In Progress — Core Pages Built, Directory & Roster Complete, Resource Hub COMPLETE (All 18 Articles Live)
+
+---
+
+## Project Overview
+
+Full redesign of the American Screen Printing Association (ASPA) website at screen-printing.us. The existing site is a Google Sites page with Blogger-powered subpages — functional but dated. Goal is to bring it into 2026 with a bold, creative, modern design while preserving all core functionality and dramatically improving SEO.
+
+## Live Site Audit (March 3, 2026)
+
+Reviewed the current live site at screen-printing.us to establish source of truth. Key findings:
+
+### Confirmed Facts from Live Site
+- **Established:** 2004 (NOT 1993 — banner says "Est. 2004", footer says "Since 2004")
+- **Copyright:** 2004–2026 American Screen Printing Association Inc. (ASPA)
+- **Reach:** "Members in 100 Countries" (global, not just US)
+- **Certified:** "Thousands of screen printers worldwide"
+- **Page views:** "Millions of Page Views Served"
+- **Training course created:** September 2013 ("enrolled hundreds of students")
+- **Education arm:** Called "ASPA Institute" — Screen Printing Training School
+- **President:** Martin Berda (Dustin is taking over)
+- **Address:** 105 Mockingbird Dr., Butler, PA 16001
+- **Phone:** (724) 886-3535
+
+### Live Site Pricing (BEFORE our changes)
+- **Business Membership:** $125 one-time (for Screen Printers, T-Shirt Shops, Embroiderers, Sign Shops)
+- **Supplier Membership:** $249 one-time (for Equipment Manufacturers and Supply Shops)
+- **Diploma in Screen Printing Course:** $125 one-time (separate product, online training)
+- **CSP Exam Fee:** $59 (includes study guide)
+- **CSP Passing Score on live site:** 75% (27 of 36)
+
+### Live Site Certified Printers Page
+- Lists CSP-certified professionals alphabetically (A-D, E-H, I-L, M-P, Q-T, U-Z pages)
+- Accordion-style by last name letter
+- Hundreds of names listed (just name and sometimes location)
+- Includes an "ASPA Certified Screen Printer" badge — gold/yellow background, outdated clip-art style
+- Testimonial from Barry L. about career advancement from certification
+
+### Real Members / Testimonials from Live Site
+- **Barry L.** — Virginia Beach, VA (CSP Certified): Credited certification with career advancement to production manager
+- **Dhanabal Venkatesan** — 24 X 7 Digitizing.com, India: Praised the Diploma course
+- **Blue Ridge Screen Products** — Charlotte, NC 28269 | Tel. (704) 815-6401
+- **Enemy Ink Ltd.** — UK + Orlando, FL | Phone: (02477) 983059
+- **Garden City High School** — Garden City, MI 48135
+- **Bay-Arenac ISD Career Center** — Bay City, MI 48706
+
+### Live Site Nav Pages (existing content)
+- Home, "How-to" Blogs (Blogger), Join ASPA, Get Certified, Store (Blogger), Training, Equipment & Supplies (**BROKEN — 404**), Jobs (Blogger), Videos, News
+
+### Live Site Blog Structure (Discovered Session 4)
+The blog content is scattered across **multiple separate Blogger blogs**, each embedded via iframe into Google Sites pages:
+- `americanscreenprintingassocblog.blogspot.com` — Main hub/directory (mostly empty, just links to categories)
+- `homebasedscreenprintingadvice.blogspot.com` — Home-based printing articles (has real content: safety, startup costs, motivation tips)
+- `businessadviceforscreenprinters.blogspot.com` — Business advice articles
+- Additional separate blogs likely exist for other categories
+
+Blog categories listed on the directory page: Ask ASPA!, ASPA News, The ASPA Store, Home-Based T-Shirt Printing, Training and Education, The Artist's Corner, Strictly Business, "How-to" Articles, Job Openings, Screen Printing Tips and Tricks, Screen Printers Tell Their Stories, Equipment and Businesses for Sale
+
+**Key findings:**
+- Most category label pages on the main blog return "No posts found" — content lives on separate Blogger subdomains
+- Screen Printing Tips page on Google Sites is a **404**
+- Some articles are AI-generated (saw "Source: Perplexity (2025)" attribution)
+- All link equity is going to blogspot.com, not screen-printing.us — major SEO leak
+- Content quality is decent but presentation is dated
+
+### Associated Domains
+- screen-printing.us (primary)
+- americanscreenprintingassociation.com
+- screenprinting-aspa.com
+- aspaUSA.com
+
+---
+
+## Membership Model Change (March 3, 2026)
+
+### Old Model (Live Site)
+One-time fees, no recurring revenue:
+- Business: $125 one-time
+- Supplier: $249 one-time
+- Training: $125 one-time (separate "Diploma" product)
+
+### New Model — ASPA+
+Annual recurring memberships with premium perks:
+- **ASPA+ Business:** $49/year
+- **ASPA+ Supplier:** $99/year
+- **ASPA+ Training:** $79/year
+
+### Legacy Members
+- Existing one-time members are **fully grandfathered** — nothing changes
+- They retain all current benefits indefinitely
+- Can upgrade to ASPA+ at a **discounted rate** to unlock new perks
+
+### ASPA+ Exclusive Perks (new, not on Legacy)
+- Industry supplier discount program
+- CE credits (continuing education)
+- Annual CSP recertification included (Business tier)
+- Priority directory placement
+- Exclusive webinars & resources
+- Featured supplier spotlights (Supplier tier)
+- Member-to-supplier deal promotions (Supplier tier)
+- Updated training content & new modules yearly (Training tier)
+- CE credits for educators (Training tier)
+
+### Future Consideration
+- May split membership into **individual vs. business** enrollment paths later
+- Structure is modular enough to accommodate this
+
+---
+
+## Design Direction
+
+- **Style:** Bold & creative — dark theme with ink-splatter energy
+- **Color palette:** Cyan (#00d4ff), Magenta (#e91e8c), Purple (#6c2bd9), Yellow (#ffd400), Orange (#ff6b35) on deep black (#0a0a0a) and dark navy (#1a1a2e)
+- **Fonts:** Bebas Neue (display headlines), Space Grotesk (headings/UI), Inter (body text) — all via Google Fonts
+- **Card pattern:** rgba(255,255,255,0.03) bg, rgba(255,255,255,0.06) border, 16px radius, -4px hover translate
+- **Container:** max-width 1200px, margin 0 auto, padding 0 24px
+- **Approach:** Static HTML/CSS/JS — single files, no build step, no frameworks. Deployable anywhere.
+
+---
+
+## Files Delivered
+
+### `index.html` — Homepage
+Single-page site with anchor navigation. Sections:
+- **Hero** — "Ink Runs In Our Veins" tagline, stats (1,200+ members, 100+ countries, 20+ years), dual CTAs
+- **Member Directory** — Search bar redirects to directory.html + 6 category cards linking to directory.html with hash filters (#category=tshirt, etc.)
+- **CSP Certification** — Visual cert card with exam details, 4 topic area breakdowns, $59 pricing, links to exam.html
+- **Membership** — 3 ASPA+ pricing cards:
+  - ASPA+ Business: $49/year (most popular)
+  - ASPA+ Supplier: $99/year
+  - ASPA+ Training: $79/year
+  - ASPA+ exclusive perks highlighted with cyan star markers
+  - Legacy member upgrade banner
+- **The Ink Lab (Resources)** — 6 resource cards
+- **Testimonials** — 3 cards using real testimonials from live site
+- **CTA Banner** — Final conversion push
+- **Footer** — Full nav columns with links to all pages (directory.html, certified-roster.html, about.html, contact.html, privacy.html, terms.html)
+
+Nav includes: Directory, Certified, Certification, Membership, Resources, Join ASPA CTA
+
+### `exam.html` — CSP Certification Exam (Full Flow)
+A 5-screen single-page application:
+1. **Enroll & Pay** — Registration form + mock payment UI. Ready for Stripe/PayPal.
+2. **Confirmation** — Study guide download + mock email preview
+3. **Exam Gate** — Timer warning, checkbox confirmation required
+4. **The Exam** — 36 questions from 60+ bank, 45-min timer, auto-submit, question navigator
+5. **Results** — Animated score ring, certificate preview + PDF download on pass
+
+**Passing score: 75% (27 of 36)** — matches the live site (fixed from earlier 80% discrepancy)
+
+### `join.html` — Membership Signup Page (Full Flow)
+A 3-screen SPA for ASPA+ enrollment:
+1. **Plan Selection** — 3 ASPA+ tiers, comparison table, FAQ (6 questions), Legacy upgrade banner
+2. **Signup Form** — Name, email, business, city/state, website + mock payment with "/year" pricing
+3. **Welcome / Confirmation** — PDF membership certificate download, next steps cards
+
+### `directory.html` — Member Directory *(NEW)*
+Full searchable Member Directory with:
+- Sticky search/filter bar (text search, category dropdown, state filter, ASPA+ and CSP toggles)
+- Card-based results grid (350px minmax), 24 results per page pagination
+- URL hash support for shareable filtered views (#category=tshirt&state=NC&q=search)
+- 15 sample member entries (4 real from live site + 11 realistic placeholders)
+- ASPA+ members get priority placement (sorted first)
+- Empty state handling, debounced search (300ms), AND logic for combined filters
+- "Get Listed" CTA banner linking to join.html
+- Mobile responsive with collapsible filter panel
+
+### `certified-roster.html` — CSP Certified Printer Roster *(NEW)*
+Searchable roster of CSP-certified professionals:
+- Hero with dynamic stats (certified count, states, countries)
+- Sticky filter bar: text search, specialty dropdown (Textile/Garment, Signage & Graphics, Industrial, Multi-Specialty), state filter, certification year dropdown (2020-2026), ASPA+ toggle
+- Card-based results showing: name, company, location, specialty tags, CSP cert number, certification date, Active/Renewal Due status badge, ASPA+ indicator
+- 20 sample entries including 4 real names from live site
+- URL hash support, pagination, ASPA+ priority sorting
+- **Badge Showcase section** with modernized CSP badge (SVG) and download button
+- "Get Certified" CTA banner linking to exam.html
+
+### `csp-badge.svg` — Modernized CSP Badge *(NEW)*
+Redesigned "ASPA Certified Screen Printer" badge replacing the dated gold/yellow clip-art badge from the live site:
+- Dark shield shape matching site design system
+- Cyan-to-purple gradient border with drop shadow
+- Gold seal with checkmark at center
+- "ASPA" in Bebas Neue, "CERTIFIED" in cyan, "SCREEN PRINTER" in subtle white
+- "EST. 2004" at bottom
+- Available for certified printers to download and display on their websites
+
+### `about.html` — About ASPA *(NEW)*
+- Real ASPA history (founded 2004), mission (Education, Certification, Community)
+- ASPA Institute info, CSP program description
+- **Leadership section is PLACEHOLDER** — Dustin is taking over from Martin Berda
+- Associated domains listed, address, phone
+
+### `contact.html` — Contact Page *(NEW)*
+- Contact form (Name, Email, Subject dropdown, Message) with simulated submission
+- Contact info cards (email, phone, address, website)
+- Quick links section
+
+### `privacy.html` — Privacy Policy *(NEW)*
+- Full GDPR/CCPA-compliant privacy policy with 13 sections
+- Table of contents, scroll-to-top button
+- **Note: Should have lawyer review before publication**
+
+### `terms.html` — Terms of Use *(NEW)*
+- Comprehensive terms covering ASPA+ memberships (correct tier names: ASPA+ Business/Supplier/Training), CSP exam, directory, payments
+- 13 sections covering all site services
+
+### `resources.html` — Resource Hub / Learning Center *(NEW)*
+Central content hub ("The Ink Lab") with:
+- Hero with search bar (300ms debounced)
+- 7 category filter tabs with dynamic article counts: All, Getting Started, How-To Guides, Business & Growth, Equipment & Supplies, Tips & Tricks, Industry News
+- 18 article cards (ALL 18 LIVE — no more "Coming Soon" overlays)
+- Category-colored pills (cyan, purple, magenta, orange, yellow, gray)
+- Featured/pillar article badges (gold star)
+- Conversion CTA cards injected every 6 articles (rotating: Get Certified, Join ASPA+, Find a Printer)
+- "Content Ladder" 3-step journey visual: Learn → Get Certified → Join Community
+- URL hash support for filtered views
+- Article data in JSON format — easy to add new articles
+
+### `article-how-to-screen-print.html` — Pillar Article #1 *(NEW)*
+"How to Screen Print T-Shirts: The Complete Beginner's Guide" — ~5,000 words:
+- 9 comprehensive sections: Equipment & Supplies, Artwork Prep, Coating & Exposing, Press Setup, Printing, Curing, Clean Up, Taking It Further
+- Sticky TOC sidebar with IntersectionObserver active-state highlighting
+- Pro tip callout boxes (cyan), safety warning boxes (orange), budget breakdown boxes
+- Budget tiers: home $500-$1,500, mid $2,000-$5,000, pro $10,000+
+- Specific technical details (mesh counts, temperatures, squeegee angles)
+- Natural ASPA integration (certification, training, membership mentions)
+- Related articles section, dual-CTA banner
+- **SEO target: "how to screen print t-shirts" — the live site's current page title**
+
+### `article-startup-costs.html` — Pillar Article #2 *(NEW)*
+"How Much Does It Cost to Start a Screen Printing Business?" — ~2,800+ words:
+- 9 sections: Three Tiers, Equipment Costs, Supplies, Workspace, Business Setup, First-Year Budgets, Saving Money, Break-Even, Getting Started Smart
+- Three realistic budget scenarios (Sarah's Garage $1,500, Mike's Shop $8,000, Team Print Co. $40,000+)
+- Specific dollar amounts throughout for all equipment, supplies, and operating costs
+- Break-even analysis with per-shirt margins
+- Same article template as pillar #1 (magenta category color instead of cyan)
+- **SEO target: "screen printing startup costs" / "how much to start screen printing business"**
+
+### `article-equipment-guide.html` — Article #3 *(NEW — Session 5)*
+"Screen Printing Equipment Guide for Beginners" — ~4,800+ words:
+- 9 sections: Essential Equipment List, Presses, Screens & Frames, Inks & Chemicals, Exposure Units, Heat Curing Equipment, Workspace Essentials, Starter Packages vs Individual, Smart Buying Decisions
+- Real budget tiers: Hobby ($500-800), Side Hustle ($1,500-3,000), Small Shop ($5,000-10,000)
+- Brand mentions (Riley Hopkins, Workhorse, Vastex, M&R, Ranar, etc.)
+- Orange category tag (Equipment & Supplies)
+- **SEO target: "screen printing equipment" / "screen printing equipment for beginners"**
+
+### `article-common-mistakes.html` — Article #4 *(NEW — Session 5)*
+"10 Common Screen Printing Mistakes and How to Fix Them" — ~4,500+ words:
+- 12 sections: Intro + 10 mistakes + wrap-up
+- Covers: poor tension, wrong mesh, exposure errors, squeegee pressure, skipping test prints, not degreasing, wrong off-contact, undercuring, bad artwork, rushing
+- Each mistake: problem description, symptoms, fix, practical tip
+- Yellow category tag (Tips & Tricks)
+- **SEO target: "screen printing mistakes" / "screen printing troubleshooting"**
+
+### `article-screen-print-vs-dtg.html` — Article #5 *(NEW — Session 5)*
+"Screen Printing vs DTG vs Sublimation: Which Method is Right for You?" — ~4,800+ words:
+- 10 sections: Intro, Screen Printing, DTG, Sublimation, Head-to-Head Comparison, When to Choose Each (3 sections), Combining Methods, Making Your Decision
+- Real cost breakdowns at different quantities (1, 24, 144, 500+ units)
+- Balanced tone — fair to all methods while positioning ASPA's screen printing expertise
+- Cyan category tag (Getting Started)
+- **SEO target: "screen printing vs DTG" / "screen printing vs sublimation" / "DTG vs screen printing"**
+
+### `article-plastisol-vs-water-based.html` — Article #6 *(NEW — Session 5)*
+"Plastisol vs Water-Based Ink: When to Use Each" — ~4,500+ words:
+- 10 sections: Two Philosophies, Plastisol Explained, Water-Based Explained, Head-to-Head Comparison, When to Choose Each (2 sections), Discharge Ink, Mixing Methods, Environmental Considerations, Decision Framework
+- Comparison cards for feel, opacity, vibrancy, durability, cleanup, eco-impact
+- Real brand names (Wilflex, Union Ink, Matsui, Green Galaxy, Rutland)
+- Safety warnings about discharge ink ventilation (formaldehyde)
+- Purple category tag (How-To Guides)
+- **SEO target: "plastisol vs water-based ink" / "screen printing ink comparison"**
+
+### `article-pricing-guide.html` — Article #7 *(NEW — Session 5)*
+"Pricing Your Screen Printing Work: A Complete Guide" — ~4,500+ words:
+- 10 sections: Pricing Fundamentals, True Costs, The Formula, Quantity Breaks, Print Complexity, Common Mistakes, Art & Setup Fees, Market Positioning, Raising Prices, Building Your Price Sheet
+- Full worked example: 48 Gildan 5000s, 2-color → $10.50/shirt breakdown
+- Quantity break pricing table (12-288 qty tiers)
+- Three market positions (Budget, Mid-market, Premium)
+- Magenta category tag (Business & Growth)
+- **SEO target: "how to price screen printing" / "screen printing pricing guide"**
+
+### `article-coat-and-expose.html` — Article #8 *(NEW — Session 5)*
+"How to Coat and Expose a Screen: Step-by-Step" — ~4,500+ words:
+- 10 sections: Foundation, Emulsion Types, Screen Prep, Coating Technique, Drying, Exposure Light Sources, Calculating Exposure Time, Washout & Inspection, Troubleshooting, Advanced Tips
+- Three emulsion types detailed (diazo, SBQ, dual-cure) with brands (Speedball, Baselayr, Chromaline, Ulano, CCI, Murakami)
+- Exposure time starting points for different light sources
+- Step wedge testing methodology
+- Purple category tag (How-To Guides)
+- **SEO target: "how to coat a screen for screen printing" / "screen exposure time"**
+
+### `article-home-based-business.html` — Article #9 *(NEW — Session 5)*
+"Starting a Home-Based T-Shirt Business: From Garage to Growth" — ~4,500+ words:
+- 10 sections: The Garage Dream, Is It Right for You?, Legal Basics, Garage Workshop Setup, First Customers, Pricing for Profit, Building Your Brand, Common Mistakes, Scaling Up, First 90 Days Action Plan
+- Week-by-week 90-day roadmap for launching
+- Revenue milestones: $5K/month (side hustle) → $10K (full-time) → $20K+ (shop consideration)
+- Legal checklist: business license, DBA, EIN, sales tax, insurance
+- Magenta category tag (Business & Growth)
+- **SEO target: "home-based t-shirt business" / "start screen printing business from home"**
+
+### `article-mesh-counts.html` — Article #10 *(NEW — Session 5)*
+"Understanding Mesh Counts: Which Screen for Which Job" — ~4,000+ words:
+- 10 sections: Why Mesh Matters, What is Mesh Count, The Mesh Spectrum (40-355), Mesh & Ink Type, Design Complexity, Mesh & Substrate, Screen Tension, Decision Framework, Building Inventory, Mesh Mastery
+- Complete mesh count reference: 40 through 355 with use cases for each
+- Ink type pairing guide (plastisol, water-based, discharge, specialty)
+- Halftone LPI to mesh count rule (4x)
+- Beginner inventory recommendation (six 110 + two 156)
+- Purple category tag (How-To Guides)
+- **SEO target: "screen printing mesh count" / "which mesh count for screen printing"**
+
+### `article-garage-safety.html` — Article #11 *(NEW — Session 5)*
+"I Print T-Shirts in My Garage: Is It Safe for My Kids?" — ~4,000+ words:
+- 10 sections: The Question Every Home Printer Asks, Chemical Inventory, Ventilation, Storage, Physical Boundaries, PPE, Specific Scenarios (Q&A format), Fire Safety, Eco-Friendly Alternatives, Safe Printing is Smart Printing
+- Detailed chemical-by-chemical safety profiles (plastisol, water-based, emulsion, discharge, reclaimers)
+- Ventilation tiers: minimum → better → best setups with costs
+- Heavy use of orange safety warning callouts throughout
+- PPE checklist with specific product recommendations and costs
+- Yellow category tag (Tips & Tricks)
+- **SEO target: "is screen printing safe at home" / "screen printing safety" / "screen printing chemicals safety"**
+
+### `article-what-is-screen-printing.html` — Article #12 *(NEW — Session 5)*
+"What is Screen Printing? History, Process, and Modern Applications" — ~4,000+ words:
+- 10 sections: The Art Behind Every T-Shirt, How It Works, History (960 AD to 2026), Step-by-Step Process, Types of Screen Printing, Substrates, vs Other Methods, Modern Industry 2026, Who Uses It Today, Getting Started
+- Timeline from Song Dynasty China through Andy Warhol to modern $10B industry
+- Cyan category tag (Getting Started)
+- **SEO target: "what is screen printing" / "screen printing history"**
+
+### `article-12-ways-to-fail.html` — Article #13 *(NEW — Session 5)*
+"12 Sure Ways to Fail in the T-Shirt Business (And How to Avoid Them)" — ~4,500+ words:
+- 14 sections: Intro + 12 failure modes + conclusion
+- Covers: not treating as business, underpricing, no niche, ignoring quality, overspending on equipment, not learning properly, bad communication, no online presence, not collecting money, doing everything yourself, ignoring numbers, giving up too soon
+- Each failure: problem + fix + practical tip
+- Magenta category tag (Business & Growth)
+- **SEO target: "t-shirt business mistakes" / "why screen printing businesses fail"**
+
+### `article-sublimation-printing.html` — Article #14 *(NEW — Session 5)*
+"What is Sublimation Printing?" — ~3,500+ words:
+- 10 sections: The Other Printing Method, The Science, Equipment Needed, What You Can/Can't Sublimate, Pros, Cons, vs Screen Printing, Business Applications, Getting Started, Bottom Line
+- Equipment breakdown: Sawgrass vs converted Epson, heat presses, substrates
+- Polyester-only limitation prominently warned
+- Purple category tag (How-To Guides)
+- **SEO target: "what is sublimation printing" / "sublimation vs screen printing"**
+
+### `article-best-presses.html` — Article #15 *(NEW — Session 5)*
+"Best Screen Printing Presses for Small Shops (2026)" — ~4,500+ words:
+- 10 sections: Production Engine, Manual Presses, Semi-Automatic, Automatic, Selection Criteria, Price vs Value, Complementary Equipment, New vs Used, Scaling Roadmap, Decision Guide
+- Real brand reviews: Riley Hopkins 150/250, Vastex V-1000, Workhorse Odyssey, M&R Sportsman EX/Chameleon, Anatol Volt/Titan, ROQ
+- Price ranges from $200 budget to $80,000+ automatic
+- 4-phase growth roadmap
+- Orange category tag (Equipment & Supplies)
+- **SEO target: "best screen printing press" / "screen printing press for small shops"**
+
+### `article-essential-supplies.html` — Article #16 *(NEW — Session 5)*
+"Essential Supplies Every New Screen Printer Needs" — ~3,800+ words:
+- 10 sections: Checklist Intro, Screens & Frames, Inks, Emulsion & Exposure, Chemicals & Cleaners, Squeegees, Blank Garments, Tools & Accessories, Where to Buy, Starter Budget
+- Complete supply budget: $535-1,010 total
+- Brand recommendations throughout (Wilflex, Baselayr, Chromaline, Gildan, Bella+Canvas)
+- Supplier guide: SanMar, S&S Activewear, Alphabroder, online retailers
+- Orange category tag (Equipment & Supplies)
+- **SEO target: "screen printing supplies" / "screen printing supplies checklist"**
+
+### `article-ghosting-staining.html` — Article #17 *(NEW — Session 5)*
+"How to Prevent Ghosting and Staining on Screens" — ~3,500+ words:
+- 9 sections: The Ghost in Your Screen, Ghosting vs Staining, Causes, Prevention, Removal Steps, Stubborn Stains, Ink-Specific Tips, Maintenance Best Practices, Bottom Line
+- Step-by-step removal process with specific products (Franmar, CCI, Ulano)
+- Ink-specific advice: plastisol, water-based, discharge, UV, fluorescent
+- Screen maintenance routine checklist
+- Yellow category tag (Tips & Tricks)
+- **SEO target: "screen printing ghosting" / "ghost image screen printing" / "screen staining"**
+
+### `article-aspa-plus-launch.html` — Article #18 *(NEW — Session 5)*
+"ASPA Launches ASPA+ Membership: What's New for 2026" — ~2,500+ words:
+- 8 sections: New Chapter, Why the Change, Three Tiers, CE Credits, Supplier Discounts, What Stays the Same, How to Join, Future of ASPA
+- Three tiers detailed: Business $49/yr, Supplier $99/yr, Training $79/yr
+- CE credit system explanation
+- Legacy member grandfathering emphasized
+- Gray category tag (Industry News)
+- **SEO target: "ASPA membership" / "screen printing association membership"**
+
+### `ASPA_CSP_Study_Guide.pdf` — Placeholder
+Auto-generated placeholder. Dustin will provide the real study guide — just swap the file.
+
+---
+
+## Cross-Page Navigation
+
+All pages now have consistent navigation:
+- **Nav bar:** Home, Directory, Certified, Certification, Membership, Resources, Join ASPA (CTA)
+- **Footer:** Directory section (links to directory.html categories), Certification section (CSP Roster, CSP Exam links), Association section (About, Contact, Privacy, Terms)
+
+---
+
+## SEO Strategy
+
+### Current SEO Problems on Live Site
+1. Page title is "How to Screen Print T-Shirts" — not branded
+2. No meta descriptions, structured data, semantic HTML, internal linking
+3. Blog content on Blogger (separate subdomain) — link equity split
+4. Equipment & Supplies page is a 404
+5. No sitemap or robots.txt
+
+### SEO Architecture for the Redesign
+```
+screen-printing.us/                          → "screen printing association" / "ASPA"
+screen-printing.us/join                      → "join screen printing association"
+screen-printing.us/certified-roster          → "certified screen printers" / "CSP certified"
+screen-printing.us/exam                      → "screen printer certification exam"
+screen-printing.us/directory                 → "find screen printer near me"
+screen-printing.us/training                  → "screen printing training online"
+screen-printing.us/glossary                  → "screen printing terms" / "glossary"
+screen-printing.us/how-to-screen-print       → "how to screen print t-shirts"
+screen-printing.us/equipment-guide           → "screen printing equipment"
+screen-printing.us/jobs                      → "screen printing jobs"
+screen-printing.us/about                     → brand authority
+screen-printing.us/contact                   → local SEO signal
+```
+
+### Quick SEO Wins Still Needed
+- [ ] Add `<title>` and `<meta name="description">` to all pages
+- [ ] Add Organization JSON-LD schema to index.html
+- [ ] Add FAQ JSON-LD schema to join.html
+- [ ] Add Open Graph + Twitter Card meta tags
+- [ ] Create sitemap.xml and robots.txt
+- [ ] Proper `alt` attributes on all images/icons
+
+---
+
+## What's Still Needed
+
+### Immediate Next Steps
+- [ ] **Real study guide PDF** — Dustin to provide; swap into `ASPA_CSP_Study_Guide.pdf`
+- [ ] **Payment integration** — Wire up Stripe/PayPal for ASPA+ recurring billing + CSP exam one-time payment
+- [ ] **Email delivery** — SendGrid/Mailgun for exam access links
+- [ ] **Exam link security** — One-time-use tokens for exam access
+- [ ] **Backend/database** — Store exam results, certifications, member data, subscriptions
+- [ ] **Real ASPA logo** — Currently text-only branding
+- [ ] **About page leadership section** — Update with Dustin's info (currently placeholder)
+
+### Pages/Sections Not Yet Built
+- [x] ~~Member Directory~~ → `directory.html` ✅
+- [x] ~~Membership Signup~~ → `join.html` ✅
+- [x] ~~Certified Printer Roster~~ → `certified-roster.html` ✅
+- [x] ~~About ASPA~~ → `about.html` ✅
+- [x] ~~Contact~~ → `contact.html` ✅
+- [x] ~~Privacy Policy~~ → `privacy.html` ✅
+- [x] ~~Terms of Use~~ → `terms.html` ✅
+- [x] ~~CSP Badge redesign~~ → `csp-badge.svg` ✅
+- [x] ~~Resource Hub / Learning Center~~ → `resources.html` ✅
+- [x] ~~How to Screen Print pillar article~~ → `article-how-to-screen-print.html` ✅
+- [x] ~~Startup Costs pillar article~~ → `article-startup-costs.html` ✅
+- [ ] **Glossary** — Searchable A-Z screen printing terminology (high SEO value)
+- [x] ~~All 18 articles built~~ → Resource Hub COMPLETE ✅
+- [ ] **Videos** page — How-to video library
+- [ ] **Jobs / Marketplace** — Job openings, equipment for sale, businesses for sale
+- [ ] **News** page
+- [ ] **Advice Notice & Disclaimers** page
+- [ ] **Advertise with Us** page
+
+### ASPA+ Value-Add Ideas (Brainstormed)
+- Downloadable business templates (quote sheets, work orders, invoices)
+- Pricing calculator tool
+- "ASPA+ Verified" digital badge for websites/social media
+- Annual "State of Screen Printing" industry report
+- Job board / help wanted board
+- Digital member card for email signatures and trade shows
+- Supplier discount program
+- Trade show perks, group insurance referral
+- Software discounts (DecoNetwork, Printavo, InkSoft, etc.)
+- Monthly "Ink Lab" webinar series
+- Private community forum (Slack/Discord)
+- Monthly member spotlight
+- Referral directory for overflow work
+
+### Polish & Production
+- [ ] Favicon
+- [ ] Analytics integration (GA4)
+- [ ] SSL and hosting setup
+- [ ] 301 redirects from old Google Sites URLs
+- [ ] Mobile hamburger menu implementation (currently placeholder on all pages)
+
+---
+
+## CE Credit Framework (Discussed Session 4)
+
+ASPA can create its own CE credit system — there's no federal/state regulatory body for screen printing certification. As the industry's certification authority, ASPA defines the rules.
+
+### Proposed Structure
+- CSP holders need X credits per renewal cycle (annual or biennial) to maintain "Active" status
+- If threshold not met, status drops to "Renewal Due" → "Lapsed" (infrastructure already exists on roster page)
+- Credits tied to ASPA+ membership — makes the annual fee sticky and drives engagement
+
+### Activities That Could Earn Credits
+- Complete an ASPA article quiz (read article, answer 3-5 questions): 1 credit
+- Attend an ASPA webinar: 2 credits
+- Complete an ASPA Institute training module: 5 credits
+- Pass a specialty mini-exam (advanced textile, industrial, etc.): 10 credits
+- Attend an industry trade show/conference: 5 credits (with proof)
+- Teach/mentor through ASPA: 3 credits
+- Contribute an article or case study to the resource hub: 3 credits
+
+### Technical Requirements (Future Build)
+- Member dashboard with credit balance tracking
+- Article quiz components at bottom of resource pages
+- Activity logging and verification system
+- Near-term: could start with honor-system self-reporting or simple form submissions
+
+### Why This Matters for the Business
+- Creates ongoing engagement loop (members return regularly for content)
+- Makes ASPA+ membership essential (not just a one-time purchase)
+- Drives content consumption → boosts SEO metrics
+- Differentiates from Printing United Alliance (see competitive analysis below)
+
+---
+
+## Competitive Landscape: Printing United Alliance (Researched Session 4)
+
+### What They Offer
+- **Certifications:** G7+ Expert (color management), Digital Color Professional (SGIA legacy), PDAA (architectural film installation), Customer Service Professional. **None are screen printing technique/knowledge certifications.**
+- **iLEARNING+ Platform:** 8,000+ learners across 65+ countries. Courses on AI, color management, safety, heat printing, screen printing (broad), workflow. Members get 20% off.
+- **Trade Show:** PRINTING United Expo — the industry's biggest annual event
+- **Scope:** Broad — commercial, packaging, wide-format, digital, garment, electronics printing
+
+### ASPA's Competitive Position
+- **ASPA fills a niche Printing United doesn't:** A dedicated screen printing certification (CSP) testing actual craft knowledge
+- **No evidence of a structured CE credit program** at Printing United tied to their certifications — this is an opening for ASPA
+- The two organizations serve overlapping but different audiences: Printing United = big-tent industry association; ASPA = laser-focused on screen printing
+
+### Partnership Opportunity
+- ASPA as "specialty certification partner" within Printing United's ecosystem
+- CSP recognized as qualifying for credits on Printing United's platform (or vice versa)
+- ASPA members get discounted Printing United Expo access
+- Cross-referral: Printing United points screen-printing-specific inquiries to ASPA
+- Co-developed screen printing courses on iLEARNING+ carrying ASPA CSP credit
+- **Action item:** Dustin to consider outreach to Printing United Alliance for partnership discussion
+
+---
+
+## Content Strategy: The "Content Ladder" (Designed Session 4)
+
+### Funnel Structure
+Three-tier approach to content that turns searchers into members:
+
+**Tier 1 — "Discovery" (free, public, SEO magnets)**
+High-volume search terms. Completely free. Establishes ASPA as the authority.
+- "How to Screen Print T-Shirts" ✅ BUILT → `article-how-to-screen-print.html`
+- "How Much Does It Cost to Start?" ✅ BUILT → `article-startup-costs.html`
+- "Screen Printing Equipment Guide for Beginners" ✅ BUILT → `article-equipment-guide.html`
+- "Screen Printing vs DTG vs Sublimation" ✅ BUILT → `article-screen-print-vs-dtg.html`
+- "10 Common Screen Printing Mistakes" ✅ BUILT → `article-common-mistakes.html`
+- "Plastisol vs Water-Based Ink" ✅ BUILT → `article-plastisol-vs-water-based.html`
+- "Pricing Your Screen Printing Work" ✅ BUILT → `article-pricing-guide.html`
+- "How to Coat and Expose a Screen" ✅ BUILT → `article-coat-and-expose.html`
+- "Starting a Home-Based T-Shirt Business" ✅ BUILT → `article-home-based-business.html`
+- "Understanding Mesh Counts" ✅ BUILT → `article-mesh-counts.html`
+- "Garage Safety for Home Printers" ✅ BUILT → `article-garage-safety.html`
+- Screen Printing Glossary A-Z (planned)
+- Home Screen Printing Setup (planned)
+
+**Tier 2 — "Education" (free previews → paid training/certification)**
+Deeper content positioning ASPA's training and CSP exam as the next step.
+- What Does the CSP Exam Cover?
+- Skills Every Professional Screen Printer Needs
+- From Garage to Shop: Scaling Your Business
+
+**Tier 3 — "Community" (ASPA+ value, member-highlighted)**
+Makes membership feel essential.
+- Member Directory (find a printer / get found) ✅ BUILT
+- Certified Roster (prove credibility) ✅ BUILT
+- Member spotlights, industry reports (planned)
+
+### Article Template Established
+Both pillar articles use a reusable template pattern:
+- Sticky TOC sidebar with IntersectionObserver scroll tracking
+- Category-colored pills (cyan for Getting Started, magenta for Business & Growth, etc.)
+- Pro tip callout boxes (cyan border), safety warning boxes (orange border), budget breakdown boxes
+- Related articles section (3 cards)
+- Dual-CTA banner (Get Certified + Join ASPA+)
+- Breadcrumb navigation, article metadata (date, read time, author)
+- Max-width 800px article body inside 1200px container
+- **All 18 articles now live** — Resource Hub content complete, zero "Coming Soon" stubs remaining
+
+---
+
+## Key Decisions Made
+
+1. **Single-page homepage** with anchor nav — keeps it simple, fast
+2. **75% passing score** (27 of 36) — matches the live site
+3. **36 questions per attempt** randomized from a larger pool (60+)
+4. **Gated exam flow** — payment first, study guide delivered immediately, exam link via email
+5. **Mock payment for now** — UI built for card/PayPal, easy to wire up later
+6. **ASPA+ annual membership model** — replacing one-time fees with $49/$99/$79 per year
+7. **Legacy members fully grandfathered** with upgrade path at a discount
+8. **Est. 2004** — confirmed from live site
+9. **CSP badge redesigned** — modern dark shield design matching site aesthetic, replacing dated gold clip-art
+10. **All files self-contained** — inline CSS/JS, no build step, no frameworks
+11. **Content ladder approach** — 3-tier funnel (Discovery → Education → Community) to convert searchers into members
+12. **ASPA owns its own CE credit system** — no external regulatory body; ASPA defines credit requirements, activities, and thresholds
+13. **Printing United Alliance = partner, not competitor** — they don't offer a screen printing craft certification; ASPA fills that niche
+14. **Blog content to migrate on-site** — stop building equity for Blogger subdomains; all new content on screen-printing.us
+15. **Article template standardized** — sticky TOC, callout boxes, related articles, dual-CTA; reusable for all future articles
+
+## Technical Notes
+
+- All files are self-contained HTML with inline CSS and JS
+- jsPDF for client-side PDF certificate generation (CDN)
+- Mobile responsive throughout (breakpoint at 768px)
+- URL hash-based filter state for shareable directory/roster links
+- SPA pattern with showScreen() for multi-step flows (exam, join)
+- Debounced search (300ms) with AND logic for combined filters
+- Files designed to sit in the same directory
+
+---
+
+*To resume: share this document at the start of a new session along with any files that need updating. All source files are in the project folder.*

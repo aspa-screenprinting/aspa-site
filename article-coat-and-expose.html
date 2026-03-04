@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Coat and Expose a Screen for Screen Printing: Step-by-Step (2026) | ASPA</title>
+    <meta name="description" content="Learn how to coat emulsion and expose screens for screen printing. Step-by-step guide covering emulsion types, coating technique, exposure, and washout from ASPA.">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ========================================
+           DESIGN SYSTEM & ROOT VARIABLES
+           ======================================== */
+        :root {
+            --ink-black: #0a0a0a;
+            --ink-dark: #1a1a2e;
+            --ink-purple: #6c2bd9;
+            --ink-magenta: #e91e8c;
+            --ink-cyan: #00d4ff;
+            --ink-yellow: #ffd400;
+            --ink-orange: #ff6b35;
+            --ink-white: #f8f8f8;
+            --ink-gray: #b0b0b0;
+            --ink-gray-dark: #2a2a3e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--ink-black);
+            color: var(--ink-white);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ========================================
+           NAVIGATION BAR
+           ======================================== */
+        nav {
+            background-color: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 0 24px;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .nav-logo {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .nav-logo-main {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--ink-white);
+            letter-spacing: 2px;
+        }
+
+        .nav-logo-sub {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 9px;
+            font-weight: 600;
+            color: var(--ink-cyan);
+            letter-spacing: 1.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--ink-gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--ink-cyan);
+        }
+
+        .nav-links a.active {
+            color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            color: var(--ink-black);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background-color: var(--ink-white);
+            border-radius: 2px;
+            transition: 0.3s ease;
+        }
+
+        /* ========================================
+           ARTICLE HEADER
+           ======================================== */
+        .article-header {
+            background: linear-gradient(135deg, rgba(108, 43, 217, 0.1) 0%, rgba(233, 30, 140, 0.05) 100%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 48px 24px;
+        }
+
+        .article-header-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            color: var(--ink-gray);
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+        }
+
+        .breadcrumb a {
+            color: var(--ink-cyan);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--ink-yellow);
+        }
+
+        .category-tag {
+            display: inline-block;
+            background-color: rgba(108, 43, 217, 0.15);
+            border: 1px solid rgba(108, 43, 217, 0.4);
+            color: var(--ink-purple);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .article-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--ink-white);
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+            line-height: 1.2;
+        }
+
+        .article-meta {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            color: var(--ink-gray);
+            margin-bottom: 24px;
+            letter-spacing: 0.3px;
+        }
+
+        .article-intro {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #d0d0d0;
+        }
+
+        /* ========================================
+           ARTICLE LAYOUT (TOC + Content)
+           ======================================== */
+        .article-wrapper {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        /* ========================================
+           TABLE OF CONTENTS (Sidebar)
+           ======================================== */
+        .toc-sidebar {
+            position: sticky;
+            top: 90px;
+            height: fit-content;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+        }
+
+        .toc-sidebar h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--ink-cyan);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        .toc-list {
+            list-style: none;
+        }
+
+        .toc-list li {
+            margin-bottom: 10px;
+        }
+
+        .toc-list a {
+            font-size: 14px;
+            color: var(--ink-gray);
+            text-decoration: none;
+            transition: color 0.2s ease;
+            padding-left: 12px;
+            border-left: 2px solid transparent;
+            display: block;
+            transition: all 0.2s ease;
+        }
+
+        .toc-list a:hover {
+            color: var(--ink-cyan);
+            border-left-color: var(--ink-cyan);
+        }
+
+        .toc-list a.active {
+            color: var(--ink-cyan);
+            border-left-color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        /* ========================================
+           ARTICLE CONTENT
+           ======================================== */
+        .article-content {
+            max-width: 800px;
+        }
+
+        article h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--ink-white);
+            margin-top: 48px;
+            margin-bottom: 20px;
+            padding-left: 16px;
+            border-left: 4px solid var(--ink-cyan);
+            letter-spacing: 0.5px;
+        }
+
+        article h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--ink-white);
+            margin-top: 32px;
+            margin-bottom: 16px;
+            letter-spacing: 0.3px;
+        }
+
+        article p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 18px;
+            color: #e0e0e0;
+        }
+
+        article strong {
+            color: var(--ink-white);
+            font-weight: 600;
+        }
+
+        article em {
+            color: var(--ink-cyan);
+            font-style: italic;
+        }
+
+        .highlight-term {
+            color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        article ul, article ol {
+            margin: 20px 0 20px 24px;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        article li {
+            margin-bottom: 12px;
+            color: #e0e0e0;
+        }
+
+        /* ========================================
+           CALLOUT BOXES
+           ======================================== */
+        .pro-tip {
+            background-color: rgba(0, 212, 255, 0.1);
+            border-left: 4px solid var(--ink-cyan);
+            border-radius: 4px;
+            padding: 20px;
+            margin: 28px 0;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .pro-tip strong {
+            color: var(--ink-cyan);
+            font-weight: 700;
+        }
+
+        .safety-warning {
+            background-color: rgba(255, 107, 53, 0.1);
+            border-left: 4px solid var(--ink-orange);
+            border-radius: 4px;
+            padding: 20px;
+            margin: 28px 0;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .safety-warning strong {
+            color: var(--ink-orange);
+            font-weight: 700;
+        }
+
+        /* ========================================
+           RELATED ARTICLES SECTION
+           ======================================== */
+        .related-articles {
+            margin-top: 60px;
+            padding: 40px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .related-articles h2 {
+            margin-top: 0;
+            border-left: none;
+            padding-left: 0;
+            margin-bottom: 32px;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .article-card {
+            background-color: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 8px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .article-card:hover {
+            border-color: var(--ink-cyan);
+            background-color: rgba(0, 212, 255, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .article-card h3 {
+            margin-top: 0;
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        .article-card p {
+            font-size: 14px;
+            color: var(--ink-gray);
+            flex-grow: 1;
+            margin-bottom: 16px;
+        }
+
+        .article-card a {
+            color: var(--ink-cyan);
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            transition: color 0.2s ease;
+            align-self: flex-start;
+        }
+
+        .article-card a:hover {
+            color: var(--ink-yellow);
+        }
+
+        .article-card .category-label {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            margin-top: 12px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .category-cyan {
+            background-color: rgba(0, 212, 255, 0.15);
+            color: var(--ink-cyan);
+        }
+
+        .category-purple {
+            background-color: rgba(108, 43, 217, 0.15);
+            color: #a78bfa;
+        }
+
+        .category-yellow {
+            background-color: rgba(255, 212, 0, 0.15);
+            color: var(--ink-yellow);
+        }
+
+        /* ========================================
+           CTA BANNER
+           ======================================== */
+        .cta-banner {
+            background: linear-gradient(135deg, rgba(108, 43, 217, 0.2) 0%, rgba(233, 30, 140, 0.1) 100%);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 12px;
+            padding: 40px;
+            margin-top: 60px;
+            text-align: center;
+        }
+
+        .cta-banner h2 {
+            border-left: none;
+            padding-left: 0;
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 32px;
+        }
+
+        .cta-banner p {
+            font-size: 18px;
+            color: #d0d0d0;
+            margin-bottom: 28px;
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            color: var(--ink-black);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            letter-spacing: 0.5px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(0, 212, 255, 0.4);
+        }
+
+        .cta-btn-secondary {
+            background-color: transparent;
+            color: var(--ink-cyan);
+            border: 2px solid var(--ink-cyan);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 12px 28px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            letter-spacing: 0.5px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-btn-secondary:hover {
+            background-color: rgba(0, 212, 255, 0.1);
+            border-color: var(--ink-yellow);
+            color: var(--ink-yellow);
+        }
+
+        /* ========================================
+           FOOTER
+           ======================================== */
+        footer {
+            background-color: var(--ink-dark);
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 40px 24px 20px;
+            margin-top: 60px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--ink-cyan);
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            display: block;
+            color: var(--ink-gray);
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 12px;
+            transition: color 0.2s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--ink-cyan);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            color: var(--ink-gray);
+            font-size: 13px;
+        }
+
+        /* ========================================
+           RESPONSIVE DESIGN
+           ======================================== */
+        @media (max-width: 768px) {
+            .article-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .toc-sidebar {
+                position: static;
+                max-height: none;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .article-title {
+                font-size: 32px;
+            }
+
+            article h2 {
+                font-size: 24px;
+            }
+
+            article h3 {
+                font-size: 18px;
+            }
+        }
+
+        /* ========================================
+           SMOOTH SCROLL & TRANSITIONS
+           ======================================== */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background-color: rgba(255, 255, 255, 0.03);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: rgba(0, 212, 255, 0.3);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: rgba(0, 212, 255, 0.6);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="nav-logo-main">ASPA</div>
+                <div class="nav-logo-sub">American Screen Printing Association</div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="directory.html">Directory</a></li>
+                <li><a href="certified-roster.html">Certified</a></li>
+                <li><a href="exam.html">Certification</a></li>
+                <li><a href="join.html">Membership</a></li>
+                <li><a href="resources.html">Resources</a></li>
+            </ul>
+            <a href="join.html" class="nav-cta">Join ASPA</a>
+            <button class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Article Header -->
+    <header class="article-header">
+        <div class="article-header-container">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a> → <a href="resources.html">Resources</a> → <a href="resources.html">How-To Guides</a> → How to Coat and Expose a Screen
+            </div>
+            <span class="category-tag">How-To Guides</span>
+            <h1 class="article-title">How to Coat and Expose a Screen: Step-by-Step</h1>
+            <p class="article-meta">Updated March 2026 · 16 min read</p>
+            <p class="article-intro">Screen coating and exposure is where screen printing really begins. A properly coated and exposed screen is the difference between crisp, sharp prints and blurry, inconsistent mess. This is the most technique-sensitive step in the entire process—master it, and everything else gets easier.</p>
+        </div>
+    </header>
+
+    <!-- Article Content -->
+    <div class="article-wrapper">
+        <!-- Table of Contents Sidebar -->
+        <aside class="toc-sidebar">
+            <h3>Table of Contents</h3>
+            <ul class="toc-list">
+                <li><a href="#introduction">Introduction</a></li>
+                <li><a href="#emulsion-types">Emulsion Types</a></li>
+                <li><a href="#preparing-screen">Preparing Your Screen</a></li>
+                <li><a href="#coating-technique">Coating Technique</a></li>
+                <li><a href="#drying">Drying Your Screens</a></li>
+                <li><a href="#light-sources">Light Source Options</a></li>
+                <li><a href="#exposure-time">Calculating Exposure Time</a></li>
+                <li><a href="#washout">Washout and Inspection</a></li>
+                <li><a href="#troubleshooting">Troubleshooting</a></li>
+                <li><a href="#level-up">Level Up Your Screen Game</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <article class="article-content">
+            <h2 id="introduction">Introduction: The Foundation of Every Great Print</h2>
+
+            <p>Screen coating and exposure is where screen printing really begins. Every step that follows—registering your screens, laying down ink, curing the print—depends entirely on having a proper screen stencil. A perfectly coated and exposed screen gives you sharp edges, consistent ink deposit, and prints that last through hundreds of washes. A poorly done screen gives you pinholes, soft edges, color bleeding, and stencil breakdown halfway through the print run.</p>
+
+            <p>This is the most technique-sensitive step in the entire process. Unlike printing itself, where there's a bit of margin for error, coating and exposure demand precision. The good news? It's absolutely learnable. Thousands of beginner screen printers master this skill every year, and so can you. The key is understanding the fundamentals, practicing with consistency, and keeping detailed notes about what works for your specific setup.</p>
+
+            <p>In this guide, we'll walk through everything you need to know: choosing the right emulsion for your work, the exact technique for coating screens, how to dial in your exposure time, and how to troubleshoot when things don't go perfectly (because sometimes they won't—and that's fine).</p>
+
+            <h2 id="emulsion-types">Understanding Emulsion Types</h2>
+
+            <p>Not all screen printing emulsions are created equal. There are three main categories, each with different costs, learning curves, and performance characteristics. Your choice should depend on your current skill level, production volume, and the types of ink you're using.</p>
+
+            <h3>Diazo Emulsion: The Forgiving Choice</h3>
+
+            <p><strong>Diazo emulsion</strong> is a two-part system where you mix liquid emulsion with a powdered diazo sensitizer right before use. These are the cheapest option, usually around $15-25 per quart. They're also the most forgiving for beginners because the exposure window is wide—if you're a few seconds off on your exposure time, you'll probably still get a usable screen.</p>
+
+            <p>The trade-off is speed. Diazo requires longer exposure times, typically 2-8 minutes depending on your light source. That's fine for small shops or one-off jobs, but if you're doing volume production, those minutes add up. Shelf life after mixing is about 2-4 weeks, so you need to plan ahead and mix only what you'll use in that window. Popular brands include <strong>Speedball</strong> and <strong>Jacquard</strong>.</p>
+
+            <p>Best for: Beginners, low-volume shops, experimentation. If you're just learning, start here. The margin for error on exposure time helps you develop good technique without wasting screens.</p>
+
+            <h3>SBQ (Photopolymer) Emulsion: The Fast Lane</h3>
+
+            <p><strong>SBQ emulsion</strong> (also called photopolymer) is pre-sensitized, one-part, and ready to use straight from the bottle. It hardens much faster under UV light—typical exposure times are 30 seconds to 2 minutes depending on distance and light source. For busy shops, this speed is a game-changer.</p>
+
+            <p>The upside is consistency and speed. Every batch is identical (no mixing variables), exposure is fast, and shelf life is excellent—6-12 months unopened, sometimes longer. The downside is cost: you'll pay $30-50 per quart, roughly double what diazo runs. Also, the exposure window is narrower. If you're 20 seconds off, you might have problems. Popular brands include <strong>Baselayr</strong>, <strong>Chromaline</strong>, and <strong>Ulano</strong>.</p>
+
+            <p>Best for: Growing shops doing moderate to high volume. The speed and consistency justify the extra cost if you're exposing screens regularly.</p>
+
+            <h3>Dual-Cure Emulsion: The Best of Both Worlds</h3>
+
+            <p><strong>Dual-cure emulsion</strong> combines diazo and photopolymer chemistry. You get the speed of photopolymer (1-3 minute exposure) with better durability and resilience than pure photopolymer. This makes it the industry standard for production shops that need reliable, fast screens.</p>
+
+            <p>The cost sits in the middle—around $25-40 per quart. The shelf life is good (6-12 months), and once you dial in your exposure time, you get consistent, bulletproof screens. Major brands include <strong>CCI</strong>, <strong>Murakami</strong>, and <strong>Ulano</strong>. Many professional printers swear by dual-cure for general-purpose work.</p>
+
+            <p>Best for: Production shops, anyone doing 10+ screens per week, demanding applications (heat transfer, plastisol ink).</p>
+
+            <div class="pro-tip">
+                <strong>Pro Tip:</strong> If you're just starting, invest in SBQ emulsion even though it costs more. The one-part convenience, fast exposure, and narrow learning curve mean fewer failed screens and faster progress. You'll recoup the cost in wasted screens avoided within a few jobs. Baselayr and Chromaline are both excellent and affordable.
+            </div>
+
+            <h2 id="preparing-screen">Preparing Your Screen</h2>
+
+            <p>Before a single drop of emulsion touches your mesh, the screen has to be pristine. Any oil, dust, or residue will prevent the emulsion from bonding properly to the fibers. This causes pinholes (small dots of light in solid areas), uneven coating, and early stencil breakdown. Don't skip this step.</p>
+
+            <h3>Degreasing Your Mesh</h3>
+
+            <p>New screens come off the factory production line coated in manufacturing residues—anti-static agents, dust, oils from the equipment. If you're reclaiming old screens, there's ink residue, emulsion, and who-knows-what in the mesh. Either way, you need to degrease.</p>
+
+            <p>You have two options: buy dedicated <strong>screen degreaser</strong> (usually $10-15 per quart), or use a diluted dish soap solution (1 part soap to 5 parts water). Both work. The dedicated degreasers are formulated to be more effective and rinse faster, but dish soap is cheaper and works fine for hobbyists and small shops.</p>
+
+            <p>Apply the degreaser to both sides of the screen using a soft brush or sponge. Scrub gently in circular motions for 1-2 minutes per side, making sure to work the solution into the mesh fibers. This is where the dirt and oils are—don't just spray and rinse. After scrubbing, rinse thoroughly under clean running water (garden hose works great) until the water runs clear and there's no more soap residue. This usually takes 3-5 rinses.</p>
+
+            <h3>Drying Your Cleaned Screen</h3>
+
+            <p>After rinsing, the screen must be bone dry before coating. Any water spots or dampness will cause uneven emulsion adhesion. Hang or prop the screen vertically in a dust-free area with good airflow. A fan helps. Give it at least 30 minutes to air dry, but overnight is better.</p>
+
+            <p>You'll know it's dry when the mesh feels room temperature (not cool). If it still feels cold, there's moisture in the fibers—wait longer.</p>
+
+            <h3>Reclaiming Old Screens: Ghost Images</h3>
+
+            <p>If you're reusing a screen, you might see a faint "ghost image" of the previous stencil. This is exposed emulsion that didn't fully wash out. You can leave it and coat over it (it won't affect your new print), or remove it for a truly clean screen using a <strong>haze remover</strong> or <strong>ghost remover</strong> chemical. These cost $15-25 per bottle and work fast. Follow the product instructions—usually you spray, let it sit 5-10 minutes, then rinse thoroughly.</p>
+
+            <p><strong>Why This Matters:</strong> Emulsion won't adhere properly to dirty, oily, or wet mesh. A weak bond means pinholes, coating inconsistencies, and stencil breakdown during printing. A properly degreased screen takes emulsion like a sponge takes water.</p>
+
+            <h2 id="coating-technique">Coating Technique: Step by Step</h2>
+
+            <p>This is where the magic happens. Coating technique is the single most important skill in this process. Small variations in pressure, speed, and angle can create huge differences in final results. The goal is to deposit an even, consistent layer of emulsion on both sides of the mesh.</p>
+
+            <h3>Preparing Your Coating Setup</h3>
+
+            <p>Before you start, you need a scoop coater (a flat metal or plastic tool designed specifically for this). They cost $10-20. You'll also need a clean, dust-free work area. A table in a low-light room works. Yellow safe lights are ideal, but regular room light works if you work quickly—don't leave wet emulsion exposed to bright light for more than a few minutes.</p>
+
+            <h3>The Coating Stroke</h3>
+
+            <p>Here's the exact technique:</p>
+
+            <ol>
+                <li><strong>Load the coater:</strong> Pour emulsion into your scoop coater until it's about 2/3 full. Tilt the coater slightly to create a bead of emulsion along the edge. This is what makes contact with the screen.</li>
+
+                <li><strong>Position your screen:</strong> Hold the screen vertically with the print side (the side that will touch the shirt) facing you. This is important—the side facing you determines the final stencil thickness.</li>
+
+                <li><strong>Start at the bottom:</strong> Place the coater at the bottom of the screen and press the edge firmly against the mesh. You should feel solid contact between the coater and the mesh fibers.</li>
+
+                <li><strong>Execute the stroke:</strong> In one smooth, steady motion, pull the coater from bottom to top. Keep pressure consistent—not too light (you won't deposit enough emulsion) and not too hard (you'll force emulsion through the mesh on the back, creating an uneven coat). The stroke should take 2-3 seconds. Smooth and deliberate.</li>
+
+                <li><strong>Flip and repeat:</strong> Turn the screen around (squeegee side now facing you) and repeat the stroke. This is your squeegee side coat.</li>
+
+                <li><strong>Second coat (optional):</strong> For finer detail work or halftones, apply a second coat to the print side. This increases stencil thickness and helps with detail preservation. For solid color work, one coat per side is usually sufficient.</li>
+            </ol>
+
+            <h3>Understanding Coat Counts</h3>
+
+            <p>When you hear screen printers talk about coat counts, they use a notation like "1/1" or "2/1" or "1/2". The first number is how many coats are on the print side (shirt side). The second number is squeegee side coats. Here's what each means for your work:</p>
+
+            <ul>
+                <li><strong>1/1 (one print side, one squeegee side):</strong> The standard. Most general-purpose work—solid colors, simple graphics. Creates a moderate ink deposit.</li>
+                <li><strong>2/1 (two print side, one squeegee side):</strong> Thicker stencil. Better for halftones, fine detail, or when you need heavier ink deposit. Takes slightly longer to expose and wash out.</li>
+                <li><strong>1/2 (one print side, two squeegee side):</strong> Unusual. Sometimes used for very fine detail on the back side, but not common.</li>
+                <li><strong>2/2 (two each):</strong> Very thick stencil. Used for specialty work, water-based ink (which is thin), or when you need extreme durability.</li>
+            </ul>
+
+            <p>Most of your screens will be 1/1. Start there and only increase if you have a specific reason.</p>
+
+            <h3>Critical Technique Details</h3>
+
+            <p><strong>Pressure:</strong> Aim for just enough pressure to make firm contact. Too light and the emulsion doesn't transfer to the mesh evenly—you get skipped spots. Too hard and you force emulsion through to the back, creating a sloppy secondary coat you didn't intend.</p>
+
+            <p><strong>Speed:</strong> Consistency matters more than speed. A fast, jerky stroke creates an uneven coat. A smooth, steady stroke at moderate speed (2-3 seconds for a 23" tall screen) is the target. Practice this motion without emulsion a few times first.</p>
+
+            <p><strong>Drying Position:</strong> After coating, lay the screen horizontally with the print side DOWN in your drying area. This lets gravity help settle the emulsion onto the print side of the mesh, which is what you want. If you stand it vertically, emulsion can run and pool unevenly.</p>
+
+            <p><strong>Temperature and Humidity:</strong> Warm, dry conditions speed drying. Cold, humid conditions slow it down. Ideally, your drying area is between 60-75°F with 40-60% humidity. If you're in a humid climate, a dehumidifier in your drying room helps enormously.</p>
+
+            <h2 id="drying">Drying Your Coated Screens</h2>
+
+            <p>This step is often overlooked, but it's absolutely critical. The emulsion must be completely dry before exposure. Any moisture left in the fibers will cause severe underexposure—the emulsion won't fully harden, the stencil will be weak and slimy, and it'll break down during your first print run.</p>
+
+            <h3>How Long Does Drying Take?</h3>
+
+            <p>Total drying time depends on several factors:</p>
+
+            <ul>
+                <li>Humidity (high humidity = longer drying)</li>
+                <li>Temperature (cold = longer drying)</li>
+                <li>Airflow (fans speed it up)</li>
+                <li>Number of coats (more coats = longer drying)</li>
+                <li>Emulsion type (some formulas dry faster than others)</li>
+            </ul>
+
+            <p>In a normal shop environment, expect 1-4 hours. In a dedicated drying cabinet with a dehumidifier and fan, you might hit 30 minutes. In a cold, damp garage during winter? Could be 8+ hours. This is why proper drying infrastructure is worth the investment if you're coating multiple screens regularly.</p>
+
+            <h3>Testing for Dryness</h3>
+
+            <p>The technical test is to touch the back (squeegee side) of the emulsion. If it feels cool or cold, there's still moisture. Room temperature or slightly warm means it's dry. But honestly, the easiest approach is time—wait at least 2-3 hours for a single-coat screen, longer for multi-coats.</p>
+
+            <h3>Drying Infrastructure Options</h3>
+
+            <p><strong>Budget setup:</strong> Use a dark closet or cupboard with a small fan running. Costs almost nothing if you have the space.</p>
+
+            <p><strong>Mid-range setup:</strong> Dedicated drying cabinet ($300-800) with shelves, a small dehumidifier inside, and airflow fans. This is the sweet spot for most production shops.</p>
+
+            <p><strong>Professional setup:</strong> Large cabinet with built-in dehumidification and temperature control. Cost $1,000+, but drying is consistent and fast.</p>
+
+            <div class="pro-tip">
+                <strong>Pro Tip:</strong> If you're doing multiple screens, a drying cabinet is one of the best investments you can make. Consistent drying = consistent exposure results = fewer failed screens. It pays for itself quickly.
+            </div>
+
+            <h2 id="light-sources">Exposure: Light Source Options</h2>
+
+            <p>Exposure is the process of hardening the emulsion where your artwork lets light through. The light source you use determines exposure speed, consistency, and image quality. There are several options, each with trade-offs.</p>
+
+            <h3>UV Light Fundamentals</h3>
+
+            <p>All screen printing emulsions are photosensitive to UV light (specifically UV-A in the 300-400 nm wavelength range). When UV light hits the emulsion, it triggers a chemical reaction that hardens the resin. Where light is blocked by your film artwork, the emulsion stays soft and washes out, revealing your stencil.</p>
+
+            <p>This is why proper light source selection matters so much. Inconsistent light = inconsistent hardening = inconsistent screens.</p>
+
+            <h3>LED Exposure Units</h3>
+
+            <p><strong>LED units</strong> are the modern standard. They use high-power UV-A LEDs instead of traditional bulbs. Why they're great: fast (30 sec - 2 min typical exposure), energy-efficient, instant on/off, consistent output, long bulb life, minimal heat generation.</p>
+
+            <p>The downside is cost—expect $200-2,000 depending on size and features. But if you're doing 5+ screens per week, the speed and consistency make them worth it. Popular brands: <strong>FujiFilm DL-1000</strong>, <strong>Vastex</strong>, <strong>Photochem</strong>.</p>
+
+            <h3>Metal Halide Units</h3>
+
+            <p><strong>Metal halide</strong> exposure units have been the workhorse of the industry for decades. They use a special metal halide bulb that produces intense UV output. They're powerful, reliable, and the used market is full of them (often cheap).</p>
+
+            <p>Downsides: they need 5-10 minutes of warm-up time before use, exposure times are longer than LED (1-3 minutes typical), they generate significant heat, and the bulbs are expensive to replace ($100-200 per bulb) and need replacing yearly.</p>
+
+            <p>If you can find a used metal halide unit cheap, it's a solid investment. But for new purchases, LED is worth the extra cost.</p>
+
+            <h3>500W Halogen Work Lights</h3>
+
+            <p><strong>Budget option:</strong> A $20-50 500W halogen work light from a hardware store can expose screens. It's not ideal—exposure times are long (3-5+ minutes), consistency is poor (distance affects output way too much), and the heat is intense—but it works for experimentation and very low volume.</p>
+
+            <p>Use it at a fixed distance from your screen (18-24 inches typically), and dial in your exposure time through tests. If you graduate to higher volume, upgrade to LED or metal halide.</p>
+
+            <h3>The Sun</h3>
+
+            <p>Sunlight is free UV, and it works—sort of. The problems: exposure time varies wildly based on time of day, cloud cover, season, and latitude. Consistency is nearly impossible. It's fine for one-off experiments or teaching kids, but not for production.</p>
+
+            <h3>Distance Matters</h3>
+
+            <p>Light intensity falls off with distance (inverse square law). A unit 12 inches from your screen delivers 4x more energy than the same unit at 24 inches. This is why manufacturer recommendations for distance matter so much. They test their units at specific distances, and straying from that distance drastically changes your exposure time.</p>
+
+            <p>Always follow the manufacturer's recommended distance. If you need to deviate, you'll need to run new tests to find your new exposure time.</p>
+
+            <h2 id="exposure-time">Calculating Exposure Time</h2>
+
+            <p>This is the most-asked question in screen printing: "How long do I expose for?" The honest answer is frustrating: <strong>it depends on your specific setup.</strong> Emulsion type + light source + distance + mesh count + humidity = unique exposure time.</p>
+
+            <p>You can't just copy someone else's time. You have to find YOUR time.</p>
+
+            <h3>The Exposure Calculator (Step Wedge) Method</h3>
+
+            <p>The industry-standard approach uses an exposure calculator, also called a step wedge or Stouffer strip. These are clear strips with numbered squares of increasing opacity. You place the strip on your coated screen alongside your film positive and expose normally. The strip shows you which squares harden and which wash out, revealing the ideal exposure window.</p>
+
+            <p>Popular brands: <strong>Anthracite</strong>, <strong>Stouffer Step Wedge</strong>, or you can make a simple DIY version by masking off graduated sections of clear film with different densities of tape/ink.</p>
+
+            <p>Here's how to use it:</p>
+
+            <ol>
+                <li>Place your step wedge on your coated, dry screen next to your artwork.</li>
+                <li>Expose both together using your normal technique.</li>
+                <li>Wash out the screen and inspect the wedge.</li>
+                <li>The clear squares should wash out easily. The opaque squares should stay hard. You want to see a clean dividing line where the squares transition from soft to hard.</li>
+                <li>Based on that dividing line, adjust your exposure time (if you went too dark, you overexposed; if not dark enough, you underexposed).</li>
+                <li>Run another test with adjusted time. Repeat until you find the sweet spot.</li>
+            </ol>
+
+            <p>This takes 2-3 test screens to dial in, but once you have your time, you've got it.</p>
+
+            <h3>General Starting Points (Not Universal)</h3>
+
+            <p>These are rough guidelines. Your actual time will vary, but they give you a starting point:</p>
+
+            <ul>
+                <li><strong>LED unit at 18" distance:</strong> Diazo 3-5 min | SBQ 45-90 sec | Dual-cure 1-3 min</li>
+                <li><strong>Metal halide at 36" distance:</strong> Diazo 5-8 min | SBQ 2-4 min | Dual-cure 2-5 min</li>
+                <li><strong>Halogen at 12" distance:</strong> Roughly 2-3x the LED times at 18"</li>
+            </ul>
+
+            <p>Use these as starting points only. Run your step wedge test to find the exact time for your setup.</p>
+
+            <h3>Signs of Underexposure</h3>
+
+            <p>If you didn't expose long enough:</p>
+
+            <ul>
+                <li>Stencil washes out too easily—soft, slimy feeling emulsion during washout</li>
+                <li>Unexposed areas take aggressive spraying to clear; fine detail washes away too</li>
+                <li>During printing, edges are soft/fuzzy and the stencil breaks down after 50-100 prints</li>
+            </ul>
+
+            <p>Solution: increase exposure time by 10-20% and retest.</p>
+
+            <h3>Signs of Overexposure</h3>
+
+            <p>If you exposed too long:</p>
+
+            <ul>
+                <li>Fine detail fills in solid—halftone dots disappear, thin lines fill in</li>
+                <li>Stencil is extremely hard, almost bulletproof, but doesn't match your artwork</li>
+                <li>During printing, you get muddy, unclear reproduction of fine details</li>
+            </ul>
+
+            <p>Solution: decrease exposure time by 10-20% and retest. Overexposure also indicates your film positive isn't opaque enough. If you're still losing detail at correct exposure, check your film.</p>
+
+            <h3>Record Your Settings</h3>
+
+            <p>Once you nail your time, write it down. Write it down somewhere you'll actually see it again—a dry erase board in your shop, a notebook, your phone. Include:</p>
+
+            <ul>
+                <li>Emulsion type</li>
+                <li>Light source and model</li>
+                <li>Distance from screen</li>
+                <li>Exposure time</li>
+                <li>Date</li>
+                <li>Any notes about results</li>
+            </ul>
+
+            <p>Over time, you'll develop a reference database of times for different setups. This data is gold.</p>
+
+            <div class="pro-tip">
+                <strong>Pro Tip:</strong> A light meter ($100-300) removes a lot of guesswork. Some units measure the actual UV intensity at your screen, helping you dial in consistent exposure across different light sources and distances. Overkill for hobbyists, but worth it for production shops.
+            </div>
+
+            <h2 id="washout">Washout and Inspection</h2>
+
+            <p>After exposure, you have a screen with hard (exposed) emulsion where light passed through, and soft (unexposed) emulsion where your artwork blocked the light. Now you develop the stencil by washing out the soft emulsion.</p>
+
+            <h3>The Washout Process</h3>
+
+            <p>Equipment you need: a water source (garden hose or pressure washer works great), a gentle spray nozzle (not a full blast—you can damage fine detail), and good lighting.</p>
+
+            <p>Here's the step-by-step process:</p>
+
+            <ol>
+                <li><strong>Start with the print side:</strong> Hold the screen with the print side facing you. Gently spray both sides of the screen with cool water. You're not blasting it—just a medium spray to soften the unexposed emulsion.</li>
+
+                <li><strong>Let it soak slightly:</strong> Spray for 10-15 seconds, then let the water sit for 30-60 seconds. This gives the unexposed emulsion time to soften and break down.</li>
+
+                <li><strong>Scrub gently with a soft brush:</strong> Using a soft brush (soft enough that it won't damage the stencil), gently brush the print side. This helps loosen the softened emulsion. Work from the center outward, following the direction of your design.</li>
+
+                <li><strong>Rinse the print side:</strong> Spray gently to rinse away the loosened emulsion. Hold the screen up to light and look for pinholes (small dots of light where the stencil should be opaque). You might see some—that's normal.</li>
+
+                <li><strong>Move to the squeegee side:</strong> Flip the screen. Repeat the spray, soak, brush, rinse process. The squeegee side usually washes out faster than the print side.</li>
+
+                <li><strong>Final rinse and inspection:</strong> Do a final full rinse of both sides with clean water. Hold the screen up to strong light and examine it. All open areas should be completely clear (you can see light through them). All solid areas should be opaque (no light visible).</li>
+            </ol>
+
+            <h3>Dealing with Pinholes</h3>
+
+            <p>Pinholes (small dots of light in solid areas) happen. They're usually caused by dust during coating or drying, or by an emulsion that's too thin. A few pinholes are cosmetic and won't significantly impact your print. Many pinholes become visible problems.</p>
+
+            <p>To fix them: while the screen is still wet, carefully apply emulsion or a dedicated <strong>screen filler</strong> (a quick-drying emulsion designed for this) directly to the pinhole from the squeegee side. Let it dry, and you're done.</p>
+
+            <h3>Final Drying</h3>
+
+            <p>After washout, the screen is now a working stencil. It needs to dry completely before printing. Use a fan to speed this up. Drying usually takes 30 minutes to 2 hours depending on humidity and airflow. The screen is ready to print when it feels completely dry to the touch and has returned to room temperature.</p>
+
+            <h2 id="troubleshooting">Troubleshooting Common Problems</h2>
+
+            <p>Even experienced screen printers run into problems. Here's how to diagnose and fix the most common issues:</p>
+
+            <h3>Emulsion Falls Off in Sheets During Washout</h3>
+
+            <p><strong>Diagnosis:</strong> Severe underexposure, or the screen wasn't dry before exposure.</p>
+
+            <p><strong>Fix:</strong> If it's underexposure, increase exposure time by 30-50% and retest. If the screen wasn't dry, improve your drying setup or wait longer after coating. Use a drying cabinet if humidity is an issue.</p>
+
+            <h3>Pinholes Everywhere (Speckled Stencil)</h3>
+
+            <p><strong>Diagnosis:</strong> Dust on the screen during coating, or dust in the air during drying. Also can indicate emulsion that's too thin.</p>
+
+            <p><strong>Fix:</strong> Work in a cleaner environment. Reduce dust sources (no fans directly on drying screens, clean your work area). If you're coating in a dusty garage, move to a cleaner space. Also try applying a second coat to the print side—thicker emulsion is more forgiving of small dust particles.</p>
+
+            <h3>Fine Lines and Halftones Filling In</h3>
+
+            <p><strong>Diagnosis:</strong> Overexposure. The light hardened the edges of the fine detail, and they filled in during washout. Or your film positive isn't opaque enough.</p>
+
+            <p><strong>Fix:</strong> Reduce exposure time by 20-30%. If you're already at the minimum and still seeing this, your film positive needs to be more opaque (darker blacks, higher contrast). Talk to your film supplier about using a higher quality output.</p>
+
+            <h3>Stencil Breaks Down During Printing</h3>
+
+            <p><strong>Diagnosis:</strong> Underexposed stencil, or the screen isn't suitable for your ink type.</p>
+
+            <p><strong>Fix:</strong> Increase exposure time. Also consider your emulsion type—water-based ink requires water-resistant emulsion. SBQ and photopolymer emulsions are more water-resistant than diazo. If you're using water-based ink, make sure your emulsion is rated for it.</p>
+
+            <h3>Scalloped or Uneven Edges</h3>
+
+            <p><strong>Diagnosis:</strong> Inconsistent coating technique. Probably pressing with uneven pressure or varying your stroke speed.</p>
+
+            <p><strong>Fix:</strong> Practice your coating stroke. Film your technique (seriously) and watch it back—you'll see the inconsistencies. Also check that your scoop coater edge isn't damaged. A bent or dull edge creates uneven contact.</p>
+
+            <h3>Ghost Image Won't Go Away After Reclaiming</h3>
+
+            <p><strong>Diagnosis:</strong> Residual emulsion from the previous stencil. Your haze remover didn't work fully, or you didn't degrease thoroughly enough.</p>
+
+            <p><strong>Fix:</strong> Use a dedicated screen reclaimer or ghost remover chemical. Let it sit longer (5-10 minutes). Scrub with a brush. Rinse thoroughly. If it still won't budge, you might have overexposed emulsion that's crystallized—in that case, a second application of remover or a professional screen reclaiming service is your option.</p>
+
+            <div class="safety-warning">
+                <strong>Safety Note:</strong> Work in a clean, dust-free area when coating and drying screens. Use proper ventilation if you're using chemical degreasers or reclaimers. Wear gloves when handling emulsion and chemicals—they're not toxic, but prolonged skin contact can cause irritation. Keep your work area organized and minimize air currents that carry dust.
+            </div>
+
+            <h2 id="level-up">Level Up Your Screen Game</h2>
+
+            <p>Once you've mastered basic coating and exposure, there are several advanced techniques and investments that can elevate your craft:</p>
+
+            <h3>Light Meters and Consistency</h3>
+
+            <p>A UV light meter measures the actual light intensity at your screen in milliwatts per square centimeter (mW/cm²). Different emulsions have different sensitivity ranges, but knowing your actual UV intensity removes guesswork and ensures consistency across different screens and conditions. Expect to spend $100-300. Worth it if you're doing consistent volume.</p>
+
+            <h3>Capillary Film for Ultra-Precise Stencils</h3>
+
+            <p><strong>Capillary film</strong> (also called knife-cut or cut film) is a completely different stencil technology. Instead of coating emulsion, you adhere a pre-made film to your screen and cut away the non-image areas. It delivers sharper edges than emulsion and is particularly good for precise halftones and fine detail.</p>
+
+            <p>The trade-off is time and cost—capillary film requires more setup and is more expensive per screen. But for demanding applications, the quality is worth it. This is an advanced technique, so master basic emulsion first.</p>
+
+            <h3>Screen Tension: The Other Half of the Equation</h3>
+
+            <p>Proper coating and exposure only works on a properly tensioned screen. If your screen tension is too low, the mesh sags and the stencil doesn't print crisp. Too high and you might damage the mesh. Professional screens have 20-30 newtons per centimeter of tension. Invest in a tension meter ($150-400) and learn to measure and maintain proper tension. It's the difference between good prints and great prints.</p>
+
+            <h3>Building a Proper Drying Setup</h3>
+
+            <p>If you're coating more than 5 screens per week, a dedicated drying cabinet with dehumidification is an investment that pays for itself in consistency and speed. Look for cabinets with adjustable shelving, a small dehumidifier, and basic circulation fans. $300-800 is the typical price range.</p>
+
+            <h3>ASPA Certification Knowledge</h3>
+
+            <p>Screen preparation, including coating and exposure, is a core knowledge area on the ASPA Certified Screen Printer (CSP) exam. Understanding the principles deeply—not just the mechanics—will improve your troubleshooting and help you handle edge cases. The exam covers emulsion chemistry, exposure theory, washout techniques, and common problems. Study these fundamentals and you'll become a better screen printer.</p>
+
+            <p>Ready to take your skills further? Consider the ASPA Certified Screen Printer exam. It covers this material in depth and validates your expertise.</p>
+
+            <!-- Related Articles Section -->
+            <section class="related-articles">
+                <h2>Related How-To Guides</h2>
+                <div class="related-grid">
+                    <div class="article-card">
+                        <h3>How to Screen Print T-Shirts: Complete Beginner's Guide</h3>
+                        <p>Master the full screen printing process from artwork to curing. Step-by-step guide covering every stage of the print job.</p>
+                        <a href="article-how-to-screen-print.html">Read Article →</a>
+                        <span class="category-label category-cyan">Getting Started</span>
+                    </div>
+                    <div class="article-card">
+                        <h3>10 Common Screen Printing Mistakes and How to Fix Them</h3>
+                        <p>Troubleshoot registration issues, ink problems, exposure errors, and more. Real solutions from experienced screen printers.</p>
+                        <a href="article-common-mistakes.html">Read Article →</a>
+                        <span class="category-label category-yellow">Tips & Tricks</span>
+                    </div>
+                    <div class="article-card">
+                        <h3>Screen Printing Equipment Guide: What You Actually Need</h3>
+                        <p>Complete breakdown of essential equipment, from manual presses to automatic units. Understand what each piece does and when you need to upgrade.</p>
+                        <a href="article-equipment-guide.html">Read Article →</a>
+                        <span class="category-label category-cyan">Getting Started</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA Banner -->
+            <div class="cta-banner">
+                <h2>Ready to Master Screen Printing?</h2>
+                <p>Join ASPA and access certified courses, expert resources, and a network of professional screen printers who are ready to help you succeed.</p>
+                <div class="cta-buttons">
+                    <a href="join.html" class="cta-btn">Join ASPA</a>
+                    <a href="exam.html" class="cta-btn-secondary">Learn About Certification</a>
+                </div>
+            </div>
+        </article>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Organization</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About ASPA</a></li>
+                        <li><a href="directory.html">Directory</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Certification</h4>
+                    <ul>
+                        <li><a href="exam.html">CSP Exam</a></li>
+                        <li><a href="certified-roster.html">Certified Roster</a></li>
+                        <li><a href="join.html">Get Certified</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="resources.html">How-To Guides</a></li>
+                        <li><a href="article-how-to-screen-print.html">Beginner's Guide</a></li>
+                        <li><a href="article-common-mistakes.html">Troubleshooting</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Membership</h4>
+                    <ul>
+                        <li><a href="join.html">Join ASPA</a></li>
+                        <li><a href="join.html">Membership Benefits</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 American Screen Printing Association. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- IntersectionObserver for TOC Active State -->
+    <script>
+        const sections = document.querySelectorAll('h2[id]');
+        const tocLinks = document.querySelectorAll('.toc-list a');
+
+        const observerOptions = {
+            rootMargin: '0px 0px -50% 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                const id = entry.target.getAttribute('id');
+                if (entry.isIntersecting) {
+                    tocLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === '#' + id) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>

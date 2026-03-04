@@ -1,0 +1,1566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Much Does It Cost to Start a Screen Printing Business? (2026) | ASPA</title>
+    <meta name="description" content="Complete breakdown of screen printing startup costs from home garage to full shop. Equipment, supplies, licenses, and hidden costs explained by the American Screen Printing Association.">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ========================================
+           DESIGN SYSTEM & ROOT VARIABLES
+           ======================================== */
+        :root {
+            --ink-black: #0a0a0a;
+            --ink-dark: #1a1a2e;
+            --ink-purple: #6c2bd9;
+            --ink-magenta: #e91e8c;
+            --ink-cyan: #00d4ff;
+            --ink-yellow: #ffd400;
+            --ink-orange: #ff6b35;
+            --ink-white: #f8f8f8;
+            --ink-gray: #b0b0b0;
+            --ink-gray-dark: #2a2a3e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--ink-black);
+            color: var(--ink-white);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ========================================
+           NAVIGATION BAR
+           ======================================== */
+        nav {
+            background-color: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 0 24px;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .nav-logo {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .nav-logo-main {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--ink-white);
+            letter-spacing: 2px;
+        }
+
+        .nav-logo-sub {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 9px;
+            font-weight: 600;
+            color: var(--ink-cyan);
+            letter-spacing: 1.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--ink-gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--ink-cyan);
+        }
+
+        .nav-links a.active {
+            color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            color: var(--ink-black);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background-color: var(--ink-white);
+            border-radius: 2px;
+            transition: 0.3s ease;
+        }
+
+        /* ========================================
+           ARTICLE HEADER
+           ======================================== */
+        .article-header {
+            background: linear-gradient(135deg, rgba(233, 30, 140, 0.1) 0%, rgba(108, 43, 217, 0.05) 100%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 48px 24px;
+        }
+
+        .article-header-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            color: var(--ink-gray);
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+        }
+
+        .breadcrumb a {
+            color: var(--ink-cyan);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--ink-yellow);
+        }
+
+        .category-tag {
+            display: inline-block;
+            background-color: rgba(233, 30, 140, 0.15);
+            border: 1px solid rgba(233, 30, 140, 0.4);
+            color: var(--ink-magenta);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .article-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--ink-white);
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+            line-height: 1.2;
+        }
+
+        .article-meta {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            color: var(--ink-gray);
+            margin-bottom: 24px;
+            letter-spacing: 0.3px;
+        }
+
+        .article-intro {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #d0d0d0;
+        }
+
+        /* ========================================
+           ARTICLE LAYOUT (TOC + Content)
+           ======================================== */
+        .article-wrapper {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        /* ========================================
+           TABLE OF CONTENTS (Sidebar)
+           ======================================== */
+        .toc-sidebar {
+            position: sticky;
+            top: 90px;
+            height: fit-content;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+        }
+
+        .toc-sidebar h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--ink-cyan);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        .toc-list {
+            list-style: none;
+        }
+
+        .toc-list li {
+            margin-bottom: 10px;
+        }
+
+        .toc-list a {
+            font-size: 14px;
+            color: var(--ink-gray);
+            text-decoration: none;
+            transition: color 0.2s ease;
+            padding-left: 12px;
+            border-left: 2px solid transparent;
+            display: block;
+            transition: all 0.2s ease;
+        }
+
+        .toc-list a:hover {
+            color: var(--ink-cyan);
+            border-left-color: var(--ink-cyan);
+        }
+
+        .toc-list a.active {
+            color: var(--ink-cyan);
+            border-left-color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        /* ========================================
+           ARTICLE CONTENT
+           ======================================== */
+        .article-content {
+            max-width: 800px;
+        }
+
+        article h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--ink-white);
+            margin-top: 48px;
+            margin-bottom: 20px;
+            padding-left: 16px;
+            border-left: 4px solid var(--ink-magenta);
+            letter-spacing: 0.5px;
+        }
+
+        article h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--ink-white);
+            margin-top: 32px;
+            margin-bottom: 16px;
+            letter-spacing: 0.3px;
+        }
+
+        article p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 18px;
+            color: #e0e0e0;
+        }
+
+        article strong {
+            color: var(--ink-white);
+            font-weight: 600;
+        }
+
+        article em {
+            color: var(--ink-magenta);
+            font-style: italic;
+        }
+
+        .highlight-term {
+            color: var(--ink-magenta);
+            font-weight: 600;
+        }
+
+        article ul, article ol {
+            margin: 20px 0 20px 24px;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        article li {
+            margin-bottom: 12px;
+            color: #e0e0e0;
+        }
+
+        /* ========================================
+           CALLOUT BOXES
+           ======================================== */
+        .pro-tip {
+            background-color: rgba(108, 43, 217, 0.15);
+            border-left: 4px solid var(--ink-cyan);
+            border-radius: 4px;
+            padding: 20px;
+            margin: 28px 0;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .pro-tip strong {
+            color: var(--ink-cyan);
+            font-weight: 700;
+        }
+
+        .safety-warning {
+            background-color: rgba(255, 107, 53, 0.1);
+            border-left: 4px solid var(--ink-orange);
+            border-radius: 4px;
+            padding: 20px;
+            margin: 28px 0;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .safety-warning strong {
+            color: var(--ink-orange);
+            font-weight: 700;
+        }
+
+        .budget-breakdown {
+            background-color: rgba(0, 212, 255, 0.08);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 8px;
+            padding: 24px;
+            margin: 28px 0;
+        }
+
+        .budget-breakdown h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--ink-cyan);
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+        }
+
+        .budget-breakdown ul {
+            list-style: none;
+            margin: 0;
+        }
+
+        .budget-breakdown li {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 1.05rem;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        .budget-breakdown li:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .budget-range {
+            color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        /* ========================================
+           NUMBERED STEPS
+           ======================================== */
+        .step {
+            margin: 32px 0;
+            padding: 24px;
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: 4px;
+            border-left: 4px solid var(--ink-purple);
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            color: var(--ink-black);
+            border-radius: 50%;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .step h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--ink-white);
+            margin-bottom: 12px;
+        }
+
+        .step p {
+            margin-bottom: 12px;
+        }
+
+        .step p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ========================================
+           RELATED ARTICLES SECTION
+           ======================================== */
+        .related-articles {
+            margin-top: 60px;
+            padding: 40px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .related-articles h2 {
+            margin-top: 0;
+            border-left: none;
+            padding-left: 0;
+            margin-bottom: 32px;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .article-card {
+            background-color: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 8px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .article-card:hover {
+            border-color: var(--ink-cyan);
+            background-color: rgba(0, 212, 255, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .article-card h3 {
+            margin-top: 0;
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        .article-card p {
+            font-size: 14px;
+            color: var(--ink-gray);
+            flex-grow: 1;
+            margin-bottom: 16px;
+        }
+
+        .article-card a {
+            color: var(--ink-cyan);
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            transition: color 0.2s ease;
+            align-self: flex-start;
+        }
+
+        .article-card a:hover {
+            color: var(--ink-yellow);
+        }
+
+        /* ========================================
+           CTA BANNER
+           ======================================== */
+        .cta-banner {
+            background: linear-gradient(135deg, rgba(233, 30, 140, 0.2) 0%, rgba(108, 43, 217, 0.1) 100%);
+            border: 1px solid rgba(233, 30, 140, 0.3);
+            border-radius: 12px;
+            padding: 40px;
+            margin-top: 60px;
+            text-align: center;
+        }
+
+        .cta-banner h2 {
+            border-left: none;
+            padding-left: 0;
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 32px;
+        }
+
+        .cta-banner p {
+            font-size: 18px;
+            color: #d0d0d0;
+            margin-bottom: 28px;
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .cta-btn-primary {
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            color: var(--ink-black);
+            border: none;
+        }
+
+        .cta-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
+        }
+
+        .cta-btn-secondary {
+            background-color: transparent;
+            color: var(--ink-cyan);
+            border: 2px solid var(--ink-cyan);
+        }
+
+        .cta-btn-secondary:hover {
+            background-color: rgba(0, 212, 255, 0.1);
+            border-color: var(--ink-yellow);
+            color: var(--ink-yellow);
+        }
+
+        /* ========================================
+           FOOTER
+           ======================================== */
+        footer {
+            background-color: var(--ink-dark);
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 40px 24px 20px;
+            margin-top: 60px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--ink-cyan);
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            display: block;
+            color: var(--ink-gray);
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 12px;
+            transition: color 0.2s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--ink-cyan);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            color: var(--ink-gray);
+            font-size: 13px;
+        }
+
+        /* ========================================
+           MOBILE RESPONSIVE
+           ======================================== */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .article-title {
+                font-size: 32px;
+            }
+
+            .article-wrapper {
+                grid-template-columns: 1fr;
+                gap: 24px;
+                padding: 24px 16px;
+            }
+
+            .toc-sidebar {
+                position: static;
+                top: auto;
+                max-height: none;
+                margin-bottom: 24px;
+                padding: 20px;
+                background-color: rgba(255, 255, 255, 0.03);
+                border-radius: 8px;
+                border-left: 4px solid var(--ink-cyan);
+            }
+
+            .toc-list a {
+                font-size: 13px;
+            }
+
+            article h2 {
+                font-size: 24px;
+                margin-top: 32px;
+            }
+
+            article h3 {
+                font-size: 18px;
+            }
+
+            article p {
+                font-size: 1rem;
+            }
+
+            .cta-banner {
+                padding: 24px;
+            }
+
+            .cta-banner h2 {
+                font-size: 24px;
+            }
+
+            .cta-banner p {
+                font-size: 16px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .cta-btn {
+                width: 100%;
+            }
+
+            .related-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ========================================
+           SCROLLBAR STYLING
+           ======================================== */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--ink-cyan);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--ink-magenta);
+        }
+    </style>
+</head>
+<body>
+    <!-- ========================================
+         NAVIGATION
+         ======================================== -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="nav-logo-main">ASPA</div>
+                <div class="nav-logo-sub">Since 2004</div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="directory.html">Directory</a></li>
+                <li><a href="certified-roster.html">Certified</a></li>
+                <li><a href="index.html#certification">Certification</a></li>
+                <li><a href="index.html#membership">Membership</a></li>
+                <li><a href="resources.html">Resources</a></li>
+            </ul>
+            <a href="join.html" class="nav-cta">Join ASPA</a>
+            <button class="hamburger" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ========================================
+         ARTICLE HEADER
+         ======================================== -->
+    <div class="article-header">
+        <div class="article-header-container">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a> > <a href="resources.html">Resources</a> > Startup Costs
+            </div>
+            <span class="category-tag">Business & Growth</span>
+            <h1 class="article-title">How Much Does It Cost to Start a Screen Printing Business?</h1>
+            <div class="article-meta">Updated March 2026 · 12 min read · By ASPA Editorial Team</div>
+            <p class="article-intro">
+                The dream of starting a screen printing business is more accessible than ever. Whether you're launching from a garage or renting commercial space, this guide breaks down the real costs—from equipment and supplies to hidden expenses nobody talks about. The good news? ASPA helps thousands of printers start and grow profitable businesses every year.
+            </p>
+        </div>
+    </div>
+
+    <!-- ========================================
+         ARTICLE WRAPPER (TOC + Content)
+         ======================================== -->
+    <div class="article-wrapper">
+        <!-- TABLE OF CONTENTS SIDEBAR -->
+        <aside class="toc-sidebar">
+            <h3>Contents</h3>
+            <ul class="toc-list">
+                <li><a href="#introduction">Introduction</a></li>
+                <li><a href="#three-tiers">Three Tiers of Starting</a></li>
+                <li><a href="#equipment">Equipment Costs</a></li>
+                <li><a href="#supplies">Supplies & Consumables</a></li>
+                <li><a href="#space">Space & Workspace</a></li>
+                <li><a href="#business-setup">Business Setup Costs</a></li>
+                <li><a href="#budgets">First-Year Budget Scenarios</a></li>
+                <li><a href="#save-money">How to Save Money</a></li>
+                <li><a href="#breakeven">When Will I Break Even?</a></li>
+                <li><a href="#getting-started">Getting Started Smart</a></li>
+            </ul>
+        </aside>
+
+        <!-- MAIN ARTICLE CONTENT -->
+        <article class="article-content">
+            <!-- INTRODUCTION -->
+            <section id="introduction">
+                <h2>Introduction: Planning Your Investment</h2>
+                <p>
+                    Screen printing is one of the most rewarding business opportunities in the apparel decoration industry. But unlike some businesses, you can't just hang out a shingle and hope for the best. You need equipment, space, supplies, and a solid business foundation.
+                </p>
+                <p>
+                    The great news? Your startup costs depend entirely on your ambition. You can start from your garage with less than $2,000 and build a side income that turns into a full business. Or you can lease commercial space and invest $40,000+ to hit the ground running at scale. Both approaches work—it's all about planning for your specific situation.
+                </p>
+                <p>
+                    This guide gives you the numbers. We'll cover every major expense, show you real budget scenarios, and reveal the hidden costs that catch new printers off guard. Whether you're printing custom shirts for friends on weekends or planning a professional operation, you'll know exactly what you're getting into.
+                </p>
+            </section>
+
+            <!-- SECTION 1: THREE TIERS -->
+            <section id="three-tiers">
+                <h2>The Three Tiers of Getting Started</h2>
+                <p>
+                    Most screen printing businesses fall into one of three categories based on investment level, production capacity, and revenue potential. Here's how they compare:
+                </p>
+
+                <h3>Home/Garage Setup: $500–$2,000</h3>
+                <p>
+                    You're printing in your garage, basement, or spare room. Equipment is basic but functional. This is perfect for side income, testing the market, or printing for friends and local events.
+                </p>
+                <ul>
+                    <li>1-2 color manual press</li>
+                    <li>DIY exposure unit (sun exposure)</li>
+                    <li>Basic supplies and minimal inventory</li>
+                    <li>Production capacity: 10-50 shirts/week</li>
+                    <li>Revenue potential: $500-$2,000/month</li>
+                </ul>
+
+                <h3>Small Shop Setup: $5,000–$15,000</h3>
+                <p>
+                    You're serious about growing this into a real business. You've rented a small commercial space or upgraded your garage with proper ventilation. Equipment is professional-grade but not fully automated.
+                </p>
+                <ul>
+                    <li>4-color 4-station manual press</li>
+                    <li>Professional exposure unit</li>
+                    <li>Flash dryer for multi-color work</li>
+                    <li>Commercial workspace with utilities</li>
+                    <li>Production capacity: 50-200 shirts/week</li>
+                    <li>Revenue potential: $3,000-$8,000/month</li>
+                </ul>
+
+                <h3>Professional Shop: $25,000–$75,000+</h3>
+                <p>
+                    You're building a full production facility with employees. Equipment is semi-automatic or fully automatic. Your operation can handle large orders and multiple jobs simultaneously.
+                </p>
+                <ul>
+                    <li>6+ color automatic press</li>
+                    <li>Conveyor dryer for curing</li>
+                    <li>Professional exposure system</li>
+                    <li>Commercial lease in good location</li>
+                    <li>Design workstation with software</li>
+                    <li>Production capacity: 500-2,000+ shirts/week</li>
+                    <li>Revenue potential: $15,000-$50,000+/month</li>
+                </ul>
+
+                <div class="budget-breakdown">
+                    <h4>Budget Comparison by Tier</h4>
+                    <ul>
+                        <li>
+                            <span>Home/Garage Hobby</span>
+                            <span class="budget-range">$500–$2,000</span>
+                        </li>
+                        <li>
+                            <span>Small Professional Shop</span>
+                            <span class="budget-range">$5,000–$15,000</span>
+                        </li>
+                        <li>
+                            <span>Full Production Facility</span>
+                            <span class="budget-range">$25,000–$75,000+</span>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- SECTION 2: EQUIPMENT COSTS -->
+            <section id="equipment">
+                <h2>Equipment Costs: The Big Purchases</h2>
+                <p>
+                    Equipment is your largest investment. Here's what you're actually paying for each piece in 2026:
+                </p>
+
+                <h3>Screen Printing Press</h3>
+                <p>
+                    This is the heart of your operation. Prices vary wildly based on color capacity, automation, and manufacturer.
+                </p>
+                <ul>
+                    <li><strong>Manual 1-Color Press:</strong> $200-$400. Perfect for testing, but limiting.</li>
+                    <li><strong>Manual 4-Color 4-Station Press:</strong> $800-$2,000. The sweet spot for most small businesses. Professional results without automation costs.</li>
+                    <li><strong>Manual 6-Color 6-Station Press:</strong> $1,500-$4,000. Handles complex designs with more stations.</li>
+                    <li><strong>Automatic Press (single-pallet):</strong> $15,000-$30,000. For scaling production significantly.</li>
+                    <li><strong>Automatic Press (multi-pallet carousel):</strong> $30,000-$60,000+. Industrial-grade for high-volume shops.</li>
+                </ul>
+                <p>
+                    Pro tip: Many successful shops started with a manual press and upgraded only when they consistently hit higher order volumes. Buy used equipment and save 40-60%.
+                </p>
+
+                <h3>Exposure Unit</h3>
+                <p>
+                    Your exposure unit hardens emulsion on screens. DIY = free but inconsistent. Professional = consistent results.
+                </p>
+                <ul>
+                    <li><strong>DIY Sun Exposure:</strong> $0. Use sunshine outdoors on sunny days (2-5 minutes). Weather dependent.</li>
+                    <li><strong>Entry-Level UV Box:</strong> $200-$500. Small units, consistent exposure, basic controls.</li>
+                    <li><strong>Mid-Range Professional Unit:</strong> $500-$1,500. Larger exposure area, better light output, adjustable timer.</li>
+                    <li><strong>High-End System:</strong> $1,500-$2,000+. Carousel systems, vacuum tables, consistent pro-level results.</li>
+                </ul>
+
+                <h3>Flash Dryer</h3>
+                <p>
+                    Flash dryers cure ink between color passes. Essential for multi-color work. Prices range widely:
+                </p>
+                <ul>
+                    <li><strong>Small Tabletop Unit:</strong> $200-$400. Limited coverage area, entry-level.</li>
+                    <li><strong>Mid-Range Unit:</strong> $400-$800. Good for most small operations.</li>
+                    <li><strong>Professional/Heavy-Duty:</strong> $800-$1,500. Larger coverage, faster recovery.</li>
+                </ul>
+
+                <h3>Conveyor Dryer</h3>
+                <p>
+                    Conveyor dryers automatically cure finished prints as they pass through. Not essential at startup, but critical when scaling. Expensive but invaluable at volume.
+                </p>
+                <ul>
+                    <li><strong>Entry-Level Conveyor:</strong> $1,500-$3,000. Smaller footprint, slower speeds.</li>
+                    <li><strong>Mid-Range Conveyor:</strong> $3,000-$6,000. Standard for professional shops.</li>
+                    <li><strong>High-Speed Industrial Conveyor:</strong> $6,000-$8,000+. High-volume production.</li>
+                </ul>
+
+                <h3>Washout Station/Booth</h3>
+                <p>
+                    You need water pressure to remove emulsion and ink after printing. Options vary by setup:
+                </p>
+                <ul>
+                    <li><strong>DIY Washout with Hose:</strong> $50-$200 (quality hose nozzle)</li>
+                    <li><strong>Dedicated Washout Sink:</strong> $200-$500</li>
+                    <li><strong>Commercial Washout Booth:</strong> $500-$2,000. Keeps mess contained.</li>
+                </ul>
+
+                <h3>Heat Press (for Transfers & Finishing)</h3>
+                <p>
+                    Optional but useful for heat transfers and finishing. Most small shops eventually add one:
+                </p>
+                <ul>
+                    <li><strong>Entry-Level Heat Press:</strong> $300-$600</li>
+                    <li><strong>Professional Model:</strong> $600-$1,000+</li>
+                </ul>
+
+                <h3>Used Equipment Strategy</h3>
+                <p>
+                    <span class="highlight-term">Buy used and save 40-60% on equipment costs.</span> Check ASPA member classifieds, eBay, Craigslist, and local Facebook groups. Many retiring printers sell quality equipment in excellent condition. Just inspect carefully and test before buying.
+                </p>
+            </section>
+
+            <!-- SECTION 3: SUPPLIES & CONSUMABLES -->
+            <section id="supplies">
+                <h2>Supplies and Consumables: The Ongoing Costs</h2>
+                <p>
+                    Equipment is just the beginning. Supplies and consumables are where people underestimate their ongoing expenses. Let's break down what you'll actually spend.
+                </p>
+
+                <h3>Screens & Mesh</h3>
+                <ul>
+                    <li><strong>Pre-stretched aluminum screens:</strong> $15-$40 each, depending on size and quality</li>
+                    <li><strong>Starter set:</strong> Buy 10-20 screens minimum. Budget $200-$500 for your initial inventory.</li>
+                    <li><strong>Different mesh counts:</strong> 110 mesh (bold graphics), 156 mesh (versatile), 230 mesh (fine details)</li>
+                </ul>
+
+                <h3>Squeegees</h3>
+                <ul>
+                    <li><strong>Basic squeegees:</strong> $10-$30 each</li>
+                    <li><strong>Different durometers:</strong> 60-70 for textiles, 80-90 for hard substrates</li>
+                    <li><strong>Starter kit:</strong> Get 2-3 different squeegees in various sizes. Budget $50-$100.</li>
+                </ul>
+
+                <h3>Inks (Plastisol & Water-Based)</h3>
+                <ul>
+                    <li><strong>Plastisol ink (per quart):</strong> $15-$25. Common brands: Wilflex, Union, Rutland.</li>
+                    <li><strong>Water-based ink (per quart):</strong> $20-$35. More expensive but eco-friendly.</li>
+                    <li><strong>Starter colors:</strong> White, black, red, blue, yellow. Budget $100-$150 for initial ink stock.</li>
+                </ul>
+
+                <h3>Emulsion & Scoop Coater</h3>
+                <ul>
+                    <li><strong>Diazo emulsion (per gallon):</strong> $25-$50. Makes 20-40 screens.</li>
+                    <li><strong>Emulsion scoop coater:</strong> $15-$30</li>
+                    <li><strong>Starter emulsion:</strong> One gallon lasts months. Budget $50-$60.</li>
+                </ul>
+
+                <h3>Screen Cleaning Chemicals</h3>
+                <ul>
+                    <li><strong>Screen degreaser:</strong> $15-$30</li>
+                    <li><strong>Emulsion remover:</strong> $15-$40</li>
+                    <li><strong>General screen wash:</strong> $20-$40</li>
+                    <li><strong>Monthly chemical budget (active shop):</strong> $50-$100/month</li>
+                </ul>
+
+                <h3>Blank Apparel (T-Shirts)</h3>
+                <p>
+                    Your material cost. Varies wildly by brand and quality:
+                </p>
+                <ul>
+                    <li><strong>Gildan (basic):</strong> $2-$3 per shirt wholesale</li>
+                    <li><strong>Next Level (premium):</strong> $3-$5 per shirt</li>
+                    <li><strong>Bella+Canvas (quality):</strong> $4-$6 per shirt</li>
+                    <li><strong>Premium brands:</strong> $6-$10+ per shirt</li>
+                </ul>
+
+                <h3>Film Positives (Transparencies)</h3>
+                <ul>
+                    <li><strong>Transparency film:</strong> $1-$3 per sheet</li>
+                    <li><strong>One design = 1 film per color:</strong> Budget $5-$15 per multi-color design.</li>
+                </ul>
+
+                <h3>Miscellaneous Supplies</h3>
+                <ul>
+                    <li>Registration tape and guides: $10-$30</li>
+                    <li>Masking tape and duct tape: $15-$30</li>
+                    <li>Rags, paper towels, cleaning supplies: $30-$50/month</li>
+                    <li>Measuring tools, thermometer, timers: $30-$50</li>
+                </ul>
+
+                <div class="pro-tip">
+                    <strong>Monthly Operating Budget (Active Small Shop):</strong> Plan for $200-$500/month in supplies and consumables. This covers ink, emulsion, screens, chemicals, and miscellaneous items for a shop printing 50-100 shirts/week.
+                </div>
+            </section>
+
+            <!-- SECTION 4: SPACE & WORKSPACE -->
+            <section id="space">
+                <h2>Space and Workspace Costs</h2>
+                <p>
+                    Where you set up shop dramatically affects your overhead. Here are the options and what they cost:
+                </p>
+
+                <h3>Home Garage/Basement: $0 (Existing Investment)</h3>
+                <p>
+                    Free if you already own your home. But you need:
+                </p>
+                <ul>
+                    <li>Proper ventilation (especially for flash dryers and heat curing)</li>
+                    <li>Good lighting</li>
+                    <li>Water access and drainage</li>
+                    <li>Climate control (68-75°F ideal for emulsion)</li>
+                    <li>Space for equipment, screens, ink, and inventory</li>
+                </ul>
+                <p>
+                    Many successful shops started here. Don't let space limitations stop you—hundreds of ASPA members have scaled from garages to thriving businesses.
+                </p>
+
+                <h3>Shared Workshop Space: $200-$800/month</h3>
+                <p>
+                    Rent time in a shared maker space or production facility. Great for reducing overhead while you test the market.
+                </p>
+
+                <h3>Commercial Lease (Small Space): $800-$2,000/month</h3>
+                <p>
+                    Rent a small commercial unit (500-1,000 sq ft). Includes utilities and basic infrastructure.
+                </p>
+
+                <h3>Commercial Lease (Larger Space): $2,000-$3,000+/month</h3>
+                <p>
+                    Full production facility (1,500-3,000 sq ft) with room for equipment, design station, and storage.
+                </p>
+
+                <h3>Utilities & Infrastructure</h3>
+                <ul>
+                    <li><strong>Electricity:</strong> Flash and conveyor dryers are power-hungry. Budget $200-$400/month for a commercial space.</li>
+                    <li><strong>Water:</strong> Screen washing and cleanup use significant water. Budget $50-$150/month.</li>
+                    <li><strong>HVAC/Ventilation:</strong> Critical for health and equipment longevity. Cost varies by setup.</li>
+                </ul>
+
+                <h3>Insurance</h3>
+                <p>
+                    Don't skip this. One ruined order or injury lawsuit could end your business.
+                </p>
+                <ul>
+                    <li><strong>General Liability Insurance:</strong> $500-$1,500/year for a small shop</li>
+                    <li><strong>Property Insurance (if you own equipment):</strong> $200-$500/year</li>
+                    <li><strong>Workers Compensation (if you hire employees):</strong> $1,000-$3,000+/year</li>
+                </ul>
+
+                <h3>Zoning Considerations (Home-Based Businesses)</h3>
+                <p>
+                    Check your local zoning laws. Some residential areas restrict home-based businesses. You may need a home occupation permit ($50-$200) or could face fines. Verify before you start printing.
+                </p>
+
+                <div class="pro-tip">
+                    <strong>Pro Tip:</strong> Many highly successful screen printing operations started in garages. Don't let space limitations hold you back. Start small, prove the business works, then scale into commercial space when revenue justifies it.
+                </div>
+            </section>
+
+            <!-- SECTION 5: BUSINESS SETUP COSTS -->
+            <section id="business-setup">
+                <h2>Business Setup Costs: The Stuff Nobody Talks About</h2>
+                <p>
+                    Beyond equipment and supplies, you have business overhead that catches new printers off guard. Budget for these:
+                </p>
+
+                <h3>Legal & Registration</h3>
+                <ul>
+                    <li><strong>Business license/registration:</strong> $50-$500 depending on state and city</li>
+                    <li><strong>Sales tax permit:</strong> Usually free</li>
+                    <li><strong>EIN (Employer Identification Number):</strong> Free from the IRS</li>
+                    <li><strong>LLC Formation (optional but recommended):</strong> $100-$300 in most states</li>
+                </ul>
+
+                <h3>Insurance (Critical)</h3>
+                <ul>
+                    <li><strong>General Liability:</strong> $500-$1,500/year</li>
+                    <li><strong>Equipment/Property:</strong> $200-$500/year</li>
+                    <li><strong>Product Liability (if printing for clients):</strong> $300-$1,000/year</li>
+                </ul>
+
+                <div class="safety-warning">
+                    <strong>Warning:</strong> One ruined order of 500 custom shirts could cost you $5,000-$10,000 to reprint or refund. Insurance is non-negotiable. Don't attempt to save money here.
+                </div>
+
+                <h3>Website & Online Store</h3>
+                <ul>
+                    <li><strong>Free option:</strong> Use Wix, Squarespace free tier, or WordPress.com</li>
+                    <li><strong>Basic setup:</strong> $10-$20/month for hosting and domain</li>
+                    <li><strong>Professional storefront:</strong> $30-$100/month for e-commerce functionality</li>
+                    <li><strong>Custom development:</strong> $2,000-$5,000+ if you hire a designer</li>
+                </ul>
+
+                <h3>Branding & Marketing</h3>
+                <ul>
+                    <li><strong>Business cards:</strong> $50-$150 for 500-1000 cards</li>
+                    <li><strong>Logo design:</strong> $50-$500 (DIY to professional)</li>
+                    <li><strong>Marketing materials (banners, flyers):</strong> $100-$300</li>
+                    <li><strong>Social media graphics:</strong> $0 (DIY) to $200-$500 (designer)</li>
+                </ul>
+
+                <h3>Software & Design Tools</h3>
+                <ul>
+                    <li><strong>Adobe Illustrator (design):</strong> $20-$30/month</li>
+                    <li><strong>CorelDRAW (alternative):</strong> $19.99/month or $399 one-time</li>
+                    <li><strong>Inkscape (free):</strong> $0, open-source</li>
+                    <li><strong>Accounting software (QuickBooks, Wave):</strong> $0-$30/month</li>
+                </ul>
+
+                <h3>Sample Inventory for Portfolio</h3>
+                <ul>
+                    <li>Printed sample shirts to show clients your work: $50-$200</li>
+                    <li>Build these as you take jobs, not upfront.</li>
+                </ul>
+
+                <h3>ASPA+ Membership ($49/year)</h3>
+                <p>
+                    This is legitimately one of the best ROI investments for a startup printer:
+                </p>
+                <ul>
+                    <li>Directory listing (gets you client leads)</li>
+                    <li>Supplier discounts (10-20% off ink, screens, etc.)</li>
+                    <li>Access to CSP certification program</li>
+                    <li>Industry publications and resources</li>
+                    <li>Community access and networking</li>
+                </ul>
+                <p>
+                    The supplier discounts alone typically pay for membership within months.
+                </p>
+            </section>
+
+            <!-- SECTION 6: FIRST-YEAR BUDGETS -->
+            <section id="budgets">
+                <h2>Realistic First-Year Budget Scenarios</h2>
+                <p>
+                    Here are three detailed examples showing startup + first-year operating costs. These are real scenarios based on ASPA member experiences:
+                </p>
+
+                <h3>Sarah's Garage Side Hustle</h3>
+                <p>
+                    <strong>Goal:</strong> Print custom shirts for friends, local events, and small online orders. Testing if this could become a real business.
+                </p>
+                <ul>
+                    <li>1-color manual press: $300</li>
+                    <li>Basic exposure unit (DIY sun exposure initially): $0</li>
+                    <li>Screens and squeegees: $150</li>
+                    <li>Initial ink and emulsion: $100</li>
+                    <li>Misc supplies and tools: $100</li>
+                    <li><strong>Startup Total: $650</strong></li>
+                </ul>
+                <p>
+                    <strong>Monthly Operating:</strong> ~$150-$200 (ink, screens, supplies, apparel wholesale)
+                </p>
+                <p>
+                    <strong>Revenue Potential:</strong> $500-$2,000/month (10-30 shirts/week at $25-35/shirt margin)
+                </p>
+                <p>
+                    <strong>Break-even Timeline:</strong> 1-2 months
+                </p>
+
+                <h3>Mike's Small Professional Shop</h3>
+                <p>
+                    <strong>Goal:</strong> Print 100+ shirts/week for local businesses, custom orders, and print-on-demand clients. This is a real business, not a side hustle.
+                </p>
+                <ul>
+                    <li>4-color 4-station manual press: $1,500</li>
+                    <li>Professional UV exposure unit: $600</li>
+                    <li>Flash dryer: $500</li>
+                    <li>Screens and tools (50 screens, squeegees, etc.): $600</li>
+                    <li>Initial ink, emulsion, chemicals: $400</li>
+                    <li>Design software and setup: $300</li>
+                    <li>Business registration and insurance (first year): $800</li>
+                    <li>Shared workshop space deposit: $500</li>
+                    <li><strong>Startup Total: ~$5,200</strong></li>
+                </ul>
+                <p>
+                    <strong>Monthly Operating:</strong> ~$600-$800 (space $400, supplies $200-$300, apparel costs built into pricing)
+                </p>
+                <p>
+                    <strong>Revenue Potential:</strong> $3,000-$8,000/month (100-200 shirts/week at $25-35/shirt margin)
+                </p>
+                <p>
+                    <strong>Break-even Timeline:</strong> 2-4 months
+                </p>
+
+                <h3>Team Print Co. (Full Production Shop)</h3>
+                <p>
+                    <strong>Goal:</strong> Professional operation with employees, large orders, and sustained growth. Full-time business.
+                </p>
+                <ul>
+                    <li>6-color automatic press: $35,000</li>
+                    <li>Conveyor dryer: $4,000</li>
+                    <li>Professional exposure unit: $1,200</li>
+                    <li>Heat press and accessories: $800</li>
+                    <li>Screens, squeegees, tools (100+ items): $2,000</li>
+                    <li>Initial inventory (ink, chemicals, screens): $1,500</li>
+                    <li>Design software and design workstation: $2,000</li>
+                    <li>Commercial lease deposit (first + last month): $3,000</li>
+                    <li>Insurance, business registration, licenses: $2,000</li>
+                    <li>Website and branding: $1,500</li>
+                    <li><strong>Startup Total: ~$54,000</strong></li>
+                </ul>
+                <p>
+                    <strong>Monthly Operating:</strong> ~$3,000-$4,000 (lease $2,000, utilities $400, staff $2,000+, supplies $300-$500)
+                </p>
+                <p>
+                    <strong>Revenue Potential:</strong> $15,000-$50,000+/month (500-2,000+ shirts/week)
+                </p>
+                <p>
+                    <strong>Break-even Timeline:</strong> 3-6 months with steady orders
+                </p>
+            </section>
+
+            <!-- SECTION 7: SAVE MONEY -->
+            <section id="save-money">
+                <h2>How to Save Money When Starting Out</h2>
+                <p>
+                    Your startup budget doesn't have to be massive. Here's how successful printers cut costs without sacrificing quality:
+                </p>
+
+                <h3>Buy Used Equipment (Save 40-60%)</h3>
+                <p>
+                    Used presses, dryers, and exposure units are everywhere. Many retiring printers sell quality gear at fraction of new prices. Check:
+                </p>
+                <ul>
+                    <li>ASPA member classifieds and forums</li>
+                    <li>eBay and Craigslist</li>
+                    <li>Facebook Marketplace and industry groups</li>
+                    <li>Local print shops closing or upgrading</li>
+                    <li>Trade shows and auctions</li>
+                </ul>
+
+                <h3>Start with a Manual Press</h3>
+                <p>
+                    Manual presses are vastly cheaper than automatic and teach you proper technique. Upgrade to automation only when order volume justifies it (typically 200+ shirts/week consistently).
+                </p>
+
+                <h3>DIY Exposure and Washout</h3>
+                <p>
+                    Early on:
+                </p>
+                <ul>
+                    <li>Use sunlight for exposure ($0) instead of a UV box</li>
+                    <li>Build a simple washout booth with a hose ($50)</li>
+                    <li>Make exposure test strips yourself</li>
+                </ul>
+                <p>
+                    Upgrade to professional equipment once you're printing regularly.
+                </p>
+
+                <h3>Use Free or Open-Source Design Software</h3>
+                <ul>
+                    <li>Inkscape (free, vector-based)</li>
+                    <li>GIMP (free, raster-based)</li>
+                    <li>Canva (free version available)</li>
+                </ul>
+                <p>
+                    Skip the $20-30/month Adobe subscription until you need professional tools.
+                </p>
+
+                <h3>Start with Limited Colors</h3>
+                <p>
+                    Don't buy 20 colors of ink. Stock white, black, red, blue, and yellow. This covers 95% of design requests. Add more colors as clients request them.
+                </p>
+
+                <h3>Print on Demand First, Inventory Second</h3>
+                <p>
+                    Don't print 100 shirts on speculation. Take custom orders first, then print exactly what you sold. This avoids dead inventory tying up capital.
+                </p>
+
+                <h3>Barter and Trade</h3>
+                <p>
+                    Offer free/discounted shirts in exchange for services you need (web design, logo work, bookkeeping). Especially in the early days.
+                </p>
+
+                <h3>Join ASPA (Seriously)</h3>
+                <p>
+                    ASPA+ at $49/year unlocks:
+                </p>
+                <ul>
+                    <li>10-20% discounts on ink, screens, chemicals from major suppliers</li>
+                    <li>Educational resources and training</li>
+                    <li>Business networking (mentorship from experienced printers)</li>
+                    <li>Directory listing for free client leads</li>
+                </ul>
+                <p>
+                    The supplier discounts pay for membership in your first month.
+                </p>
+
+                <h3>Take ASPA Training Instead of Expensive Workshops</h3>
+                <p>
+                    The ASPA Diploma Course costs just $79 for ASPA+ members. Beats $500-2,000 weekend workshops at print shops.
+                </p>
+            </section>
+
+            <!-- SECTION 8: BREAKEVEN -->
+            <section id="breakeven">
+                <h2>When Will I Break Even?</h2>
+                <p>
+                    This is the question every startup asks. Here are the real numbers based on cost structure and volume:
+                </p>
+
+                <h3>Your Cost Structure</h3>
+                <ul>
+                    <li><strong>Typical ink + consumables cost per shirt:</strong> $1-$2</li>
+                    <li><strong>Apparel cost (wholesale):</strong> $2-$6 depending on quality</li>
+                    <li><strong>Total material cost:</strong> $3-$8 per shirt</li>
+                    <li><strong>Typical selling price:</strong> $15-$35 per custom shirt</li>
+                    <li><strong>Gross margin per shirt:</strong> $10-$25</li>
+                </ul>
+
+                <h3>Sample Break-Even Scenarios</h3>
+
+                <h3>Sarah's Garage (Startup: $650)</h3>
+                <ul>
+                    <li>Monthly printing: 50 shirts at $25 margin = $1,250 gross revenue</li>
+                    <li>Monthly materials/supplies: ~$150</li>
+                    <li>Monthly net: $1,100</li>
+                    <li><strong>Break-even: Less than 1 month</strong></li>
+                </ul>
+
+                <h3>Mike's Shop (Startup: $5,200)</h3>
+                <ul>
+                    <li>Monthly printing: 150 shirts at $22 average margin = $3,300</li>
+                    <li>Monthly overhead: $700 (space, utilities, supplies)</li>
+                    <li>Monthly net: $2,600</li>
+                    <li><strong>Break-even: 2-3 months</strong></li>
+                </ul>
+
+                <h3>Team Print Co. (Startup: $54,000)</h3>
+                <ul>
+                    <li>Monthly printing: 1,000 shirts at $20 average margin = $20,000</li>
+                    <li>Monthly overhead: $3,500 (lease, utilities, labor, supplies)</li>
+                    <li>Monthly net: $16,500</li>
+                    <li><strong>Break-even: 3-4 months with consistent orders</strong></li>
+                </ul>
+
+                <div class="pro-tip">
+                    <strong>Pro Tip:</strong> Custom orders (not inventory) are the fastest path to profitability. Print exactly what you sold, nothing more. This minimizes dead inventory and maximizes cash flow.
+                </div>
+            </section>
+
+            <!-- SECTION 9: GETTING STARTED SMART -->
+            <section id="getting-started">
+                <h2>Getting Started the Smart Way</h2>
+                <p>
+                    You've seen the numbers. Now here's how to actually get started without overspending or making costly mistakes:
+                </p>
+
+                <h3>Phase 1: Validate the Concept (Month 1-2)</h3>
+                <ul>
+                    <li>Invest minimum: $500-$800 for basic manual press and supplies</li>
+                    <li>Offer custom printing to friends, family, local events at wholesale prices</li>
+                    <li>Get 10-20 real customers before expanding</li>
+                    <li>Prove you can execute before upgrading</li>
+                </ul>
+
+                <h3>Phase 2: Build Skills (Month 2-4)</h3>
+                <ul>
+                    <li>Print 100-200 shirts to master your technique</li>
+                    <li>Learn your market: what designs sell, what prices people pay</li>
+                    <li>Join ASPA and take the Diploma course ($79)</li>
+                    <li>Document everything: costs, time, customer feedback</li>
+                    <li>Consider CSP certification to build credibility</li>
+                </ul>
+
+                <h3>Phase 3: Scale Smart (Month 4+)</h3>
+                <ul>
+                    <li>Only upgrade equipment when order volume justifies it</li>
+                    <li>Get your first paying customer before investing in new gear</li>
+                    <li>Reinvest profits rather than taking big personal draws early</li>
+                    <li>Consider renting shared space only after garage is too small</li>
+                    <li>List your business in the ASPA directory once you're operational</li>
+                </ul>
+
+                <h3>Join the ASPA Community</h3>
+                <p>
+                    You're not alone. ASPA connects you with thousands of screen printers:
+                </p>
+                <ul>
+                    <li>Find mentors in your area who've built successful businesses</li>
+                    <li>Get answers to technical questions (ASPA experts respond within hours)</li>
+                    <li>Access supplier discounts (10-20% off your biggest costs)</li>
+                    <li>Build your network through industry events and online forums</li>
+                    <li>Get certified as a Certified Screen Printer (CSP) to boost credibility</li>
+                </ul>
+
+                <p>
+                    The most successful screen printing businesses started exactly where you are now—with a dream, a budget, and questions. The difference? They took action, learned from doing, and surrounded themselves with experienced printers who'd been through it before.
+                </p>
+            </section>
+
+            <!-- RELATED ARTICLES -->
+            <section class="related-articles">
+                <h2>Related Articles</h2>
+                <div class="related-grid">
+                    <div class="article-card">
+                        <h3>How to Screen Print T-Shirts: The Complete Beginner's Guide</h3>
+                        <p>Step-by-step walkthrough of the entire screen printing process from artwork preparation to curing your finished prints.</p>
+                        <a href="article-how-to-screen-print.html">Read Article →</a>
+                    </div>
+                    <div class="article-card">
+                        <h3>Pricing Your Screen Printing Work: A Complete Guide</h3>
+                        <p>How to calculate costs, set profitable prices, and beat the competition without leaving money on the table.</p>
+                        <a href="#">Read Article →</a>
+                    </div>
+                    <div class="article-card">
+                        <h3>Starting a Home-Based T-Shirt Business: From Garage to Growth</h3>
+                        <p>Real strategies for scaling from a garage operation to a legitimate business, including legal setup and growth milestones.</p>
+                        <a href="#">Read Article →</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA BANNER -->
+            <div class="cta-banner">
+                <h2>Turn your plan into action</h2>
+                <p>Join 1,200+ screen printing professionals. Get certified, get listed, get growing.</p>
+                <div class="cta-buttons">
+                    <a href="join.html" class="cta-btn cta-btn-primary">Join ASPA+ →</a>
+                    <a href="exam.html" class="cta-btn cta-btn-secondary">Start CSP Exam →</a>
+                </div>
+            </div>
+        </article>
+    </div>
+
+    <!-- ========================================
+         FOOTER
+         ======================================== -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Directory</h4>
+                    <ul>
+                        <li><a href="directory.html">Member Directory</a></li>
+                        <li><a href="index.html#certification">CSP Certification</a></li>
+                        <li><a href="index.html#membership">Membership Tiers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Certification</h4>
+                    <ul>
+                        <li><a href="certified-roster.html">CSP Roster</a></li>
+                        <li><a href="index.html#certification">CSP Program</a></li>
+                        <li><a href="#">Certification Standards</a></li>
+                        <li><a href="#">Apply for Certification</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Association</h4>
+                    <ul>
+                        <li><a href="about.html">About ASPA</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                Copyright © 2004-2026 American Screen Printing Association. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========================================
+         JAVASCRIPT - TOC Active State & Mobile Menu
+         ======================================== -->
+    <script>
+        // Table of Contents - Active State Management
+        const tocLinks = document.querySelectorAll('.toc-list a');
+        const sections = document.querySelectorAll('section[id]');
+
+        function updateActiveTOC() {
+            let current = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 150;
+                if (window.pageYOffset >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveTOC);
+        window.addEventListener('load', updateActiveTOC);
+
+        // Smooth scroll for TOC links
+        tocLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Mobile Menu Toggle (Placeholder)
+        function toggleMobileMenu() {
+            console.log('Mobile menu toggled');
+        }
+    </script>
+</body>
+</html>

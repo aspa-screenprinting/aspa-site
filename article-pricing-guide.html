@@ -1,0 +1,1564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Price Screen Printing Jobs: Complete Pricing Guide (2026) | ASPA</title>
+    <meta name="description" content="Learn how to price screen printing jobs for profit. Covers cost calculation, markup strategies, quantity breaks, and real pricing examples from ASPA.">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ========================================
+           DESIGN SYSTEM & ROOT VARIABLES
+           ======================================== */
+        :root {
+            --ink-black: #0a0a0a;
+            --ink-dark: #1a1a2e;
+            --ink-purple: #6c2bd9;
+            --ink-magenta: #e91e8c;
+            --ink-cyan: #00d4ff;
+            --ink-yellow: #ffd400;
+            --ink-orange: #ff6b35;
+            --ink-white: #f8f8f8;
+            --ink-gray: #b0b0b0;
+            --ink-gray-dark: #2a2a3e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--ink-black);
+            color: var(--ink-white);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ========================================
+           NAVIGATION BAR
+           ======================================== */
+        nav {
+            background-color: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 0 24px;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .nav-logo {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .nav-logo-main {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--ink-white);
+            letter-spacing: 2px;
+        }
+
+        .nav-logo-sub {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 9px;
+            font-weight: 600;
+            color: var(--ink-cyan);
+            letter-spacing: 1.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--ink-gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--ink-cyan);
+        }
+
+        .nav-links a.active {
+            color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            color: var(--ink-black);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background-color: var(--ink-white);
+            border-radius: 2px;
+            transition: 0.3s ease;
+        }
+
+        /* ========================================
+           ARTICLE HEADER
+           ======================================== */
+        .article-header {
+            background: linear-gradient(135deg, rgba(233, 30, 140, 0.1) 0%, rgba(108, 43, 217, 0.05) 100%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 48px 24px;
+        }
+
+        .article-header-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            color: var(--ink-gray);
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+        }
+
+        .breadcrumb a {
+            color: var(--ink-cyan);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--ink-yellow);
+        }
+
+        .category-tag {
+            display: inline-block;
+            background-color: rgba(233, 30, 140, 0.15);
+            border: 1px solid rgba(233, 30, 140, 0.4);
+            color: var(--ink-magenta);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .article-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--ink-white);
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+            line-height: 1.2;
+        }
+
+        .article-meta {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            color: var(--ink-gray);
+            margin-bottom: 24px;
+            letter-spacing: 0.3px;
+        }
+
+        .article-intro {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #d0d0d0;
+        }
+
+        /* ========================================
+           ARTICLE LAYOUT (TOC + Content)
+           ======================================== */
+        .article-wrapper {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        /* ========================================
+           TABLE OF CONTENTS (Sidebar)
+           ======================================== */
+        .toc-sidebar {
+            position: sticky;
+            top: 90px;
+            height: fit-content;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+        }
+
+        .toc-sidebar h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--ink-cyan);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        .toc-list {
+            list-style: none;
+        }
+
+        .toc-list li {
+            margin-bottom: 10px;
+        }
+
+        .toc-list a {
+            font-size: 14px;
+            color: var(--ink-gray);
+            text-decoration: none;
+            transition: color 0.2s ease;
+            padding-left: 12px;
+            border-left: 2px solid transparent;
+            display: block;
+            transition: all 0.2s ease;
+        }
+
+        .toc-list a:hover {
+            color: var(--ink-cyan);
+            border-left-color: var(--ink-cyan);
+        }
+
+        .toc-list a.active {
+            color: var(--ink-cyan);
+            border-left-color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        /* ========================================
+           ARTICLE CONTENT
+           ======================================== */
+        .article-content {
+            max-width: 800px;
+        }
+
+        article h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--ink-white);
+            margin-top: 48px;
+            margin-bottom: 20px;
+            padding-left: 16px;
+            border-left: 4px solid var(--ink-magenta);
+            letter-spacing: 0.5px;
+        }
+
+        article h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--ink-white);
+            margin-top: 32px;
+            margin-bottom: 16px;
+            letter-spacing: 0.3px;
+        }
+
+        article p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 18px;
+            color: #e0e0e0;
+        }
+
+        article strong {
+            color: var(--ink-white);
+            font-weight: 600;
+        }
+
+        article em {
+            color: var(--ink-magenta);
+            font-style: italic;
+        }
+
+        .highlight-term {
+            color: var(--ink-magenta);
+            font-weight: 600;
+        }
+
+        article ul, article ol {
+            margin: 20px 0 20px 24px;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        article li {
+            margin-bottom: 12px;
+            color: #e0e0e0;
+        }
+
+        /* ========================================
+           CALLOUT BOXES
+           ======================================== */
+        .pro-tip {
+            background-color: rgba(108, 43, 217, 0.15);
+            border-left: 4px solid var(--ink-cyan);
+            border-radius: 4px;
+            padding: 20px;
+            margin: 28px 0;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .pro-tip strong {
+            color: var(--ink-cyan);
+            font-weight: 700;
+        }
+
+        .safety-warning {
+            background-color: rgba(255, 107, 53, 0.1);
+            border-left: 4px solid var(--ink-orange);
+            border-radius: 4px;
+            padding: 20px;
+            margin: 28px 0;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .safety-warning strong {
+            color: var(--ink-orange);
+            font-weight: 700;
+        }
+
+        .budget-breakdown {
+            background-color: rgba(0, 212, 255, 0.08);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 8px;
+            padding: 24px;
+            margin: 28px 0;
+        }
+
+        .budget-breakdown h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--ink-cyan);
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+        }
+
+        .budget-breakdown ul {
+            list-style: none;
+            margin: 0;
+        }
+
+        .budget-breakdown li {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 1.05rem;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        .budget-breakdown li:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .budget-range {
+            color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        /* ========================================
+           PRICING BREAKDOWN TABLE
+           ======================================== */
+        .pricing-table {
+            background-color: rgba(0, 212, 255, 0.08);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 8px;
+            padding: 24px;
+            margin: 28px 0;
+        }
+
+        .pricing-table h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--ink-cyan);
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+        }
+
+        .pricing-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 16px;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+            font-size: 1.05rem;
+        }
+
+        .pricing-row:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .pricing-label {
+            color: #e0e0e0;
+        }
+
+        .pricing-value {
+            color: var(--ink-cyan);
+            font-weight: 600;
+            text-align: right;
+        }
+
+        /* ========================================
+           NUMBERED STEPS
+           ======================================== */
+        .step {
+            margin: 32px 0;
+            padding: 24px;
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: 4px;
+            border-left: 4px solid var(--ink-purple);
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            color: var(--ink-black);
+            border-radius: 50%;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .step h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--ink-white);
+            margin-bottom: 12px;
+        }
+
+        .step p {
+            margin-bottom: 12px;
+        }
+
+        .step p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ========================================
+           RELATED ARTICLES SECTION
+           ======================================== */
+        .related-articles {
+            margin-top: 60px;
+            padding: 40px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .related-articles h2 {
+            margin-top: 0;
+            border-left: none;
+            padding-left: 0;
+            margin-bottom: 32px;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .article-card {
+            background-color: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 8px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .article-card:hover {
+            border-color: var(--ink-cyan);
+            background-color: rgba(0, 212, 255, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .article-card h3 {
+            margin-top: 0;
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        .article-card p {
+            font-size: 14px;
+            color: var(--ink-gray);
+            flex-grow: 1;
+            margin-bottom: 16px;
+        }
+
+        .article-card a {
+            color: var(--ink-cyan);
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            transition: color 0.2s ease;
+            align-self: flex-start;
+        }
+
+        .article-card a:hover {
+            color: var(--ink-yellow);
+        }
+
+        /* ========================================
+           CTA BANNER
+           ======================================== */
+        .cta-banner {
+            background: linear-gradient(135deg, rgba(233, 30, 140, 0.2) 0%, rgba(108, 43, 217, 0.1) 100%);
+            border: 1px solid rgba(233, 30, 140, 0.3);
+            border-radius: 12px;
+            padding: 40px;
+            margin-top: 60px;
+            text-align: center;
+        }
+
+        .cta-banner h2 {
+            border-left: none;
+            padding-left: 0;
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 32px;
+        }
+
+        .cta-banner p {
+            font-size: 18px;
+            color: #d0d0d0;
+            margin-bottom: 28px;
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            letter-spacing: 0.5px;
+        }
+
+        .cta-btn-primary {
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            color: var(--ink-black);
+        }
+
+        .cta-btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(0, 212, 255, 0.4);
+        }
+
+        .cta-btn-secondary {
+            background-color: transparent;
+            color: var(--ink-cyan);
+            border: 2px solid var(--ink-cyan);
+        }
+
+        .cta-btn-secondary:hover {
+            background-color: rgba(0, 212, 255, 0.1);
+            border-color: var(--ink-yellow);
+            color: var(--ink-yellow);
+        }
+
+        /* ========================================
+           FOOTER
+           ======================================== */
+        footer {
+            background-color: rgba(10, 10, 10, 0.8);
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 40px 24px 20px;
+            margin-top: 80px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--ink-cyan);
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 12px;
+        }
+
+        .footer-section a {
+            color: var(--ink-gray);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--ink-cyan);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            font-size: 13px;
+            color: var(--ink-gray);
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        /* ========================================
+           RESPONSIVE
+           ======================================== */
+        @media (max-width: 1024px) {
+            .article-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .toc-sidebar {
+                position: static;
+                max-height: none;
+            }
+
+            article h2 {
+                font-size: 28px;
+            }
+
+            .article-title {
+                font-size: 36px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 16px;
+            }
+
+            .nav-links a {
+                font-size: 12px;
+            }
+
+            .article-title {
+                font-size: 28px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .cta-btn {
+                width: 100%;
+            }
+
+            .pricing-row {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ========================================
+         NAVIGATION
+         ======================================== -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="nav-logo-main">ASPA</div>
+                <div class="nav-logo-sub">Screen Printers</div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="directory.html">Directory</a></li>
+                <li><a href="certified-roster.html">Certified</a></li>
+                <li><a href="exam.html">Certification</a></li>
+                <li><a href="membership.html">Membership</a></li>
+                <li><a href="resources.html">Resources</a></li>
+            </ul>
+            <a href="join.html" class="nav-cta">Join ASPA</a>
+        </div>
+    </nav>
+
+    <!-- ========================================
+         ARTICLE HEADER
+         ======================================== -->
+    <div class="article-header">
+        <div class="article-header-container">
+            <p class="breadcrumb">
+                <a href="index.html">Home</a> →
+                <a href="resources.html">Resources</a> →
+                <a href="resources.html">Business & Growth</a> →
+                Article
+            </p>
+            <span class="category-tag">Business & Growth</span>
+            <h1 class="article-title">Pricing Your Screen Printing Work: A Complete Guide</h1>
+            <p class="article-meta">Updated March 2026 · 18 min read</p>
+            <p class="article-intro">
+                Most screen printers start by guessing prices or copying competitors. This leads to either undercharging (burning out, going broke) or overcharging (losing jobs). Smart pricing means knowing your real costs, your market, and your value. This guide gives you a repeatable formula that works whether you're printing 12 shirts or 1,200.
+            </p>
+        </div>
+    </div>
+
+    <!-- ========================================
+         ARTICLE CONTENT + TOC
+         ======================================== -->
+    <div class="article-wrapper">
+        <!-- TABLE OF CONTENTS SIDEBAR -->
+        <aside class="toc-sidebar">
+            <h3>On This Page</h3>
+            <ul class="toc-list">
+                <li><a href="#intro">Pricing Makes or Breaks</a></li>
+                <li><a href="#true-costs">Understanding True Costs</a></li>
+                <li><a href="#pricing-formula">The Pricing Formula</a></li>
+                <li><a href="#quantity-breaks">Quantity Break Pricing</a></li>
+                <li><a href="#print-complexity">Print Complexity Pricing</a></li>
+                <li><a href="#common-mistakes">Common Pricing Mistakes</a></li>
+                <li><a href="#art-setup">Art and Setup Fees</a></li>
+                <li><a href="#positioning">Positioning Your Shop</a></li>
+                <li><a href="#raising-prices">Raising Your Prices</a></li>
+                <li><a href="#price-sheet">Building Your Price Sheet</a></li>
+            </ul>
+        </aside>
+
+        <!-- MAIN ARTICLE CONTENT -->
+        <article class="article-content">
+
+            <!-- SECTION 1: INTRODUCTION -->
+            <section id="intro">
+                <h2>Pricing Makes or Breaks Your Business</h2>
+                <p>
+                    Walk into any screen printing shop and ask five printers how they price their work. You'll get five different answers. Some quote by feel. Some copy what the shop next door charges. Some use online calculators that don't account for their specific costs. Most struggle to make real profit, even when they're swamped with orders.
+                </p>
+                <p>
+                    The reality: <span class="highlight-term">pricing is not an art form — it's a math problem with rules you can master.</span> Get it right, and you'll run a profitable business that doesn't burn you out. Get it wrong, and you'll either scare off customers or work for minimum wage while your equipment depreciates.
+                </p>
+                <p>
+                    This guide walks you through the exact system used by successful print shops, from 1-person operations to teams printing thousands of shirts monthly. You'll learn how to calculate your true costs, apply markup strategically, offer volume discounts without leaving money on the table, and know when it's time to raise prices.
+                </p>
+                <p>
+                    Whether you're printing 12 shirts for a local team or 1,200 for a major brand, the formula stays the same. Only the numbers change.
+                </p>
+            </section>
+
+            <!-- SECTION 2: UNDERSTANDING YOUR TRUE COSTS -->
+            <section id="true-costs">
+                <h2>Understanding Your True Costs</h2>
+                <p>
+                    Before you quote a single job, you need to know your real costs. Not just the obvious stuff — ink, screens, blank garments — but also the overhead that exists whether you print zero shirts or 10,000 shirts this month.
+                </p>
+                <p>
+                    Break your costs into two categories:
+                </p>
+
+                <h3>Fixed Costs (Monthly — the same every month)</h3>
+                <p>
+                    These costs exist whether you print or not. They're your business foundation:
+                </p>
+                <ul>
+                    <li><strong>Rent/mortgage:</strong> Workshop space, garage, commercial lease</li>
+                    <li><strong>Equipment payments:</strong> Press financing, dryer loan, exposure unit payments</li>
+                    <li><strong>Insurance:</strong> General liability, equipment, workers comp (if applicable)</li>
+                    <li><strong>Utilities:</strong> Electricity, water, heat, internet, phone</li>
+                    <li><strong>Software/subscriptions:</strong> Design software, accounting, CRM</li>
+                    <li><strong>Loan payments:</strong> Business loans, equipment financing</li>
+                    <li><strong>Licenses/compliance:</strong> Annual business license, certifications</li>
+                </ul>
+
+                <h3>Variable Costs (Per job — changes with volume)</h3>
+                <p>
+                    These costs scale with production. More jobs = higher variable costs:
+                </p>
+                <ul>
+                    <li><strong>Blank garments:</strong> T-shirts, hoodies, hats at wholesale rates</li>
+                    <li><strong>Ink and emulsion:</strong> Plastisol, water-based, specialty inks</li>
+                    <li><strong>Screens:</strong> Mesh, frames, pre-coated screens, screen reclamation</li>
+                    <li><strong>Screen setup supplies:</strong> Tape, emulsion, photo chemicals</li>
+                    <li><strong>Direct labor:</strong> Your time and any staff time on the job</li>
+                    <li><strong>Shipping:</strong> Carrier fees for outbound orders</li>
+                    <li><strong>Cleanup/supplies:</strong> Degreaser, rags, compressed air, maintenance</li>
+                    <li><strong>Waste/overage:</strong> Misprints, rejects, shrinkage (budget 2-5%)</li>
+                </ul>
+
+                <h3>Calculate Your Hourly Shop Rate</h3>
+                <p>
+                    Your "shop rate" (also called burden rate) captures your overhead as an hourly cost. This is the magic number that makes pricing work:
+                </p>
+                <div class="budget-breakdown">
+                    <h4>Example Shop Rate Calculation</h4>
+                    <div class="step">
+                        <p><strong>Step 1:</strong> Add up your total fixed costs per month</p>
+                        <ul style="margin-top: 8px; margin-bottom: 0;">
+                            <li>Rent: $800</li>
+                            <li>Equipment payment: $400</li>
+                            <li>Insurance: $250</li>
+                            <li>Utilities: $200</li>
+                            <li>Software/other: $350</li>
+                            <li><strong>Total monthly fixed: $2,000</strong></li>
+                        </ul>
+                    </div>
+                    <div class="step" style="margin-top: 16px;">
+                        <p><strong>Step 2:</strong> Estimate billable hours per month</p>
+                        <ul style="margin-top: 8px; margin-bottom: 0;">
+                            <li>Available hours: 160/month (40 hrs/week)</li>
+                            <li>Admin, email, cleanup: 20 hours</li>
+                            <li>Dead time, breaks: 20 hours</li>
+                            <li><strong>Actual billable hours: ~120/month</strong></li>
+                        </ul>
+                    </div>
+                    <div class="step" style="margin-top: 16px;">
+                        <p><strong>Step 3:</strong> Divide fixed costs by billable hours</p>
+                        <p style="margin-top: 8px; color: var(--ink-cyan); font-weight: 600; font-size: 1.15rem;">
+                            $2,000 ÷ 120 hours = <strong>$16.67/hour shop rate</strong>
+                        </p>
+                    </div>
+                </div>
+
+                <p>
+                    Every minute you spend on a print job needs to cover $0.28 of overhead. That's just the baseline — now you add profit margin on top.
+                </p>
+
+                <div class="pro-tip">
+                    <strong>Pro Tip:</strong> Most new screen printers completely forget to charge for their own labor. Don't make this mistake. Your time is worth money. If you're doing all the printing, art, setup, and customer service, that's probably 15-20 billable hours per job (even if the printing itself only takes 2 hours). Your time is a cost like ink and screens.
+                </div>
+            </section>
+
+            <!-- SECTION 3: THE PRICING FORMULA -->
+            <section id="pricing-formula">
+                <h2>The Pricing Formula</h2>
+                <p>
+                    Here's the formula used by successful print shops. Learn it, memorize it, use it on every job:
+                </p>
+
+                <div class="budget-breakdown">
+                    <h4>Cost Per Shirt Formula</h4>
+                    <p style="margin-bottom: 16px; color: #e0e0e0;">
+                        <strong>Cost per shirt = </strong>
+                        <br/>(Garment cost) + (Ink/supplies per shirt) + (Labor time ÷ shirts per hour × hourly rate) + (Screen setup cost ÷ quantity)
+                    </p>
+                    <p style="margin-bottom: 16px; color: #e0e0e0;">
+                        <strong>Selling price = Cost per shirt × Markup multiplier</strong>
+                    </p>
+                    <p style="color: var(--ink-cyan); font-size: 0.95rem;">
+                        Markup multiplier: 2.0x–3.0x for small orders | 1.5x–2.0x for bulk orders
+                    </p>
+                </div>
+
+                <h3>Real-World Example: 48 Black Gildan 5000s, 2-Color Front Print</h3>
+                <p>
+                    Let's price a standard job — 48 black Gildan 5000 T-shirts with a 2-color front print (white + red).
+                </p>
+
+                <div class="pricing-table">
+                    <h4>Breaking Down the Costs</h4>
+                    <div class="pricing-row">
+                        <div class="pricing-label">Blank Gildan 5000 (wholesale @ $3.50/ea)</div>
+                        <div class="pricing-value">$3.50</div>
+                    </div>
+                    <div class="pricing-row">
+                        <div class="pricing-label">Ink & emulsion per shirt</div>
+                        <div class="pricing-value">$0.40</div>
+                    </div>
+                    <div class="pricing-row">
+                        <div class="pricing-label">Labor: 60 shirts/hour ÷ $20/hr labor rate</div>
+                        <div class="pricing-value">$0.33</div>
+                    </div>
+                    <div class="pricing-row">
+                        <div class="pricing-label">Screen setup: 2 screens × $25 ÷ 48 qty</div>
+                        <div class="pricing-value">$1.04</div>
+                    </div>
+                    <div class="pricing-row" style="border-bottom: 2px solid rgba(0, 212, 255, 0.3); padding-bottom: 16px;">
+                        <div class="pricing-label"><strong>Total cost per shirt</strong></div>
+                        <div class="pricing-value"><strong>$5.27</strong></div>
+                    </div>
+                    <div class="pricing-row" style="margin-top: 16px;">
+                        <div class="pricing-label">Apply 2.0x markup (small order)</div>
+                        <div class="pricing-value">$5.27 × 2.0 = <strong>$10.54</strong></div>
+                    </div>
+                    <div class="pricing-row">
+                        <div class="pricing-label">Round to customer price</div>
+                        <div class="pricing-value"><strong>$10.50/shirt</strong></div>
+                    </div>
+                    <div class="pricing-row">
+                        <div class="pricing-label"><strong>Total job revenue</strong></div>
+                        <div class="pricing-value"><strong>$504.00</strong></div>
+                    </div>
+                </div>
+
+                <p>
+                    At $10.50/shirt × 48 = $504 total. Your cost is $253 (48 × $5.27), so your profit is $251 (or about 50% margin). That's healthy.
+                </p>
+
+                <h3>The Markup Multiplier — Why It Matters</h3>
+                <p>
+                    The markup multiplier isn't random. Here's why it varies:
+                </p>
+                <ul>
+                    <li><strong>2.5x–3.0x for small orders (12–24 shirts):</strong> Your fixed costs (screens, setup, design time) spread across fewer units, so you need higher markup</li>
+                    <li><strong>2.0x–2.5x for medium orders (25–72 shirts):</strong> Setup costs dilute, you get rhythm in the press, efficiency improves</li>
+                    <li><strong>1.5x–2.0x for large orders (144+ shirts):</strong> Volume efficiency is real; your per-unit variable costs drop, screen/setup costs almost disappear per shirt</li>
+                </ul>
+
+                <p>
+                    <strong>Important:</strong> A 12-shirt order at 2.5x markup and a 144-shirt order at 1.8x markup both make you healthy profit. Don't undercut yourself on bulk work just because the markup sounds lower.
+                </p>
+
+                <div class="pro-tip">
+                    <strong>Pro Tip:</strong> Always break out the costs before quoting. Customers often think your margin is theft. When you show that a $10.50 shirt costs you $5.27 to produce, they understand they're getting value. Transparency builds trust and justifies price.
+                </div>
+            </section>
+
+            <!-- SECTION 4: QUANTITY BREAK PRICING -->
+            <section id="quantity-breaks">
+                <h2>Quantity Break Pricing</h2>
+                <p>
+                    Volume discounts are essential. They motivate customers to order more (increasing your production efficiency) and reward loyalty. But if you discount too aggressively, you'll kill your margin.
+                </p>
+
+                <h3>The Logic Behind Quantity Breaks</h3>
+                <p>
+                    Screen setup cost is the major variable that changes with quantity:
+                </p>
+                <ul>
+                    <li><strong>12 shirts:</strong> 2 screens × $25 = $50 ÷ 12 = $4.17/shirt in setup alone</li>
+                    <li><strong>24 shirts:</strong> Same $50 setup ÷ 24 = $2.08/shirt</li>
+                    <li><strong>48 shirts:</strong> Same $50 setup ÷ 48 = $1.04/shirt</li>
+                    <li><strong>144 shirts:</strong> Same $50 setup ÷ 144 = $0.35/shirt</li>
+                </ul>
+
+                <p>
+                    You can see the math: as quantity scales, setup cost per shirt plummets. That's your discount leverage.
+                </p>
+
+                <h3>Sample Quantity Breaks (1-Color Print)</h3>
+                <p>
+                    Here's a real pricing ladder for a simple 1-color print on 100% cotton basic tees (assuming $3/shirt garment, $0.40 ink/supplies, $16 shop rate, $25 screen cost):
+                </p>
+
+                <div class="pricing-table">
+                    <h4>1-Color Shirt Pricing by Quantity</h4>
+                    <div class="pricing-row">
+                        <div class="pricing-label"><strong>12 shirts</strong></div>
+                        <div class="pricing-value"><strong>$12.00/shirt</strong></div>
+                    </div>
+                    <div class="pricing-row">
+                        <div class="pricing-label"><strong>24 shirts</strong></div>
+                        <div class="pricing-value"><strong>$9.50/shirt</strong></div>
+                    </div>
+                    <div class="pricing-row">
+                        <div class="pricing-label"><strong>48 shirts</strong></div>
+                        <div class="pricing-value"><strong>$7.75/shirt</strong></div>
+                    </div>
+                    <div class="pricing-row">
+                        <div class="pricing-label"><strong>72 shirts</strong></div>
+                        <div class="pricing-value"><strong>$6.50/shirt</strong></div>
+                    </div>
+                    <div class="pricing-row">
+                        <div class="pricing-label"><strong>144 shirts</strong></div>
+                        <div class="pricing-value"><strong>$5.25/shirt</strong></div>
+                    </div>
+                    <div class="pricing-row">
+                        <div class="pricing-label"><strong>288 shirts</strong></div>
+                        <div class="pricing-value"><strong>$4.50/shirt</strong></div>
+                    </div>
+                </div>
+
+                <p>
+                    Notice the biggest jump is between 12 and 48. That's where screen setup cost dilutes most dramatically. Many successful shops put aggressive discounts at the 48–72 range to push customers past the setup cost sweet spot.
+                </p>
+
+                <h3>Key Quantity Break Rules</h3>
+                <ul>
+                    <li><strong>Don't discount on minimum orders:</strong> 12–24 shirts should be your most profitable range (per-unit margin-wise). People complain about minimums, but they exist because 6 shirts is not profitable.</li>
+                    <li><strong>Make the jump from 24→48 attractive:</strong> This is where you gain the most efficiency. Consider a $2–3/shirt drop to incentivize doubling the order.</li>
+                    <li><strong>Flatten breaks above 144:</strong> Beyond ~144 shirts, the efficiency gains are marginal. Smaller discounts make sense.</li>
+                    <li><strong>Always have a per-shirt floor:</strong> Never go below your variable cost + a reasonable margin. If you go below $4/shirt on a 1-color order, you're working for free when you account for time and overhead.</li>
+                </ul>
+
+                <div class="pro-tip">
+                    <strong>Pro Tip:</strong> Use quantity breaks as a sales tool. When a customer says "that's expensive," show them the 48–72 quantity break. Often they'll order more to hit the better price. You make more money, they feel like they got a deal. Win-win.
+                </div>
+            </section>
+
+            <!-- SECTION 5: PRINT COMPLEXITY PRICING -->
+            <section id="print-complexity">
+                <h2>Pricing by Print Complexity</h2>
+                <p>
+                    A 1-color print and a 6-color process print are completely different production challenges. Pricing must reflect that. Here's how to add upcharges for complexity:
+                </p>
+
+                <h3>Color Upcharges (Per Additional Color)</h3>
+                <p>
+                    Each additional color adds screen cost, setup time, and registration complexity. Standard industry adders:
+                </p>
+                <ul>
+                    <li><strong>Standard colors (1st color):</strong> Baseline price (included above)</li>
+                    <li><strong>Each additional standard color:</strong> +$0.75 to +$1.50/shirt (depends on production speed)</li>
+                    <li><strong>5th color and beyond:</strong> May require multiple passes or complex setup; negotiate case-by-case</li>
+                </ul>
+
+                <p>
+                    Example: A 48-shirt 2-color job at $7.75/shirt for 1 color = ($7.75 × 48) + (48 × $1.25 for 2nd color) = $372 + $60 = $432 total.
+                </p>
+
+                <h3>Specialty Ink Upcharges</h3>
+                <ul>
+                    <li><strong>Puff ink:</strong> 1.5x–2.0x the standard color price (extra material cost + curing time)</li>
+                    <li><strong>Metallic/discharge:</strong> 1.5x–2.0x</li>
+                    <li><strong>Glow-in-the-dark:</strong> 2.0x–3.0x (expensive ink, tricky application)</li>
+                    <li><strong>Glitter/flake:</strong> Charge by the ounce; typically $5–15/garment upcharge</li>
+                </ul>
+
+                <h3>Size & Placement Upcharges</h3>
+                <ul>
+                    <li><strong>Oversized prints (larger than 12"×14"):</strong> +$1–3/shirt (more ink, more time, higher waste)</li>
+                    <li><strong>Sleeve or back print (additional placement):</strong> Treat as separate job (+screen cost, +setup, +labor)</li>
+                    <li><strong>All-over print:</strong> Significantly higher; negotiate based on complexity</li>
+                </ul>
+
+                <h3>Simulated Process (CMYK on Darks)</h3>
+                <p>
+                    This is premium territory. Simulated process requires 6–8 screens, precise registration, and serious skill. Pricing:
+                </p>
+                <ul>
+                    <li><strong>Base charge:</strong> 3.5x–5.0x the standard 1-color price</li>
+                    <li><strong>Reason:</strong> Screen cost alone is 6× higher (6–8 screens vs 1), registration time is substantial, production speed is slower</li>
+                    <li><strong>Example:</strong> A 48-shirt simulated process job that would normally be $7.75/shirt at 1 color → $30–40/shirt is reasonable</li>
+                </ul>
+
+                <div class="safety-warning">
+                    <strong>Warning:</strong> Underpricing specialty techniques is how shops go broke. Puff prints, metallic, process work — these require expertise and care. Charge accordingly or you'll waste time and materials with failed batches.
+                </div>
+            </section>
+
+            <!-- SECTION 6: COMMON PRICING MISTAKES -->
+            <section id="common-mistakes">
+                <h2>Common Pricing Mistakes (And How to Avoid Them)</h2>
+                <p>
+                    These are the slip-ups that kill profitability:
+                </p>
+
+                <h3>Mistake #1: Not Charging for Screens/Setup</h3>
+                <p>
+                    "Oh, I'll eat the $50 screen cost." No, you won't. You'll go broke. Screens must be included in per-shirt pricing or charged separately. Period.
+                </p>
+
+                <h3>Mistake #2: Pricing Based on What You'd Pay</h3>
+                <p>
+                    "I can print a shirt for $3 in materials." True. But that ignores overhead, labor, profit margin, and risk. A $3 cost at a 2x markup = $6/shirt. That's your cost structure, not the market price.
+                </p>
+
+                <h3>Mistake #3: Forgetting to Charge for Art/Design</h3>
+                <p>
+                    You spent 3 hours designing custom artwork. That's not free. Either:
+                </p>
+                <ul>
+                    <li>Charge a design fee upfront ($50–150 depending on complexity)</li>
+                    <li>Build design time into your hourly labor calculation</li>
+                    <li>For large orders, absorb it as goodwill, but don't make it a habit</li>
+                </ul>
+
+                <h3>Mistake #4: Not Accounting for Waste</h3>
+                <p>
+                    Misprints, misreg, shrinkage, customer rejection — budget 2–5% waste depending on your complexity. If a customer orders 100 shirts and you need to reprint 3 due to your error, that's on you. Margin covers it.
+                </p>
+
+                <h3>Mistake #5: Not Charging for Rush Orders</h3>
+                <p>
+                    "Can you have this done by tomorrow?" That means overtime, pushing other work back, stress. Standard rush premium: +25–50% on the job price. Non-negotiable.
+                </p>
+
+                <h3>Mistake #6: Minimums Too Low</h3>
+                <p>
+                    12 shirts is probably your minimum. Below that, setup costs are too high relative to revenue. 6-shirt orders should either not exist or have a substantial base fee ($50–100).
+                </p>
+
+                <h3>Mistake #7: Not Raising Prices Annually</h3>
+                <p>
+                    Ink prices rise. Rent rises. Labor costs rise. Garment wholesale prices rise. If you don't raise prices at least annually, your margin shrinks every year until you're unprofitable. Even a 5–8% annual bump keeps you in the game.
+                </p>
+
+                <div class="safety-warning">
+                    <strong>Warning:</strong> If you're the cheapest option in your market, you're probably losing money. The race to the bottom is a trap. Successful shops focus on quality, speed, and reliability — not price wars. Price with confidence.
+                </div>
+            </section>
+
+            <!-- SECTION 7: ART AND SETUP FEES -->
+            <section id="art-setup">
+                <h2>Art and Setup Fees: The Often-Forgotten Revenue Stream</h2>
+                <p>
+                    Many printers bundle everything into per-shirt pricing. That works, but it hides costs and leaves money on the table. Consider separating fees:
+                </p>
+
+                <h3>Screen Setup Fee</h3>
+                <p>
+                    Charge per color for screen prep, exposure, and testing:
+                </p>
+                <ul>
+                    <li><strong>Standard colors:</strong> $20–35/screen</li>
+                    <li><strong>Specialty or complex:</strong> $40–60/screen</li>
+                    <li><strong>Large or oversized screens:</strong> Up to $75</li>
+                </ul>
+
+                <p>
+                    <strong>Option:</strong> Waive screen fees for orders over 72 shirts or for repeat customers. This builds loyalty without cutting your per-shirt margin.
+                </p>
+
+                <h3>Art/Design Fee</h3>
+                <p>
+                    If you're creating artwork from scratch:
+                </p>
+                <ul>
+                    <li><strong>Simple text or logo placement:</strong> $25–50 flat</li>
+                    <li><strong>Custom illustration/design:</strong> $75–250+ (charge by the hour: $50–100/hr or flat rate)</li>
+                    <li><strong>Design revisions:</strong> 2–3 free, then $25–50/revision after that</li>
+                </ul>
+
+                <h3>Film/Separation Charge (for Full-Color or Process)</h3>
+                <ul>
+                    <li><strong>Per-color film:</strong> $15–30</li>
+                    <li><strong>Simulated process separation:</strong> $75–150 (complex, requires expertise)</li>
+                </ul>
+
+                <h3>When to Waive/Absorb Fees</h3>
+                <ul>
+                    <li><strong>Large orders (144+ shirts):</strong> "Free setup on orders over 144" is a strong upsell tool</li>
+                    <li><strong>Repeat customers:</strong> Build goodwill; absorb design on reorders of existing artwork</li>
+                    <li><strong>Referral incentive:</strong> "Refer a friend, get free setup on your next order"</li>
+                    <li><strong>High-margin jobs:</strong> No need to nickel-and-dime on a $5,000 order</li>
+                </ul>
+
+                <div class="pro-tip">
+                    <strong>Pro Tip:</strong> Separating fees makes you look more professional and transparent. Instead of "that'll be $1,200," say "that's 48 shirts at $9.50 each ($456), plus $25 screen setup × 2 colors ($50), plus design ($50) = $556 total." Customers respect the transparency.
+                </div>
+            </section>
+
+            <!-- SECTION 8: POSITIONING YOUR SHOP -->
+            <section id="positioning">
+                <h2>Pricing Strategy: Positioning Your Shop</h2>
+                <p>
+                    Not all shops compete on price. Successful shops pick a market position and own it. Here are three:
+                </p>
+
+                <h3>Position 1: Budget Shop (Race to the Bottom)</h3>
+                <p>
+                    <strong>Strategy:</strong> Lowest prices, highest volume, razor-thin margins.
+                </p>
+                <ul>
+                    <li><strong>Who:</strong> Print farms, online retailers, shops competing purely on cost</li>
+                    <li><strong>Price example:</strong> Basic 1-color, 48+ qty: $3–4/shirt</li>
+                    <li><strong>Pros:</strong> Huge order volume, consistent work</li>
+                    <li><strong>Cons:</strong> Exhausting, minimal margins, no room for error, zero customer loyalty (they'll switch for 50¢ less)</li>
+                    <li><strong>Reality:</strong> This is only viable at massive scale (500+ shirts/week). Don't compete here if you're small.</li>
+                </ul>
+
+                <h3>Position 2: Mid-Market (The Sweet Spot)</h3>
+                <p>
+                    <strong>Strategy:</strong> Fair pricing, good quality, reliable turnaround, solid relationships.
+                </p>
+                <ul>
+                    <li><strong>Who:</strong> Most successful local/regional shops, teams, corporate orders, events</li>
+                    <li><strong>Price example:</strong> Basic 1-color, 48+ qty: $6–8/shirt</li>
+                    <li><strong>Pros:</strong> Healthy margins, customer loyalty, sustainable lifestyle, repeat business</li>
+                    <li><strong>Cons:</strong> More competitive, need marketing, can't compete on price alone</li>
+                    <li><strong>Reality:</strong> This is where most profitable shops live. It works at any scale.</li>
+                </ul>
+
+                <h3>Position 3: Premium (Quality-First)</h3>
+                <p>
+                    <strong>Strategy:</strong> Highest prices, exceptional quality, specialty techniques, fashion-forward clients.
+                </p>
+                <ul>
+                    <li><strong>Who:</strong> High-end boutiques, designer labels, premium promotional merchandise</li>
+                    <li><strong>Price example:</strong> Custom work, small-batch, specialty techniques: $15–40+/shirt</li>
+                    <li><strong>Pros:</strong> Best margins, less volume pressure, premium clients, creative satisfaction</li>
+                    <li><strong>Cons:</strong> Requires expertise, higher risk (mistakes cost more), need strong reputation</li>
+                    <li><strong>Reality:</strong> Harder to build but incredibly profitable once established.</li>
+                </ul>
+
+                <h3>How to Communicate Value Beyond Price</h3>
+                <p>
+                    You can't compete on price with factories. Compete on:
+                </p>
+                <ul>
+                    <li><strong>Turnaround time:</strong> "We deliver in 5 business days" beats "10–14 business days" at budget shops</li>
+                    <li><strong>Print quality:</strong> Sharp registration, vibrant colors, proper curing — visible differences matter</li>
+                    <li><strong>Customer service:</strong> Responsive, flexible, handles problems without drama</li>
+                    <li><strong>Expertise:</strong> You know specialty inks, can salvage difficult designs, guide customers to better choices</li>
+                    <li><strong>Relationships:</strong> You remember their preferences, follow up after delivery, make them feel valued</li>
+                </ul>
+
+                <div class="pro-tip">
+                    <strong>Pro Tip:</strong> "You can have it fast, cheap, or good. Pick two." Frame this mindset early. Customers who understand this will choose quality + speed, which is your wheelhouse. Customers who want all three will always be problems.
+                </div>
+            </section>
+
+            <!-- SECTION 9: RAISING YOUR PRICES -->
+            <section id="raising-prices">
+                <h2>Raising Your Prices: When and How</h2>
+                <p>
+                    If you haven't raised prices in 12 months, you're losing money. Costs increase 3–5% annually. Your prices must too.
+                </p>
+
+                <h3>When to Raise Prices</h3>
+
+                <h4>Reason #1: Annual Inflation</h4>
+                <p>
+                    Garment costs went up. Ink costs went up. Rent went up. Minimum 5% annual increase is standard. Even better: calculate actual cost increases and pass along your real increase.
+                </p>
+
+                <h4>Reason #2: You're Turning Away Work</h4>
+                <p>
+                    This is the clearest signal: <strong>if demand exceeds capacity, your prices are too low.</strong> Raise them 10–15% and keep working. You'll lose some price-sensitive clients but make more overall profit.
+                </p>
+
+                <h4>Reason #3: Your Costs Changed</h3>
+                <p>
+                    New equipment, higher insurance, productivity changes — adjust accordingly.
+                </p>
+
+                <h3>How to Implement a Price Increase</h3>
+
+                <h4>Step 1: Grandfather Existing Customers (Maybe)</h4>
+                <p>
+                    You can offer loyal, repeat customers a modest increase (5%) while new customers get the full increase (10%). This shows appreciation without hurting yourself.
+                </p>
+
+                <h4>Step 2: Communicate Early and Clearly</h4>
+                <p>
+                    Don't surprise customers. Email 30 days before: "Effective [date], our pricing will increase due to rising material and operational costs. We've maintained competitive pricing for [X] years. We appreciate your business and look forward to continuing to serve you at this new price."
+                </p>
+
+                <h4>Step 3: Lead with Value, Not Apology</h4>
+                <p>
+                    Don't apologize for raising prices. Instead, highlight what you've improved: "We've invested in new equipment to reduce turnaround to 3 days" or "we now offer same-day proofs."
+                </p>
+
+                <h4>Step 4: Expect Pushback, Stay Firm</h4>
+                <p>
+                    Some customers will complain. A few will leave. That's fine. You're filtering for customers who value your work. Calculate it: if you lose 5% of customers but raise prices 10%, you gain 5% overall revenue. The math works.
+                </p>
+
+                <h3>The 10% Rule</h3>
+                <p>
+                    Industry wisdom: <strong>raise by 10%, lose about 5% of price-sensitive customers, make 5% more profit overall.</strong> Most customers stick. You don't need all customers; you need the right customers.
+                </p>
+
+                <h3>Red Flag: If Nobody Ever Complains About Your Prices</h3>
+                <p>
+                    They're too low. Seriously. A healthy business has some price pushback from some customers. If nobody ever questions price, you're leaving significant money on the table.
+                </p>
+
+                <div class="pro-tip">
+                    <strong>Pro Tip:</strong> Implement price increases in Q1 (January) or Q4 (October). Avoid mid-year or before peak seasons when you're busy and don't want to deal with confusion. Make it part of your annual rhythm — just like paying taxes.
+                </div>
+            </section>
+
+            <!-- SECTION 10: BUILDING YOUR PRICE SHEET -->
+            <section id="price-sheet">
+                <h2>Building Your Price Sheet: Practical Next Steps</h2>
+                <p>
+                    Now you know the theory. Here's how to actually implement it:
+                </p>
+
+                <h3>Step 1: Document Your Fixed Costs</h3>
+                <p>
+                    Create a simple spreadsheet:
+                </p>
+                <ul>
+                    <li>Add up all monthly fixed costs (rent, equipment, insurance, utilities, etc.)</li>
+                    <li>Divide by billable hours (probably 100–150/month)</li>
+                    <li>This is your shop rate</li>
+                </ul>
+
+                <h3>Step 2: Define Variable Costs</h3>
+                <p>
+                    For each garment type and ink combination, document:
+                </p>
+                <ul>
+                    <li>Wholesale garment cost (per 100 quantity if possible)</li>
+                    <li>Average ink/emulsion use per color</li>
+                    <li>Screen cost</li>
+                    <li>Estimated labor per shirt</li>
+                </ul>
+
+                <h3>Step 3: Build a Price Calculator Spreadsheet</h3>
+                <p>
+                    Create a template with:
+                </p>
+                <ul>
+                    <li>Garment selection (drop-down with costs)</li>
+                    <li>Number of colors</li>
+                    <li>Quantity ordered</li>
+                    <li>Special techniques (puff, metallic, etc.)</li>
+                    <li>Auto-calculate cost per shirt</li>
+                    <li>Auto-apply markup based on quantity breaks</li>
+                    <li>Display total job price</li>
+                </ul>
+
+                <p>
+                    This takes an hour to build and saves you tens of hours per year in quoting time. Plus: consistent pricing, no mental math errors, professional quotes.
+                </p>
+
+                <h3>Step 4: Create a Standard Price Sheet</h3>
+                <p>
+                    Most customers ask for "basic 1-color on a Gildan 5000." Create a quick reference:
+                </p>
+                <ul>
+                    <li>12–24 qty: $11.50/shirt</li>
+                    <li>25–47 qty: $8.75/shirt</li>
+                    <li>48–71 qty: $7.00/shirt</li>
+                    <li>72–143 qty: $5.75/shirt</li>
+                    <li>144+ qty: $4.75/shirt</li>
+                </ul>
+
+                <p>
+                    Post this on your website, in your shop, send it with estimates. It sets expectations and filters out bad-fit customers upfront.
+                </p>
+
+                <h3>Step 5: Document Your Terms</h3>
+                <p>
+                    Include in every quote:
+                </p>
+                <ul>
+                    <li><strong>Payment schedule:</strong> 50% upfront, balance on delivery? Or net 15?</li>
+                    <li><strong>Rush fees:</strong> What's the cost for shorter turnaround?</li>
+                    <li><strong>Proof policy:</strong> Free proof, customer approval required, artwork changes $25 each</li>
+                    <li><strong>Reprint policy:</strong> Our error = reprint free. Customer-requested changes = charge for new setup</li>
+                    <li><strong>Minimum order:</strong> 12 shirts or $150 base fee</li>
+                </ul>
+
+                <h3>Step 6: Review & Adjust Quarterly</h3>
+                <p>
+                    Every 3 months, review:
+                </p>
+                <ul>
+                    <li>Did your actual costs match estimates?</li>
+                    <li>Are garment wholesale prices the same?</li>
+                    <li>Is labor productivity consistent?</li>
+                    <li>Adjust your calculator if things drifted</li>
+                </ul>
+
+                <p>
+                    Annual price review: cost increases pass along, efficiency gains = small margin improvement, market review = am I still competitive?
+                </p>
+
+                <h3>Step 7: Benchmark with ASPA Members</h3>
+                <p>
+                    <strong>This is why ASPA membership is valuable.</strong> Connect with other printers in your region. Pricing varies by market, but you can see what mid-market shops charge. You'll know if you're way off.
+                </p>
+
+                <div class="pro-tip">
+                    <strong>Pro Tip:</strong> Don't obsess over every tiny cost. Precision to the penny doesn't matter when you're applying a 2x markup. Use realistic estimates, build in a small buffer for waste/unknowns, and call it done. Spend your energy on consistency and clarity, not micro-optimization.
+                </div>
+            </section>
+
+            <!-- RELATED ARTICLES -->
+            <section class="related-articles">
+                <h2>Related Resources</h2>
+                <div class="related-grid">
+                    <div class="article-card">
+                        <h3>How Much Does It Cost to Start a Screen Printing Business?</h3>
+                        <p>Complete breakdown of screen printing startup costs from home garage to full shop. Equipment, supplies, licenses, and hidden costs explained.</p>
+                        <a href="article-startup-costs.html">Read Article →</a>
+                    </div>
+                    <div class="article-card">
+                        <h3>Screen Printing Equipment Guide for Beginners</h3>
+                        <p>Detailed equipment recommendations for every skill level, from basement operations to professional production shops. New and used options.</p>
+                        <a href="article-equipment-guide.html">Read Article →</a>
+                    </div>
+                    <div class="article-card">
+                        <h3>12 Sure Ways to Fail in the T-Shirt Business</h3>
+                        <p>Learn from others' mistakes. The most common pitfalls that sink screen printing startups — and how to avoid them.</p>
+                        <a href="#">Read Article →</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA BANNER -->
+            <div class="cta-banner">
+                <h2>Ready to scale your business?</h2>
+                <p>Join 1,200+ certified screen printers. Get networking, resources, and industry benchmarks to price with confidence.</p>
+                <div class="cta-buttons">
+                    <a href="join.html" class="cta-btn cta-btn-primary">Join ASPA+ →</a>
+                    <a href="exam.html" class="cta-btn cta-btn-secondary">Learn About CSP →</a>
+                </div>
+            </div>
+        </article>
+    </div>
+
+    <!-- ========================================
+         FOOTER
+         ======================================== -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Directory</h4>
+                    <ul>
+                        <li><a href="directory.html">Member Directory</a></li>
+                        <li><a href="index.html#certification">CSP Certification</a></li>
+                        <li><a href="index.html#membership">Membership Tiers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Certification</h4>
+                    <ul>
+                        <li><a href="certified-roster.html">CSP Roster</a></li>
+                        <li><a href="index.html#certification">CSP Program</a></li>
+                        <li><a href="#">Certification Standards</a></li>
+                        <li><a href="#">Apply for Certification</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Association</h4>
+                    <ul>
+                        <li><a href="about.html">About ASPA</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                Copyright © 2004-2026 American Screen Printing Association. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========================================
+         JAVASCRIPT - TOC Active State & Mobile Menu
+         ======================================== -->
+    <script>
+        // Table of Contents - Active State Management
+        const tocLinks = document.querySelectorAll('.toc-list a');
+        const sections = document.querySelectorAll('section[id]');
+
+        function updateActiveTOC() {
+            let current = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 150;
+                if (window.pageYOffset >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveTOC);
+        window.addEventListener('load', updateActiveTOC);
+
+        // Smooth scroll for TOC links
+        tocLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

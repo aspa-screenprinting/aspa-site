@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSP Exam — ASPA Certified Screen Printer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --ink-black: #0a0a0a;
+            --ink-dark: #1a1a2e;
+            --ink-purple: #6c2bd9;
+            --ink-magenta: #e91e8c;
+            --ink-cyan: #00d4ff;
+            --ink-yellow: #ffd400;
+            --ink-orange: #ff6b35;
+            --ink-white: #f8f8f8;
+            --ink-gray: #b0b0b0;
+            --ink-gray-dark: #2a2a3e;
+            --ink-green: #00e676;
+            --ink-red: #ff3d5a;
+            --font-display: 'Bebas Neue', sans-serif;
+            --font-heading: 'Space Grotesk', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-body); background: var(--ink-black); color: var(--ink-white); line-height: 1.6; min-height: 100vh; }
+        a { color: var(--ink-cyan); text-decoration: none; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+        /* NAV */
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 16px 0; background: rgba(10,10,10,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.06); }
+        nav .container { display: flex; align-items: center; justify-content: space-between; }
+        .logo { font-family: var(--font-display); font-size: 2rem; letter-spacing: 3px; color: var(--ink-white); display: flex; align-items: center; gap: 10px; }
+        .logo-accent { color: var(--ink-cyan); }
+        .nav-back { color: var(--ink-gray); font-family: var(--font-heading); font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
+        .nav-back:hover { color: var(--ink-cyan); }
+
+        /* SHARED */
+        .btn { display: inline-flex; align-items: center; gap: 8px; padding: 16px 32px; border-radius: 8px; font-family: var(--font-heading); font-weight: 600; font-size: 1rem; letter-spacing: 0.5px; cursor: pointer; border: none; transition: all 0.3s; }
+        .btn-primary { background: linear-gradient(135deg, var(--ink-magenta), var(--ink-purple)); color: white; }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(233,30,140,0.35); }
+        .btn-outline { background: transparent; border: 2px solid rgba(255,255,255,0.2); color: var(--ink-white); }
+        .btn-outline:hover { border-color: var(--ink-cyan); color: var(--ink-cyan); transform: translateY(-3px); }
+        .btn-green { background: linear-gradient(135deg, #00c853, #00897b); color: white; }
+        .btn-green:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,200,83,0.35); }
+        .btn-amber { background: linear-gradient(135deg, var(--ink-yellow), var(--ink-orange)); color: var(--ink-black); }
+        .btn-amber:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(255,212,0,0.35); }
+        .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; box-shadow: none !important; }
+        .btn-block { width: 100%; justify-content: center; }
+
+        .section-label { font-family: var(--font-heading); font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 3px; color: var(--ink-magenta); margin-bottom: 12px; }
+        .section-title { font-family: var(--font-display); font-size: clamp(2.5rem,5vw,4rem); letter-spacing: 2px; margin-bottom: 16px; line-height: 1; }
+        .gradient-text { background: linear-gradient(135deg, var(--ink-cyan) 0%, var(--ink-magenta) 50%, var(--ink-yellow) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+        /* SCREENS */
+        .screen { display: none; padding-top: 100px; min-height: 100vh; }
+        .screen.active { display: block; }
+
+        /* ===== SCREEN 1: REGISTRATION ===== */
+        .reg-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; padding-bottom: 80px; }
+        .reg-info { padding-top: 24px; }
+        .reg-info h2 { font-family: var(--font-display); font-size: 3rem; letter-spacing: 2px; margin-bottom: 16px; }
+        .reg-info p { color: var(--ink-gray); font-size: 1.05rem; line-height: 1.7; margin-bottom: 24px; }
+        .exam-features { list-style: none; display: flex; flex-direction: column; gap: 16px; margin-bottom: 32px; }
+        .exam-features li { display: flex; align-items: center; gap: 14px; font-size: 0.95rem; color: var(--ink-gray); }
+        .exam-features li .icon { width: 40px; height: 40px; border-radius: 10px; background: rgba(0,212,255,0.1); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+        .reg-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 40px; }
+        .reg-card h3 { font-family: var(--font-heading); font-size: 1.3rem; font-weight: 600; margin-bottom: 28px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-family: var(--font-heading); font-size: 0.85rem; font-weight: 500; color: var(--ink-gray); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+        .form-group input, .form-group select { width: 100%; padding: 14px 18px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--ink-white); font-family: var(--font-body); font-size: 1rem; outline: none; transition: border-color 0.3s; }
+        .form-group input::placeholder { color: rgba(176,176,176,0.5); }
+        .form-group input:focus { border-color: var(--ink-cyan); }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .price-display { display: flex; align-items: center; justify-content: space-between; padding: 20px; background: rgba(0,212,255,0.06); border: 1px solid rgba(0,212,255,0.15); border-radius: 12px; margin-bottom: 28px; }
+        .price-display .label { font-family: var(--font-heading); font-size: 0.9rem; color: var(--ink-gray); text-transform: uppercase; letter-spacing: 1px; }
+        .price-display .amount { font-family: var(--font-display); font-size: 2.5rem; color: var(--ink-cyan); }
+        .payment-methods { display: flex; gap: 12px; margin-bottom: 24px; }
+        .payment-method { flex: 1; padding: 14px; border-radius: 10px; border: 2px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.03); cursor: pointer; text-align: center; transition: all 0.3s; font-family: var(--font-heading); font-size: 0.85rem; font-weight: 600; color: var(--ink-gray); text-transform: uppercase; letter-spacing: 1px; }
+        .payment-method.selected { border-color: var(--ink-cyan); color: var(--ink-cyan); background: rgba(0,212,255,0.06); }
+        .mock-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,212,0,0.1); border: 1px solid rgba(255,212,0,0.25); color: var(--ink-yellow); padding: 8px 16px; border-radius: 50px; font-family: var(--font-heading); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 20px; }
+        .secure-note { display: flex; align-items: center; gap: 8px; margin-top: 16px; font-size: 0.8rem; color: var(--ink-gray); }
+
+        /* ===== SCREEN 2: CONFIRMATION / STUDY GUIDE ===== */
+        .confirm-center { max-width: 680px; margin: 0 auto; text-align: center; padding-bottom: 80px; }
+
+        .email-mockup {
+            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px; overflow: hidden; margin: 40px 0; text-align: left;
+        }
+        .email-header {
+            background: rgba(255,255,255,0.05); padding: 20px 28px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            display: flex; flex-direction: column; gap: 6px;
+        }
+        .email-header .email-row { display: flex; gap: 8px; font-size: 0.85rem; }
+        .email-header .email-label { color: var(--ink-gray); min-width: 60px; }
+        .email-header .email-val { color: var(--ink-white); }
+        .email-body { padding: 28px; }
+        .email-body p { color: var(--ink-gray); font-size: 0.95rem; line-height: 1.7; margin-bottom: 16px; }
+        .email-body .email-name { color: var(--ink-white); font-weight: 600; }
+        .email-divider { height: 1px; background: rgba(255,255,255,0.06); margin: 20px 0; }
+        .email-body .exam-link-box {
+            background: linear-gradient(135deg, rgba(108,43,217,0.12), rgba(233,30,140,0.08));
+            border: 1px solid rgba(108,43,217,0.25); border-radius: 12px;
+            padding: 24px; text-align: center; margin: 24px 0;
+        }
+        .email-body .exam-link-box p { color: var(--ink-white); font-size: 0.9rem; margin-bottom: 16px; }
+
+        .study-guide-card {
+            background: linear-gradient(145deg, rgba(0,212,255,0.06), rgba(108,43,217,0.06));
+            border: 1px solid rgba(0,212,255,0.2); border-radius: 16px;
+            padding: 32px; margin: 32px 0; text-align: center;
+        }
+        .study-guide-card h4 { font-family: var(--font-heading); font-size: 1.1rem; margin-bottom: 8px; }
+        .study-guide-card p { color: var(--ink-gray); font-size: 0.9rem; margin-bottom: 20px; }
+
+        .demo-note {
+            background: rgba(255,212,0,0.06); border: 1px solid rgba(255,212,0,0.15);
+            border-radius: 12px; padding: 20px; margin-top: 32px; text-align: center;
+        }
+        .demo-note p { color: var(--ink-gray); font-size: 0.85rem; margin: 0; }
+        .demo-note strong { color: var(--ink-yellow); }
+
+        /* ===== SCREEN 3: EXAM GATE / WARNING ===== */
+        .gate-center { max-width: 620px; margin: 0 auto; padding-bottom: 80px; }
+
+        .gate-card {
+            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px; padding: 48px; text-align: center; position: relative; overflow: hidden;
+        }
+        .gate-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+            background: linear-gradient(90deg, var(--ink-yellow), var(--ink-orange), var(--ink-magenta));
+        }
+
+        .gate-icon { font-size: 4rem; margin-bottom: 16px; }
+
+        .gate-card h2 { font-family: var(--font-display); font-size: 2.5rem; letter-spacing: 2px; margin-bottom: 8px; }
+        .gate-card .gate-subtitle { font-family: var(--font-heading); color: var(--ink-cyan); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 32px; }
+
+        .gate-rules { text-align: left; display: flex; flex-direction: column; gap: 16px; margin-bottom: 36px; }
+        .gate-rule {
+            display: flex; align-items: flex-start; gap: 16px;
+            padding: 18px 20px; background: rgba(255,255,255,0.03);
+            border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);
+        }
+        .gate-rule-icon {
+            width: 40px; height: 40px; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0;
+        }
+        .gr-time { background: rgba(0,212,255,0.1); }
+        .gr-refund { background: rgba(255,61,90,0.1); }
+        .gr-guide { background: rgba(0,230,118,0.1); }
+        .gr-luck { background: rgba(255,212,0,0.1); }
+
+        .gate-rule-text h5 { font-family: var(--font-heading); font-size: 0.95rem; font-weight: 600; margin-bottom: 2px; }
+        .gate-rule-text p { font-size: 0.85rem; color: var(--ink-gray); margin: 0; line-height: 1.5; }
+
+        .gate-confirm {
+            display: flex; align-items: center; gap: 12px; justify-content: center;
+            margin-bottom: 28px; cursor: pointer;
+        }
+        .gate-confirm input[type="checkbox"] {
+            width: 22px; height: 22px; accent-color: var(--ink-cyan); cursor: pointer;
+        }
+        .gate-confirm label { font-size: 0.9rem; color: var(--ink-gray); cursor: pointer; }
+
+        .gate-timer-preview {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(255,212,0,0.08); border: 1px solid rgba(255,212,0,0.15);
+            padding: 10px 24px; border-radius: 50px; margin-bottom: 28px;
+            font-family: var(--font-display); font-size: 1.4rem; color: var(--ink-yellow); letter-spacing: 2px;
+        }
+
+        /* ===== SCREEN 4: THE EXAM ===== */
+        .exam-header {
+            position: sticky; top: 68px; z-index: 100;
+            background: rgba(10,10,10,0.95); backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            padding: 16px 0; margin-bottom: 40px;
+        }
+        .exam-header-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+        .exam-progress-info { display: flex; align-items: center; gap: 24px; }
+        .exam-stat { text-align: center; }
+        .exam-stat .val { font-family: var(--font-display); font-size: 1.8rem; color: var(--ink-cyan); line-height: 1; }
+        .exam-stat .lbl { font-size: 0.7rem; color: var(--ink-gray); text-transform: uppercase; letter-spacing: 1px; }
+        .progress-bar-wrap { flex: 1; min-width: 200px; height: 6px; background: rgba(255,255,255,0.08); border-radius: 3px; overflow: hidden; }
+        .progress-bar { height: 100%; background: linear-gradient(90deg, var(--ink-cyan), var(--ink-magenta)); border-radius: 3px; transition: width 0.4s; }
+        .timer { font-family: var(--font-display); font-size: 1.6rem; color: var(--ink-yellow); letter-spacing: 2px; }
+        .timer.warning { color: var(--ink-red); animation: pulse 1s infinite; }
+        @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.5;} }
+
+        .question-card {
+            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 16px; padding: 40px; margin-bottom: 24px; transition: all 0.3s;
+        }
+        .question-card.answered { border-color: rgba(0,212,255,0.2); }
+        .question-number { font-family: var(--font-heading); font-size: 0.8rem; font-weight: 600; color: var(--ink-magenta); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
+        .question-category { display: inline-block; padding: 4px 12px; border-radius: 50px; background: rgba(108,43,217,0.12); font-family: var(--font-heading); font-size: 0.7rem; font-weight: 600; color: var(--ink-purple); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px; }
+        .question-text { font-size: 1.1rem; font-weight: 500; margin-bottom: 24px; line-height: 1.6; }
+        .answer-options { display: flex; flex-direction: column; gap: 12px; }
+        .answer-option { display: flex; align-items: center; gap: 14px; padding: 16px 20px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.02); cursor: pointer; transition: all 0.3s; font-size: 0.95rem; }
+        .answer-option:hover { border-color: rgba(0,212,255,0.3); background: rgba(0,212,255,0.04); }
+        .answer-option.selected { border-color: var(--ink-cyan); background: rgba(0,212,255,0.08); }
+        .answer-option .radio { width: 22px; height: 22px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.2); flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
+        .answer-option.selected .radio { border-color: var(--ink-cyan); background: var(--ink-cyan); }
+        .answer-option.selected .radio::after { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--ink-black); }
+        .answer-option.correct { border-color: var(--ink-green); background: rgba(0,230,118,0.08); }
+        .answer-option.incorrect { border-color: var(--ink-red); background: rgba(255,61,90,0.08); }
+        .answer-option.correct .radio { border-color: var(--ink-green); background: var(--ink-green); }
+        .answer-option.incorrect .radio { border-color: var(--ink-red); background: var(--ink-red); }
+
+        .question-dots { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin: 32px 0; }
+        .question-dot { width: 32px; height: 32px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.03); display: flex; align-items: center; justify-content: center; font-family: var(--font-heading); font-size: 0.7rem; font-weight: 600; color: var(--ink-gray); cursor: pointer; transition: all 0.3s; }
+        .question-dot.answered { background: rgba(0,212,255,0.15); border-color: rgba(0,212,255,0.3); color: var(--ink-cyan); }
+        .question-dot.current { background: var(--ink-magenta); border-color: var(--ink-magenta); color: white; }
+
+        .submit-section { text-align: center; padding: 40px 0 80px; }
+        .submit-section p { color: var(--ink-gray); margin-bottom: 24px; }
+
+        /* ===== SCREEN 5: RESULTS ===== */
+        .results-center { max-width: 700px; margin: 0 auto; text-align: center; padding-bottom: 80px; }
+        .result-icon { font-size: 5rem; margin-bottom: 16px; }
+        .result-score-ring { width: 200px; height: 200px; margin: 32px auto; position: relative; display: flex; align-items: center; justify-content: center; }
+        .result-score-ring svg { position: absolute; inset: 0; transform: rotate(-90deg); }
+        .result-score-ring .score-text { font-family: var(--font-display); font-size: 3.5rem; letter-spacing: 2px; position: relative; z-index: 1; }
+        .result-score-ring .score-label { font-size: 0.8rem; color: var(--ink-gray); text-transform: uppercase; letter-spacing: 1px; position: relative; z-index: 1; }
+        .result-breakdown { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 40px 0; }
+        .result-stat { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 24px 16px; text-align: center; }
+        .result-stat .val { font-family: var(--font-display); font-size: 2rem; margin-bottom: 4px; }
+        .result-stat .lbl { font-size: 0.8rem; color: var(--ink-gray); text-transform: uppercase; letter-spacing: 1px; }
+        .result-actions { display: flex; gap: 16px; justify-content: center; margin-top: 40px; flex-wrap: wrap; }
+        .cert-preview { margin: 48px auto 0; max-width: 500px; background: linear-gradient(145deg, var(--ink-gray-dark), rgba(42,42,62,0.5)); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 40px; position: relative; overflow: hidden; }
+        .cert-preview::before { content: ''; position: absolute; inset: 8px; border: 1px solid rgba(255,255,255,0.06); border-radius: 14px; pointer-events: none; }
+        .cert-preview .seal { font-size: 3rem; margin-bottom: 12px; }
+        .cert-preview h4 { font-family: var(--font-display); font-size: 1.8rem; letter-spacing: 3px; margin-bottom: 4px; }
+        .cert-preview .cert-sub { font-family: var(--font-heading); font-size: 0.8rem; color: var(--ink-cyan); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }
+        .cert-preview .cert-name { font-family: var(--font-display); font-size: 2.2rem; color: var(--ink-yellow); margin-bottom: 8px; }
+        .cert-preview .cert-date { font-size: 0.85rem; color: var(--ink-gray); }
+        .cert-preview .cert-id { font-family: var(--font-heading); font-size: 0.75rem; color: var(--ink-gray); margin-top: 16px; letter-spacing: 1px; }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .reg-layout { grid-template-columns: 1fr; gap: 32px; }
+            .form-row { grid-template-columns: 1fr; }
+            .exam-header-inner { flex-direction: column; align-items: stretch; }
+            .result-breakdown { grid-template-columns: 1fr; }
+            .result-actions { flex-direction: column; }
+            .btn { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <div class="container">
+            <a href="index.html" class="logo"><span class="logo-accent">ASPA</span> <span style="font-size:0.6em;letter-spacing:1px;opacity:0.7;margin-top:4px;">CSP EXAM</span></a>
+            <a href="index.html" class="nav-back">&larr; Back to Home</a>
+        </div>
+    </nav>
+
+    <!-- ==================== SCREEN 1: REGISTRATION ==================== -->
+    <div class="screen active" id="screenRegister">
+        <div class="container">
+            <div class="reg-layout">
+                <div class="reg-info">
+                    <div class="section-label">CSP Certification Exam</div>
+                    <h2>PROVE YOUR <span class="gradient-text">CRAFT</span></h2>
+                    <p>The ASPA Certified Screen Printer (CSP) exam recognizes screen printers who demonstrate competency and knowledge in the field. Pass the exam and earn your official credential.</p>
+                    <ul class="exam-features">
+                        <li><span class="icon">&#128221;</span> 36 randomized questions from our question bank</li>
+                        <li><span class="icon">&#127919;</span> 75% passing score (27 of 36 correct)</li>
+                        <li><span class="icon">&#9201;</span> 45-minute time limit — starts when you're ready</li>
+                        <li><span class="icon">&#128218;</span> Covers general, graphics, textile &amp; industrial printing</li>
+                        <li><span class="icon">&#128196;</span> Instant results + downloadable PDF certificate</li>
+                        <li><span class="icon">&#128231;</span> Study guide delivered immediately after enrollment</li>
+                        <li><span class="icon">&#128279;</span> Exam link sent to your email — take it when you're ready</li>
+                    </ul>
+                    <div style="padding:24px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:12px;">
+                        <p style="font-size:0.9rem; color:var(--ink-gray); margin:0;">
+                            <strong style="color:var(--ink-white);">How it works:</strong> Enroll now, receive your study guide and exam link via email. Study at your own pace. When ready, click the exam link — your 45-minute timer starts then.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="reg-card">
+                    <div class="mock-badge">&#9888; Demo Mode — Payment Simulated</div>
+                    <h3>Enroll &amp; Pay</h3>
+                    <div class="price-display">
+                        <span class="label">Exam Fee</span>
+                        <span class="amount">$59</span>
+                    </div>
+                    <form id="regForm" onsubmit="return false;">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>First Name</label>
+                                <input type="text" id="firstName" placeholder="John" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <input type="text" id="lastName" placeholder="Smith" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" id="email" placeholder="john@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Company / Shop Name (Optional)</label>
+                            <input type="text" id="company" placeholder="Your Print Shop">
+                        </div>
+                        <div class="form-group">
+                            <label>Payment Method</label>
+                            <div class="payment-methods">
+                                <div class="payment-method selected" onclick="selectPayment(this,'card')">&#128179; Card</div>
+                                <div class="payment-method" onclick="selectPayment(this,'paypal')">&#127920; PayPal</div>
+                            </div>
+                        </div>
+                        <div id="cardFields">
+                            <div class="form-group">
+                                <label>Card Number</label>
+                                <input type="text" placeholder="4242 4242 4242 4242" maxlength="19">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Expiry</label>
+                                    <input type="text" placeholder="MM / YY" maxlength="7">
+                                </div>
+                                <div class="form-group">
+                                    <label>CVC</label>
+                                    <input type="text" placeholder="123" maxlength="4">
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-primary btn-block" onclick="processPayment()" id="payBtn">
+                            Pay $59 &amp; Enroll &#8594;
+                        </button>
+                        <div class="secure-note">&#128274; Secure checkout — your information is encrypted</div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== SCREEN 2: CONFIRMATION + STUDY GUIDE ==================== -->
+    <div class="screen" id="screenConfirm">
+        <div class="container">
+            <div class="confirm-center">
+                <div style="font-size:4rem; margin-bottom:12px;">&#9989;</div>
+                <div class="section-label">Payment Confirmed</div>
+                <h2 class="section-title">YOU'RE <span class="gradient-text">ENROLLED!</span></h2>
+                <p style="color:var(--ink-gray); font-size:1.1rem; line-height:1.7;">
+                    Your CSP exam enrollment is confirmed. We've sent your exam access link to <strong id="confirmEmail" style="color:var(--ink-cyan);"></strong>.
+                </p>
+
+                <!-- Study Guide Download -->
+                <div class="study-guide-card">
+                    <div style="font-size:2.5rem; margin-bottom:8px;">&#128218;</div>
+                    <h4>Your CSP Study Guide is Ready</h4>
+                    <p>Download and review the study guide before taking your exam. There's no deadline — study at your own pace.</p>
+                    <a href="ASPA_CSP_Study_Guide.pdf" download class="btn btn-green">&#128196; Download Study Guide (PDF)</a>
+                </div>
+
+                <!-- Email Preview -->
+                <div class="email-mockup">
+                    <div class="email-header">
+                        <div class="email-row">
+                            <span class="email-label">From:</span>
+                            <span class="email-val">ASPA Certification &lt;cert@screen-printing.us&gt;</span>
+                        </div>
+                        <div class="email-row">
+                            <span class="email-label">To:</span>
+                            <span class="email-val" id="emailTo"></span>
+                        </div>
+                        <div class="email-row">
+                            <span class="email-label">Subject:</span>
+                            <span class="email-val" style="color:var(--ink-yellow);">Your ASPA CSP Exam is Ready</span>
+                        </div>
+                    </div>
+                    <div class="email-body">
+                        <p>Hi <span class="email-name" id="emailName"></span>,</p>
+                        <p>Thank you for enrolling in the ASPA Certified Screen Printer (CSP) exam. Your study guide is attached to this email, and your exam is ready whenever you are.</p>
+                        <p>When you're prepared, click the button below to begin. <strong style="color:var(--ink-white);">Your 45-minute timer starts the moment you click.</strong></p>
+
+                        <div class="exam-link-box">
+                            <p>&#128337; Your timer begins when you click this link</p>
+                            <button class="btn btn-amber" onclick="goToGate()">&#9889; Start My CSP Exam</button>
+                        </div>
+
+                        <p>Good luck!</p>
+                        <p style="margin-bottom:0;">— The ASPA Certification Team</p>
+                    </div>
+                </div>
+
+                <div class="demo-note">
+                    <p><strong>&#9888; Demo Mode:</strong> In production, this email would be sent to the candidate's inbox. For this demo, click the "Start My CSP Exam" button above to simulate clicking the email link.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== SCREEN 3: EXAM GATE / WARNING ==================== -->
+    <div class="screen" id="screenGate">
+        <div class="container">
+            <div class="gate-center">
+                <div class="gate-card">
+                    <div class="gate-icon">&#9888;&#65039;</div>
+                    <h2>BEFORE YOU BEGIN</h2>
+                    <div class="gate-subtitle">ASPA Certified Screen Printer Exam</div>
+
+                    <div class="gate-rules">
+                        <div class="gate-rule">
+                            <div class="gate-rule-icon gr-time">&#9201;</div>
+                            <div class="gate-rule-text">
+                                <h5>You will have 45 minutes to complete this exam.</h5>
+                                <p>The timer starts the moment you click "Begin Exam" below. It cannot be paused or restarted.</p>
+                            </div>
+                        </div>
+                        <div class="gate-rule">
+                            <div class="gate-rule-icon gr-refund">&#128683;</div>
+                            <div class="gate-rule-text">
+                                <h5>Once started, there are no refunds.</h5>
+                                <p>Please make sure you have adequate time and a stable internet connection before proceeding.</p>
+                            </div>
+                        </div>
+                        <div class="gate-rule">
+                            <div class="gate-rule-icon gr-guide">&#128214;</div>
+                            <div class="gate-rule-text">
+                                <h5>You may use your study guide to aid you with the exam.</h5>
+                                <p>Have your CSP Study Guide handy. Open-book is allowed — this exam tests understanding, not memorization.</p>
+                            </div>
+                        </div>
+                        <div class="gate-rule">
+                            <div class="gate-rule-icon gr-luck">&#127808;</div>
+                            <div class="gate-rule-text">
+                                <h5>Best of luck!</h5>
+                                <p>You need 75% (27 of 36 correct) to earn your CSP certification. You've got this.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="gate-timer-preview">&#9201; 45:00</div>
+
+                    <div class="gate-confirm">
+                        <input type="checkbox" id="gateCheck" onchange="toggleGateBtn()">
+                        <label for="gateCheck">I understand the rules and I'm ready to begin</label>
+                    </div>
+
+                    <button class="btn btn-primary btn-block" id="beginExamBtn" disabled onclick="startExam()">
+                        &#9889; Begin Exam — Start the Clock
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== SCREEN 4: THE EXAM ==================== -->
+    <div class="screen" id="screenExam">
+        <div class="exam-header">
+            <div class="container">
+                <div class="exam-header-inner">
+                    <div class="exam-progress-info">
+                        <div class="exam-stat">
+                            <div class="val" id="answeredCount">0</div>
+                            <div class="lbl">Answered</div>
+                        </div>
+                        <div class="exam-stat">
+                            <div class="val">36</div>
+                            <div class="lbl">Total</div>
+                        </div>
+                        <div class="progress-bar-wrap">
+                            <div class="progress-bar" id="progressBar" style="width:0%"></div>
+                        </div>
+                    </div>
+                    <div class="timer" id="timer">45:00</div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div id="questionsContainer"></div>
+            <div class="question-dots" id="questionDots"></div>
+            <div class="submit-section" id="submitSection">
+                <p>Review your answers above. Once submitted, the exam will be scored automatically.</p>
+                <button class="btn btn-green" onclick="submitExam()" id="submitBtn" disabled>
+                    &#9989; Submit Exam for Scoring
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== SCREEN 5: RESULTS ==================== -->
+    <div class="screen" id="screenResults">
+        <div class="container">
+            <div class="results-center">
+                <div class="result-icon" id="resultIcon"></div>
+                <div class="section-label" id="resultLabel"></div>
+                <h2 class="section-title" id="resultTitle"></h2>
+                <p style="color:var(--ink-gray); font-size:1.1rem; max-width:500px; margin:0 auto;" id="resultMsg"></p>
+                <div class="result-score-ring" id="scoreRing">
+                    <svg width="200" height="200" viewBox="0 0 200 200">
+                        <circle cx="100" cy="100" r="90" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="8"/>
+                        <circle cx="100" cy="100" r="90" fill="none" stroke-width="8" stroke-linecap="round" id="scoreCircle" stroke-dasharray="565.48" stroke-dashoffset="565.48"/>
+                    </svg>
+                    <div style="text-align:center;">
+                        <div class="score-text" id="scorePercent">0%</div>
+                        <div class="score-label">Score</div>
+                    </div>
+                </div>
+                <div class="result-breakdown">
+                    <div class="result-stat"><div class="val" style="color:var(--ink-green);" id="correctCount">0</div><div class="lbl">Correct</div></div>
+                    <div class="result-stat"><div class="val" style="color:var(--ink-red);" id="incorrectCount">0</div><div class="lbl">Incorrect</div></div>
+                    <div class="result-stat"><div class="val" style="color:var(--ink-yellow);" id="passThreshold">75%</div><div class="lbl">Required</div></div>
+                </div>
+                <div id="certPreviewWrap"></div>
+                <div class="result-actions" id="resultActions"></div>
+                <div style="margin-top:48px;">
+                    <button class="btn btn-outline" onclick="showReview()">&#128270; Review Your Answers</button>
+                </div>
+            </div>
+            <div id="reviewSection" style="display:none; padding-bottom:80px;"></div>
+        </div>
+    </div>
+
+    <!-- ==================== SCRIPTS ==================== -->
+    <script>
+    // ===== QUESTION BANK =====
+    const questionBank = [
+        // GENERAL SCREEN PRINTING
+        { category: "General Screen Printing", question: "Screen printing is also commonly known as:", options: ["Lithography", "Serigraphy", "Intaglio", "Letterpress"], answer: 1 },
+        { category: "General Screen Printing", question: "The screen printing process involves pushing ink through a:", options: ["Metal plate", "Rubber roller", "Mesh stencil", "Paper template"], answer: 2 },
+        { category: "General Screen Printing", question: "What material is most commonly used for screen printing mesh?", options: ["Silk", "Polyester", "Cotton", "Nylon"], answer: 1 },
+        { category: "General Screen Printing", question: "A higher mesh count produces:", options: ["Thicker ink deposits", "Finer detail prints", "Faster printing speed", "Brighter colors"], answer: 1 },
+        { category: "General Screen Printing", question: "The squeegee is used to:", options: ["Expose the screen", "Clean the screen", "Push ink through the mesh", "Stretch the mesh"], answer: 2 },
+        { category: "General Screen Printing", question: "The approximate squeegee angle for a flood stroke is:", options: ["25 degrees", "90 degrees", "60 degrees", "45 degrees"], answer: 1 },
+        { category: "General Screen Printing", question: "Off-contact distance refers to:", options: ["The gap between the screen and the substrate", "The distance between print stations", "The space between colors", "The gap between the squeegee and the flood bar"], answer: 0 },
+        { category: "General Screen Printing", question: "Screen tension is measured in:", options: ["Pounds per inch", "Newtons per centimeter", "Grams per square inch", "Pascals"], answer: 1 },
+        { category: "General Screen Printing", question: "What is the purpose of a flash dryer in screen printing?", options: ["To fully cure the ink", "To partially cure ink between colors", "To dry the screen emulsion", "To heat the garment before printing"], answer: 1 },
+        { category: "General Screen Printing", question: "Registration in screen printing refers to:", options: ["Signing up for a class", "Aligning multiple colors precisely", "Registering your business", "The texture of the print"], answer: 1 },
+        { category: "General Screen Printing", question: "A print stroke pushes ink through the mesh. The squeegee angle for a print stroke is typically:", options: ["About 15 degrees from vertical", "About 45 degrees from vertical", "About 90 degrees (flat)", "About 75 degrees from vertical"], answer: 1 },
+        { category: "General Screen Printing", question: "Ghosting on a screen refers to:", options: ["A faint previous image remaining on the screen", "Ink bleeding outside the design", "Double printing from misregistration", "Ink drying in the screen"], answer: 0 },
+        { category: "General Screen Printing", question: "What is the purpose of screen degreasing?", options: ["To add texture to the mesh", "To remove oils and contaminants before coating", "To dissolve old emulsion", "To reduce mesh tension"], answer: 1 },
+        { category: "General Screen Printing", question: "A pallet (or platen) is:", options: ["A flat board where the substrate is placed for printing", "A type of squeegee", "A brand of ink", "A screen cleaning solution"], answer: 0 },
+        { category: "General Screen Printing", question: "Dot gain in screen printing refers to:", options: ["Gaining more dot detail", "The increase in dot size during printing", "Adding halftone dots to artwork", "Screen resolution measurement"], answer: 1 },
+
+        // GRAPHICS & ART FUNDAMENTALS
+        { category: "Graphics & Art Fundamentals", question: "In process (CMYK) screen printing, 'K' stands for:", options: ["Black", "Kinetic", "White", "Key color"], answer: 0 },
+        { category: "Graphics & Art Fundamentals", question: "CMYK stands for:", options: ["Cyan, Magenta, Yellow, Black", "Cyan, Maroon, Yellow, Khaki", "Clear, Magenta, Yellow, Black", "Cyan, Magenta, Yellow, Key"], answer: 3 },
+        { category: "Graphics & Art Fundamentals", question: "A color separation is:", options: ["Mixing two ink colors together", "Dividing artwork into individual color layers for printing", "Removing color from a design", "A type of mesh"], answer: 1 },
+        { category: "Graphics & Art Fundamentals", question: "Halftone printing uses:", options: ["Solid blocks of color only", "Dots of varying size to simulate gradients", "Only two colors", "Transparent inks exclusively"], answer: 1 },
+        { category: "Graphics & Art Fundamentals", question: "Spot color printing means:", options: ["Printing random spots of color", "Each color in the design is printed with its own screen", "Using only primary colors", "Printing on spotted fabric"], answer: 1 },
+        { category: "Graphics & Art Fundamentals", question: "LPI stands for:", options: ["Lines Per Inch", "Layers Per Image", "Light Passing Index", "Luminosity Per Inch"], answer: 0 },
+        { category: "Graphics & Art Fundamentals", question: "DPI stands for:", options: ["Dots Per Inch", "Design Per Image", "Digital Print Index", "Darks Per Inch"], answer: 0 },
+        { category: "Graphics & Art Fundamentals", question: "A film positive is:", options: ["A transparent sheet with opaque artwork used for screen exposure", "A type of camera", "A bright-colored ink", "A method of developing photos"], answer: 0 },
+        { category: "Graphics & Art Fundamentals", question: "Trapping in screen printing artwork refers to:", options: ["Catching errors in the design", "Slight overlapping of adjacent colors to prevent gaps", "Trapping ink under the screen", "A security feature on printed items"], answer: 1 },
+        { category: "Graphics & Art Fundamentals", question: "Simulated process printing is used to:", options: ["Print photographs using spot colors instead of CMYK", "Simulate the screen printing process digitally", "Test designs before production", "Create process color separations"], answer: 0 },
+        { category: "Graphics & Art Fundamentals", question: "What file format is generally preferred for screen printing artwork?", options: [".jpg", ".bmp", "Vector format (.ai, .eps, .svg)", ".gif"], answer: 2 },
+        { category: "Graphics & Art Fundamentals", question: "An underbase is:", options: ["The bottom of the press", "A white ink layer printed first under other colors on dark garments", "A type of adhesive spray", "The foundation of the screen frame"], answer: 1 },
+        { category: "Graphics & Art Fundamentals", question: "Moir\u00e9 patterns are caused by:", options: ["Using too little ink", "Improper halftone screen angles", "Printing too fast", "Using water-based ink"], answer: 1 },
+        { category: "Graphics & Art Fundamentals", question: "The recommended resolution for raster screen printing artwork is at least:", options: ["72 DPI", "150 DPI", "300 DPI", "600 DPI"], answer: 2 },
+
+        // TEXTILE PRINTING
+        { category: "Textile Printing", question: "What is the temperature that plastisol ink must reach to achieve full cure?", options: ["900 degrees F", "120 degrees F", "320 degrees F", "450 degrees F"], answer: 2 },
+        { category: "Textile Printing", question: "Plastisol ink is composed primarily of:", options: ["Water and pigment", "PVC resin and plasticizer", "Latex and dye", "Acrylic and solvent"], answer: 1 },
+        { category: "Textile Printing", question: "Water-based ink differs from plastisol because it:", options: ["Requires no curing", "Soaks into the fabric fibers instead of sitting on top", "Is only available in white", "Cannot be used on cotton"], answer: 1 },
+        { category: "Textile Printing", question: "What is the most common fabric type used in screen printed apparel?", options: ["Polyester", "Silk", "Cotton", "Rayon"], answer: 2 },
+        { category: "Textile Printing", question: "Dye migration occurs when:", options: ["Ink is over-cured", "Dyes from polyester fabric bleed into the ink", "Colors separate during washing", "The screen loses emulsion"], answer: 1 },
+        { category: "Textile Printing", question: "To prevent dye migration on polyester, a printer should use:", options: ["Higher curing temperatures", "Low-bleed or poly-block inks", "Thinner mesh counts", "More pressure on the squeegee"], answer: 1 },
+        { category: "Textile Printing", question: "An overexposed screen will produce:", options: ["A screen that is difficult to wash out", "A screen that is easy to wash out", "None of the above"], answer: 0 },
+        { category: "Textile Printing", question: "An underexposed screen will produce:", options: ["Sharp detail in the stencil", "Premature breakdown of the stencil during printing", "A harder emulsion", "Better ink adhesion"], answer: 1 },
+        { category: "Textile Printing", question: "The wash test for cured plastisol ink involves:", options: ["Rinsing the print with cold water immediately after printing", "Washing the printed garment and checking for cracking or peeling", "Spraying the screen with a pressure washer", "Soaking the garment in bleach"], answer: 1 },
+        { category: "Textile Printing", question: "A discharge ink works by:", options: ["Adding color to the fabric", "Removing the dye from the fabric and replacing it with pigment", "Printing on top of existing prints", "Dissolving the fabric fibers"], answer: 1 },
+        { category: "Textile Printing", question: "What mesh count range is typically used for printing standard plastisol text and graphics on t-shirts?", options: ["24-60 mesh", "86-110 mesh", "110-160 mesh", "305-400 mesh"], answer: 2 },
+        { category: "Textile Printing", question: "Flashing between colors is done to:", options: ["Speed up the printing process", "Partially gel the ink so the next color doesn't mix with it", "Fully cure each color before the next", "Clean the screen between prints"], answer: 1 },
+        { category: "Textile Printing", question: "A heat press can be used to cure plastisol ink if:", options: ["It reaches the correct cure temperature for the required dwell time", "It is set to any temperature above 200\u00b0F", "The print is pressed for at least 30 seconds at any temperature", "It cannot be used; only conveyor dryers work"], answer: 0 },
+        { category: "Textile Printing", question: "Phthalate-free inks are important because:", options: ["They produce brighter colors", "They comply with safety standards, especially for children's apparel", "They cure at lower temperatures", "They are cheaper to produce"], answer: 1 },
+        { category: "Textile Printing", question: "To print a soft hand feel, a printer should:", options: ["Use a heavy ink deposit and thick mesh", "Use water-based or discharge ink with higher mesh count", "Print multiple layers of plastisol", "Use the lowest mesh count available"], answer: 1 },
+        { category: "Textile Printing", question: "Emulsion is applied to a screen using:", options: ["A squeegee", "A scoop coater", "A roller", "A spray gun"], answer: 1 },
+        { category: "Textile Printing", question: "Screen reclaiming involves:", options: ["Reusing old ink", "Removing emulsion and ink to reuse the screen", "Increasing mesh tension", "Re-coating with thicker emulsion"], answer: 1 },
+        { category: "Textile Printing", question: "The purpose of pallet adhesive (spray tack) is:", options: ["To glue the screen to the press", "To keep the garment flat and in position during printing", "To help ink stick to polyester", "To seal the edges of the stencil"], answer: 1 },
+
+        // NON-TEXTILE & INDUSTRIAL
+        { category: "Non-Textile & Industrial", question: "Screen printing on non-textile flat surfaces (signs, decals) often uses:", options: ["Plastisol ink", "UV-curable ink or solvent-based ink", "Discharge ink", "Puff ink"], answer: 1 },
+        { category: "Non-Textile & Industrial", question: "UV ink cures when exposed to:", options: ["Heat from a conveyor dryer", "Ultraviolet light", "Natural sunlight over 24 hours", "Room temperature air"], answer: 1 },
+        { category: "Non-Textile & Industrial", question: "Screen printing is used in the electronics industry to produce:", options: ["Printed circuit boards", "Computer monitors", "Hard drives", "RAM chips"], answer: 0 },
+        { category: "Non-Textile & Industrial", question: "Solvent-based inks are commonly used for:", options: ["Cotton t-shirts", "Vinyl banners and outdoor signage", "Paper printing only", "Food packaging exclusively"], answer: 1 },
+        { category: "Non-Textile & Industrial", question: "Pad printing differs from screen printing because it:", options: ["Uses a silicone pad to transfer ink from an etched plate to the object", "Uses a mesh screen like traditional screen printing", "Can only print flat surfaces", "Does not use ink"], answer: 0 },
+        { category: "Non-Textile & Industrial", question: "OSHA stands for:", options: ["Occupational Safety and Health Administration", "Organization for Screen and Halftone Artists", "Official Screen Handling Authority", "Overhead Safety and Hazard Assessment"], answer: 0 },
+        { category: "Non-Textile & Industrial", question: "When screen printing with solvent-based inks, proper ventilation is needed because:", options: ["The inks smell bad", "Solvent fumes can be hazardous to health", "The ink dries too fast otherwise", "It prevents static electricity"], answer: 1 },
+        { category: "Non-Textile & Industrial", question: "Screen printing on glass, metal, or ceramic typically requires:", options: ["Standard plastisol ink", "Specialty inks and surface pre-treatment", "Water-based ink only", "No special preparation"], answer: 1 },
+        { category: "Non-Textile & Industrial", question: "A common application of industrial screen printing is:", options: ["Printing labels and control panels", "Only printing t-shirts in bulk", "Painting walls", "Printing newspapers"], answer: 0 },
+        { category: "Non-Textile & Industrial", question: "Screen printing on cylindrical objects (bottles, cups) requires:", options: ["A flatbed press", "A rotary or cylindrical screen press", "Manual hand printing only", "Inkjet technology"], answer: 1 },
+        { category: "Non-Textile & Industrial", question: "Proper disposal of screen printing chemicals should follow:", options: ["Pouring them down the drain", "Local environmental and hazardous waste regulations", "Dumping them in a landfill", "Burning them in the shop"], answer: 1 },
+        { category: "Non-Textile & Industrial", question: "Mesh counts above 300 are typically used for:", options: ["Printing heavy ink deposits", "Fine detail work like halftones and four-color process", "Printing only on fabric", "Speed printing"], answer: 1 },
+    ];
+
+    // ===== STATE =====
+    let examQuestions = [];
+    let userAnswers = {};
+    let timerInterval = null;
+    let timeRemaining = 45 * 60;
+    let candidateName = '';
+    let candidateEmail = '';
+
+    // ===== SCREEN 1: REGISTRATION =====
+    function selectPayment(el, type) {
+        document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('cardFields').style.display = type === 'card' ? 'block' : 'none';
+    }
+
+    function processPayment() {
+        const fn = document.getElementById('firstName').value.trim();
+        const ln = document.getElementById('lastName').value.trim();
+        const em = document.getElementById('email').value.trim();
+        if (!fn || !ln || !em) { alert('Please fill in your name and email to continue.'); return; }
+        candidateName = fn + ' ' + ln;
+        candidateEmail = em;
+
+        const btn = document.getElementById('payBtn');
+        btn.disabled = true;
+        btn.innerHTML = '&#9203; Processing Payment...';
+        setTimeout(() => {
+            btn.innerHTML = '&#9989; Payment Confirmed!';
+            setTimeout(() => showConfirmation(), 800);
+        }, 1500);
+    }
+
+    // ===== SCREEN 2: CONFIRMATION =====
+    function showConfirmation() {
+        document.getElementById('confirmEmail').textContent = candidateEmail;
+        document.getElementById('emailTo').textContent = candidateEmail;
+        document.getElementById('emailName').textContent = candidateName.split(' ')[0];
+        showScreen('screenConfirm');
+        window.scrollTo(0, 0);
+    }
+
+    // ===== SCREEN 3: GATE =====
+    function goToGate() {
+        showScreen('screenGate');
+        window.scrollTo(0, 0);
+    }
+
+    function toggleGateBtn() {
+        document.getElementById('beginExamBtn').disabled = !document.getElementById('gateCheck').checked;
+    }
+
+    // ===== SCREEN 4: EXAM =====
+    function startExam() {
+        const shuffled = [...questionBank].sort(() => Math.random() - 0.5);
+        examQuestions = shuffled.slice(0, 36);
+        userAnswers = {};
+        showScreen('screenExam');
+        renderQuestions();
+        renderDots();
+        startTimer();
+        window.scrollTo(0, 0);
+    }
+
+    function renderQuestions() {
+        document.getElementById('questionsContainer').innerHTML = examQuestions.map((q, i) => `
+            <div class="question-card" id="q${i}">
+                <div class="question-number">Question ${i + 1} of 36</div>
+                <div class="question-category">${q.category}</div>
+                <div class="question-text">${q.question}</div>
+                <div class="answer-options">
+                    ${q.options.map((opt, j) => `
+                        <div class="answer-option" onclick="selectAnswer(${i}, ${j})" id="q${i}o${j}">
+                            <div class="radio"></div>
+                            <span>${opt}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function renderDots() {
+        document.getElementById('questionDots').innerHTML = examQuestions.map((_, i) =>
+            `<div class="question-dot" id="dot${i}" onclick="scrollToQuestion(${i})">${i + 1}</div>`
+        ).join('');
+    }
+
+    function selectAnswer(qIndex, optIndex) {
+        userAnswers[qIndex] = optIndex;
+        examQuestions[qIndex].options.forEach((_, j) => {
+            document.getElementById(`q${qIndex}o${j}`).classList.toggle('selected', j === optIndex);
+        });
+        document.getElementById(`q${qIndex}`).classList.add('answered');
+        document.getElementById(`dot${qIndex}`).classList.add('answered');
+        const answered = Object.keys(userAnswers).length;
+        document.getElementById('answeredCount').textContent = answered;
+        document.getElementById('progressBar').style.width = ((answered / 36) * 100) + '%';
+        document.getElementById('submitBtn').disabled = answered < 36;
+    }
+
+    function scrollToQuestion(i) {
+        document.getElementById(`q${i}`).scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function startTimer() {
+        timeRemaining = 45 * 60;
+        updateTimerDisplay();
+        timerInterval = setInterval(() => {
+            timeRemaining--;
+            updateTimerDisplay();
+            if (timeRemaining <= 300) document.getElementById('timer').classList.add('warning');
+            if (timeRemaining <= 0) { clearInterval(timerInterval); submitExam(true); }
+        }, 1000);
+    }
+
+    function updateTimerDisplay() {
+        const min = Math.floor(timeRemaining / 60);
+        const sec = timeRemaining % 60;
+        document.getElementById('timer').textContent = `${String(min).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
+    }
+
+    // ===== SCORING =====
+    function submitExam(autoSubmit) {
+        clearInterval(timerInterval);
+        if (!autoSubmit && !confirm('Are you sure you want to submit your exam for scoring?')) {
+            startTimer();
+            return;
+        }
+        clearInterval(timerInterval);
+        let correct = 0;
+        examQuestions.forEach((q, i) => { if (userAnswers[i] === q.answer) correct++; });
+        const total = 36;
+        const percent = Math.round((correct / total) * 100);
+        showResults(correct, total, percent, percent >= 75);
+    }
+
+    function showResults(correct, total, percent, passed) {
+        showScreen('screenResults');
+        window.scrollTo(0, 0);
+        document.getElementById('resultIcon').innerHTML = passed ? '&#127942;' : '&#128172;';
+        document.getElementById('resultLabel').textContent = passed ? 'Congratulations!' : 'Not Quite Yet';
+        document.getElementById('resultTitle').innerHTML = passed ? 'YOU ARE <span class="gradient-text">CSP CERTIFIED</span>' : 'KEEP <span class="gradient-text">PRACTICING</span>';
+        document.getElementById('resultMsg').textContent = passed
+            ? `Outstanding work, ${candidateName}! You've demonstrated your competency in screen printing and earned the ASPA Certified Screen Printer credential.`
+            : `You scored ${percent}% but needed 75% to pass. Review the topics below and retake when you're ready.`;
+
+        const circle = document.getElementById('scoreCircle');
+        const offset = 565.48 - (565.48 * percent / 100);
+        circle.style.stroke = passed ? 'var(--ink-green)' : 'var(--ink-red)';
+        setTimeout(() => { circle.style.transition = 'stroke-dashoffset 1.5s ease'; circle.style.strokeDashoffset = offset; }, 200);
+        document.getElementById('scorePercent').textContent = percent + '%';
+        document.getElementById('correctCount').textContent = correct;
+        document.getElementById('incorrectCount').textContent = total - correct;
+
+        const certWrap = document.getElementById('certPreviewWrap');
+        const actions = document.getElementById('resultActions');
+        if (passed) {
+            const certNumber = 'CSP-' + Date.now().toString(36).toUpperCase() + '-' + Math.random().toString(36).substring(2, 6).toUpperCase();
+            const dateStr = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+            certWrap.innerHTML = `
+                <div class="cert-preview">
+                    <div class="seal">&#127942;</div>
+                    <h4>CERTIFIED SCREEN PRINTER</h4>
+                    <div class="cert-sub">American Screen Printing Association</div>
+                    <div class="cert-name">${candidateName.toUpperCase()}</div>
+                    <div class="cert-date">${dateStr}</div>
+                    <div class="cert-id">Certificate No: ${certNumber}</div>
+                </div>`;
+            actions.innerHTML = `
+                <button class="btn btn-primary" onclick="downloadCertificate('${candidateName}', '${dateStr}', '${certNumber}')">&#128196; Download PDF Certificate</button>
+                <button class="btn btn-outline" onclick="location.reload()">Take Again</button>`;
+        } else {
+            certWrap.innerHTML = '';
+            actions.innerHTML = `
+                <button class="btn btn-primary" onclick="location.reload()">&#128260; Retake Exam</button>
+                <a href="resources.html" class="btn btn-outline">&#128218; Study Resources</a>`;
+        }
+    }
+
+    function showReview() {
+        const section = document.getElementById('reviewSection');
+        section.style.display = 'block';
+        section.innerHTML = '<h3 style="font-family:var(--font-display);font-size:2rem;letter-spacing:2px;margin-bottom:32px;text-align:center;">ANSWER REVIEW</h3>' +
+            examQuestions.map((q, i) => {
+                const ua = userAnswers[i]; const ok = ua === q.answer;
+                return `<div class="question-card" style="border-color:${ok ? 'rgba(0,230,118,0.2)' : 'rgba(255,61,90,0.2)'};">
+                    <div class="question-number" style="color:${ok ? 'var(--ink-green)' : 'var(--ink-red)'};">Question ${i+1} — ${ok ? '&#10003; Correct' : '&#10007; Incorrect'}</div>
+                    <div class="question-category">${q.category}</div>
+                    <div class="question-text">${q.question}</div>
+                    <div class="answer-options">${q.options.map((opt, j) => {
+                        let cls = j === q.answer ? 'correct' : (j === ua && j !== q.answer ? 'incorrect' : '');
+                        return `<div class="answer-option ${cls}"><div class="radio"></div><span>${opt}</span></div>`;
+                    }).join('')}</div></div>`;
+            }).join('');
+        section.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // ===== PDF CERTIFICATE =====
+    function downloadCertificate(name, date, certNum) {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+        const w = 297, h = 210;
+        doc.setFillColor(10, 10, 10); doc.rect(0, 0, w, h, 'F');
+        doc.setDrawColor(108, 43, 217); doc.setLineWidth(0.5); doc.roundedRect(10, 10, w-20, h-20, 3, 3);
+        doc.setDrawColor(60, 60, 80); doc.setLineWidth(0.3); doc.roundedRect(14, 14, w-28, h-28, 2, 2);
+        const cl = 20; doc.setDrawColor(0, 212, 255); doc.setLineWidth(1);
+        doc.line(14,14,14+cl,14); doc.line(14,14,14,14+cl);
+        doc.line(w-14,14,w-14-cl,14); doc.line(w-14,14,w-14,14+cl);
+        doc.line(14,h-14,14+cl,h-14); doc.line(14,h-14,14,h-14-cl);
+        doc.line(w-14,h-14,w-14-cl,h-14); doc.line(w-14,h-14,w-14,h-14-cl);
+        doc.setTextColor(0,212,255); doc.setFontSize(16); doc.setFont('helvetica','bold');
+        doc.text('AMERICAN SCREEN PRINTING ASSOCIATION', w/2, 38, {align:'center'});
+        doc.setTextColor(248,248,248); doc.setFontSize(36);
+        doc.text('CERTIFIED SCREEN PRINTER', w/2, 58, {align:'center'});
+        doc.setTextColor(233,30,140); doc.setFontSize(14);
+        doc.text('CSP CREDENTIAL', w/2, 68, {align:'center'});
+        doc.setDrawColor(108,43,217); doc.setLineWidth(0.5); doc.line(w/2-60,76,w/2+60,76);
+        doc.setTextColor(176,176,176); doc.setFontSize(11); doc.setFont('helvetica','normal');
+        doc.text('This is to certify that', w/2, 90, {align:'center'});
+        doc.setTextColor(255,212,0); doc.setFontSize(30); doc.setFont('helvetica','bold');
+        doc.text(name.toUpperCase(), w/2, 108, {align:'center'});
+        const nw = doc.getTextWidth(name.toUpperCase());
+        doc.setDrawColor(255,212,0); doc.setLineWidth(0.3); doc.line(w/2-nw/2,111,w/2+nw/2,111);
+        doc.setTextColor(176,176,176); doc.setFontSize(11); doc.setFont('helvetica','normal');
+        doc.text('has successfully demonstrated competency and knowledge in the field of screen printing', w/2, 124, {align:'center'});
+        doc.text('and is hereby awarded the ASPA Certified Screen Printer (CSP) designation.', w/2, 132, {align:'center'});
+        doc.setTextColor(248,248,248); doc.setFontSize(12); doc.setFont('helvetica','bold');
+        doc.text('Date: '+date, w/2-50, 155, {align:'center'});
+        doc.text('Certificate: '+certNum, w/2+50, 155, {align:'center'});
+        doc.setDrawColor(60,60,80); doc.setLineWidth(0.3); doc.line(40,163,w-40,163);
+        doc.setTextColor(108,43,217); doc.setFontSize(8); doc.setFont('helvetica','normal');
+        doc.text('ASPA \u2014 American Screen Printing Association | www.screen-printing.us', w/2, 175, {align:'center'});
+        doc.text('This certificate verifies the holder has passed the ASPA CSP Examination.', w/2, 181, {align:'center'});
+        doc.setDrawColor(255,212,0); doc.setLineWidth(1); doc.circle(w/2,195,3);
+        doc.save('ASPA_CSP_Certificate_' + name.replace(/\s+/g,'_') + '.pdf');
+    }
+
+    function showScreen(id) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+    }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSP Certified Screen Printers - ASPA | American Screen Printing Association</title>
+    <meta name="description" content="Find certified screen printing professionals who have passed the ASPA CSP (Certified Screen Printer) exam. Browse by specialty, state, and certification year.">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* ========================================
+           DESIGN SYSTEM & ROOT VARIABLES
+           ======================================== */
+        :root {
+            --ink-black: #0a0a0a;
+            --ink-dark: #1a1a2e;
+            --ink-purple: #6c2bd9;
+            --ink-magenta: #e91e8c;
+            --ink-cyan: #00d4ff;
+            --ink-yellow: #ffd400;
+            --ink-orange: #ff6b35;
+            --ink-white: #f8f8f8;
+            --ink-gray: #b0b0b0;
+            --ink-gray-dark: #2a2a3e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--ink-black);
+            color: var(--ink-white);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ========================================
+           NAVIGATION BAR
+           ======================================== */
+        nav {
+            background-color: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 0 24px;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .nav-logo {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .nav-logo-main {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--ink-white);
+            letter-spacing: 2px;
+        }
+
+        .nav-logo-sub {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 9px;
+            font-weight: 600;
+            color: var(--ink-cyan);
+            letter-spacing: 1.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--ink-gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--ink-cyan);
+        }
+
+        .nav-links a.active {
+            color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            color: var(--ink-black);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background-color: var(--ink-white);
+            border-radius: 2px;
+            transition: 0.3s ease;
+        }
+
+        /* ========================================
+           HERO SECTION
+           ======================================== */
+        .hero {
+            background: linear-gradient(135deg, rgba(108, 43, 217, 0.1) 0%, rgba(233, 30, 140, 0.05) 100%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 60px 24px;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .hero-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--ink-cyan);
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+
+        .hero-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 56px;
+            font-weight: 700;
+            color: var(--ink-white);
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+        }
+
+        .hero-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            color: var(--ink-gray);
+            margin-bottom: 32px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--ink-cyan);
+            letter-spacing: 0.5px;
+        }
+
+        /* ========================================
+           FILTER & SEARCH BAR (STICKY)
+           ======================================== */
+        .filter-bar {
+            background-color: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 20px 24px;
+            position: sticky;
+            top: 70px;
+            z-index: 900;
+        }
+
+        .filter-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .filter-row {
+            display: grid;
+            grid-template-columns: 2fr 1.5fr 1.5fr 1fr auto 1fr;
+            gap: 12px;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .filter-input, .filter-select {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 10px 14px;
+            color: var(--ink-white);
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            transition: border-color 0.2s ease, background-color 0.2s ease;
+        }
+
+        .filter-input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .filter-input:focus, .filter-select:focus {
+            outline: none;
+            border-color: var(--ink-cyan);
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .filter-select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23f8f8f8' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            padding-right: 30px;
+        }
+
+        .filter-button-group {
+            display: flex;
+            gap: 8px;
+        }
+
+        .filter-toggle {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 8px 12px;
+            color: var(--ink-gray);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .filter-toggle:hover {
+            border-color: var(--ink-cyan);
+            color: var(--ink-cyan);
+        }
+
+        .filter-toggle.active {
+            background-color: rgba(0, 212, 255, 0.2);
+            border-color: var(--ink-cyan);
+            color: var(--ink-cyan);
+        }
+
+        .reset-btn {
+            background-color: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 8px 12px;
+            color: var(--ink-gray);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .reset-btn:hover {
+            border-color: var(--ink-magenta);
+            color: var(--ink-magenta);
+        }
+
+        .filter-stats {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--ink-cyan);
+            letter-spacing: 0.5px;
+        }
+
+        /* ========================================
+           RESULTS GRID
+           ======================================== */
+        .results-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .csp-card {
+            background-color: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            padding: 24px;
+            position: relative;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .csp-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(233, 30, 140, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .csp-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--ink-cyan);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .csp-card:hover::before {
+            opacity: 1;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .cert-badge {
+            font-size: 24px;
+        }
+
+        .status-badge {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        .status-badge.active {
+            background-color: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+            border: 1px solid rgba(34, 197, 94, 0.4);
+        }
+
+        .status-badge.renewal-due {
+            background-color: rgba(255, 212, 0, 0.2);
+            color: var(--ink-yellow);
+            border: 1px solid rgba(255, 212, 0, 0.4);
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--ink-white);
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .card-company {
+            font-size: 14px;
+            color: var(--ink-cyan);
+            margin-bottom: 8px;
+        }
+
+        .card-location {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: var(--ink-gray);
+            margin-bottom: 12px;
+        }
+
+        .location-icon {
+            width: 14px;
+            height: 14px;
+        }
+
+        .card-cert-info {
+            background-color: rgba(255, 255, 255, 0.03);
+            border-left: 2px solid var(--ink-yellow);
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+            font-size: 12px;
+        }
+
+        .cert-number {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 11px;
+            color: var(--ink-yellow);
+            letter-spacing: 1px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .cert-date {
+            color: var(--ink-gray);
+            font-size: 12px;
+        }
+
+        .specialty-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+
+        .specialty-tag {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 12px;
+            background-color: rgba(108, 43, 217, 0.2);
+            color: var(--ink-purple);
+            border: 1px solid rgba(108, 43, 217, 0.4);
+        }
+
+        .specialty-tag.industrial {
+            background-color: rgba(255, 107, 53, 0.2);
+            color: var(--ink-orange);
+            border-color: rgba(255, 107, 53, 0.4);
+        }
+
+        .specialty-tag.graphics {
+            background-color: rgba(233, 30, 140, 0.2);
+            color: var(--ink-magenta);
+            border-color: rgba(233, 30, 140, 0.4);
+        }
+
+        .specialty-tag.multi {
+            background-color: rgba(0, 212, 255, 0.2);
+            color: var(--ink-cyan);
+            border-color: rgba(0, 212, 255, 0.4);
+        }
+
+        .aspa-plus-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 12px;
+            background-color: rgba(0, 212, 255, 0.2);
+            color: var(--ink-cyan);
+            border: 1px solid rgba(0, 212, 255, 0.4);
+            margin-top: 12px;
+        }
+
+        /* ========================================
+           PAGINATION
+           ======================================== */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .pagination-btn {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 10px 14px;
+            color: var(--ink-gray);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .pagination-btn:hover:not(:disabled) {
+            border-color: var(--ink-cyan);
+            color: var(--ink-cyan);
+        }
+
+        .pagination-btn.active {
+            background-color: rgba(0, 212, 255, 0.2);
+            border-color: var(--ink-cyan);
+            color: var(--ink-cyan);
+        }
+
+        .pagination-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* ========================================
+           EMPTY STATE
+           ======================================== */
+        .empty-state {
+            text-align: center;
+            padding: 60px 24px;
+        }
+
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .empty-state-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--ink-white);
+            margin-bottom: 8px;
+        }
+
+        .empty-state-message {
+            font-size: 16px;
+            color: var(--ink-gray);
+            margin-bottom: 24px;
+        }
+
+        /* ========================================
+           CTA BANNER
+           ======================================== */
+        .cta-banner {
+            background: linear-gradient(135deg, rgba(108, 43, 217, 0.15) 0%, rgba(233, 30, 140, 0.15) 100%);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 16px;
+            padding: 40px 24px;
+            max-width: 1200px;
+            margin: 0 auto 60px;
+            text-align: center;
+        }
+
+        .cta-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--ink-white);
+            margin-bottom: 8px;
+        }
+
+        .cta-message {
+            font-size: 16px;
+            color: var(--ink-gray);
+            margin-bottom: 24px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            color: var(--ink-black);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 12px 28px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            letter-spacing: 0.5px;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(0, 212, 255, 0.3);
+        }
+
+        /* ========================================
+           FOOTER
+           ======================================== */
+        footer {
+            background-color: var(--ink-dark);
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 40px 24px 20px;
+            margin-top: 60px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--ink-cyan);
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            display: block;
+            color: var(--ink-gray);
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 12px;
+            transition: color 0.2s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--ink-cyan);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            color: var(--ink-gray);
+            font-size: 13px;
+        }
+
+        /* ========================================
+           MOBILE RESPONSIVE
+           ======================================== */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero-title {
+                font-size: 36px;
+            }
+
+            .hero-subtitle {
+                font-size: 16px;
+            }
+
+            .hero-stats {
+                gap: 16px;
+                font-size: 12px;
+            }
+
+            .filter-row {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-button-group {
+                grid-column: 1 / -1;
+            }
+
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .csp-card {
+                padding: 16px;
+            }
+
+            .card-title {
+                font-size: 16px;
+            }
+
+            .cta-title {
+                font-size: 20px;
+            }
+
+            .cta-message {
+                font-size: 14px;
+            }
+        }
+
+        /* ========================================
+           FILTER PANEL (Mobile)
+           ======================================== */
+        .filter-panel-toggle {
+            display: none;
+            background-color: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 8px;
+            padding: 10px 16px;
+            color: var(--ink-cyan);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 16px;
+            width: 100%;
+            transition: all 0.2s ease;
+        }
+
+        .filter-panel-toggle:hover {
+            background-color: rgba(0, 212, 255, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .filter-bar {
+                top: 70px;
+            }
+
+            .filter-panel-toggle {
+                display: block;
+            }
+
+            .filter-row {
+                display: none;
+            }
+
+            .filter-row.open {
+                display: grid;
+            }
+
+            .filter-stats {
+                grid-column: 1 / -1;
+            }
+        }
+
+        /* ========================================
+           UTILITY CLASSES
+           ======================================== */
+        .hidden {
+            display: none !important;
+        }
+
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- ========================================
+         NAVIGATION
+         ======================================== -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="nav-logo-main">ASPA</div>
+                <div class="nav-logo-sub">SCREEN PRINTING</div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="directory.html">Directory</a></li>
+                <li><a href="certified-roster.html" class="active">Certified</a></li>
+                <li><a href="index.html#membership">Membership</a></li>
+                <li><a href="resources.html">Resources</a></li>
+            </ul>
+            <button class="nav-cta" onclick="window.location.href='join.html'">Join ASPA</button>
+            <button class="hamburger" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ========================================
+         HERO SECTION
+         ======================================== -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-label">CSP Certified Professionals</div>
+            <h1 class="hero-title">CERTIFIED SCREEN PRINTERS</h1>
+            <p class="hero-subtitle">These professionals have passed the ASPA Certified Screen Printer exam and demonstrated mastery of screen printing knowledge and techniques.</p>
+            <div class="hero-stats">
+                <span id="certCount">20+ Certified</span>
+                <span id="stateCount">12 States</span>
+                <span id="countryCount">3 Countries</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         FILTER & SEARCH BAR
+         ======================================== -->
+    <div class="filter-bar" id="filterBar">
+        <div class="filter-container">
+            <button class="filter-panel-toggle" onclick="toggleFilterPanel()">
+                <span>⚙️ Show Filters</span>
+            </button>
+            <div class="filter-row" id="filterRow">
+                <input
+                    type="text"
+                    id="searchInput"
+                    class="filter-input"
+                    placeholder="Search by name, company, or city..."
+                    onkeyup="debounceSearch()"
+                >
+                <select id="specialtyFilter" class="filter-select" onchange="applyFilters()">
+                    <option value="">All Specialties</option>
+                    <option value="textile">Textile/Garment</option>
+                    <option value="signage">Signage & Graphics</option>
+                    <option value="industrial">Industrial</option>
+                    <option value="multi">Multi-Specialty</option>
+                </select>
+                <input
+                    type="text"
+                    id="locationFilter"
+                    class="filter-input"
+                    placeholder="Filter by state..."
+                    onkeyup="applyFilters()"
+                >
+                <select id="yearFilter" class="filter-select" onchange="applyFilters()">
+                    <option value="">All Years</option>
+                    <option value="2026">2026</option>
+                    <option value="2025">2025</option>
+                    <option value="2024">2024</option>
+                    <option value="2023">2023</option>
+                    <option value="2022">2022</option>
+                    <option value="2021">2021</option>
+                    <option value="2020">2020</option>
+                </select>
+                <div class="filter-button-group">
+                    <button class="filter-toggle" id="aspaPlusToggle" onclick="toggleFilter('aspaPlusToggle')">ASPA+ Only</button>
+                </div>
+                <button class="reset-btn" onclick="resetFilters()">Reset</button>
+                <div class="filter-stats" id="filterStats">Showing 0 of 0 certified</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================
+         RESULTS SECTION
+         ======================================== -->
+    <section class="results-section">
+        <div id="emptyState" class="empty-state hidden">
+            <div class="empty-state-icon">🔍</div>
+            <h2 class="empty-state-title">No certified professionals found</h2>
+            <p class="empty-state-message">No certified screen printers match your search. Try adjusting your filters.</p>
+            <button class="cta-button" onclick="resetFilters()">Reset Filters</button>
+        </div>
+
+        <div id="resultsGrid" class="results-grid"></div>
+
+        <div class="pagination" id="pagination"></div>
+    </section>
+
+    <!-- ========================================
+         BADGE SHOWCASE
+         ======================================== -->
+    <section style="max-width:1200px; margin:0 auto 60px; padding:0 24px;">
+        <div style="display:flex; align-items:center; gap:48px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:16px; padding:48px; flex-wrap:wrap; justify-content:center;">
+            <div style="flex-shrink:0;">
+                <img src="csp-badge.svg" alt="ASPA Certified Screen Printer Badge" style="width:200px; height:auto; filter:drop-shadow(0 4px 20px rgba(0,212,255,0.3));">
+            </div>
+            <div style="flex:1; min-width:280px;">
+                <h3 style="font-family:'Space Grotesk',sans-serif; font-size:1.5rem; color:var(--ink-white); margin-bottom:12px;">Display Your CSP Badge</h3>
+                <p style="color:var(--ink-gray); line-height:1.7; margin-bottom:20px;">Certified Screen Printers can display the official ASPA CSP badge on their website, business cards, and marketing materials. Show clients you've passed the industry-standard competency exam.</p>
+                <div style="display:flex; gap:12px; flex-wrap:wrap;">
+                    <a href="csp-badge.svg" download="ASPA-CSP-Badge.svg" style="display:inline-block; padding:10px 24px; background:var(--ink-purple); color:var(--ink-white); border-radius:8px; text-decoration:none; font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:0.9rem; transition:transform 0.2s;">&#11015; Download Badge (SVG)</a>
+                    <a href="exam.html" style="display:inline-block; padding:10px 24px; background:transparent; color:var(--ink-cyan); border:1px solid var(--ink-cyan); border-radius:8px; text-decoration:none; font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:0.9rem; transition:transform 0.2s;">Get Certified &#8594;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         CTA BANNER
+         ======================================== -->
+    <section class="cta-banner">
+        <h2 class="cta-title">Ready to prove your craft?</h2>
+        <p class="cta-message">Take the ASPA Certified Screen Printer exam and join these professionals in our CSP roster.</p>
+        <button class="cta-button" onclick="window.location.href='exam.html'">Start CSP Exam →</button>
+    </section>
+
+    <!-- ========================================
+         FOOTER
+         ======================================== -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Directory</h4>
+                    <ul>
+                        <li><a href="directory.html">Member Directory</a></li>
+                        <li><a href="certified-roster.html">CSP Roster</a></li>
+                        <li><a href="index.html#membership">Membership Tiers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Certification</h4>
+                    <ul>
+                        <li><a href="index.html#certification">CSP Program</a></li>
+                        <li><a href="#">Certification Standards</a></li>
+                        <li><a href="#">Apply for Certification</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Association</h4>
+                    <ul>
+                        <li><a href="about.html">About ASPA</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                Copyright © 2004-2026 American Screen Printing Association. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========================================
+         CERTIFIED PROFESSIONAL DATA & JAVASCRIPT
+         ======================================== -->
+    <script>
+        // ========================================
+        // CERTIFIED PROFESSIONAL DATA
+        // ========================================
+        const cspData = [
+            {
+                id: 1,
+                name: 'Barry L.',
+                company: 'Independent Printer',
+                city: 'Charlotte',
+                state: 'NC',
+                country: 'USA',
+                specialty: ['textile', 'multi'],
+                certNumber: 'CSP-2024-0847',
+                certDate: 'March 2024',
+                certYear: 2024,
+                status: 'active',
+                aspaPlus: false
+            },
+            {
+                id: 2,
+                name: 'Dhanabal Venkatesan',
+                company: 'Independent Consultant',
+                city: 'Research Triangle',
+                state: 'NC',
+                country: 'USA',
+                specialty: ['textile', 'industrial'],
+                certNumber: 'CSP-2023-0512',
+                certDate: 'June 2023',
+                certYear: 2023,
+                status: 'active',
+                aspaPlus: true
+            },
+            {
+                id: 3,
+                name: 'Marcus Johnson',
+                company: 'Blue Ridge Screen Products',
+                city: 'Mooresville',
+                state: 'NC',
+                country: 'USA',
+                specialty: ['textile', 'signage', 'multi'],
+                certNumber: 'CSP-2022-0334',
+                certDate: 'September 2022',
+                certYear: 2022,
+                status: 'active',
+                aspaPlus: true
+            },
+            {
+                id: 4,
+                name: 'Maria Chen',
+                company: 'Garden City High School',
+                city: 'Garden City',
+                state: 'MI',
+                country: 'USA',
+                specialty: ['textile', 'industrial'],
+                certNumber: 'CSP-2020-0198',
+                certDate: 'November 2020',
+                certYear: 2020,
+                status: 'renewal_due',
+                aspaPlus: false
+            },
+            {
+                id: 5,
+                name: 'James Rivera',
+                company: 'Precision Print Solutions',
+                city: 'Atlanta',
+                state: 'GA',
+                country: 'USA',
+                specialty: ['textile', 'signage'],
+                certNumber: 'CSP-2024-1023',
+                certDate: 'January 2024',
+                certYear: 2024,
+                status: 'active',
+                aspaPlus: true
+            },
+            {
+                id: 6,
+                name: 'Sarah Mitchell',
+                company: 'Creative Screen Printers',
+                city: 'Portland',
+                state: 'OR',
+                country: 'USA',
+                specialty: ['textile', 'multi'],
+                certNumber: 'CSP-2023-0876',
+                certDate: 'May 2023',
+                certYear: 2023,
+                status: 'active',
+                aspaPlus: false
+            },
+            {
+                id: 7,
+                name: 'David Kim',
+                company: 'Advanced Screen Techniques',
+                city: 'Dallas',
+                state: 'TX',
+                country: 'USA',
+                specialty: ['industrial', 'signage'],
+                certNumber: 'CSP-2024-0654',
+                certDate: 'February 2024',
+                certYear: 2024,
+                status: 'active',
+                aspaPlus: true
+            },
+            {
+                id: 8,
+                name: 'Patricia Lopez',
+                company: 'Signature Apparel Group',
+                city: 'Los Angeles',
+                state: 'CA',
+                country: 'USA',
+                specialty: ['textile', 'multi'],
+                certNumber: 'CSP-2022-0445',
+                certDate: 'August 2022',
+                certYear: 2022,
+                status: 'active',
+                aspaPlus: true
+            },
+            {
+                id: 9,
+                name: 'Thomas Anderson',
+                company: 'Northeast Screen Inc.',
+                city: 'New York',
+                state: 'NY',
+                country: 'USA',
+                specialty: ['textile', 'signage', 'multi'],
+                certNumber: 'CSP-2025-0712',
+                certDate: 'April 2025',
+                certYear: 2025,
+                status: 'active',
+                aspaPlus: true
+            },
+            {
+                id: 10,
+                name: 'Jennifer Zhang',
+                company: 'Pacific Print Studios',
+                city: 'Seattle',
+                state: 'WA',
+                country: 'USA',
+                specialty: ['textile', 'industrial'],
+                certNumber: 'CSP-2023-0589',
+                certDate: 'July 2023',
+                certYear: 2023,
+                status: 'active',
+                aspaPlus: false
+            },
+            {
+                id: 11,
+                name: 'Robert Taylor',
+                company: 'Midwest Graphics Ltd.',
+                city: 'Chicago',
+                state: 'IL',
+                country: 'USA',
+                specialty: ['signage', 'industrial'],
+                certNumber: 'CSP-2024-0921',
+                certDate: 'December 2023',
+                certYear: 2024,
+                status: 'active',
+                aspaPlus: true
+            },
+            {
+                id: 12,
+                name: 'Angela Washington',
+                company: 'Boston Screen Printing Co.',
+                city: 'Boston',
+                state: 'MA',
+                country: 'USA',
+                specialty: ['textile', 'multi'],
+                certNumber: 'CSP-2021-0367',
+                certDate: 'October 2021',
+                certYear: 2021,
+                status: 'renewal_due',
+                aspaPlus: true
+            },
+            {
+                id: 13,
+                name: 'Kevin O''Brien',
+                company: 'TechWear Innovations',
+                city: 'Austin',
+                state: 'TX',
+                country: 'USA',
+                specialty: ['textile', 'industrial', 'multi'],
+                certNumber: 'CSP-2025-0148',
+                certDate: 'March 2025',
+                certYear: 2025,
+                status: 'active',
+                aspaPlus: true
+            },
+            {
+                id: 14,
+                name: 'Lisa Garcia',
+                company: 'Mountain View Print',
+                city: 'Denver',
+                state: 'CO',
+                country: 'USA',
+                specialty: ['textile', 'signage'],
+                certNumber: 'CSP-2023-0734',
+                certDate: 'September 2023',
+                certYear: 2023,
+                status: 'active',
+                aspaPlus: false
+            },
+            {
+                id: 15,
+                name: 'Michael Chang',
+                company: 'Continental Printers',
+                city: 'Toronto',
+                state: 'Ontario',
+                country: 'Canada',
+                specialty: ['textile', 'multi'],
+                certNumber: 'CSP-2024-0589',
+                certDate: 'November 2023',
+                certYear: 2024,
+                status: 'active',
+                aspaPlus: true
+            },
+            {
+                id: 16,
+                name: 'Rebecca Singh',
+                company: 'Expert Screen Solutions',
+                city: 'San Francisco',
+                state: 'CA',
+                country: 'USA',
+                specialty: ['industrial', 'signage', 'multi'],
+                certNumber: 'CSP-2022-0812',
+                certDate: 'June 2022',
+                certYear: 2022,
+                status: 'active',
+                aspaPlus: true
+            },
+            {
+                id: 17,
+                name: 'Christopher Lee',
+                company: 'Premier Print Group',
+                city: 'Phoenix',
+                state: 'AZ',
+                country: 'USA',
+                specialty: ['textile', 'signage'],
+                certNumber: 'CSP-2025-0267',
+                certDate: 'February 2025',
+                certYear: 2025,
+                status: 'active',
+                aspaPlus: false
+            },
+            {
+                id: 18,
+                name: 'Michelle Brown',
+                company: 'Quality Screen Printers',
+                city: 'Miami',
+                state: 'FL',
+                country: 'USA',
+                specialty: ['textile', 'multi'],
+                certNumber: 'CSP-2024-0445',
+                certDate: 'July 2024',
+                certYear: 2024,
+                status: 'active',
+                aspaPlus: true
+            },
+            {
+                id: 19,
+                name: 'William Patel',
+                company: 'Elite Production Services',
+                city: 'Houston',
+                state: 'TX',
+                country: 'USA',
+                specialty: ['industrial', 'textile'],
+                certNumber: 'CSP-2023-0923',
+                certDate: 'April 2023',
+                certYear: 2023,
+                status: 'active',
+                aspaPlus: true
+            },
+            {
+                id: 20,
+                name: 'Victoria Nguyen',
+                company: 'Independent Master Printer',
+                city: 'San Diego',
+                state: 'CA',
+                country: 'USA',
+                specialty: ['textile', 'signage', 'multi'],
+                certNumber: 'CSP-2020-0671',
+                certDate: 'March 2021',
+                certYear: 2020,
+                status: 'active',
+                aspaPlus: false
+            }
+        ];
+
+        // State variables
+        let filteredCSPs = [...cspData];
+        let currentPage = 1;
+        const cspsPerPage = 24;
+        let searchTimeout;
+        let filterPanelOpen = false;
+
+        // Specialty display names
+        const specialtyLabels = {
+            textile: 'Textile/Garment',
+            signage: 'Signage & Graphics',
+            industrial: 'Industrial',
+            multi: 'Multi-Specialty'
+        };
+
+        // ========================================
+        // INITIALIZATION
+        // ========================================
+        document.addEventListener('DOMContentLoaded', function() {
+            loadFiltersFromHash();
+            updateHeroStats();
+            renderCSPs();
+        });
+
+        // ========================================
+        // HERO STATS CALCULATION
+        // ========================================
+        function updateHeroStats() {
+            const uniqueStates = new Set(cspData.map(csp => csp.state)).size;
+            const uniqueCountries = new Set(cspData.map(csp => csp.country)).size;
+
+            document.getElementById('certCount').textContent = `${cspData.length}+ Certified`;
+            document.getElementById('stateCount').textContent = `${uniqueStates} States`;
+            document.getElementById('countryCount').textContent = `${uniqueCountries} Countries`;
+        }
+
+        // ========================================
+        // SEARCH & FILTER FUNCTIONS
+        // ========================================
+        function debounceSearch() {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                applyFilters();
+            }, 300);
+        }
+
+        function applyFilters() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const specialty = document.getElementById('specialtyFilter').value;
+            const location = document.getElementById('locationFilter').value.toLowerCase();
+            const year = document.getElementById('yearFilter').value;
+            const aspaPlusOnly = document.getElementById('aspaPlusToggle').classList.contains('active');
+
+            filteredCSPs = cspData.filter(csp => {
+                // Search filter
+                if (searchTerm) {
+                    const searchableText = `${csp.name} ${csp.company} ${csp.city} ${csp.state} ${csp.country}`.toLowerCase();
+                    if (!searchableText.includes(searchTerm)) return false;
+                }
+
+                // Specialty filter
+                if (specialty && !csp.specialty.includes(specialty)) return false;
+
+                // Location filter
+                if (location) {
+                    const locationText = `${csp.city} ${csp.state} ${csp.country}`.toLowerCase();
+                    if (!locationText.includes(location)) return false;
+                }
+
+                // Year filter
+                if (year && csp.certYear !== parseInt(year)) return false;
+
+                // ASPA+ filter
+                if (aspaPlusOnly && !csp.aspaPlus) return false;
+
+                return true;
+            });
+
+            // Sort: ASPA+ first, then by certification date (most recent first)
+            filteredCSPs.sort((a, b) => {
+                if (a.aspaPlus && !b.aspaPlus) return -1;
+                if (!a.aspaPlus && b.aspaPlus) return 1;
+                // Sort by year descending, then alphabetically
+                if (a.certYear !== b.certYear) return b.certYear - a.certYear;
+                return a.name.localeCompare(b.name);
+            });
+
+            currentPage = 1;
+            updateFilterStats();
+            renderCSPs();
+            saveFiltersToHash();
+        }
+
+        function toggleFilter(filterId) {
+            const btn = document.getElementById(filterId);
+            btn.classList.toggle('active');
+            applyFilters();
+        }
+
+        function resetFilters() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('specialtyFilter').value = '';
+            document.getElementById('locationFilter').value = '';
+            document.getElementById('yearFilter').value = '';
+            document.getElementById('aspaPlusToggle').classList.remove('active');
+            applyFilters();
+        }
+
+        function updateFilterStats() {
+            const total = cspData.length;
+            const showing = filteredCSPs.length;
+            document.getElementById('filterStats').textContent = `Showing ${showing} of ${total} certified`;
+        }
+
+        // ========================================
+        // PAGINATION & RENDERING
+        // ========================================
+        function renderCSPs() {
+            const start = (currentPage - 1) * cspsPerPage;
+            const end = start + cspsPerPage;
+            const pageCSPs = filteredCSPs.slice(start, end);
+
+            const grid = document.getElementById('resultsGrid');
+            const emptyState = document.getElementById('emptyState');
+
+            if (filteredCSPs.length === 0) {
+                grid.classList.add('hidden');
+                emptyState.classList.remove('hidden');
+            } else {
+                grid.classList.remove('hidden');
+                emptyState.classList.add('hidden');
+                grid.innerHTML = pageCSPs.map(csp => createCSPCard(csp)).join('');
+            }
+
+            renderPagination();
+
+            // Scroll to results
+            window.scrollTo({
+                top: document.getElementById('resultsGrid').offsetTop - 100,
+                behavior: 'smooth'
+            });
+        }
+
+        function createCSPCard(csp) {
+            const specialtyTagsHtml = csp.specialty
+                .map(spec => `<span class="specialty-tag ${spec}">${specialtyLabels[spec]}</span>`)
+                .join('');
+
+            const statusText = csp.status === 'active' ? 'Active' : 'Renewal Due';
+            const statusBadgeClass = csp.status === 'active' ? 'active' : 'renewal-due';
+
+            const aspaPlusHtml = csp.aspaPlus
+                ? '<div class="aspa-plus-indicator">⭐ ASPA+ Member</div>'
+                : '';
+
+            return `
+                <div class="csp-card">
+                    <div class="card-header">
+                        <div class="cert-badge">🛡️</div>
+                        <span class="status-badge ${statusBadgeClass}">${statusText}</span>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">${csp.name}</h3>
+                        ${csp.company ? `<div class="card-company">${csp.company}</div>` : ''}
+                        <div class="card-location">
+                            <svg class="location-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                            <span>${csp.city}, ${csp.state} • ${csp.country}</span>
+                        </div>
+                        <div class="specialty-tags">
+                            ${specialtyTagsHtml}
+                        </div>
+                        <div class="card-cert-info">
+                            <div class="cert-number">${csp.certNumber}</div>
+                            <div class="cert-date">Certified: ${csp.certDate}</div>
+                        </div>
+                        ${aspaPlusHtml}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderPagination() {
+            const totalPages = Math.ceil(filteredCSPs.length / cspsPerPage);
+            const paginationContainer = document.getElementById('pagination');
+
+            if (totalPages <= 1) {
+                paginationContainer.innerHTML = '';
+                return;
+            }
+
+            let html = '';
+
+            // First & Prev
+            html += `<button class="pagination-btn" onclick="goToPage(1)" ${currentPage === 1 ? 'disabled' : ''}>« First</button>`;
+            html += `<button class="pagination-btn" onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>‹ Prev</button>`;
+
+            // Page numbers
+            const maxVisible = 5;
+            let startPage = Math.max(1, currentPage - Math.floor(maxVisible / 2));
+            let endPage = Math.min(totalPages, startPage + maxVisible - 1);
+            startPage = Math.max(1, endPage - maxVisible + 1);
+
+            if (startPage > 1) {
+                html += `<button class="pagination-btn" onclick="goToPage(1)">1</button>`;
+                if (startPage > 2) html += `<span class="pagination-btn" style="cursor: default; border: none;">...</span>`;
+            }
+
+            for (let i = startPage; i <= endPage; i++) {
+                html += `<button class="pagination-btn${i === currentPage ? ' active' : ''}" onclick="goToPage(${i})">${i}</button>`;
+            }
+
+            if (endPage < totalPages) {
+                if (endPage < totalPages - 1) html += `<span class="pagination-btn" style="cursor: default; border: none;">...</span>`;
+                html += `<button class="pagination-btn" onclick="goToPage(${totalPages})">${totalPages}</button>`;
+            }
+
+            // Next & Last
+            html += `<button class="pagination-btn" onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>Next ›</button>`;
+            html += `<button class="pagination-btn" onclick="goToPage(${totalPages})" ${currentPage === totalPages ? 'disabled' : ''}>Last »</button>`;
+
+            paginationContainer.innerHTML = html;
+        }
+
+        function goToPage(page) {
+            currentPage = page;
+            renderCSPs();
+        }
+
+        // ========================================
+        // URL HASH SUPPORT
+        // ========================================
+        function saveFiltersToHash() {
+            const params = new URLSearchParams();
+            const search = document.getElementById('searchInput').value;
+            const specialty = document.getElementById('specialtyFilter').value;
+            const location = document.getElementById('locationFilter').value;
+            const year = document.getElementById('yearFilter').value;
+            const aspaPlusOnly = document.getElementById('aspaPlusToggle').classList.contains('active');
+
+            if (search) params.set('q', search);
+            if (specialty) params.set('specialty', specialty);
+            if (location) params.set('location', location);
+            if (year) params.set('year', year);
+            if (aspaPlusOnly) params.set('aspa', 'true');
+
+            const hash = params.toString() ? '#' + params.toString() : '';
+            window.history.replaceState(null, '', window.location.pathname + hash);
+        }
+
+        function loadFiltersFromHash() {
+            const params = new URLSearchParams(window.location.hash.substring(1));
+
+            if (params.has('q')) {
+                document.getElementById('searchInput').value = params.get('q');
+            }
+            if (params.has('specialty')) {
+                document.getElementById('specialtyFilter').value = params.get('specialty');
+            }
+            if (params.has('location')) {
+                document.getElementById('locationFilter').value = params.get('location');
+            }
+            if (params.has('year')) {
+                document.getElementById('yearFilter').value = params.get('year');
+            }
+            if (params.has('aspa') && params.get('aspa') === 'true') {
+                document.getElementById('aspaPlusToggle').classList.add('active');
+            }
+        }
+
+        // ========================================
+        // MOBILE MENU & FILTER PANEL
+        // ========================================
+        function toggleMobileMenu() {
+            // Placeholder for mobile menu toggle
+            console.log('Mobile menu toggled');
+        }
+
+        function toggleFilterPanel() {
+            const filterRow = document.getElementById('filterRow');
+            const toggle = document.querySelector('.filter-panel-toggle');
+
+            filterPanelOpen = !filterPanelOpen;
+
+            if (filterPanelOpen) {
+                filterRow.classList.add('open');
+                toggle.textContent = '✕ Hide Filters';
+            } else {
+                filterRow.classList.remove('open');
+                toggle.textContent = '⚙️ Show Filters';
+            }
+        }
+    </script>
+</body>
+</html>

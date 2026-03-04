@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - American Screen Printing Association</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ink-black: #0a0a0a;
+            --ink-dark: #1a1a2e;
+            --ink-purple: #6c2bd9;
+            --ink-magenta: #e91e8c;
+            --ink-cyan: #00d4ff;
+            --ink-yellow: #ffd400;
+            --ink-orange: #ff6b35;
+            --ink-white: #f8f8f8;
+            --ink-gray: #b0b0b0;
+            --ink-gray-dark: #2a2a3e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--ink-black);
+            color: var(--ink-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: var(--ink-black);
+            border-bottom: 1px solid var(--ink-gray-dark);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            text-decoration: none;
+        }
+
+        .nav-logo-main {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--ink-white);
+            letter-spacing: 0.15em;
+        }
+
+        .nav-logo-sub {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 500;
+            color: var(--ink-cyan);
+            letter-spacing: 0.1em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--ink-white);
+            text-decoration: none;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--ink-cyan);
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--ink-cyan) 0%, var(--ink-purple) 100%);
+            color: var(--ink-black) !important;
+            padding: 0.6rem 1.5rem;
+            border-radius: 0.3rem;
+            font-weight: 600;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
+            color: var(--ink-black) !important;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 0.4rem;
+        }
+
+        .hamburger span {
+            width: 1.5rem;
+            height: 0.2rem;
+            background-color: var(--ink-white);
+            border-radius: 0.1rem;
+            transition: all 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background-color: var(--ink-dark);
+                padding: 2rem;
+                gap: 1rem;
+                border-bottom: 1px solid var(--ink-gray-dark);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            nav {
+                padding: 1rem 1.5rem;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 6rem 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--ink-dark) 0%, var(--ink-black) 100%);
+            border-bottom: 2px solid var(--ink-gray-dark);
+            animation: fadeUp 0.8s ease-out;
+        }
+
+        .hero-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--ink-cyan);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1rem;
+        }
+
+        .hero-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--ink-white);
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            line-height: 1.1;
+        }
+
+        .hero-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
+            color: var(--ink-gray);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 4rem 1.5rem;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            animation: fadeUp 0.8s ease-out 0.2s both;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        /* Form Styles */
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--ink-white);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            background-color: var(--ink-gray-dark);
+            border: 1px solid #3a3a4e;
+            color: var(--ink-white);
+            padding: 0.85rem;
+            border-radius: 0.3rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            background-color: #3a3a4e;
+            border-color: var(--ink-cyan);
+            box-shadow: 0 0 12px rgba(0, 212, 255, 0.2);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .form-group select {
+            cursor: pointer;
+        }
+
+        .form-group select option {
+            background-color: var(--ink-dark);
+            color: var(--ink-white);
+        }
+
+        .required-indicator {
+            color: var(--ink-magenta);
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, var(--ink-cyan) 0%, var(--ink-purple) 100%);
+            color: var(--ink-black);
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 0.3rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            align-self: flex-start;
+            margin-top: 0.5rem;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(0, 212, 255, 0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .demo-badge {
+            display: inline-block;
+            background-color: var(--ink-yellow);
+            color: var(--ink-black);
+            padding: 0.4rem 0.8rem;
+            border-radius: 0.2rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .success-message {
+            background-color: #1a3a1a;
+            border: 1px solid #2d5a2d;
+            color: #80ff80;
+            padding: 1.2rem;
+            border-radius: 0.3rem;
+            margin-bottom: 1rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.95rem;
+            animation: slideIn 0.4s ease-out;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        /* Contact Info Cards */
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .info-card {
+            background-color: var(--ink-dark);
+            border: 1px solid var(--ink-gray-dark);
+            padding: 1.5rem;
+            border-radius: 0.3rem;
+            transition: all 0.3s ease;
+            animation: fadeUp 0.8s ease-out 0.3s both;
+        }
+
+        .info-card:hover {
+            border-color: var(--ink-cyan);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0, 212, 255, 0.1);
+        }
+
+        .info-card-icon {
+            font-size: 1.8rem;
+            margin-bottom: 0.8rem;
+            display: inline-block;
+        }
+
+        .info-card-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--ink-cyan);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-card-content {
+            font-size: 1.1rem;
+            color: var(--ink-white);
+            font-weight: 500;
+            word-break: break-word;
+        }
+
+        .info-card-note {
+            font-size: 0.8rem;
+            color: var(--ink-gray);
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .contact-section {
+                padding: 4rem 1.5rem;
+            }
+        }
+
+        /* Quick Links Section */
+        .quick-links-section {
+            padding: 6rem 2rem;
+            background-color: var(--ink-dark);
+            border-top: 2px solid var(--ink-gray-dark);
+            animation: fadeUp 0.8s ease-out 0.4s both;
+        }
+
+        .quick-links-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--ink-white);
+            letter-spacing: 0.1em;
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .quick-links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .quick-link-card {
+            background: linear-gradient(135deg, var(--ink-black) 0%, var(--ink-dark) 100%);
+            border: 1px solid var(--ink-gray-dark);
+            padding: 2rem;
+            border-radius: 0.3rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 1rem;
+            animation: fadeUp 0.8s ease-out 0.5s both;
+        }
+
+        .quick-link-card:nth-child(2) {
+            animation: fadeUp 0.8s ease-out 0.6s both;
+        }
+
+        .quick-link-card:nth-child(3) {
+            animation: fadeUp 0.8s ease-out 0.7s both;
+        }
+
+        .quick-link-card:nth-child(4) {
+            animation: fadeUp 0.8s ease-out 0.8s both;
+        }
+
+        .quick-link-card:hover {
+            border-color: var(--ink-cyan);
+            transform: translateY(-6px);
+            box-shadow: 0 16px 40px rgba(0, 212, 255, 0.15);
+            background: linear-gradient(135deg, var(--ink-dark) 0%, #2a2a3e 100%);
+        }
+
+        .quick-link-icon {
+            font-size: 2.5rem;
+        }
+
+        .quick-link-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--ink-white);
+            letter-spacing: 0.05em;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--ink-black);
+            border-top: 1px solid var(--ink-gray-dark);
+            padding: 3rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--ink-cyan);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-column a {
+            color: var(--ink-gray);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column a:hover {
+            color: var(--ink-cyan);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--ink-gray-dark);
+            padding-top: 2rem;
+            text-align: center;
+            color: var(--ink-gray);
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="nav-logo">
+            <div class="nav-logo-main">ASPA</div>
+            <div class="nav-logo-sub">SCREEN PRINTING</div>
+        </a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="directory.html">Directory</a></li>
+            <li><a href="certified-roster.html">Certified</a></li>
+            <li><a href="index.html#certification">Certification</a></li>
+            <li><a href="index.html#membership">Membership</a></li>
+            <li><a href="resources.html">Resources</a></li>
+            <li><a href="join.html" class="nav-cta">Join ASPA</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-label">Get in Touch</div>
+        <h1 class="hero-title">CONTACT US</h1>
+        <p class="hero-subtitle">Have a question about membership, certification, or the screen printing industry? We'd love to hear from you.</p>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="contact-container">
+            <!-- Left: Form -->
+            <div>
+                <div class="demo-badge">Demo Mode — Form submission simulated</div>
+                <div id="successMessage" class="success-message">
+                    <strong>Thanks!</strong> We'll get back to you within 24-48 hours.
+                </div>
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Name <span class="required-indicator">*</span></label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email <span class="required-indicator">*</span></label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subject">Subject <span class="required-indicator">*</span></label>
+                        <select id="subject" name="subject" required>
+                            <option value="">-- Select a subject --</option>
+                            <option value="general">General Inquiry</option>
+                            <option value="membership">Membership Question</option>
+                            <option value="csp">CSP Certification</option>
+                            <option value="training">Training/ASPA Institute</option>
+                            <option value="directory">Directory Listing</option>
+                            <option value="advertising">Advertising</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message <span class="required-indicator">*</span></label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+
+            <!-- Right: Contact Info -->
+            <div class="contact-info">
+                <div class="info-card">
+                    <div class="info-card-icon">✉️</div>
+                    <div class="info-card-title">Email</div>
+                    <div class="info-card-content">info@screen-printing.us</div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-icon">📞</div>
+                    <div class="info-card-title">Phone</div>
+                    <div class="info-card-content">(724) 886-3535</div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-icon">📍</div>
+                    <div class="info-card-title">Address</div>
+                    <div class="info-card-content">105 Mockingbird Dr. | Butler, PA 16001</div>
+                    <div class="info-card-note">Address may be updated</div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-card-icon">🌐</div>
+                    <div class="info-card-title">Website</div>
+                    <div class="info-card-content">www.screen-printing.us</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Links Section -->
+    <section class="quick-links-section">
+        <div class="quick-links-container">
+            <h2 class="section-title">Quick Links</h2>
+            <div class="quick-links-grid">
+                <a href="join.html" class="quick-link-card">
+                    <div class="quick-link-icon">➕</div>
+                    <div class="quick-link-title">Join ASPA</div>
+                </a>
+                <a href="exam.html" class="quick-link-card">
+                    <div class="quick-link-icon">📜</div>
+                    <div class="quick-link-title">Get Certified</div>
+                </a>
+                <a href="resources.html" class="quick-link-card">
+                    <div class="quick-link-icon">🎓</div>
+                    <div class="quick-link-title">Training</div>
+                </a>
+                <a href="about.html" class="quick-link-card">
+                    <div class="quick-link-icon">ℹ️</div>
+                    <div class="quick-link-title">About ASPA</div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Directory</h3>
+                <ul>
+                    <li><a href="directory.html">Browse Members</a></li>
+                    <li><a href="directory.html">Search Directory</a></li>
+                    <li><a href="directory.html">Member Guidelines</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Certification</h3>
+                <ul>
+                    <li><a href="certified-roster.html">CSP Roster</a></li>
+                    <li><a href="index.html#certification">CSP Program</a></li>
+                    <li><a href="exam.html">Take Exam</a></li>
+                    <li><a href="index.html#certification">Requirements</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Association</h3>
+                <ul>
+                    <li><a href="about.html">About ASPA</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="privacy.html">Privacy</a></li>
+                    <li><a href="terms.html">Terms</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2004-2026 American Screen Printing Association. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Hamburger menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when a link is clicked
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Form submission
+        const contactForm = document.getElementById('contactForm');
+        const successMessage = document.getElementById('successMessage');
+
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Clear any previous success message
+            successMessage.classList.remove('show');
+
+            // Simulate form submission
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+
+            // Validate
+            if (name && email && subject && message) {
+                // Show success message
+                successMessage.classList.add('show');
+
+                // Reset form
+                contactForm.reset();
+
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    successMessage.classList.remove('show');
+                }, 5000);
+
+                // Scroll to success message
+                successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        });
+    </script>
+</body>
+</html>

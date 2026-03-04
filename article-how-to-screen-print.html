@@ -1,0 +1,1483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Screen Print T-Shirts: Complete Beginner's Guide (2026) | ASPA</title>
+    <meta name="description" content="Learn how to screen print t-shirts from start to finish. Step-by-step guide covering equipment, artwork, exposure, printing, and curing from the American Screen Printing Association.">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ========================================
+           DESIGN SYSTEM & ROOT VARIABLES
+           ======================================== */
+        :root {
+            --ink-black: #0a0a0a;
+            --ink-dark: #1a1a2e;
+            --ink-purple: #6c2bd9;
+            --ink-magenta: #e91e8c;
+            --ink-cyan: #00d4ff;
+            --ink-yellow: #ffd400;
+            --ink-orange: #ff6b35;
+            --ink-white: #f8f8f8;
+            --ink-gray: #b0b0b0;
+            --ink-gray-dark: #2a2a3e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--ink-black);
+            color: var(--ink-white);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ========================================
+           NAVIGATION BAR
+           ======================================== */
+        nav {
+            background-color: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 0 24px;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .nav-logo {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .nav-logo-main {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--ink-white);
+            letter-spacing: 2px;
+        }
+
+        .nav-logo-sub {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 9px;
+            font-weight: 600;
+            color: var(--ink-cyan);
+            letter-spacing: 1.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--ink-gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--ink-cyan);
+        }
+
+        .nav-links a.active {
+            color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            color: var(--ink-black);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background-color: var(--ink-white);
+            border-radius: 2px;
+            transition: 0.3s ease;
+        }
+
+        /* ========================================
+           ARTICLE HEADER
+           ======================================== */
+        .article-header {
+            background: linear-gradient(135deg, rgba(108, 43, 217, 0.1) 0%, rgba(233, 30, 140, 0.05) 100%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 48px 24px;
+        }
+
+        .article-header-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            color: var(--ink-gray);
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+        }
+
+        .breadcrumb a {
+            color: var(--ink-cyan);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--ink-yellow);
+        }
+
+        .category-tag {
+            display: inline-block;
+            background-color: rgba(0, 212, 255, 0.15);
+            border: 1px solid rgba(0, 212, 255, 0.4);
+            color: var(--ink-cyan);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .article-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--ink-white);
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+            line-height: 1.2;
+        }
+
+        .article-meta {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            color: var(--ink-gray);
+            margin-bottom: 24px;
+            letter-spacing: 0.3px;
+        }
+
+        .article-intro {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #d0d0d0;
+        }
+
+        /* ========================================
+           ARTICLE LAYOUT (TOC + Content)
+           ======================================== */
+        .article-wrapper {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        /* ========================================
+           TABLE OF CONTENTS (Sidebar)
+           ======================================== */
+        .toc-sidebar {
+            position: sticky;
+            top: 90px;
+            height: fit-content;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+        }
+
+        .toc-sidebar h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--ink-cyan);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        .toc-list {
+            list-style: none;
+        }
+
+        .toc-list li {
+            margin-bottom: 10px;
+        }
+
+        .toc-list a {
+            font-size: 14px;
+            color: var(--ink-gray);
+            text-decoration: none;
+            transition: color 0.2s ease;
+            padding-left: 12px;
+            border-left: 2px solid transparent;
+            display: block;
+            transition: all 0.2s ease;
+        }
+
+        .toc-list a:hover {
+            color: var(--ink-cyan);
+            border-left-color: var(--ink-cyan);
+        }
+
+        .toc-list a.active {
+            color: var(--ink-cyan);
+            border-left-color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        /* ========================================
+           ARTICLE CONTENT
+           ======================================== */
+        .article-content {
+            max-width: 800px;
+        }
+
+        article h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--ink-white);
+            margin-top: 48px;
+            margin-bottom: 20px;
+            padding-left: 16px;
+            border-left: 4px solid var(--ink-cyan);
+            letter-spacing: 0.5px;
+        }
+
+        article h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--ink-white);
+            margin-top: 32px;
+            margin-bottom: 16px;
+            letter-spacing: 0.3px;
+        }
+
+        article p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 18px;
+            color: #e0e0e0;
+        }
+
+        article strong {
+            color: var(--ink-white);
+            font-weight: 600;
+        }
+
+        article em {
+            color: var(--ink-cyan);
+            font-style: italic;
+        }
+
+        .highlight-term {
+            color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        article ul, article ol {
+            margin: 20px 0 20px 24px;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        article li {
+            margin-bottom: 12px;
+            color: #e0e0e0;
+        }
+
+        /* ========================================
+           CALLOUT BOXES
+           ======================================== */
+        .pro-tip {
+            background-color: rgba(108, 43, 217, 0.15);
+            border-left: 4px solid var(--ink-cyan);
+            border-radius: 4px;
+            padding: 20px;
+            margin: 28px 0;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .pro-tip strong {
+            color: var(--ink-cyan);
+            font-weight: 700;
+        }
+
+        .safety-warning {
+            background-color: rgba(255, 107, 53, 0.1);
+            border-left: 4px solid var(--ink-orange);
+            border-radius: 4px;
+            padding: 20px;
+            margin: 28px 0;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .safety-warning strong {
+            color: var(--ink-orange);
+            font-weight: 700;
+        }
+
+        .budget-breakdown {
+            background-color: rgba(0, 212, 255, 0.08);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 8px;
+            padding: 24px;
+            margin: 28px 0;
+        }
+
+        .budget-breakdown h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--ink-cyan);
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+        }
+
+        .budget-breakdown ul {
+            list-style: none;
+            margin: 0;
+        }
+
+        .budget-breakdown li {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 1.05rem;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        .budget-breakdown li:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .budget-range {
+            color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        /* ========================================
+           NUMBERED STEPS
+           ======================================== */
+        .step {
+            margin: 32px 0;
+            padding: 24px;
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: 4px;
+            border-left: 4px solid var(--ink-purple);
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            color: var(--ink-black);
+            border-radius: 50%;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .step h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--ink-white);
+            margin-bottom: 12px;
+        }
+
+        .step p {
+            margin-bottom: 12px;
+        }
+
+        .step p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ========================================
+           RELATED ARTICLES SECTION
+           ======================================== */
+        .related-articles {
+            margin-top: 60px;
+            padding: 40px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .related-articles h2 {
+            margin-top: 0;
+            border-left: none;
+            padding-left: 0;
+            margin-bottom: 32px;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .article-card {
+            background-color: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 8px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .article-card:hover {
+            border-color: var(--ink-cyan);
+            background-color: rgba(0, 212, 255, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .article-card h3 {
+            margin-top: 0;
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        .article-card p {
+            font-size: 14px;
+            color: var(--ink-gray);
+            flex-grow: 1;
+            margin-bottom: 16px;
+        }
+
+        .article-card a {
+            color: var(--ink-cyan);
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            transition: color 0.2s ease;
+            align-self: flex-start;
+        }
+
+        .article-card a:hover {
+            color: var(--ink-yellow);
+        }
+
+        /* ========================================
+           CTA BANNER
+           ======================================== */
+        .cta-banner {
+            background: linear-gradient(135deg, rgba(108, 43, 217, 0.2) 0%, rgba(233, 30, 140, 0.1) 100%);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 12px;
+            padding: 40px;
+            margin-top: 60px;
+            text-align: center;
+        }
+
+        .cta-banner h2 {
+            border-left: none;
+            padding-left: 0;
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 32px;
+        }
+
+        .cta-banner p {
+            font-size: 18px;
+            color: #d0d0d0;
+            margin-bottom: 28px;
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .cta-btn-primary {
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            color: var(--ink-black);
+            border: none;
+        }
+
+        .cta-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
+        }
+
+        .cta-btn-secondary {
+            background-color: transparent;
+            color: var(--ink-cyan);
+            border: 2px solid var(--ink-cyan);
+        }
+
+        .cta-btn-secondary:hover {
+            background-color: rgba(0, 212, 255, 0.1);
+            border-color: var(--ink-yellow);
+            color: var(--ink-yellow);
+        }
+
+        /* ========================================
+           FOOTER
+           ======================================== */
+        footer {
+            background-color: var(--ink-dark);
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 40px 24px 20px;
+            margin-top: 60px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--ink-cyan);
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            display: block;
+            color: var(--ink-gray);
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 12px;
+            transition: color 0.2s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--ink-cyan);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            color: var(--ink-gray);
+            font-size: 13px;
+        }
+
+        /* ========================================
+           MOBILE RESPONSIVE
+           ======================================== */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .article-title {
+                font-size: 32px;
+            }
+
+            .article-wrapper {
+                grid-template-columns: 1fr;
+                gap: 24px;
+                padding: 24px 16px;
+            }
+
+            .toc-sidebar {
+                position: static;
+                top: auto;
+                max-height: none;
+                margin-bottom: 24px;
+                padding: 20px;
+                background-color: rgba(255, 255, 255, 0.03);
+                border-radius: 8px;
+                border-left: 4px solid var(--ink-cyan);
+            }
+
+            .toc-list a {
+                font-size: 13px;
+            }
+
+            article h2 {
+                font-size: 24px;
+                margin-top: 32px;
+            }
+
+            article h3 {
+                font-size: 18px;
+            }
+
+            article p {
+                font-size: 1rem;
+            }
+
+            .cta-banner {
+                padding: 24px;
+            }
+
+            .cta-banner h2 {
+                font-size: 24px;
+            }
+
+            .cta-banner p {
+                font-size: 16px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .cta-btn {
+                width: 100%;
+            }
+
+            .related-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ========================================
+           SCROLLBAR STYLING
+           ======================================== */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--ink-cyan);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--ink-magenta);
+        }
+    </style>
+</head>
+<body>
+    <!-- ========================================
+         NAVIGATION
+         ======================================== -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="nav-logo-main">ASPA</div>
+                <div class="nav-logo-sub">Since 2004</div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="directory.html">Directory</a></li>
+                <li><a href="certified-roster.html">Certified</a></li>
+                <li><a href="index.html#certification">Certification</a></li>
+                <li><a href="index.html#membership">Membership</a></li>
+                <li><a href="resources.html">Resources</a></li>
+            </ul>
+            <a href="join.html" class="nav-cta">Join ASPA</a>
+            <button class="hamburger" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ========================================
+         ARTICLE HEADER
+         ======================================== -->
+    <div class="article-header">
+        <div class="article-header-container">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a> > <a href="resources.html">Resources</a> > How to Screen Print T-Shirts
+            </div>
+            <span class="category-tag">Getting Started</span>
+            <h1 class="article-title">How to Screen Print T-Shirts: The Complete Beginner's Guide</h1>
+            <div class="article-meta">Updated March 2026 · 15 min read · By ASPA Editorial Team</div>
+            <p class="article-intro">
+                Screen printing is one of the most rewarding skills you can learn—whether you're creating custom apparel for yourself, building a small business, or scaling into a full production operation. This comprehensive guide walks you through every step of the screen printing process, from selecting equipment to curing your first print.
+            </p>
+        </div>
+    </div>
+
+    <!-- ========================================
+         ARTICLE WRAPPER (TOC + Content)
+         ======================================== -->
+    <div class="article-wrapper">
+        <!-- TABLE OF CONTENTS SIDEBAR -->
+        <aside class="toc-sidebar">
+            <h3>Contents</h3>
+            <ul class="toc-list">
+                <li><a href="#introduction">Introduction</a></li>
+                <li><a href="#equipment">What You'll Need</a></li>
+                <li><a href="#artwork">Preparing Your Artwork</a></li>
+                <li><a href="#exposure">Coating & Exposing</a></li>
+                <li><a href="#setup">Setting Up Your Press</a></li>
+                <li><a href="#printing">Printing Your First Shirt</a></li>
+                <li><a href="#curing">Curing Your Prints</a></li>
+                <li><a href="#cleanup">Clean Up & Reclaiming</a></li>
+                <li><a href="#next-level">Next Level Techniques</a></li>
+            </ul>
+        </aside>
+
+        <!-- MAIN ARTICLE CONTENT -->
+        <article class="article-content">
+            <!-- INTRODUCTION -->
+            <section id="introduction">
+                <h2>Introduction: Why Screen Printing?</h2>
+                <p>
+                    Screen printing has been the backbone of the apparel decoration industry for decades. Unlike direct-to-garment or heat transfer methods, screen printing delivers vibrant, durable prints that can withstand hundreds of washes. The process is relatively affordable to start, highly scalable, and produces professional-quality results that customers love.
+                </p>
+                <p>
+                    Whether you want to print custom t-shirts for your band, launch a merchandise brand, or transition into professional production, the fundamentals remain the same. The <span class="highlight-term">American Screen Printing Association (ASPA)</span> has been supporting screen printers since 2004, and we've seen the industry evolve dramatically—but the core technique remains proven and reliable.
+                </p>
+                <p>
+                    This guide covers the entire journey: from understanding what equipment you need, to preparing artwork, exposing screens, pulling prints, and curing your finished designs. By the end, you'll have the knowledge to produce professional-quality screen-printed t-shirts.
+                </p>
+            </section>
+
+            <!-- SECTION 1: EQUIPMENT & SUPPLIES -->
+            <section id="equipment">
+                <h2>What You'll Need: Equipment & Supplies</h2>
+                <p>
+                    Before you print, you need to invest in the right tools. Screen printing requires both capital equipment (press, dryer, exposure unit) and consumables (ink, screens, emulsion). Let's break down each component.
+                </p>
+
+                <h3>Screen Printing Press</h3>
+                <p>
+                    The press is your most important investment. You'll find two main types:
+                </p>
+                <ul>
+                    <li><strong>Manual Presses:</strong> You hand-pull the squeegee across the screen. Ideal for beginners and small operations. A 1-4 color manual press costs $300-$1,500.</li>
+                    <li><strong>Automatic Presses:</strong> Motor-driven printing with consistent pressure and speed. More expensive ($3,000-$25,000+), but essential when scaling production. Recommended once you're printing 50+ shirts per day.</li>
+                </ul>
+                <p>
+                    For your first setup, a manual 2-4 color press is ideal. It teaches you proper technique, requires no electricity, and produces excellent prints.
+                </p>
+
+                <h3>Screens & Frames</h3>
+                <p>
+                    Screens are the foundation of screen printing. A screen consists of mesh stretched tightly across an aluminum frame. The <span class="highlight-term">mesh count</span> determines how fine your detail can be:
+                </p>
+                <ul>
+                    <li><strong>110 Mesh:</strong> Large holes, perfect for bold text and solid colors. Allows more ink through.</li>
+                    <li><strong>156 Mesh:</strong> Balanced option for most designs with moderate detail.</li>
+                    <li><strong>230 Mesh:</strong> Fine mesh for halftones, photographic images, and small text. Smaller holes mean less ink passes through.</li>
+                    <li><strong>280+ Mesh:</strong> Ultra-fine for specialty applications and very detailed artwork.</li>
+                </ul>
+                <p>
+                    For starting out, buy 3-4 screens: two 156-mesh screens (most versatile), one 110-mesh (bold graphics), and one 230-mesh (when you're ready for halftones). Expect $15-$30 per screen.
+                </p>
+
+                <h3>Squeegees</h3>
+                <p>
+                    The squeegee pushes ink through the mesh onto your shirt. Quality matters here. You want a squeegee with the right <span class="highlight-term">durometer</span> (hardness):
+                </p>
+                <ul>
+                    <li><strong>60-70 Durometer:</strong> Soft squeegees for textile printing. These are most common and work well on soft fabrics like cotton t-shirts.</li>
+                    <li><strong>80-90 Durometer:</strong> Stiffer for hard substrates like plastics or heavy production runs.</li>
+                </ul>
+                <p>
+                    Start with a 70-durometer squeegee, 16 inches wide. Cost: $20-$50. As you grow, you'll add different sizes and durometers for different jobs.
+                </p>
+
+                <h3>Screen Printing Inks</h3>
+                <p>
+                    Two main ink types dominate the industry:
+                </p>
+                <ul>
+                    <li><strong>Plastisol Inks:</strong> Oil-based, thick, forgiving to use. They don't cure through evaporation—they cure through heat. Best for beginners. Must be flash cured or conveyor dried at 320°F.</li>
+                    <li><strong>Water-Based Inks:</strong> Eco-friendly, print thin, feel better on fabric, but require skill to master. Cure through evaporation. More expensive and faster drying on screens can be challenging.</li>
+                </ul>
+                <p>
+                    Start with plastisol inks in basic colors (white, black, red, blue, yellow). Buy 1-2 pounds per color; most jobs use less than you'd think. Ink costs $6-$15 per pound.
+                </p>
+
+                <h3>Emulsion & Scoop Coater</h3>
+                <p>
+                    Screen <span class="highlight-term">emulsion</span> is a light-sensitive chemical that hardens where exposed to light, protecting the mesh. When you wash out unexposed emulsion, it creates openings for ink to pass through.
+                </p>
+                <ul>
+                    <li>Diazo emulsion (most common): affordable, 6-month shelf life, requires UV light to expose</li>
+                    <li>Cost: $20-$40 per gallon (makes 20+ screens)</li>
+                </ul>
+                <p>
+                    A <span class="highlight-term">scoop coater</span> applies emulsion evenly. Manual coaters cost $15-$30. Pro tip: make sure it matches your screen width.
+                </p>
+
+                <h3>Exposure Unit</h3>
+                <p>
+                    An exposure unit cures emulsion using UV light. Options:
+                </p>
+                <ul>
+                    <li><strong>UV Exposure Box:</strong> $400-$2,000. Professional, consistent, reliable. Best for serious work.</li>
+                    <li><strong>DIY Sun Exposure:</strong> Free, but inconsistent and weather-dependent. Works in a pinch.</li>
+                </ul>
+                <p>
+                    If budget is tight, start with sun exposure outdoors on a sunny day (2-5 minutes depending on UV strength). Once you're printing regularly, invest in a proper unit.
+                </p>
+
+                <h3>Flash Dryer & Cure</h3>
+                <p>
+                    Flash dryers use heat and light to cure plastisol ink between color passes. Conveyor dryers cure finished prints. Both work at around 320°F.
+                </p>
+                <ul>
+                    <li><strong>Flash Dryer:</strong> $800-$5,000. Smaller, for in-between curing.</li>
+                    <li><strong>Conveyor Dryer:</strong> $2,000-$15,000+. Automated cure, essential at scale.</li>
+                </ul>
+                <p>
+                    Starting out, you can cure with a cheap heat press ($100-$300) in a pinch—just hold the shirt at 320°F for 1-2 minutes. Not ideal, but it works temporarily.
+                </p>
+
+                <h3>Washout Station & Cleanup</h3>
+                <p>
+                    You need water pressure to remove emulsion after exposure. Options:
+                </p>
+                <ul>
+                    <li>Sink with strong water pressure (free)</li>
+                    <li>Pressure washer outside ($100-$300)</li>
+                    <li>Commercial washout station ($1,000-$5,000)</li>
+                </ul>
+
+                <h3>Additional Supplies</h3>
+                <ul>
+                    <li><strong>Blank T-Shirts:</strong> Quality matters. Buy from reputable suppliers. Budget $2-$5 per blank.</li>
+                    <li><strong>Film Positives:</strong> Printed on transparency film from your artwork. Cost: $1-$3 each.</li>
+                    <li><strong>Registration System:</strong> Tape or tape guides to line up screens for multi-color prints. Tape costs $10-$30.</li>
+                    <li><strong>Screen Degreaser:</strong> Cleans oil from new screens. Cost: $15-$30.</li>
+                    <li><strong>Emulsion Remover:</strong> Cleans screens for reuse. Cost: $15-$40.</li>
+                    <li><strong>Temperature Gun:</strong> Verifies cure temperature. Cost: $20-$50.</li>
+                </ul>
+
+                <div class="budget-breakdown">
+                    <h4>Budget Breakdown: Startup Costs</h4>
+                    <ul>
+                        <li>
+                            <span>Home/Hobby Setup</span>
+                            <span class="budget-range">$500–$1,500</span>
+                        </li>
+                        <li>
+                            <span>Small Professional Shop</span>
+                            <span class="budget-range">$2,000–$5,000</span>
+                        </li>
+                        <li>
+                            <span>Full Production Facility</span>
+                            <span class="budget-range">$10,000–$50,000+</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <p>
+                    Pro tip: Start small with manual equipment and upgrade to automation as demand grows. Many successful shops started with a single 2-color manual press in a garage.
+                </p>
+            </section>
+
+            <!-- SECTION 2: PREPARING ARTWORK -->
+            <section id="artwork">
+                <h2>Preparing Your Artwork</h2>
+                <p>
+                    Good artwork is the foundation of good screen printing. A poor design won't save with the best equipment, but excellent artwork can overcome minor technical challenges. Let's walk through the critical steps.
+                </p>
+
+                <h3>Vector vs. Raster</h3>
+                <p>
+                    Always use <span class="highlight-term">vector artwork</span> for screen printing. Vector files (AI, EPS, SVG) are math-based and infinitely scalable. You can print them at 2 inches or 20 inches with zero quality loss.
+                </p>
+                <p>
+                    Raster files (JPG, PNG, TIFF) are pixel-based and lose quality when enlarged. They're fine for reference but terrible for printing.
+                </p>
+                <ul>
+                    <li><strong>Adobe Illustrator:</strong> Industry standard. $20-$30/month.</li>
+                    <li><strong>CorelDRAW:</strong> Solid alternative. $19.99/month or $399 one-time.</li>
+                    <li><strong>Inkscape:</strong> Free, open-source, capable but has a learning curve.</li>
+                </ul>
+
+                <h3>Color Separations Explained</h3>
+                <p>
+                    Screen printing prints one color at a time, building up to create multi-color designs. A <span class="highlight-term">color separation</span> breaks your artwork into separate files—one for each screen/color.
+                </p>
+                <p>
+                    Two approaches:
+                </p>
+                <ul>
+                    <li><strong>Spot Color Printing:</strong> Flat colors—one color per screen. Simple, bold, ideal for logos and text. Most beginner work.</li>
+                    <li><strong>Simulated Process (4-Color CMYK):</strong> Uses just cyan, magenta, yellow, and black to simulate photographic images. Requires halftone screening and advanced technique.</li>
+                </ul>
+                <p>
+                    Start with spot color designs (2-4 colors max). Simulated process comes later as your skills advance.
+                </p>
+
+                <h3>Creating Film Positives</h3>
+                <p>
+                    Once your artwork is ready, you print it onto transparency film. This film serves as a stencil during exposure.
+                </p>
+                <p>
+                    Steps:
+                </p>
+                <ol>
+                    <li>Export your design at 100% black ink. Remove all gradients or light fills—they'll print as gray and won't expose correctly.</li>
+                    <li>Print on transparency film using an inkjet printer. Black must be solid and opaque.</li>
+                    <li>Let the ink dry completely (1-2 minutes).</li>
+                    <li>Trim excess film with scissors, leaving a small border around the image.</li>
+                </ol>
+
+                <div class="pro-tip">
+                    <strong>Pro Tip:</strong> Use quality transparency film (not regular copier paper). Budget brands fail. Invest in proper film—it's only $1-$3 per sheet and makes a huge difference.
+                </div>
+
+                <h3>RIP Software for Halftones</h3>
+                <p>
+                    If you eventually graduate to simulated process or photographic prints, you'll need <span class="highlight-term">RIP software</span> (Raster Image Processor). This converts artwork into halftone dots optimized for screen printing.
+                </p>
+                <p>
+                    Professional RIP software ranges from $500-$5,000 annually. Brands: CSSPlus, ColorLogic, Caldera. Save this investment for later when you have demand and clients.
+                </p>
+            </section>
+
+            <!-- SECTION 3: COATING & EXPOSING -->
+            <section id="exposure">
+                <h2>Coating and Exposing Your Screen</h2>
+                <p>
+                    This is where the magic happens. You transform a blank screen into a stencil that will print your design.
+                </p>
+
+                <h3>Preparing the Screen</h3>
+                <p>
+                    New aluminum frames come with oils that block emulsion. You must degrease first:
+                </p>
+                <ol>
+                    <li>Wet the entire screen with water.</li>
+                    <li>Scrub with a soft brush and degreaser solution (follows product instructions).</li>
+                    <li>Rinse thoroughly with clean water until water beads evenly across the mesh.</li>
+                    <li>Dry completely in a dark room (at least 1 hour).</li>
+                </ol>
+
+                <h3>Applying Emulsion</h3>
+                <p>
+                    Work in dim light or a room with yellow safelights—emulsion is sensitive to UV and blue wavelengths but tolerant of yellow and red light.
+                </p>
+                <ol>
+                    <li>Fill your scoop coater about 1/3 full with emulsion.</li>
+                    <li>Place it at the bottom of the screen (print side up).</li>
+                    <li>Slowly pull the coater upward, using light pressure. The emulsion should flow evenly through the mesh.</li>
+                    <li>Flip the screen over and repeat on the back side.</li>
+                    <li>Dry in a dark, warm room (65-75°F) for 2-4 hours, or use a fan to speed drying to 30-45 minutes.</li>
+                </ol>
+
+                <div class="safety-warning">
+                    <strong>Safety Note:</strong> Emulsion is non-toxic but keep it off skin and eyes. Diazo emulsion is sensitive to heat and light, so avoid getting it hot during application or drying.
+                </div>
+
+                <h3>Setting Up Exposure</h3>
+                <p>
+                    Once dry, your emulsion-coated screen is ready to expose. Place it in your exposure unit (or sunshine outside):
+                </p>
+                <ol>
+                    <li>Place your film positive on top of the dried emulsion, with the black side touching the screen.</li>
+                    <li>Close the exposure unit or cover with a board to keep light even.</li>
+                    <li>Expose for the time recommended by your emulsion (typically 1-3 minutes for diazo, varies by emulsion type and light source).</li>
+                </ol>
+
+                <p>
+                    Exposure time depends on your UV source and emulsion. Start conservative—slightly under-exposed screens wash out easily; over-exposed screens are hard to wash and may fill in fine details.
+                </p>
+
+                <div class="pro-tip">
+                    <strong>Pro Tip:</strong> Use exposure calculator strips (sold online, $5-$10). These help you dial in perfect exposure time. Place the strip on your film before exposure, then check which step exposed cleanly.
+                </div>
+
+                <h3>Washout & Quality Check</h3>
+                <p>
+                    After exposure, your unexposed emulsion washes away, leaving clear mesh where ink will print:
+                </p>
+                <ol>
+                    <li>Gently spray your screen with water at moderate pressure, aiming for the underside of the mesh first.</li>
+                    <li>The unexposed emulsion (yellow) should wash away within 30-60 seconds.</li>
+                    <li>Once clear, spray the top side, then underside again to remove all residue.</li>
+                    <li>Check for pinholes (tiny holes in the emulsion from dust or improper exposure).</li>
+                    <li>Let dry completely before printing—at least 30 minutes.</li>
+                </ol>
+
+                <p>
+                    If you see pinholes, fill them with screen block (a thick paint) or liquid emulsion. Pinholes will leak ink during printing.
+                </p>
+            </section>
+
+            <!-- SECTION 4: SETTING UP PRESS -->
+            <section id="setup">
+                <h2>Setting Up Your Press</h2>
+                <p>
+                    Before printing, you need to properly register (align) your screen and set up the platen and off-contact distance.
+                </p>
+
+                <h3>Understanding Registration</h3>
+                <p>
+                    <span class="highlight-term">Registration</span> is the precise alignment of your design on the shirt. For multi-color prints, each screen must be perfectly positioned so colors line up.
+                </p>
+                <p>
+                    Most manual presses use a registration system of tape marks or mechanical guides. Mark where each screen position is before printing.
+                </p>
+
+                <h3>Off-Contact Distance</h3>
+                <p>
+                    Off-contact distance is the gap between the bottom of your screen and the platen (printing surface). A small gap—typically 1/16 inch—is critical:
+                </p>
+                <ul>
+                    <li><strong>Too much gap:</strong> Ink stretches, details blur, print quality suffers.</li>
+                    <li><strong>Too little gap:</strong> Screen drags on the shirt, friction ruins prints.</li>
+                    <li><strong>Perfect gap (1/16"):</strong> Clean deposit, sharp prints, professional appearance.</li>
+                </ul>
+                <p>
+                    You can adjust off-contact by raising or lowering the screen frame on your press. Most presses have adjustment bolts—check your manual for specifics.
+                </p>
+
+                <h3>Loading the Platen</h3>
+                <p>
+                    Your shirt sits on the platen (the flat printing surface). Load the shirt carefully:
+                </p>
+                <ol>
+                    <li>Smooth out wrinkles and ensure the shirt sits flat.</li>
+                    <li>Align the shirt at your registration marks.</li>
+                    <li>Some printers tape the sleeves to the platen to prevent shifting.</li>
+                </ol>
+
+                <h3>Taping Off the Screen</h3>
+                <p>
+                    Use tape around the edges of your screen to prevent ink leaking. Tape the edges that won't print—typically all four edges except where your image is.
+                </p>
+                <p>
+                    Quality duct tape or painter's tape works. Professional printers often use platen tape (specialty adhesive tape) which peels cleanly.
+                </p>
+            </section>
+
+            <!-- SECTION 5: PRINTING -->
+            <section id="printing">
+                <h2>Printing Your First Shirt</h2>
+                <p>
+                    You've prepared everything. Now for the exciting part—pulling your first print.
+                </p>
+
+                <h3>Loading and Flooding</h3>
+                <p>
+                    A <span class="highlight-term">flood stroke</span> pushes ink across the entire screen without pressure, filling the mesh. This ensures you have ink ready for the print stroke:
+                </p>
+                <ol>
+                    <li>Load ink onto one end of the screen (about 1-2 inches from the top).</li>
+                    <li>Pull the squeegee slowly across the screen with light pressure, filling the mesh with ink.</li>
+                    <li>Leave a small amount of ink at the bottom.</li>
+                </ol>
+
+                <h3>The Print Stroke</h3>
+                <p>
+                    The print stroke is where you actually deposit ink onto the shirt. Technique matters:
+                </p>
+                <ol>
+                    <li>Position the squeegee at a 45-degree angle. This angle is critical—it controls ink flow and snap-off.</li>
+                    <li>Apply firm, even pressure as you pull the squeegee toward you.</li>
+                    <li>Move at a steady, moderate speed—about 1-2 seconds per print.</li>
+                    <li>Stop at the bottom, leaving ink on the screen for the next flood.</li>
+                    <li>Lift the screen away from the shirt.</li>
+                </ol>
+
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h4>Flood Stroke</h4>
+                    <p>Push ink across the screen with light pressure to fill the mesh.</p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h4>Print Stroke</h4>
+                    <p>Pull the squeegee with firm pressure at a 45-degree angle to deposit ink onto the shirt.</p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h4>Lift & Inspect</h4>
+                    <p>Lift the screen smoothly. Check coverage and ink deposit. Adjust pressure if needed.</p>
+                </div>
+
+                <h3>Common Beginner Mistakes</h3>
+                <ul>
+                    <li><strong>Too Much Pressure:</strong> You don't need to muscle it. Firm and steady beats hard and fast.</li>
+                    <li><strong>Wrong Angle:</strong> 45 degrees is optimal. Too flat and you won't deposit ink; too steep and the squeegee drags.</li>
+                    <li><strong>Wrong Mesh Count:</strong> Using 230-mesh for a bold graphic? The fine mesh won't push ink through efficiently. Match mesh to design.</li>
+                    <li><strong>Uneven Pressure:</strong> Pressing harder on one side creates blurry, uneven prints. Use your whole body, not just your arm.</li>
+                    <li><strong>Wrong Ink Thickness:</strong> Too little ink means light coverage; too much means ink bleeding under the edges.</li>
+                </ul>
+
+                <h3>Multi-Color Printing</h3>
+                <p>
+                    For designs with 2+ colors, you'll print one color, flash cure (dry with a flash dryer), then print the next color on top. Alignment is critical—this is where registration marks become essential.
+                </p>
+                <p>
+                    Each color requires its own screen and ink. Print them in order from lightest to darkest (or per your design plan) to ensure proper color layering.
+                </p>
+
+                <div class="pro-tip">
+                    <strong>Pro Tip:</strong> Practice your print stroke on a test shirt first. Don't waste your best blanks before you dial in your technique. Most professionals waste their first 5-10 shirts getting settings perfect.
+                </div>
+            </section>
+
+            <!-- SECTION 6: CURING -->
+            <section id="curing">
+                <h2>Curing Your Prints</h2>
+                <p>
+                    Curing is the final critical step. Improperly cured prints will wash out, fade, or crack. This is non-negotiable for durability and customer satisfaction.
+                </p>
+
+                <h3>Why Curing Matters</h3>
+                <p>
+                    Plastisol ink requires heat to polymerize (bond) to the fabric. It must reach its full cure temperature (320°F) throughout the entire ink film to achieve wash-fastness and durability.
+                </p>
+
+                <h3>Curing Methods</h3>
+                <ul>
+                    <li><strong>Flash Dryer:</strong> Holds shirt under intense heat for 2-4 seconds. Creates a temporary gel that sets the ink. Used between colors and for light curing.</li>
+                    <li><strong>Conveyor Dryer:</strong> Shirt moves through a heated tunnel at 320°F for 1-2 minutes. Fully cures the print. Professional choice.</li>
+                    <li><strong>Heat Press:</strong> Budget option. Place shirt flat on heated press at 320°F for 60-90 seconds. Works but slower.</li>
+                </ul>
+
+                <h3>Cure Verification</h3>
+                <p>
+                    You can't see proper curing—ink feels the same whether cured or not. Test cure with these methods:
+                </p>
+                <ol>
+                    <li><strong>Stretch Test:</strong> Gently stretch the print. If ink cracks or peels, it's under-cured.</li>
+                    <li><strong>Temperature Gun:</strong> Measure the ink surface temp. Should reach 320°F+ for proper cure.</li>
+                    <li><strong>Wash Test:</strong> Wash the shirt 3-5 times and inspect for fading or cracking.</li>
+                </ol>
+
+                <div class="safety-warning">
+                    <strong>Safety Note:</strong> Temperature guns and heated equipment can cause burns. Keep skin clear of hot surfaces. Never touch the substrate immediately after heat curing—it's extremely hot.
+                </div>
+
+                <h3>Water-Based Inks (Different Approach)</h3>
+                <p>
+                    Water-based inks cure differently—through evaporation and oxidation, not heat. They require:
+                </p>
+                <ul>
+                    <li>Flash dryer to evaporate water: 2-4 passes, lower temperature</li>
+                    <li>Then heat cure: 250-280°F (lower than plastisol)</li>
+                    <li>Curing time: 1-2 minutes for full set</li>
+                </ul>
+                <p>
+                    Water-based inks are more eco-friendly and feel softer on fabric, but are harder to master and more expensive. Save them for when you've mastered plastisol.
+                </p>
+            </section>
+
+            <!-- SECTION 7: CLEANUP & RECLAIMING -->
+            <section id="cleanup">
+                <h2>Clean Up and Screen Reclaiming</h2>
+                <p>
+                    Proper cleanup preserves your equipment and screens for reuse. Screen reclaiming lets you reuse the same aluminum frame—saving money and reducing waste.
+                </p>
+
+                <h3>Immediate Cleanup</h3>
+                <p>
+                    After printing, remove excess ink while it's still soft:
+                </p>
+                <ol>
+                    <li>Scrape excess ink off your screen with a squeegee or card.</li>
+                    <li>Place ink back in its container for reuse.</li>
+                    <li>Spray the screen with water and a brush to remove residual ink.</li>
+                    <li>Dry the screen before it can dry hard (plastisol dries permanently).</li>
+                </ol>
+
+                <h3>Deep Clean & Emulsion Removal</h3>
+                <p>
+                    To reclaim a screen for a new design:
+                </p>
+                <ol>
+                    <li>Spray the screen with emulsion remover (follows product directions).</li>
+                    <li>Let it sit for the recommended time (typically 5-15 minutes).</li>
+                    <li>Spray with high-pressure water. The old emulsion should wash away completely.</li>
+                    <li>Inspect for residue. Repeat if needed.</li>
+                    <li>Degrease and prepare as if it's a new screen.</li>
+                </ol>
+
+                <div class="pro-tip">
+                    <strong>Pro Tip:</strong> Store ink-covered screens in sealed bags to prevent the ink from drying. You can refrigerate them for 3-7 days to pause drying and continue printing later.
+                </div>
+
+                <h3>Chemical Disposal</h3>
+                <p>
+                    Don't pour emulsion remover or screen wash down the drain. Many contain solvents that harm water systems. Check local regulations and use a licensed waste disposal service, or find screen printing suppliers with recycling programs.
+                </p>
+            </section>
+
+            <!-- SECTION 8: NEXT LEVEL -->
+            <section id="next-level">
+                <h2>Taking It to the Next Level</h2>
+                <p>
+                    Once you've mastered basic single and multi-color spot printing, the world of screen printing expands dramatically. Here's what's possible as you level up.
+                </p>
+
+                <h3>Advanced Printing Techniques</h3>
+                <ul>
+                    <li><strong>Discharge Printing:</strong> Uses special discharge ink to remove dye from colored fabric, leaving a lighter print. Requires different chemistry and skill.</li>
+                    <li><strong>Plastisol Foil:</strong> Metallic foil adheres to plastisol ink for shiny, holographic effects.</li>
+                    <li><strong>Puff Ink:</strong> Expands during cure to create 3D texture. Spectacular but tricky to master.</li>
+                    <li><strong>Metallic Inks:</strong> Gold, silver, and copper colors for premium effects.</li>
+                    <li><strong>Simulated Process (4-Color CMYK):</strong> Uses halftone screens to recreate photographic images.</li>
+                </ul>
+
+                <h3>Scaling from Hobby to Business</h3>
+                <p>
+                    If you want to launch a screen printing business:
+                </p>
+                <ol>
+                    <li><strong>Invest in automation:</strong> Move to automatic presses and conveyor dryers to increase output.</li>
+                    <li><strong>Develop quality standards:</strong> Consistency is key. Document your settings (ink thickness, cure temps, exposure times).</li>
+                    <li><strong>Build relationships:</strong> Network with local businesses, schools, and organizations that need custom apparel.</li>
+                    <li><strong>Get certified:</strong> The <span class="highlight-term">Certified Screen Printer (CSP)</span> credential from ASPA demonstrates professional expertise and boosts credibility.</li>
+                    <li><strong>Join ASPA:</strong> Access to industry resources, training, and a network of 1,200+ professionals.</li>
+                </ol>
+
+                <h3>Professional Certification</h3>
+                <p>
+                    The CSP (Certified Screen Printer) exam covers everything in this guide plus advanced troubleshooting, chemistry, and business management. Passing the exam shows clients and employers you're serious and knowledgeable.
+                </p>
+                <p>
+                    Benefits of certification:
+                </p>
+                <ul>
+                    <li>Increased credibility with clients</li>
+                    <li>Higher pricing power (CSP-certified shops command premium rates)</li>
+                    <li>Career advancement and job prospects</li>
+                    <li>Access to ASPA's exclusive training and resources</li>
+                </ul>
+                <p>
+                    <a href="exam.html">Learn more about the CSP exam and start your certification path</a>.
+                </p>
+
+                <h3>Continuous Learning</h3>
+                <p>
+                    Screen printing evolves. Inks improve, new equipment launches, and techniques advance. Stay current:
+                </p>
+                <ul>
+                    <li>Join ASPA for annual conferences, workshops, and publications</li>
+                    <li>Follow industry blogs and YouTube channels from established printers</li>
+                    <li>Experiment with new inks, techniques, and substrates</li>
+                    <li>Connect with other screen printers in <a href="directory.html">the ASPA Member Directory</a></li>
+                </ul>
+
+                <p>
+                    The screen printing community is collaborative. Don't hesitate to reach out to experienced printers with questions—most are happy to help.
+                </p>
+            </section>
+
+            <!-- RELATED ARTICLES -->
+            <section class="related-articles">
+                <h2>Related Articles</h2>
+                <div class="related-grid">
+                    <div class="article-card">
+                        <h3>How Much Does It Cost to Start a Screen Printing Business?</h3>
+                        <p>A detailed breakdown of startup costs, equipment budgets, and ROI timelines for launching a professional screen printing operation.</p>
+                        <a href="#">Read Article →</a>
+                    </div>
+                    <div class="article-card">
+                        <h3>Screen Printing Equipment Guide for Beginners</h3>
+                        <p>In-depth reviews and comparisons of presses, dryers, and exposure units. Find the right gear for your skill level and budget.</p>
+                        <a href="#">Read Article →</a>
+                    </div>
+                    <div class="article-card">
+                        <h3>10 Common Screen Printing Mistakes (And How to Fix Them)</h3>
+                        <p>Learn from common pitfalls: ghost images, color separation fails, under-curing, and more. Troubleshooting tips from ASPA experts.</p>
+                        <a href="#">Read Article →</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA BANNER -->
+            <div class="cta-banner">
+                <h2>Ready to Go Pro?</h2>
+                <p>Get CSP certified and join 1,200+ screen printing professionals worldwide. Boost your credibility, command premium rates, and access exclusive ASPA resources.</p>
+                <div class="cta-buttons">
+                    <a href="exam.html" class="cta-btn cta-btn-primary">Start CSP Exam →</a>
+                    <a href="join.html" class="cta-btn cta-btn-secondary">Join ASPA+</a>
+                </div>
+            </div>
+        </article>
+    </div>
+
+    <!-- ========================================
+         FOOTER
+         ======================================== -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Directory</h4>
+                    <ul>
+                        <li><a href="directory.html">Member Directory</a></li>
+                        <li><a href="index.html#certification">CSP Certification</a></li>
+                        <li><a href="index.html#membership">Membership Tiers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Certification</h4>
+                    <ul>
+                        <li><a href="certified-roster.html">CSP Roster</a></li>
+                        <li><a href="index.html#certification">CSP Program</a></li>
+                        <li><a href="#">Certification Standards</a></li>
+                        <li><a href="#">Apply for Certification</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Association</h4>
+                    <ul>
+                        <li><a href="about.html">About ASPA</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                Copyright © 2004-2026 American Screen Printing Association. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========================================
+         JAVASCRIPT - TOC Active State & Mobile Menu
+         ======================================== -->
+    <script>
+        // Table of Contents - Active State Management
+        const tocLinks = document.querySelectorAll('.toc-list a');
+        const sections = document.querySelectorAll('section[id]');
+
+        function updateActiveTOC() {
+            let current = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 150;
+                if (window.pageYOffset >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveTOC);
+        window.addEventListener('load', updateActiveTOC);
+
+        // Smooth scroll for TOC links
+        tocLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Mobile Menu Toggle (Placeholder)
+        function toggleMobileMenu() {
+            console.log('Mobile menu toggled');
+        }
+    </script>
+</body>
+</html>

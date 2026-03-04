@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screen Printing in Your Garage: Is It Safe for Your Family? (2026) | ASPA</title>
+    <meta name="description" content="Is screen printing at home safe for your family and kids? Learn about chemical safety, ventilation, storage, and creating a safe home workspace from ASPA.">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ========================================
+           DESIGN SYSTEM & ROOT VARIABLES
+           ======================================== */
+        :root {
+            --ink-black: #0a0a0a;
+            --ink-dark: #1a1a2e;
+            --ink-purple: #6c2bd9;
+            --ink-magenta: #e91e8c;
+            --ink-cyan: #00d4ff;
+            --ink-yellow: #ffd400;
+            --ink-orange: #ff6b35;
+            --ink-white: #f8f8f8;
+            --ink-gray: #b0b0b0;
+            --ink-gray-dark: #2a2a3e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--ink-black);
+            color: var(--ink-white);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ========================================
+           NAVIGATION BAR
+           ======================================== */
+        nav {
+            background-color: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 0 24px;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .nav-logo {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .nav-logo-main {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--ink-white);
+            letter-spacing: 2px;
+        }
+
+        .nav-logo-sub {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 9px;
+            font-weight: 600;
+            color: var(--ink-cyan);
+            letter-spacing: 1.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--ink-gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--ink-cyan);
+        }
+
+        .nav-links a.active {
+            color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            color: var(--ink-black);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background-color: var(--ink-white);
+            border-radius: 2px;
+            transition: 0.3s ease;
+        }
+
+        /* ========================================
+           ARTICLE HEADER
+           ======================================== */
+        .article-header {
+            background: linear-gradient(135deg, rgba(108, 43, 217, 0.1) 0%, rgba(233, 30, 140, 0.05) 100%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 48px 24px;
+        }
+
+        .article-header-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            color: var(--ink-gray);
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+        }
+
+        .breadcrumb a {
+            color: var(--ink-cyan);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--ink-yellow);
+        }
+
+        .category-tag {
+            display: inline-block;
+            background-color: rgba(255, 212, 0, 0.15);
+            border: 1px solid rgba(255, 212, 0, 0.4);
+            color: var(--ink-yellow);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .article-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--ink-white);
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+            line-height: 1.2;
+        }
+
+        .article-meta {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            color: var(--ink-gray);
+            margin-bottom: 24px;
+            letter-spacing: 0.3px;
+        }
+
+        .article-intro {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #d0d0d0;
+        }
+
+        /* ========================================
+           ARTICLE LAYOUT (TOC + Content)
+           ======================================== */
+        .article-wrapper {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        /* ========================================
+           TABLE OF CONTENTS (Sidebar)
+           ======================================== */
+        .toc-sidebar {
+            position: sticky;
+            top: 90px;
+            height: fit-content;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+        }
+
+        .toc-sidebar h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--ink-cyan);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        .toc-list {
+            list-style: none;
+        }
+
+        .toc-list li {
+            margin-bottom: 10px;
+        }
+
+        .toc-list a {
+            font-size: 14px;
+            color: var(--ink-gray);
+            text-decoration: none;
+            transition: color 0.2s ease;
+            padding-left: 12px;
+            border-left: 2px solid transparent;
+            display: block;
+            transition: all 0.2s ease;
+        }
+
+        .toc-list a:hover {
+            color: var(--ink-cyan);
+            border-left-color: var(--ink-cyan);
+        }
+
+        .toc-list a.active {
+            color: var(--ink-cyan);
+            border-left-color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        /* ========================================
+           ARTICLE CONTENT
+           ======================================== */
+        .article-content {
+            max-width: 800px;
+        }
+
+        article h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--ink-white);
+            margin-top: 48px;
+            margin-bottom: 20px;
+            padding-left: 16px;
+            border-left: 4px solid var(--ink-cyan);
+            letter-spacing: 0.5px;
+        }
+
+        article h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--ink-white);
+            margin-top: 32px;
+            margin-bottom: 16px;
+            letter-spacing: 0.3px;
+        }
+
+        article p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 18px;
+            color: #e0e0e0;
+        }
+
+        article strong {
+            color: var(--ink-white);
+            font-weight: 600;
+        }
+
+        article em {
+            color: var(--ink-cyan);
+            font-style: italic;
+        }
+
+        .highlight-term {
+            color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        article ul, article ol {
+            margin: 20px 0 20px 24px;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        article li {
+            margin-bottom: 12px;
+            color: #e0e0e0;
+        }
+
+        /* ========================================
+           CALLOUT BOXES
+           ======================================== */
+        .pro-tip {
+            background-color: rgba(0, 212, 255, 0.08);
+            border-left: 4px solid var(--ink-cyan);
+            border-radius: 4px;
+            padding: 20px;
+            margin: 28px 0;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .pro-tip strong {
+            color: var(--ink-cyan);
+            font-weight: 700;
+        }
+
+        .safety-warning {
+            background-color: rgba(255, 107, 53, 0.1);
+            border-left: 4px solid var(--ink-orange);
+            border-radius: 4px;
+            padding: 20px;
+            margin: 28px 0;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .safety-warning strong {
+            color: var(--ink-orange);
+            font-weight: 700;
+        }
+
+        .budget-breakdown {
+            background-color: rgba(0, 212, 255, 0.08);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 8px;
+            padding: 24px;
+            margin: 28px 0;
+        }
+
+        .budget-breakdown h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--ink-cyan);
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+        }
+
+        .budget-breakdown ul {
+            list-style: none;
+            margin: 0;
+        }
+
+        .budget-breakdown li {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 1.05rem;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        .budget-breakdown li:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .budget-range {
+            color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        /* ========================================
+           NUMBERED STEPS
+           ======================================== */
+        .step {
+            margin: 32px 0;
+            padding: 24px;
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: 4px;
+            border-left: 4px solid var(--ink-purple);
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            color: var(--ink-black);
+            border-radius: 50%;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .step h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--ink-white);
+            margin-bottom: 12px;
+        }
+
+        .step p {
+            margin-bottom: 12px;
+        }
+
+        .step p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ========================================
+           RELATED ARTICLES SECTION
+           ======================================== */
+        .related-articles {
+            margin-top: 60px;
+            padding: 40px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .related-articles h2 {
+            margin-top: 0;
+            border-left: none;
+            padding-left: 0;
+            margin-bottom: 32px;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .article-card {
+            background-color: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 8px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .article-card:hover {
+            border-color: var(--ink-cyan);
+            background-color: rgba(0, 212, 255, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .article-card h3 {
+            margin-top: 0;
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        .article-card p {
+            font-size: 14px;
+            color: var(--ink-gray);
+            flex-grow: 1;
+            margin-bottom: 16px;
+        }
+
+        .article-card a {
+            color: var(--ink-cyan);
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            transition: color 0.2s ease;
+            align-self: flex-start;
+        }
+
+        .article-card a:hover {
+            color: var(--ink-yellow);
+        }
+
+        /* ========================================
+           CTA BANNER
+           ======================================== */
+        .cta-banner {
+            background: linear-gradient(135deg, rgba(108, 43, 217, 0.2) 0%, rgba(233, 30, 140, 0.1) 100%);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 12px;
+            padding: 40px;
+            margin-top: 60px;
+            text-align: center;
+        }
+
+        .cta-banner h2 {
+            border-left: none;
+            padding-left: 0;
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 32px;
+        }
+
+        .cta-banner p {
+            font-size: 18px;
+            color: #d0d0d0;
+            margin-bottom: 28px;
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .cta-btn-primary {
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            color: var(--ink-black);
+            border: none;
+        }
+
+        .cta-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
+        }
+
+        .cta-btn-secondary {
+            background-color: transparent;
+            color: var(--ink-cyan);
+            border: 2px solid var(--ink-cyan);
+        }
+
+        .cta-btn-secondary:hover {
+            background-color: rgba(0, 212, 255, 0.1);
+            border-color: var(--ink-yellow);
+            color: var(--ink-yellow);
+        }
+
+        /* ========================================
+           FOOTER
+           ======================================== */
+        footer {
+            background-color: var(--ink-dark);
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 40px 24px 20px;
+            margin-top: 60px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--ink-cyan);
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            display: block;
+            color: var(--ink-gray);
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 12px;
+            transition: color 0.2s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--ink-cyan);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            color: var(--ink-gray);
+            font-size: 13px;
+        }
+
+        /* ========================================
+           MOBILE RESPONSIVE
+           ======================================== */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .article-title {
+                font-size: 32px;
+            }
+
+            .article-wrapper {
+                grid-template-columns: 1fr;
+                gap: 24px;
+                padding: 24px 16px;
+            }
+
+            .toc-sidebar {
+                position: static;
+                top: auto;
+                max-height: none;
+                margin-bottom: 24px;
+                padding: 20px;
+                background-color: rgba(255, 255, 255, 0.03);
+                border-radius: 8px;
+                border-left: 4px solid var(--ink-cyan);
+            }
+
+            .toc-list a {
+                font-size: 13px;
+            }
+
+            article h2 {
+                font-size: 24px;
+                margin-top: 32px;
+            }
+
+            article h3 {
+                font-size: 18px;
+            }
+
+            article p {
+                font-size: 1rem;
+            }
+
+            .cta-banner {
+                padding: 24px;
+            }
+
+            .cta-banner h2 {
+                font-size: 24px;
+            }
+
+            .cta-banner p {
+                font-size: 16px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .cta-btn {
+                width: 100%;
+            }
+
+            .related-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ========================================
+           SCROLLBAR STYLING
+           ======================================== */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--ink-cyan);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--ink-magenta);
+        }
+    </style>
+</head>
+<body>
+    <!-- ========================================
+         NAVIGATION
+         ======================================== -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="nav-logo-main">ASPA</div>
+                <div class="nav-logo-sub">Since 2004</div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="directory.html">Directory</a></li>
+                <li><a href="certified-roster.html">Certified</a></li>
+                <li><a href="exam.html">Certification</a></li>
+                <li><a href="join.html">Membership</a></li>
+                <li><a href="resources.html">Resources</a></li>
+            </ul>
+            <a href="join.html" class="nav-cta">Join ASPA</a>
+            <button class="hamburger" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ========================================
+         ARTICLE HEADER
+         ======================================== -->
+    <div class="article-header">
+        <div class="article-header-container">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a> > <a href="resources.html">Resources</a> > <a href="resources.html">Tips & Tricks</a> > I Print T-Shirts in My Garage: Is It Safe for My Kids?
+            </div>
+            <span class="category-tag">Tips & Tricks</span>
+            <h1 class="article-title">I Print T-Shirts in My Garage: Is It Safe for My Kids?</h1>
+            <div class="article-meta">Updated March 2026 · 14 min read</div>
+            <p class="article-intro">
+                If you print t-shirts in your garage, basement, or spare room and you have kids, pets, or family nearby—this article is for you. The short answer: YES, home screen printing can be safe. But it requires awareness, proper setup, and consistent habits. Screen printing involves chemicals, and treating them with respect is non-negotiable. This isn't meant to scare you—it's meant to empower you with knowledge.
+            </p>
+        </div>
+    </div>
+
+    <!-- ========================================
+         ARTICLE WRAPPER (TOC + Content)
+         ======================================== -->
+    <div class="article-wrapper">
+        <!-- TABLE OF CONTENTS SIDEBAR -->
+        <aside class="toc-sidebar">
+            <h3>Contents</h3>
+            <ul class="toc-list">
+                <li><a href="#introduction">Introduction</a></li>
+                <li><a href="#chemicals">What Chemicals Are We Using?</a></li>
+                <li><a href="#ventilation">Ventilation: The #1 Priority</a></li>
+                <li><a href="#storage">Chemical Storage & Containment</a></li>
+                <li><a href="#boundaries">Physical Boundaries & Rules</a></li>
+                <li><a href="#ppe">Personal Protective Equipment</a></li>
+                <li><a href="#scenarios">Safe Scenarios & When to Say No</a></li>
+                <li><a href="#fire">Fire Safety for Printers</a></li>
+                <li><a href="#alternatives">Safer Alternatives</a></li>
+                <li><a href="#conclusion">Bottom Line: Safe Printing</a></li>
+            </ul>
+        </aside>
+
+        <!-- MAIN ARTICLE CONTENT -->
+        <article class="article-content">
+            <!-- INTRODUCTION -->
+            <section id="introduction">
+                <h2>Introduction: The Question Every Home Printer Asks</h2>
+                <p>
+                    Running a screen printing operation from home brings real convenience—no commute, no rent, full control over your schedule. But if you have kids running around, pets in the house, or a spouse who works from the spare bedroom next door, safety isn't a theoretical concern. It's practical, immediate, and incredibly important.
+                </p>
+                <p>
+                    The good news: <span class="highlight-term">home screen printing can absolutely be done safely</span>. Thousands of family-owned and operated print shops prove this every day. The key is understanding what you're working with, respecting the chemistry, following proven safety practices, and being honest about your setup's limitations.
+                </p>
+                <p>
+                    This guide walks you through every safety consideration: what chemicals are actually dangerous, how to ventilate properly, where to store everything, how to keep kids and pets safe, when to wear protective gear, and when you should probably not be printing that day. If you're serious about both your printing business and your family's health, read on.
+                </p>
+            </section>
+
+            <!-- SECTION 1: CHEMICALS -->
+            <section id="chemicals">
+                <h2>What Chemicals Are We Actually Dealing With?</h2>
+                <p>
+                    Screen printing isn't chemistry class, but it helps to know what's actually in your materials. Knowledge removes fear and replaces it with respect for proper handling.
+                </p>
+
+                <h3>Plastisol Ink</h3>
+                <p>
+                    Plastisol is the workhorse ink for most home and commercial printers. It's a suspension of PVC particles in a plasticizer oil base.
+                </p>
+                <ul>
+                    <li><strong>What's in it:</strong> PVC resin, phthalate plasticizers, pigments, and additives.</li>
+                    <li><strong>The reality:</strong> At room temperature, plastisol doesn't off-gas much. The real concern is during CURING when you heat it above 320°F. Heat causes volatile organic compounds (VOCs) to release.</li>
+                    <li><strong>Risk level:</strong> LOW at room temperature. Requires careful handling during heat curing.</li>
+                    <li><strong>Common sense:</strong> Don't let kids eat it (it looks like frosting to a toddler). Don't let them handle it bare-handed. Store safely.</li>
+                </ul>
+
+                <h3>Water-Based Ink</h3>
+                <p>
+                    Often marketed as "eco-friendly," water-based inks are water-soluble and lower in VOCs than plastisol. But they're not risk-free.
+                </p>
+                <ul>
+                    <li><strong>What's in it:</strong> Water, binders, pigments, and often ammonia or formaldehyde compounds (especially in discharge variants).</li>
+                    <li><strong>The reality:</strong> Lower VOCs overall, but the ammonia/formaldehyde can be irritating during application and printing.</li>
+                    <li><strong>Risk level:</strong> MODERATE. Requires good ventilation, especially during printing.</li>
+                    <li><strong>Pro tip:</strong> Always read the Safety Data Sheet (SDS). Some water-based inks are safer than others.</li>
+                </ul>
+
+                <h3>Emulsion (Light-Sensitive)</h3>
+                <p>
+                    Emulsion is the light-sensitive chemical you coat screens with. It hardens where exposed to UV light.
+                </p>
+                <ul>
+                    <li><strong>What's in it:</strong> Diazo sensitizer (for diazo emulsions) or photopolymers (for photopolymer emulsions).</li>
+                    <li><strong>The reality:</strong> Diazo emulsion is mildly irritating to skin. Some people develop sensitivity with repeated contact.</li>
+                    <li><strong>Risk level:</strong> LOW to MODERATE. Primary concern is skin contact.</li>
+                    <li><strong>Safety measure:</strong> Wear nitrile gloves when coating screens. Don't let kids touch emulsion.</li>
+                </ul>
+
+                <h3>Screen Cleaners & Degreasers</h3>
+                <p>
+                    These are the most chemically aggressive products you'll use. They're designed to cut through oils and must be treated with serious respect.
+                </p>
+                <ul>
+                    <li><strong>What's in them:</strong> Caustic alkaline compounds, sometimes solvents like sodium hydroxide or potassium hydroxide.</li>
+                    <li><strong>The reality:</strong> STRONG fumes. Can irritate skin and eyes. NEVER mix with other chemicals (creates dangerous reactions).</li>
+                    <li><strong>Risk level:</strong> HIGH. These are the most hazardous chemicals in your shop.</li>
+                    <li><strong>Safety rule:</strong> Use only in well-ventilated areas. Never in a sealed room. Never where kids can access.</li>
+                </ul>
+
+                <h3>Emulsion Removers & Reclaimers</h3>
+                <p>
+                    These strip old emulsion off screens so you can reuse them. They're also caustic and require respect.
+                </p>
+                <ul>
+                    <li><strong>What's in them:</strong> Often sodium metaperiodate or other oxidizers. Some contain bleach-like compounds.</li>
+                    <li><strong>The reality:</strong> Irritating to skin and eyes. Can burn skin if left in contact. Fumes are unpleasant.</li>
+                    <li><strong>Risk level:</strong> MODERATE to HIGH.</li>
+                    <li><strong>Safety rule:</strong> Use gloves, safety glasses, strong ventilation. Ideally use outdoors. Never mix with other chemicals.</li>
+                </ul>
+
+                <h3>Discharge Agents (If Used)</h3>
+                <p>
+                    If you use discharge printing on dark fabrics, your discharge agent may contain formaldehyde or formaldehyde-releasing compounds. THIS is the most concerning chemical in most home shops.
+                </p>
+                <ul>
+                    <li><strong>What's in it:</strong> Formaldehyde or formaldehyde precursors.</li>
+                    <li><strong>The reality:</strong> Formaldehyde is a known irritant and potential carcinogen. Off-gassing is significant during printing and curing.</li>
+                    <li><strong>Risk level:</strong> HIGH.</li>
+                    <li><strong>Safety rule:</strong> If you use discharge, you MUST have dedicated exhaust ventilation. Not optional. This is a chemical you handle differently than plastisol.</li>
+                </ul>
+
+                <div class="safety-warning">
+                    <strong>Safety Critical:</strong> Every single chemical you use has a Safety Data Sheet (SDS). Download and keep ALL of them. The SDS tells you exactly what's in the product, how to handle it, first aid steps, and disposal. The manufacturer is legally required to provide this. If you can't find the SDS, don't buy the product. Period.
+                </div>
+            </section>
+
+            <!-- SECTION 2: VENTILATION -->
+            <section id="ventilation">
+                <h2>Ventilation: The #1 Safety Investment</h2>
+                <p>
+                    Ventilation is THE most important safety measure in a home screen printing operation. You can have the safest ink and emulsion, but without proper air movement, you're breathing in chemical fumes. This is non-negotiable.
+                </p>
+
+                <h3>When Ventilation Matters Most</h3>
+                <p>
+                    <span class="highlight-term">During printing with plastisol:</span> Moderate ventilation is needed. An open garage door plus a box fan moving air across your work area is acceptable.
+                </p>
+                <p>
+                    <span class="highlight-term">During curing (THIS IS CRITICAL):</span> Flash dryers and conveyor dryers heat plastisol to 320°F+. This is when VOCs release in significant quantities. You MUST have active exhaust ventilation during curing—pulling air OUT of your garage through a window, door, or vent. Cross-ventilation only (air in, air out) is essential.
+                </p>
+                <p>
+                    <span class="highlight-term">During screen reclaiming:</span> Chemical fumes from cleaners and reclaimers are strongest here. Ideally do this outdoors. If indoors, you need very strong exhaust ventilation.
+                </p>
+
+                <h3>Ventilation Setup Options</h3>
+                <p>
+                    <strong>Minimum setup (acceptable for casual printing):</strong> Garage door open + box fan positioned to pull air across your work area and out a window or the main garage door. Cost: $40 for a box fan.
+                </p>
+                <p>
+                    <strong>Better setup:</strong> Inline duct fan mounted in your window or wall, pulling exhaust air OUT of the garage. Ductwork to route fumes directly outside. Cost: $40-$80 for a DIY system.
+                </p>
+                <p>
+                    <strong>Best setup:</strong> Dedicated exhaust hood (like a kitchen range hood) positioned above your curing station, with ductwork routing fumes outside. This is the professional solution. Cost: $200-$1,000+.
+                </p>
+
+                <div class="pro-tip">
+                    <strong>Pro Tip:</strong> Cheap carbon monoxide detectors ($20-30) and VOC air quality monitors ($50-150) are excellent safety insurance. Know the air quality in your printing area. If you see elevated readings, your ventilation isn't adequate.
+                </div>
+
+                <h3>The Golden Rule: Never Print in a Sealed Room</h3>
+                <p>
+                    If you're printing in a bedroom, a finished basement without windows, or any space where air can't escape easily—you're creating a chemical hazard. Even with the best intentions, a sealed room will accumulate fumes. This is especially true if family members are in nearby rooms breathing shared air through ventilation systems.
+                </p>
+
+                <div class="safety-warning">
+                    <strong>Safety Critical:</strong> A sealed attached garage or finished basement connected to your main living space is problematic. VOCs from curing will migrate into the house through shared air return vents. If this is your only option, you need a dedicated exhaust system pulling air OUT of the space, and ideally a barrier (closed door with weatherstripping) between the printing area and living space.
+                </div>
+            </section>
+
+            <!-- SECTION 3: STORAGE -->
+            <section id="storage">
+                <h2>Storage: Keeping Chemicals Away from Kids and Pets</h2>
+                <p>
+                    You're responsible for securing chemicals so that kids and pets can't access them. This isn't paranoia—it's basic safety in any home where you have dependents.
+                </p>
+
+                <h3>The Rules: No Exceptions</h3>
+                <ul>
+                    <li><strong>ALL chemicals in locked storage:</strong> Not "out of reach on a high shelf." LOCKED. A curious 5-year-old can pull up a chair and climb. A dedicated locking cabinet is non-negotiable.</li>
+                    <li><strong>Original containers only:</strong> Never, EVER transfer chemicals to food containers, drink bottles, or anything that looks edible. Yes, this seems obvious. It happens.</li>
+                    <li><strong>Separate from living areas:</strong> Don't store chemicals in the kitchen pantry, the bathroom cabinet, or anywhere in your main living space. Garage cabinets, a shed, or a dedicated chemical storage closet—yes. Mixed with household items—no.</li>
+                    <li><strong>Temperature considerations:</strong> Most inks and emulsions have optimal storage temperatures. Check your product labels. Too hot (like a summer garage in Arizona) and shelf life shortens. Too cold and some chemicals separate.</li>
+                    <li><strong>Proper disposal:</strong> You cannot pour most inks, emulsions, or screen cleaners down the drain. They harm water systems and violate EPA regulations. Most areas have hazardous waste collection days. Use them. Some screen printing suppliers take back waste chemicals for a fee.</li>
+                </ul>
+
+                <h3>What About Spills?</h3>
+                <p>
+                    If a container breaks and spills: First, get kids and pets out of the area immediately. For small spills of ink, contain with paper towels and dispose in sealed trash (not down the drain). For chemical spills (emulsion remover, cleaners), contain with sand or absorbent material, then dispose as hazardous waste. For large spills or unknown materials, call poison control or your local hazmat team.
+                </p>
+
+                <div class="safety-warning">
+                    <strong>Safety Critical:</strong> Plastisol ink looks exactly like frosting to a toddler. A locked cabinet isn't optional—it's essential. If you have young kids in your home, imagine the worst-case scenario and prevent it by making sure they physically cannot access ink or chemicals.
+                </div>
+            </section>
+
+            <!-- SECTION 4: BOUNDARIES -->
+            <section id="boundaries">
+                <h2>Creating Physical Boundaries</h2>
+                <p>
+                    Beyond locked storage, you need to physically separate your printing area from where kids and pets spend time. This prevents accidental exposure to inks, heat sources, and moving equipment.
+                </p>
+
+                <h3>Define Your Print Area</h3>
+                <ul>
+                    <li><strong>Use tape on the floor:</strong> Mark where your printing zone begins and ends with colored tape. Make it visual and obvious.</li>
+                    <li><strong>Install barriers if possible:</strong> A simple folding partition, a baby gate, or even a rope barrier can define the space and discourage entry.</li>
+                    <li><strong>Establish a verbal rule:</strong> "The print area is off-limits when Dad is printing." Kids learn routines. Be consistent.</li>
+                </ul>
+
+                <h3>The Workflow Rule</h3>
+                <p>
+                    Establish a clear workflow rule: <span class="highlight-term">finished shirts are removed from the work area immediately</span>. Don't have a pile of finished prints sitting on your curing station where kids might poke at them, smell them, or touch hot prints. Move them to a separate finishing area away from the work zone.
+                </p>
+
+                <h3>Personal Hygiene Protocol</h3>
+                <ul>
+                    <li><strong>Change clothes after printing:</strong> Don't walk through the house in ink-stained clothes. Change in the garage/workshop and wash your work clothes separately.</li>
+                    <li><strong>Wash hands thoroughly:</strong> Especially before touching food, kids, or pets. Some inks can be absorbed through skin in small amounts.</li>
+                    <li><strong>Dedicated work shoes:</strong> Wear shoes that stay in the garage. Don't track chemicals through the house.</li>
+                </ul>
+
+                <div class="pro-tip">
+                    <strong>Pro Tip:</strong> A simple "PRINTING IN PROGRESS" sign on your garage door (visible from inside) reminds family members not to enter. It's a simple visual cue that establishes routine without nagging.
+                </div>
+            </section>
+
+            <!-- SECTION 5: PPE -->
+            <section id="ppe">
+                <h2>Personal Protective Equipment (PPE)</h2>
+                <p>
+                    PPE is your last line of defense. It protects YOU from chemicals, fumes, and heat. Using PPE properly is a habit, not a bother once you get used to it.
+                </p>
+
+                <h3>Nitrile Gloves</h3>
+                <ul>
+                    <li><strong>Why nitrile, not latex:</strong> Some people have latex allergies. Nitrile is more resistant to many chemicals. Better choice overall.</li>
+                    <li><strong>Cost:</strong> A box of 100 costs $10-$15. Incredibly cheap protection.</li>
+                    <li><strong>When to wear:</strong> Whenever handling ink, emulsion, screen cleaners, or any chemical. Non-negotiable.</li>
+                    <li><strong>Pro tip:</strong> Wear them loose enough to take off quickly if needed, but snug enough to work. Double-glove if handling harsh chemicals like reclaimers.</li>
+                </ul>
+
+                <h3>Safety Glasses</h3>
+                <ul>
+                    <li><strong>Why:</strong> A splash of screen reclaimer or cleaner in your eye is an emergency room visit. A splash of emulsion remover causes serious irritation.</li>
+                    <li><strong>When to wear:</strong> Anytime you're mixing chemicals, spraying screens, or using pressure washers for cleanup.</li>
+                    <li><strong>Cost:</strong> $15-$30 for decent protective glasses.</li>
+                </ul>
+
+                <h3>Respirator Mask</h3>
+                <ul>
+                    <li><strong>Minimum: N95 mask</strong> for general printing in ventilated areas. Filters particulates and some VOCs. Cost: $1-$3 per mask.</li>
+                    <li><strong>Better: Half-face respirator</strong> with organic vapor cartridges ($30-$50). Fits better, replaceable filters, effective for VOC protection. Recommended for discharge printing, heavy curing, or extended reclaiming work.</li>
+                    <li><strong>When to upgrade to a respirator:</strong> If you're printing with water-based inks containing ammonia, doing discharge printing, or doing heavy screen reclaiming, upgrade from N95 to a proper respirator with cartridges.</li>
+                    <li><strong>Fit matters:</strong> The mask must seal to your face. A loose-fitting mask provides almost no protection. Shave facial hair for a good seal, and don't buy cheap masks that don't fit.</li>
+                </ul>
+
+                <h3>Work Apron</h3>
+                <p>
+                    Keeps chemicals off your clothes. You'll spend it on washable or disposable aprons, but it saves your wardrobe and prevents tracking chemicals through the house.
+                </p>
+
+                <h3>The Reality Check: Most Shortcuts Happen Here</h3>
+                <p>
+                    Not wearing PPE is the most common safety shortcut printers take. "This is just a quick print." "I'll be careful." "I don't have time." These are lies you tell yourself before you get emulsion remover splashed on your arm or inhale a significant VOC dose.
+                </p>
+                <p>
+                    The habit that keeps you safe: Put on PPE BEFORE you start. Every single time. Make it automatic, like putting on a seatbelt in your car.
+                </p>
+            </section>
+
+            <!-- SECTION 6: SCENARIOS -->
+            <section id="scenarios">
+                <h2>Specific Scenarios: What's Safe and What's Not</h2>
+                <p>
+                    Real-world questions deserve real answers. Here are the scenarios printers ask about constantly.
+                </p>
+
+                <h3>Can I Print While My Kids Are Playing Outside?</h3>
+                <p>
+                    <strong>YES, absolutely.</strong> This is the ideal scenario. If your garage is properly ventilated (door open, fan running, fumes exhausting out), and your kids are playing in the yard away from the garage, there's minimal risk. The outdoor air dilutes any fumes that escape.
+                </p>
+
+                <h3>Can My Teenager Help Me Print?</h3>
+                <p>
+                    <strong>YES, with proper training and PPE.</strong> Many family screen printing shops involve teenagers. It's an excellent skill-building opportunity. Provide proper PPE (gloves, glasses, apron), show them the ventilation setup and why it matters, supervise closely, and start with low-risk tasks (loading blanks, removing finished prints) before progressing to handling chemicals or operating the press.
+                </p>
+
+                <h3>Can I Cure Shirts with My Baby Inside the House?</h3>
+                <p>
+                    <strong>USE EXTREME CAUTION. Better: Don't do it.</strong> If you're curing with a flash dryer in an attached garage, fumes can migrate into an attached house, especially through shared HVAC returns. If you must cure while family is home:
+                </p>
+                <ul>
+                    <li>Open the main garage door (not just the side door)</li>
+                    <li>Run exhaust ventilation to pull fumes OUT</li>
+                    <li>Close the door from the garage into the house and seal gaps with weatherstripping</li>
+                    <li>Don't rely on cracking the interior door open—that doesn't prevent fume migration</li>
+                </ul>
+
+                <h3>Is the Ink Smell Harmful?</h3>
+                <p>
+                    Plastisol ink doesn't have a strong smell at room temperature. If you're smelling significant chemical odors during printing, your ventilation is inadequate. This is a red flag. Fix your ventilation before continuing. Water-based inks may smell like ammonia or other solvents—this is normal but indicates you need good air movement.
+                </p>
+
+                <h3>Can I Use Water-Based or Discharge Inks Instead to Be Safer?</h3>
+                <p>
+                    <strong>Not really safer—just different risks.</strong> Water-based inks have lower overall VOCs but may contain ammonia or formaldehyde—chemicals you want to avoid. Discharge inks frequently contain formaldehyde and actually require BETTER ventilation than plastisol. If you switch inks, don't assume you're automatically safer. Read the SDS and adjust your safety practices accordingly.
+                </p>
+
+                <div class="safety-warning">
+                    <strong>Safety Critical:</strong> If you or a family member develops headaches, dizziness, respiratory irritation (coughing, throat irritation), or nausea after printing sessions, STOP immediately and improve your ventilation before continuing. These are signs that your air quality is inadequate. This is not negotiable. Your family's health comes first.
+                </div>
+            </section>
+
+            <!-- SECTION 7: FIRE SAFETY -->
+            <section id="fire">
+                <h2>Fire Safety: Often Overlooked</h2>
+                <p>
+                    Heat is integral to screen printing. Flash dryers, heat presses, and conveyor dryers all reach dangerous temperatures. Add solvents and flammable materials, and you have fire hazards that get overlooked because they're not chemical hazards.
+                </p>
+
+                <h3>Flash Dryer Safety</h3>
+                <p>
+                    Flash dryers heat to 800°F+ at the element. They can ignite fabric, paper, and solvents. This is the #1 cause of shop fires in screen printing.
+                </p>
+                <ul>
+                    <li><strong>NEVER leave a flash dryer on and unattended.</strong> This cannot be stressed enough. Treat it like an open flame. One distraction, one forgotten detail, and a fire starts.</li>
+                    <li><strong>Never flash dry for extended periods without breaks.</strong> If you're holding a shirt under a flash dryer for more than 4-5 seconds, something is wrong. Move on.</li>
+                    <li><strong>Keep the flash dryer clean.</strong> Lint, dust, and ink residue are flammable. Clean the reflectors and elements regularly.</li>
+                </ul>
+
+                <h3>Heat Press Safety</h3>
+                <p>
+                    Heat presses reach 300-400°F. They can cause severe burns. Keep hands, faces, and clothing clear. Never use them casually or distractedly.
+                </p>
+
+                <h3>Storage of Flammable Materials</h3>
+                <ul>
+                    <li><strong>Solvents and aerosol cans:</strong> Store away from heat sources. Never store near the flash dryer or heat press.</li>
+                    <li><strong>Oily rags:</strong> If you use press-cleaning solvents, soak rags in oils. These can spontaneously combust. Store them in a sealed metal container, never piled in a corner.</li>
+                </ul>
+
+                <h3>Fire Extinguisher: Essential Equipment</h3>
+                <p>
+                    Have an ABC-rated fire extinguisher within arm's reach of your curing station. NOT in a corner. NOT "somewhere in the garage." RIGHT THERE. Make sure all family members know where it is and how to use it. Check it annually.
+                </p>
+
+                <div class="safety-warning">
+                    <strong>Safety Critical:</strong> A flash dryer left on, forgotten over a shirt, is the single most common cause of fire in home screen printing shops. Develop the habit: turn off the flash dryer IMMEDIATELY after using it. No exceptions. Treat it like you treat your stove at home.
+                </div>
+            </section>
+
+            <!-- SECTION 8: ALTERNATIVES -->
+            <section id="alternatives">
+                <h2>Eco-Friendly and Safer Alternatives</h2>
+                <p>
+                    If safety is a primary concern, consider reducing your chemical footprint. Some approaches lower both risk and environmental impact.
+                </p>
+
+                <h3>Switch to Water-Based Inks (When Possible)</h3>
+                <p>
+                    Water-based inks have lower VOC profiles than plastisol and use water for cleanup instead of solvents. They print thinner, feel softer on fabric, and have no VOCs from curing (they cure through evaporation and oxidation, not heat-driven off-gassing).
+                </p>
+                <p>
+                    <strong>Downsides:</strong> More expensive, faster drying on screens (more challenging), and require more skill. Also, some water-based inks contain ammonia, which has its own safety concerns.
+                </p>
+
+                <h3>Use Eco-Friendly Emulsions</h3>
+                <p>
+                    Soy-based or other "green" emulsions exist. They're more expensive but lower the chemical load. Not all eco-friendly emulsions perform as well as traditional diazo, so test before switching your whole operation.
+                </p>
+
+                <h3>Citrus-Based Degreasers & Cleaners</h3>
+                <p>
+                    Instead of harsh caustic chemicals, some citrus-based degreasers and screen cleaners exist. They're gentler on hands and have less aggressive fumes. They're also more expensive but worth it if you're concerned about ventilation or repeated chemical exposure.
+                </p>
+
+                <h3>Eco-Friendly Reclaimers</h3>
+                <p>
+                    Slower-acting but less toxic. These take longer to break down emulsion but don't have the harsh fumes of traditional reclaimers.
+                </p>
+
+                <h3>Manage Wash Water Properly</h3>
+                <p>
+                    Set up a wash water catch/filtration system instead of letting it go down the drain. This prevents ink, emulsion, and chemical residue from entering storm drains and groundwater. Systems range from $50 (catch basin) to $200+ (filtering system). It's also better for your pipes long-term.
+                </p>
+
+                <div class="pro-tip">
+                    <strong>Pro Tip:</strong> Going eco-friendly is also a marketing advantage. If you're printing for clients, "eco-conscious screen printing" is a growing niche with premium pricing. Market this as a differentiator. Customers will pay more for sustainable practices.
+                </div>
+            </section>
+
+            <!-- SECTION 9: BOTTOM LINE -->
+            <section id="conclusion">
+                <h2>The Bottom Line: Safe Printing is Smart Printing</h2>
+                <p>
+                    Home screen printing is safe when you treat it seriously. Here's the essential checklist:
+                </p>
+                <ul>
+                    <li><strong>Ventilate properly:</strong> Open the garage door, run fans, exhaust fumes outside. This is the foundation of safety.</li>
+                    <li><strong>Store chemicals securely:</strong> Locked cabinet, away from kids and pets, away from food storage areas.</li>
+                    <li><strong>Create physical boundaries:</strong> Define your print area, establish rules, move finished work away from the zone.</li>
+                    <li><strong>Wear PPE:</strong> Gloves, safety glasses, mask (at minimum N95, better a respirator if using problematic inks). Make it habit.</li>
+                    <li><strong>Respect the heat:</strong> Never leave a flash dryer running unattended. Keep a fire extinguisher nearby.</li>
+                    <li><strong>Know your chemicals:</strong> Read the SDS for every product. Know what you're working with.</li>
+                    <li><strong>Keep your family informed:</strong> Everyone in the house should know the print area is off-limits during work, why ventilation matters, and where to find help if there's an accident.</li>
+                    <li><strong>Monitor for problems:</strong> If anyone develops headaches, respiratory irritation, or unexplained symptoms during printing, stop and investigate your ventilation.</li>
+                </ul>
+
+                <p>
+                    Thousands of families operate screen printing businesses from garages, basements, and workshops worldwide. They do it safely because they take the precautions seriously. You can too.
+                </p>
+                <p>
+                    <span class="highlight-term">ASPA Certification includes an entire knowledge area on safety protocols.</span> If you're serious about screen printing—whether as a hobby or a business—certification shows that you understand not just the technique, but the responsible, safe way to operate. The CSP exam covers health and safety, workplace hazards, chemical handling, and regulatory compliance. It's not just about being a better printer; it's about being a responsible one.
+                </p>
+                <p>
+                    Your family's health and your shop's safety are worth the investment in proper equipment, education, and consistent habits. Start right, stay consistent, and print safely.
+                </p>
+            </section>
+
+            <!-- RELATED ARTICLES -->
+            <section class="related-articles">
+                <h2>Related Articles</h2>
+                <div class="related-grid">
+                    <div class="article-card">
+                        <h3>Starting a Home-Based T-Shirt Business: From Garage to Growth</h3>
+                        <p>Turn your home printing setup into a profitable business. Learn about scaling operations, managing costs, and growing beyond the garage while maintaining quality and safety.</p>
+                        <a href="article-home-based-business.html">Read Article →</a>
+                    </div>
+                    <div class="article-card">
+                        <h3>How to Screen Print T-Shirts: Complete Beginner's Guide</h3>
+                        <p>Master the fundamentals of screen printing from equipment selection through curing. Step-by-step guide for anyone getting started with this rewarding craft.</p>
+                        <a href="article-how-to-screen-print.html">Read Article →</a>
+                    </div>
+                    <div class="article-card">
+                        <h3>Screen Printing Equipment Guide for Beginners</h3>
+                        <p>In-depth reviews and comparisons of presses, dryers, exposure units, and supplies. Find the right gear for your skill level, space, and budget.</p>
+                        <a href="article-equipment-guide.html">Read Article →</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA BANNER -->
+            <div class="cta-banner">
+                <h2>Ready to Print Responsibly?</h2>
+                <p>Get CSP certified and join 1,200+ screen printing professionals worldwide. Learn advanced safety protocols, regulatory compliance, and best practices from industry experts.</p>
+                <div class="cta-buttons">
+                    <a href="exam.html" class="cta-btn cta-btn-primary">Start CSP Exam →</a>
+                    <a href="join.html" class="cta-btn cta-btn-secondary">Join ASPA+</a>
+                </div>
+            </div>
+        </article>
+    </div>
+
+    <!-- ========================================
+         FOOTER
+         ======================================== -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Directory</h4>
+                    <ul>
+                        <li><a href="directory.html">Member Directory</a></li>
+                        <li><a href="index.html#certification">CSP Certification</a></li>
+                        <li><a href="index.html#membership">Membership Tiers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Certification</h4>
+                    <ul>
+                        <li><a href="certified-roster.html">CSP Roster</a></li>
+                        <li><a href="index.html#certification">CSP Program</a></li>
+                        <li><a href="#">Certification Standards</a></li>
+                        <li><a href="#">Apply for Certification</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Association</h4>
+                    <ul>
+                        <li><a href="about.html">About ASPA</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                Copyright © 2004-2026 American Screen Printing Association. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========================================
+         JAVASCRIPT - TOC Active State & Mobile Menu
+         ======================================== -->
+    <script>
+        // Table of Contents - Active State Management
+        const tocLinks = document.querySelectorAll('.toc-list a');
+        const sections = document.querySelectorAll('section[id]');
+
+        function updateActiveTOC() {
+            let current = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 150;
+                if (window.pageYOffset >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveTOC);
+        window.addEventListener('load', updateActiveTOC);
+
+        // Smooth scroll for TOC links
+        tocLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Mobile Menu Toggle (Placeholder)
+        function toggleMobileMenu() {
+            console.log('Mobile menu toggled');
+        }
+    </script>
+</body>
+</html>

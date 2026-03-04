@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What is Screen Printing? History, Process & Modern Applications (2026) | ASPA</title>
+    <meta name="description" content="What is screen printing? Learn the history, step-by-step process, and modern applications of screen printing from the American Screen Printing Association.">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ========================================
+           DESIGN SYSTEM & ROOT VARIABLES
+           ======================================== */
+        :root {
+            --ink-black: #0a0a0a;
+            --ink-dark: #1a1a2e;
+            --ink-purple: #6c2bd9;
+            --ink-magenta: #e91e8c;
+            --ink-cyan: #00d4ff;
+            --ink-yellow: #ffd400;
+            --ink-orange: #ff6b35;
+            --ink-white: #f8f8f8;
+            --ink-gray: #b0b0b0;
+            --ink-gray-dark: #2a2a3e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--ink-black);
+            color: var(--ink-white);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ========================================
+           NAVIGATION BAR
+           ======================================== */
+        nav {
+            background-color: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 0 24px;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .nav-logo {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .nav-logo-main {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--ink-white);
+            letter-spacing: 2px;
+        }
+
+        .nav-logo-sub {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 9px;
+            font-weight: 600;
+            color: var(--ink-cyan);
+            letter-spacing: 1.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--ink-gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--ink-cyan);
+        }
+
+        .nav-links a.active {
+            color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            color: var(--ink-black);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background-color: var(--ink-white);
+            border-radius: 2px;
+            transition: 0.3s ease;
+        }
+
+        /* ========================================
+           ARTICLE HEADER
+           ======================================== */
+        .article-header {
+            background: linear-gradient(135deg, rgba(108, 43, 217, 0.1) 0%, rgba(233, 30, 140, 0.05) 100%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 48px 24px;
+        }
+
+        .article-header-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            color: var(--ink-gray);
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+        }
+
+        .breadcrumb a {
+            color: var(--ink-cyan);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--ink-yellow);
+        }
+
+        .category-tag {
+            display: inline-block;
+            background-color: rgba(0, 212, 255, 0.15);
+            border: 1px solid rgba(0, 212, 255, 0.4);
+            color: var(--ink-cyan);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .article-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--ink-white);
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+            line-height: 1.2;
+        }
+
+        .article-meta {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            color: var(--ink-gray);
+            margin-bottom: 24px;
+            letter-spacing: 0.3px;
+        }
+
+        .article-intro {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #d0d0d0;
+        }
+
+        /* ========================================
+           ARTICLE LAYOUT (TOC + Content)
+           ======================================== */
+        .article-wrapper {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        /* ========================================
+           TABLE OF CONTENTS (Sidebar)
+           ======================================== */
+        .toc-sidebar {
+            position: sticky;
+            top: 90px;
+            height: fit-content;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+        }
+
+        .toc-sidebar h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--ink-cyan);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        .toc-list {
+            list-style: none;
+        }
+
+        .toc-list li {
+            margin-bottom: 10px;
+        }
+
+        .toc-list a {
+            font-size: 14px;
+            color: var(--ink-gray);
+            text-decoration: none;
+            transition: color 0.2s ease;
+            padding-left: 12px;
+            border-left: 2px solid transparent;
+            display: block;
+            transition: all 0.2s ease;
+        }
+
+        .toc-list a:hover {
+            color: var(--ink-cyan);
+            border-left-color: var(--ink-cyan);
+        }
+
+        .toc-list a.active {
+            color: var(--ink-cyan);
+            border-left-color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        /* ========================================
+           ARTICLE CONTENT
+           ======================================== */
+        .article-content {
+            max-width: 800px;
+        }
+
+        article h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--ink-white);
+            margin-top: 48px;
+            margin-bottom: 20px;
+            padding-left: 16px;
+            border-left: 4px solid var(--ink-cyan);
+            letter-spacing: 0.5px;
+        }
+
+        article h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--ink-white);
+            margin-top: 32px;
+            margin-bottom: 16px;
+            letter-spacing: 0.3px;
+        }
+
+        article p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 18px;
+            color: #e0e0e0;
+        }
+
+        article strong {
+            color: var(--ink-white);
+            font-weight: 600;
+        }
+
+        article em {
+            color: var(--ink-cyan);
+            font-style: italic;
+        }
+
+        .highlight-term {
+            color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        article ul, article ol {
+            margin: 20px 0 20px 24px;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        article li {
+            margin-bottom: 12px;
+            color: #e0e0e0;
+        }
+
+        /* ========================================
+           CALLOUT BOXES
+           ======================================== */
+        .pro-tip {
+            background-color: rgba(0, 212, 255, 0.15);
+            border-left: 4px solid var(--ink-cyan);
+            border-radius: 4px;
+            padding: 20px;
+            margin: 28px 0;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .pro-tip strong {
+            color: var(--ink-cyan);
+            font-weight: 700;
+        }
+
+        .safety-warning {
+            background-color: rgba(255, 107, 53, 0.1);
+            border-left: 4px solid var(--ink-orange);
+            border-radius: 4px;
+            padding: 20px;
+            margin: 28px 0;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .safety-warning strong {
+            color: var(--ink-orange);
+            font-weight: 700;
+        }
+
+        .budget-breakdown {
+            background-color: rgba(0, 212, 255, 0.08);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 8px;
+            padding: 24px;
+            margin: 28px 0;
+        }
+
+        .budget-breakdown h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--ink-cyan);
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+        }
+
+        .budget-breakdown ul {
+            list-style: none;
+            margin: 0;
+        }
+
+        .budget-breakdown li {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 1.05rem;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        .budget-breakdown li:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .budget-range {
+            color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        /* ========================================
+           NUMBERED STEPS
+           ======================================== */
+        .step {
+            margin: 32px 0;
+            padding: 24px;
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: 4px;
+            border-left: 4px solid var(--ink-purple);
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            color: var(--ink-black);
+            border-radius: 50%;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .step h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--ink-white);
+            margin-bottom: 12px;
+        }
+
+        .step p {
+            margin-bottom: 12px;
+        }
+
+        .step p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ========================================
+           RELATED ARTICLES SECTION
+           ======================================== */
+        .related-articles {
+            margin-top: 60px;
+            padding: 40px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .related-articles h2 {
+            margin-top: 0;
+            border-left: none;
+            padding-left: 0;
+            margin-bottom: 32px;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .article-card {
+            background-color: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 8px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .article-card:hover {
+            border-color: var(--ink-cyan);
+            background-color: rgba(0, 212, 255, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .article-card h3 {
+            margin-top: 0;
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        .article-card p {
+            font-size: 14px;
+            color: var(--ink-gray);
+            flex-grow: 1;
+            margin-bottom: 16px;
+        }
+
+        .article-card a {
+            color: var(--ink-cyan);
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            transition: color 0.2s ease;
+            align-self: flex-start;
+        }
+
+        .article-card a:hover {
+            color: var(--ink-yellow);
+        }
+
+        /* ========================================
+           CTA BANNER
+           ======================================== */
+        .cta-banner {
+            background: linear-gradient(135deg, rgba(108, 43, 217, 0.2) 0%, rgba(233, 30, 140, 0.1) 100%);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 12px;
+            padding: 40px;
+            margin-top: 60px;
+            text-align: center;
+        }
+
+        .cta-banner h2 {
+            border-left: none;
+            padding-left: 0;
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 32px;
+        }
+
+        .cta-banner p {
+            font-size: 18px;
+            color: #d0d0d0;
+            margin-bottom: 28px;
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .cta-btn-primary {
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            color: var(--ink-black);
+            border: none;
+        }
+
+        .cta-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
+        }
+
+        .cta-btn-secondary {
+            background-color: transparent;
+            color: var(--ink-cyan);
+            border: 2px solid var(--ink-cyan);
+        }
+
+        .cta-btn-secondary:hover {
+            background-color: rgba(0, 212, 255, 0.1);
+            border-color: var(--ink-yellow);
+            color: var(--ink-yellow);
+        }
+
+        /* ========================================
+           FOOTER
+           ======================================== */
+        footer {
+            background-color: var(--ink-dark);
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 40px 24px 20px;
+            margin-top: 60px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--ink-cyan);
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            display: block;
+            color: var(--ink-gray);
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 12px;
+            transition: color 0.2s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--ink-cyan);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            color: var(--ink-gray);
+            font-size: 13px;
+        }
+
+        /* ========================================
+           MOBILE RESPONSIVE
+           ======================================== */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .article-title {
+                font-size: 32px;
+            }
+
+            .article-wrapper {
+                grid-template-columns: 1fr;
+                gap: 24px;
+                padding: 24px 16px;
+            }
+
+            .toc-sidebar {
+                position: static;
+                top: auto;
+                max-height: none;
+                margin-bottom: 24px;
+                padding: 20px;
+                background-color: rgba(255, 255, 255, 0.03);
+                border-radius: 8px;
+                border-left: 4px solid var(--ink-cyan);
+            }
+
+            .toc-list a {
+                font-size: 13px;
+            }
+
+            article h2 {
+                font-size: 24px;
+                margin-top: 32px;
+            }
+
+            article h3 {
+                font-size: 18px;
+            }
+
+            article p {
+                font-size: 1rem;
+            }
+
+            .cta-banner {
+                padding: 24px;
+            }
+
+            .cta-banner h2 {
+                font-size: 24px;
+            }
+
+            .cta-banner p {
+                font-size: 16px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .cta-btn {
+                width: 100%;
+            }
+
+            .related-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ========================================
+           SCROLLBAR STYLING
+           ======================================== */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--ink-cyan);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--ink-magenta);
+        }
+    </style>
+</head>
+<body>
+    <!-- ========================================
+         NAVIGATION
+         ======================================== -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="nav-logo-main">ASPA</div>
+                <div class="nav-logo-sub">Since 2004</div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="directory.html">Directory</a></li>
+                <li><a href="certified-roster.html">Certified</a></li>
+                <li><a href="index.html#certification">Certification</a></li>
+                <li><a href="index.html#membership">Membership</a></li>
+                <li><a href="resources.html">Resources</a></li>
+            </ul>
+            <a href="join.html" class="nav-cta">Join ASPA</a>
+            <button class="hamburger" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ========================================
+         ARTICLE HEADER
+         ======================================== -->
+    <div class="article-header">
+        <div class="article-header-container">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a> > <a href="resources.html">Resources</a> > <a href="resources.html">Getting Started</a> > What is Screen Printing?
+            </div>
+            <span class="category-tag">Getting Started</span>
+            <h1 class="article-title">What is Screen Printing? History, Process, and Modern Applications</h1>
+            <div class="article-meta">Updated March 2026 · 12 min read</div>
+            <p class="article-intro">
+                Screen printing is one of the oldest and most versatile printing methods in the world. If you've ever worn a graphic tee, watched a band play in a printed shirt, or seen a "SALE" sign in a store window — you've seen screen printing. This guide explains what it is, where it came from, and why it's still the dominant printing method in 2026.
+            </p>
+        </div>
+    </div>
+
+    <!-- ========================================
+         ARTICLE WRAPPER (TOC + Content)
+         ======================================== -->
+    <div class="article-wrapper">
+
+        <!-- TABLE OF CONTENTS SIDEBAR -->
+        <aside class="toc-sidebar">
+            <h3>Contents</h3>
+            <ul class="toc-list">
+                <li><a href="#introduction">Introduction</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#history">A Brief History</a></li>
+                <li><a href="#process">The Process</a></li>
+                <li><a href="#types">Types of Screen Printing</a></li>
+                <li><a href="#substrates">What You Can Print On</a></li>
+                <li><a href="#comparison">vs Other Methods</a></li>
+                <li><a href="#modern">Modern Industry 2026</a></li>
+                <li><a href="#applications">Who Uses It Today</a></li>
+                <li><a href="#getting-started">Getting Started</a></li>
+            </ul>
+        </aside>
+
+        <!-- MAIN ARTICLE CONTENT -->
+        <article class="article-content">
+            <!-- SECTION 1: INTRODUCTION -->
+            <section id="introduction">
+                <h2>Introduction: The Art Behind Every T-Shirt</h2>
+                <p>
+                    Screen printing (also called <span class="highlight-term">silk screening</span> or <span class="highlight-term">serigraphy</span>) is one of the oldest and most versatile printing methods in the world. If you've ever worn a graphic tee, watched a band play in a printed shirt, or seen a "SALE" sign in a store window — you've seen screen printing. From custom band merchandise to corporate branding, promotional products to fine art, screen printing remains the go-to method for creating vibrant, durable prints.
+                </p>
+                <p>
+                    What makes screen printing so enduring? The answer lies in its simplicity, versatility, and results. Unlike newer printing technologies, screen printing works on virtually any material—cotton, polyester, canvas, plastic, metal, glass, wood, and more. A single screen print can last hundreds of washes without fading. The process is straightforward enough for a hobbyist to master in a weekend, yet sophisticated enough to support a $10+ billion global industry.
+                </p>
+                <p>
+                    Whether you're curious about how graphic tees are made, considering a career in screen printing, or just want to understand the craft behind iconic designs, this guide covers everything: what it is, how it works, its fascinating history, and why it's thrived for centuries while other printing methods have come and gone.
+                </p>
+            </section>
+
+            <!-- SECTION 2: HOW IT WORKS -->
+            <section id="how-it-works">
+                <h2>How Screen Printing Works: The Basic Process</h2>
+                <p>
+                    At its core, screen printing is surprisingly simple. Here's the high-level overview in plain English:
+                </p>
+                <ol>
+                    <li>A fine mesh screen is coated with light-sensitive emulsion.</li>
+                    <li>Your design (printed on transparent film) is placed on the screen.</li>
+                    <li>The screen is exposed to UV light — the light hardens the emulsion everywhere EXCEPT where your design blocks it.</li>
+                    <li>The unhardened emulsion is washed away, leaving open areas that match your design.</li>
+                    <li>Ink is pushed through those open areas onto the substrate (t-shirt, poster, etc.) using a squeegee — essentially a rubber-edged tool that scrapes the ink through.</li>
+                    <li>One screen per color. For multi-color designs, you repeat this with different screens and colors.</li>
+                    <li>The ink is cured (hardened) with heat, bonding it permanently to the material.</li>
+                </ol>
+
+                <div class="pro-tip">
+                    <strong>Pro Tip:</strong> "Screen printing" and "silk screening" are the same thing — historically, the mesh screens were made of silk, which is why the technique earned that name. Today, screens are typically made from synthetic polyester mesh, but the names persist. You'll also hear "serigraphy," which comes from the Latin word for silk.
+                </div>
+
+                <p>
+                    That's it. It's a stencil-based process that hasn't fundamentally changed in centuries, though modern equipment has made it faster, more consistent, and more accessible than ever before.
+                </p>
+            </section>
+
+            <!-- SECTION 3: HISTORY -->
+            <section id="history">
+                <h2>A Brief History: From Ancient China to Modern Industry</h2>
+                <p>
+                    Screen printing's journey spans over a thousand years, evolving from an ancient Asian technique to a global multi-billion dollar industry. Here's the timeline:
+                </p>
+
+                <h3>Early Origins (960 AD - 1700s)</h3>
+                <p>
+                    The earliest known use of silk mesh for stencil printing appears in <strong>Song Dynasty China (around 960 AD)</strong>. Craftspeople used silk mesh stretched over frames to print patterns onto fabric and paper. The technique was refined in Japan, where it became known as "yuzen" and was used to create intricate textile designs.
+                </p>
+                <p>
+                    By the 1700s-1800s, screen printing spread through trade routes to Europe, where artists and printers began experimenting with the process. However, it remained a craft for specialists and wasn't widely commercialized.
+                </p>
+
+                <h3>Industrial Era (Early 1900s - 1940s)</h3>
+                <p>
+                    Screen printing arrived in the <strong>United States in the early 1900s</strong>, primarily used for commercial signage and wallpaper. American entrepreneurs recognized its potential and began mechanizing the process. By the 1920s-1930s, it was the dominant method for producing commercial signs and promotional materials.
+                </p>
+                <p>
+                    In the <strong>1930s-1940s</strong>, artists began experimenting with screen printing as a fine art medium, and the term <strong>"serigraphy"</strong> was coined to distinguish art prints from commercial work. This elevated the technique's status from purely industrial to fine art.
+                </p>
+
+                <div class="pro-tip">
+                    <strong>Fun Fact:</strong> Andy Warhol and the pop art movement transformed screen printing in the 1960s. His iconic screen-printed works — Campbell's Soup Cans, Marilyn Monroe series, etc. — turned it into a legitimate art form. Today, Warhol's screen prints sell for tens of millions of dollars at auction. Screen printing went from factory floor to fine art gallery.
+                </div>
+
+                <h3>Revolution Era (1960s - 1990s)</h3>
+                <p>
+                    The <strong>1960s-1970s</strong> saw an explosion in t-shirt printing, driven by counterculture movements, band merchandise, and political protest shirts. Screen printing became the default method for custom apparel because it was affordable and produced vibrant, durable prints that could withstand hundreds of washes.
+                </p>
+                <p>
+                    The <strong>1980s-1990s</strong> brought major technological advances: automatic presses, plastisol ink innovations, and flash dryers revolutionized production speed and consistency. What used to require 10+ minutes per shirt could now be done in 30 seconds. Screen printing shops evolved from small local operations to substantial businesses.
+                </p>
+
+                <h3>Digital Age (2000s - Present)</h3>
+                <p>
+                    The rise of digital printing technologies (DTG, sublimation, heat transfer) in the 2000s prompted predictions that screen printing would become obsolete. It didn't. Instead, <strong>screen printing coexists with these newer methods</strong>, each filling different niches:
+                </p>
+                <ul>
+                    <li>Screen printing dominates high-volume production (50+ units) because of cost-efficiency and durability</li>
+                    <li>Digital methods handle one-offs and photo-realistic designs</li>
+                    <li>Hybrid shops offer all methods, choosing the best tool for each job</li>
+                </ul>
+                <p>
+                    Today, screen printing is a mature, stable $10+ billion global industry. It's the method of choice for band merchandise, sports teams, corporate promotional products, and custom apparel businesses worldwide. The American Screen Printing Association (ASPA), founded in 2004, represents the industry and maintains certification standards that validate professional expertise.
+                </p>
+            </section>
+
+            <!-- SECTION 4: PROCESS -->
+            <section id="process">
+                <h2>The Screen Printing Process: Step by Step</h2>
+                <p>
+                    Let's dive deeper into each stage of the screen printing process. Understanding each step helps you appreciate why screen printers are skilled craftspeople, not just machine operators.
+                </p>
+
+                <h3>1. Design Creation & Color Separations</h3>
+                <p>
+                    It starts with artwork. The design must be prepared in vector format (Adobe Illustrator, CorelDRAW, or free Inkscape). Vector files are infinitely scalable without quality loss, unlike raster images (JPG, PNG) which lose detail when enlarged.
+                </p>
+                <p>
+                    For multi-color designs, the artwork is separated into individual color layers — one layer per screen. A 3-color design requires 3 screens. This is called <span class="highlight-term">color separation</span>, and it's both art and science.
+                </p>
+
+                <h3>2. Screen Preparation</h3>
+                <p>
+                    New mesh screens are coated with oils that must be removed. This degrease step ensures emulsion adheres evenly. The screen is scrubbed, rinsed thoroughly, and dried in a dark room.
+                </p>
+
+                <h3>3. Emulsion Coating</h3>
+                <p>
+                    Working in dim or yellow light (emulsion is sensitive to blue/UV light), the screen is coated with light-sensitive emulsion using a scoop coater. The emulsion fills the mesh and must dry completely — 2-4 hours in a dark, temperature-controlled room.
+                </p>
+
+                <h3>4. Film Positive Creation</h3>
+                <p>
+                    Your vector artwork is printed onto transparent film at 100% black. This creates a "positive" — black areas block light, clear areas allow it through. The film must be opaque; any gray tones will cause problems during exposure.
+                </p>
+
+                <h3>5. UV Exposure</h3>
+                <p>
+                    The film positive is placed on the dried emulsion-coated screen. The screen is exposed to UV light (from an exposure unit or the sun) for 1-3 minutes, depending on the light source. The UV hardens the emulsion everywhere EXCEPT where the black film blocks the light.
+                </p>
+
+                <h3>6. Washout & Image Development</h3>
+                <p>
+                    After exposure, the screen is sprayed with water. The unexposed emulsion (which remains soft) washes away, revealing clear mesh where your design is. This is where the "stencil" forms — open mesh for ink to pass through, hardened emulsion to block it.
+                </p>
+
+                <h3>7. Press Setup & Registration</h3>
+                <p>
+                    The screen is mounted on the press. For multi-color prints, precise registration (alignment) is critical. Each subsequent screen must line up perfectly with the previous color. Registration systems use tape marks or mechanical guides.
+                </p>
+
+                <h3>8. Printing</h3>
+                <p>
+                    The shirt or substrate is placed on the platen (printing surface). Ink is loaded on the screen. A squeegee is pulled across the screen with firm, even pressure at a 45-degree angle. The ink deposits onto the substrate in the pattern of the open mesh. For multi-color prints, this repeats for each color.
+                </p>
+
+                <h3>9. Curing</h3>
+                <p>
+                    Plastisol ink must be heated to 320°F to cure (polymerize and bond to the fabric). This is done via flash dryer (between colors) or conveyor dryer (final cure). Without proper curing, prints fade and crack during washing.
+                </p>
+
+                <h3>10. Quality Check & Finishing</h3>
+                <p>
+                    The finished print is inspected for coverage, color accuracy, and registration. For multi-color prints, all colors must align perfectly. Improperly cured prints will fail stretch tests or wash tests.
+                </p>
+            </section>
+
+            <!-- SECTION 5: TYPES -->
+            <section id="types">
+                <h2>Types of Screen Printing</h2>
+                <p>
+                    While the fundamental process remains the same, screen printing adapts to different substrates and production needs. Here are the main variants:
+                </p>
+
+                <h3>Flat-Bed Screen Printing</h3>
+                <p>
+                    This is the most common type. The substrate (usually a flat item like a t-shirt, poster, or sign) sits on a stationary platen. The screen moves down and back up to print. Used for:
+                </p>
+                <ul>
+                    <li>T-shirts and apparel</li>
+                    <li>Posters and art prints</li>
+                    <li>Signage and displays</li>
+                    <li>Individual items with custom designs</li>
+                </ul>
+                <p>
+                    Both manual presses (hand-pulled squeegee) and automatic presses (motor-driven) fall into this category.
+                </p>
+
+                <h3>Rotary Screen Printing</h3>
+                <p>
+                    Instead of a flat screen, cylindrical screens rotate continuously. This allows for extremely fast, continuous printing. Ideal for:
+                </p>
+                <ul>
+                    <li>Textile manufacturing (yards of fabric rolling through)</li>
+                    <li>High-volume production (thousands of units)</li>
+                    <li>Apparel manufacturers producing bulk orders</li>
+                </ul>
+                <p>
+                    Rotary presses are expensive ($50,000+) but produce staggering volumes — thousands of shirts per hour.
+                </p>
+
+                <h3>Cylinder/Curved Surface Printing</h3>
+                <p>
+                    Adapted for printing on cylindrical objects like bottles, cups, mugs, and cans. The screen conforms to the curved surface, allowing logos and designs to wrap around containers.
+                </p>
+
+                <h3>Manual vs Automatic Presses</h3>
+                <p>
+                    <strong>Manual presses</strong> require the operator to hand-pull the squeegee. Ideal for small shops, custom work, and learning the craft. Cost: $300-$1,500.
+                </p>
+                <p>
+                    <strong>Automatic presses</strong> use motors to drive the squeegee and manage platen movement. Consistent pressure, speed, and repeatability. Cost: $3,000-$25,000+. Essential at scale (50+ shirts per day).
+                </p>
+                <p>
+                    Most screen printers start with manual presses and upgrade to automatic as volume increases.
+                </p>
+            </section>
+
+            <!-- SECTION 6: SUBSTRATES -->
+            <section id="substrates">
+                <h2>What Can You Screen Print On?</h2>
+                <p>
+                    This versatility is screen printing's superpower. Unlike many printing methods, screen printing works on virtually any material that can sit flat (or nearly flat) on a printing surface. Here's the range:
+                </p>
+
+                <h3>Textiles</h3>
+                <ul>
+                    <li>T-shirts and tops</li>
+                    <li>Hoodies and sweatshirts</li>
+                    <li>Tote bags and canvas</li>
+                    <li>Hats and baseball caps</li>
+                    <li>Athletic jerseys and sportswear</li>
+                    <li>Socks and underwear</li>
+                    <li>Bandanas and scarves</li>
+                </ul>
+
+                <h3>Paper & Cardboard</h3>
+                <ul>
+                    <li>Art prints and posters</li>
+                    <li>Packaging and boxes</li>
+                    <li>Greeting cards</li>
+                    <li>Stickers and decals</li>
+                    <li>Business cards (specialty applications)</li>
+                </ul>
+
+                <h3>Plastics</h3>
+                <ul>
+                    <li>Signs and displays</li>
+                    <li>Decals and stickers</li>
+                    <li>Product labels</li>
+                    <li>Electronics panels and overlays</li>
+                    <li>Plastic bags and film</li>
+                </ul>
+
+                <h3>Metals</h3>
+                <ul>
+                    <li>Nameplates and identification tags</li>
+                    <li>Signage and architectural panels</li>
+                    <li>Decorative metal art</li>
+                    <li>Aluminum composites</li>
+                </ul>
+
+                <h3>Glass & Ceramics</h3>
+                <ul>
+                    <li>Bottles and jars</li>
+                    <li>Mugs and drinkware</li>
+                    <li>Tiles and decorative ceramics</li>
+                    <li>Awards and recognition plaques</li>
+                    <li>Glass art prints</li>
+                </ul>
+
+                <h3>Wood</h3>
+                <ul>
+                    <li>Signage and displays</li>
+                    <li>Art prints and wall decor</li>
+                    <li>Furniture and cabinet overlays</li>
+                    <li>Wooden gift items</li>
+                </ul>
+
+                <p>
+                    This versatility is exactly why screen printing has survived every prediction of its demise. No other single printing method can handle this range of materials. A t-shirt printer, a sign maker, and a ceramic artist can all use screen printing, making it indispensable across industries.
+                </p>
+            </section>
+
+            <!-- SECTION 7: COMPARISON -->
+            <section id="comparison">
+                <h2>Screen Printing vs Other Methods</h2>
+                <p>
+                    Modern printing offers several options. How does screen printing compare? Here's a quick guide (see our detailed comparison article for an in-depth analysis):
+                </p>
+
+                <h3>Screen Printing vs DTG (Direct-to-Garment)</h3>
+                <p>
+                    <strong>DTG</strong> prints directly from a digital file onto a shirt using inkjet technology — no screens required.
+                </p>
+                <ul>
+                    <li><strong>Screen Printing wins for:</strong> Volume (50+ units), durability, cost-per-shirt at scale, vibrant colors, all fabric colors</li>
+                    <li><strong>DTG wins for:</strong> One-offs, photo-realistic designs, small orders, no setup time, complex gradients</li>
+                </ul>
+
+                <h3>Screen Printing vs Sublimation</h3>
+                <p>
+                    <strong>Sublimation</strong> uses heat to transfer dye into polyester fabric (dye sublimation).
+                </p>
+                <ul>
+                    <li><strong>Screen Printing wins for:</strong> All fabric types (cotton, dark colors), durability, bold solid colors, cost at volume</li>
+                    <li><strong>Sublimation wins for:</strong> Photo-realistic quality, no setup, polyester only, light-colored substrates</li>
+                </ul>
+
+                <h3>Screen Printing vs Heat Transfer / Vinyl</h3>
+                <p>
+                    <strong>Heat transfer</strong> uses vinyl or transfer paper applied with heat. <strong>Vinyl cutting</strong> creates individual designs.
+                </p>
+                <ul>
+                    <li><strong>Screen Printing wins for:</strong> Volume, durability, cost, wash-fastness, complex designs</li>
+                    <li><strong>Heat Transfer/Vinyl wins for:</strong> Individual customization (names, numbers), small orders, quick turnaround</li>
+                </ul>
+
+                <h3>Screen Printing vs Digital/Offset Printing</h3>
+                <p>
+                    <strong>Digital and offset printing</strong> work best on paper substrates.
+                </p>
+                <ul>
+                    <li><strong>Screen Printing wins for:</strong> Non-paper substrates (textiles, plastic, metal), thick ink deposit, durability on non-paper</li>
+                    <li><strong>Digital/Offset wins for:</strong> Paper-based materials, photographic quality, very high volumes, cost on paper stock</li>
+                </ul>
+
+                <p>
+                    <strong>The bottom line:</strong> Screen printing isn't always the best choice, but for production volume on diverse substrates with durability requirements, nothing beats it. Smart printers use multiple methods and choose the right tool for each job.
+                </p>
+            </section>
+
+            <!-- SECTION 8: MODERN INDUSTRY -->
+            <section id="modern">
+                <h2>Modern Screen Printing: Where the Industry Stands in 2026</h2>
+                <p>
+                    Screen printing has not only survived the digital revolution — it's thriving. Here's the current state of the industry:
+                </p>
+
+                <h3>Market Size & Growth</h3>
+                <p>
+                    The global screen printing market is valued at over <strong>$10 billion annually</strong>, with steady growth projected through 2030. The market includes:
+                </p>
+                <ul>
+                    <li>Apparel decoration (t-shirts, hoodies, jerseys)</li>
+                    <li>Signage and display manufacturing</li>
+                    <li>Industrial printing (circuit boards, product labels)</li>
+                    <li>Fine art and limited edition prints</li>
+                    <li>Promotional products and corporate branding</li>
+                </ul>
+
+                <h3>Technology & Automation</h3>
+                <p>
+                    Modern automatic presses can now print <strong>1,000+ shirts per hour</strong> with minimal variation. Innovations include:
+                </p>
+                <ul>
+                    <li>Computerized registration systems for pixel-perfect color alignment</li>
+                    <li>Conveyor dryers with precise temperature control and monitoring</li>
+                    <li>Automatic ink recirculation systems</li>
+                    <li>Screen imaging software and RIP (Raster Image Processor) solutions</li>
+                    <li>Integration with e-commerce platforms (Printavo, DecoNetwork, InkSoft)</li>
+                </ul>
+
+                <h3>Sustainability & Eco-Friendly Inks</h3>
+                <p>
+                    Water-based and eco-friendly inks are growing rapidly. These inks:
+                </p>
+                <ul>
+                    <li>Reduce chemical waste and environmental impact</li>
+                    <li>Feel softer on fabric (preferred by consumers)</li>
+                    <li>Are non-toxic and safer for shop workers</li>
+                    <li>Still provide excellent durability and wash-fastness</li>
+                </ul>
+                <p>
+                    While still more expensive than plastisol, water-based ink adoption is accelerating as sustainability becomes a customer priority.
+                </p>
+
+                <h3>Hybrid Shops & Technology Integration</h3>
+                <p>
+                    Leading shops now offer <strong>multiple printing methods under one roof</strong> — screen printing, DTG, sublimation, heat transfer, and embroidery. They choose the best technology for each job, maximizing quality and profitability.
+                </p>
+
+                <h3>ASPA & Industry Standards</h3>
+                <p>
+                    The American Screen Printing Association represents the industry with over 1,200 members. ASPA provides:
+                </p>
+                <ul>
+                    <li>The Certified Screen Printer (CSP) credential — industry-standard certification</li>
+                    <li>Annual conferences and training programs</li>
+                    <li>Industry publications and research</li>
+                    <li>Member directory connecting businesses, suppliers, and professionals</li>
+                </ul>
+                <p>
+                    ASPA certification is the gold standard for demonstrating professional expertise and commanding premium rates.
+                </p>
+            </section>
+
+            <!-- SECTION 9: APPLICATIONS -->
+            <section id="applications">
+                <h2>Who Uses Screen Printing Today?</h2>
+                <p>
+                    Screen printing serves a diverse ecosystem of customers and use cases. Here's who's printing and why:
+                </p>
+
+                <h3>Custom Apparel Businesses</h3>
+                <p>
+                    The backbone of the industry. Companies specializing in custom t-shirts, hoodies, and branded apparel use screen printing for its cost-efficiency at volume and durability. Local printers serve schools, organizations, and businesses with small-to-medium orders (24-500 units).
+                </p>
+
+                <h3>Band & Music Merchandise</h3>
+                <p>
+                    Still the #1 application for screen printing. Concert merchandise, limited-edition band tees, and artist collaborations are almost exclusively screen printed because of the premium quality, durability, and brand perception. Screen printing on merch sells the vibe.
+                </p>
+
+                <h3>Sports Teams & Athletic Programs</h3>
+                <p>
+                    School districts, college programs, and professional teams use screen printing for jerseys, warm-up gear, and fan apparel. The durability handles intense washing and athletic wear requirements.
+                </p>
+
+                <h3>Corporate Promotional Products</h3>
+                <p>
+                    Branded company merchandise — t-shirts, hats, bags — reaches customers and employees cost-effectively through screen printing. Companies order bulk quantities and distribute at events, trade shows, and as employee rewards.
+                </p>
+
+                <h3>Signage & Display Manufacturing</h3>
+                <p>
+                    Large-format screen printing creates outdoor signs, interior displays, promotional banners, and architectural graphics. The durability and vibrant colors are ideal for high-traffic retail and commercial environments.
+                </p>
+
+                <h3>Artists & Printmakers</h3>
+                <p>
+                    Fine artists use screen printing to create limited-edition art prints. The process allows for artistic control and produces gallery-quality results. Prints can be sold at exhibitions, online, or through galleries.
+                </p>
+
+                <h3>Screen Printers & Garment Decorators</h3>
+                <p>
+                    Professionals who specialize in screen printing — running their own shops or shops. They serve a mix of customers: businesses needing bulk orders, individuals with custom designs, and wholesalers supplying retail.
+                </p>
+
+                <h3>Educational Institutions</h3>
+                <p>
+                    Schools and universities use screen printing in art programs and for producing educational materials. It teaches graphic design, color theory, and technical skills.
+                </p>
+
+                <h3>Electronics & Industrial Manufacturing</h3>
+                <p>
+                    Screen printing is critical for printed circuit boards, product labels, control panels, and instrument overlays. Precision and durability requirements are met by industrial-grade screen printing equipment.
+                </p>
+
+                <p>
+                    <strong>Rule of thumb:</strong> If your order is 24 or more units and needs to last, screen printing is almost certainly the answer.
+                </p>
+            </section>
+
+            <!-- SECTION 10: GETTING STARTED -->
+            <section id="getting-started">
+                <h2>Getting Started with Screen Printing</h2>
+                <p>
+                    Interested in learning screen printing or launching a business? Here are the next steps:
+                </p>
+
+                <h3>Learn the Hands-On Process</h3>
+                <p>
+                    Our detailed beginner's guide walks you through screen printing step-by-step: equipment setup, artwork preparation, exposure, printing technique, and curing. You'll learn exactly what to do and common mistakes to avoid.
+                </p>
+                <p>
+                    <a href="article-how-to-screen-print.html">Read: "How to Screen Print T-Shirts: Complete Beginner's Guide"</a>
+                </p>
+
+                <h3>Equipment & Setup Guide</h3>
+                <p>
+                    Not sure what equipment to buy or how to set up your workspace? Our equipment guide covers presses, screens, inks, exposure units, and everything else you need — with budget recommendations for hobby, small business, and professional operations.
+                </p>
+                <p>
+                    <a href="article-equipment-guide.html">Read: "Screen Printing Equipment Guide for Beginners"</a>
+                </p>
+
+                <h3>Get Professional Certified</h3>
+                <p>
+                    The <strong>CSP (Certified Screen Printer)</strong> credential validates your knowledge and expertise. It covers the entire process, advanced troubleshooting, chemistry, and business management. Certification boosts credibility with clients, increases pricing power, and demonstrates professional commitment.
+                </p>
+                <p>
+                    <a href="exam.html">Learn about the CSP Certification Exam</a>
+                </p>
+
+                <h3>Join the Screen Printing Community</h3>
+                <p>
+                    Connect with thousands of screen printers in the ASPA Member Directory. Network, share knowledge, find suppliers, and stay current with industry trends. ASPA offers exclusive training, annual conferences, and resources available only to members.
+                </p>
+                <p>
+                    <a href="join.html">Join ASPA Membership Today</a>
+                </p>
+
+                <h3>Dive Deeper into Comparisons & Costs</h3>
+                <p>
+                    Ready to compare screen printing with other methods? Wondering about startup costs? We have detailed guides covering business costs, technology comparisons, and industry trends.
+                </p>
+                <p>
+                    <a href="article-startup-costs.html">Read: "How Much Does It Cost to Start a Screen Printing Business?"</a>
+                </p>
+            </section>
+
+            <!-- RELATED ARTICLES -->
+            <section class="related-articles">
+                <h2>Related Articles</h2>
+                <div class="related-grid">
+                    <div class="article-card">
+                        <h3>How to Screen Print T-Shirts: Complete Beginner's Guide</h3>
+                        <p>Step-by-step guide covering equipment, artwork, exposure, printing, and curing. Learn the hands-on process from experienced screen printers.</p>
+                        <a href="article-how-to-screen-print.html">Read Article →</a>
+                    </div>
+                    <div class="article-card">
+                        <h3>Screen Printing vs DTG vs Sublimation</h3>
+                        <p>Compare screen printing with digital direct-to-garment and sublimation printing. Learn which method works best for your project and budget.</p>
+                        <a href="article-screen-print-vs-dtg.html">Read Article →</a>
+                    </div>
+                    <div class="article-card">
+                        <h3>How Much Does It Cost to Start a Screen Printing Business?</h3>
+                        <p>Detailed breakdown of startup costs, equipment budgets, ROI timelines, and profitability for launching a professional screen printing operation.</p>
+                        <a href="article-startup-costs.html">Read Article →</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA BANNER -->
+            <div class="cta-banner">
+                <h2>Ready to Get Certified?</h2>
+                <p>Get CSP certified and join 1,200+ screen printing professionals worldwide. Boost your credibility, command premium rates, and access exclusive ASPA resources.</p>
+                <div class="cta-buttons">
+                    <a href="exam.html" class="cta-btn cta-btn-primary">Start CSP Exam →</a>
+                    <a href="join.html" class="cta-btn cta-btn-secondary">Join ASPA</a>
+                </div>
+            </div>
+        </article>
+    </div>
+
+    <!-- ========================================
+         FOOTER
+         ======================================== -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Directory</h4>
+                    <ul>
+                        <li><a href="directory.html">Member Directory</a></li>
+                        <li><a href="index.html#certification">CSP Certification</a></li>
+                        <li><a href="index.html#membership">Membership Tiers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Certification</h4>
+                    <ul>
+                        <li><a href="certified-roster.html">CSP Roster</a></li>
+                        <li><a href="index.html#certification">CSP Program</a></li>
+                        <li><a href="#">Certification Standards</a></li>
+                        <li><a href="#">Apply for Certification</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Association</h4>
+                    <ul>
+                        <li><a href="about.html">About ASPA</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                Copyright © 2004-2026 American Screen Printing Association. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========================================
+         JAVASCRIPT - TOC Active State & Mobile Menu
+         ======================================== -->
+    <script>
+        // Table of Contents - Active State Management
+        const tocLinks = document.querySelectorAll('.toc-list a');
+        const sections = document.querySelectorAll('section[id]');
+
+        function updateActiveTOC() {
+            let current = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 150;
+                if (window.pageYOffset >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveTOC);
+        window.addEventListener('load', updateActiveTOC);
+
+        // Smooth scroll for TOC links
+        tocLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Mobile Menu Toggle (Placeholder)
+        function toggleMobileMenu() {
+            console.log('Mobile menu toggled');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASPA+ Membership Launch: New Benefits for Screen Printers in 2026 | ASPA</title>
+    <meta name="description" content="ASPA launches ASPA+ annual membership for screen printers. New benefits including CE credits, supplier discounts, priority directory placement, and more.">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ========================================
+           DESIGN SYSTEM & ROOT VARIABLES
+           ======================================== */
+        :root {
+            --ink-black: #0a0a0a;
+            --ink-dark: #1a1a2e;
+            --ink-purple: #6c2bd9;
+            --ink-magenta: #e91e8c;
+            --ink-cyan: #00d4ff;
+            --ink-yellow: #ffd400;
+            --ink-orange: #ff6b35;
+            --ink-white: #f8f8f8;
+            --ink-gray: #b0b0b0;
+            --ink-gray-dark: #2a2a3e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--ink-black);
+            color: var(--ink-white);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ========================================
+           NAVIGATION BAR
+           ======================================== */
+        nav {
+            background-color: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 0 24px;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .nav-logo {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .nav-logo-main {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--ink-white);
+            letter-spacing: 2px;
+        }
+
+        .nav-logo-sub {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 9px;
+            font-weight: 600;
+            color: var(--ink-cyan);
+            letter-spacing: 1.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--ink-gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--ink-cyan);
+        }
+
+        .nav-links a.active {
+            color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            color: var(--ink-black);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background-color: var(--ink-white);
+            border-radius: 2px;
+            transition: 0.3s ease;
+        }
+
+        /* ========================================
+           ARTICLE HEADER
+           ======================================== */
+        .article-header {
+            background: linear-gradient(135deg, rgba(108, 43, 217, 0.1) 0%, rgba(233, 30, 140, 0.05) 100%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 48px 24px;
+        }
+
+        .article-header-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            color: var(--ink-gray);
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+        }
+
+        .breadcrumb a {
+            color: var(--ink-cyan);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--ink-yellow);
+        }
+
+        .category-tag {
+            display: inline-block;
+            background-color: rgba(176, 176, 176, 0.15);
+            border: 1px solid rgba(176, 176, 176, 0.4);
+            color: var(--ink-gray);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .article-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--ink-white);
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+            line-height: 1.2;
+        }
+
+        .article-meta {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            color: var(--ink-gray);
+            margin-bottom: 24px;
+            letter-spacing: 0.3px;
+        }
+
+        .article-intro {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #d0d0d0;
+        }
+
+        /* ========================================
+           ARTICLE LAYOUT (TOC + Content)
+           ======================================== */
+        .article-wrapper {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        /* ========================================
+           TABLE OF CONTENTS (Sidebar)
+           ======================================== */
+        .toc-sidebar {
+            position: sticky;
+            top: 90px;
+            height: fit-content;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+        }
+
+        .toc-sidebar h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--ink-cyan);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        .toc-list {
+            list-style: none;
+        }
+
+        .toc-list li {
+            margin-bottom: 10px;
+        }
+
+        .toc-list a {
+            font-size: 14px;
+            color: var(--ink-gray);
+            text-decoration: none;
+            transition: color 0.2s ease;
+            padding-left: 12px;
+            border-left: 2px solid transparent;
+            display: block;
+            transition: all 0.2s ease;
+        }
+
+        .toc-list a:hover {
+            color: var(--ink-cyan);
+            border-left-color: var(--ink-cyan);
+        }
+
+        .toc-list a.active {
+            color: var(--ink-cyan);
+            border-left-color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        /* ========================================
+           ARTICLE CONTENT
+           ======================================== */
+        .article-content {
+            max-width: 800px;
+        }
+
+        article h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--ink-white);
+            margin-top: 48px;
+            margin-bottom: 20px;
+            padding-left: 16px;
+            border-left: 4px solid var(--ink-cyan);
+            letter-spacing: 0.5px;
+        }
+
+        article h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--ink-white);
+            margin-top: 32px;
+            margin-bottom: 16px;
+            letter-spacing: 0.3px;
+        }
+
+        article p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 18px;
+            color: #e0e0e0;
+        }
+
+        article strong {
+            color: var(--ink-white);
+            font-weight: 600;
+        }
+
+        article em {
+            color: var(--ink-cyan);
+            font-style: italic;
+        }
+
+        .highlight-term {
+            color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        article ul, article ol {
+            margin: 20px 0 20px 24px;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        article li {
+            margin-bottom: 12px;
+            color: #e0e0e0;
+        }
+
+        /* ========================================
+           CALLOUT BOXES
+           ======================================== */
+        .pro-tip {
+            background-color: rgba(108, 43, 217, 0.15);
+            border-left: 4px solid var(--ink-cyan);
+            border-radius: 4px;
+            padding: 20px;
+            margin: 28px 0;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .pro-tip strong {
+            color: var(--ink-cyan);
+            font-weight: 700;
+        }
+
+        .safety-warning {
+            background-color: rgba(255, 107, 53, 0.1);
+            border-left: 4px solid var(--ink-orange);
+            border-radius: 4px;
+            padding: 20px;
+            margin: 28px 0;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .safety-warning strong {
+            color: var(--ink-orange);
+            font-weight: 700;
+        }
+
+        .budget-breakdown {
+            background-color: rgba(0, 212, 255, 0.08);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 8px;
+            padding: 24px;
+            margin: 28px 0;
+        }
+
+        .budget-breakdown h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--ink-cyan);
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+        }
+
+        .budget-breakdown ul {
+            list-style: none;
+            margin: 0;
+        }
+
+        .budget-breakdown li {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 1.05rem;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        .budget-breakdown li:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .budget-range {
+            color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        /* ========================================
+           NUMBERED STEPS
+           ======================================== */
+        .step {
+            margin: 32px 0;
+            padding: 24px;
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: 4px;
+            border-left: 4px solid var(--ink-purple);
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            color: var(--ink-black);
+            border-radius: 50%;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .step h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--ink-white);
+            margin-bottom: 12px;
+        }
+
+        .step p {
+            margin-bottom: 12px;
+        }
+
+        .step p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ========================================
+           RELATED ARTICLES SECTION
+           ======================================== */
+        .related-articles {
+            margin-top: 60px;
+            padding: 40px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .related-articles h2 {
+            margin-top: 0;
+            border-left: none;
+            padding-left: 0;
+            margin-bottom: 32px;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .article-card {
+            background-color: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 8px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .article-card:hover {
+            border-color: var(--ink-cyan);
+            background-color: rgba(0, 212, 255, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .article-card h3 {
+            margin-top: 0;
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        .article-card p {
+            font-size: 14px;
+            color: var(--ink-gray);
+            flex-grow: 1;
+            margin-bottom: 16px;
+        }
+
+        .article-card a {
+            color: var(--ink-cyan);
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            transition: color 0.2s ease;
+            align-self: flex-start;
+        }
+
+        .article-card a:hover {
+            color: var(--ink-yellow);
+        }
+
+        /* ========================================
+           CTA BANNER
+           ======================================== */
+        .cta-banner {
+            background: linear-gradient(135deg, rgba(108, 43, 217, 0.2) 0%, rgba(233, 30, 140, 0.1) 100%);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 12px;
+            padding: 40px;
+            margin-top: 60px;
+            text-align: center;
+        }
+
+        .cta-banner h2 {
+            border-left: none;
+            padding-left: 0;
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 32px;
+        }
+
+        .cta-banner p {
+            font-size: 18px;
+            color: #d0d0d0;
+            margin-bottom: 28px;
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .cta-btn-primary {
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            color: var(--ink-black);
+            border: none;
+        }
+
+        .cta-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
+        }
+
+        .cta-btn-secondary {
+            background-color: transparent;
+            color: var(--ink-cyan);
+            border: 2px solid var(--ink-cyan);
+        }
+
+        .cta-btn-secondary:hover {
+            background-color: rgba(0, 212, 255, 0.1);
+            border-color: var(--ink-yellow);
+            color: var(--ink-yellow);
+        }
+
+        /* ========================================
+           FOOTER
+           ======================================== */
+        footer {
+            background-color: var(--ink-dark);
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 40px 24px 20px;
+            margin-top: 60px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--ink-cyan);
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            display: block;
+            color: var(--ink-gray);
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 12px;
+            transition: color 0.2s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--ink-cyan);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            color: var(--ink-gray);
+            font-size: 13px;
+        }
+
+        /* ========================================
+           MOBILE RESPONSIVE
+           ======================================== */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .article-title {
+                font-size: 32px;
+            }
+
+            .article-wrapper {
+                grid-template-columns: 1fr;
+                gap: 24px;
+                padding: 24px 16px;
+            }
+
+            .toc-sidebar {
+                position: static;
+                top: auto;
+                max-height: none;
+                margin-bottom: 24px;
+                padding: 20px;
+                background-color: rgba(255, 255, 255, 0.03);
+                border-radius: 8px;
+                border-left: 4px solid var(--ink-cyan);
+            }
+
+            .toc-list a {
+                font-size: 13px;
+            }
+
+            article h2 {
+                font-size: 24px;
+                margin-top: 32px;
+            }
+
+            article h3 {
+                font-size: 18px;
+            }
+
+            article p {
+                font-size: 1rem;
+            }
+
+            .cta-banner {
+                padding: 24px;
+            }
+
+            .cta-banner h2 {
+                font-size: 24px;
+            }
+
+            .cta-banner p {
+                font-size: 16px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .cta-btn {
+                width: 100%;
+            }
+
+            .related-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ========================================
+           SCROLLBAR STYLING
+           ======================================== */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--ink-cyan);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--ink-magenta);
+        }
+    </style>
+</head>
+<body>
+    <!-- ========================================
+         NAVIGATION
+         ======================================== -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="nav-logo-main">ASPA</div>
+                <div class="nav-logo-sub">Since 2004</div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="directory.html">Directory</a></li>
+                <li><a href="certified-roster.html">Certified</a></li>
+                <li><a href="index.html#certification">Certification</a></li>
+                <li><a href="index.html#membership">Membership</a></li>
+                <li><a href="resources.html">Resources</a></li>
+            </ul>
+            <a href="join.html" class="nav-cta">Join ASPA</a>
+            <button class="hamburger" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ========================================
+         ARTICLE HEADER
+         ======================================== -->
+    <div class="article-header">
+        <div class="article-header-container">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a> > <a href="resources.html">Resources</a> > <a href="resources.html">Industry News</a> > ASPA Launches ASPA+ Membership: What's New for 2026
+            </div>
+            <span class="category-tag">Industry News</span>
+            <h1 class="article-title">ASPA Launches ASPA+ Membership: What's New for 2026</h1>
+            <div class="article-meta">Published March 2026 · 6 min read</div>
+            <p class="article-intro">
+                The American Screen Printing Association is evolving. In 2026, ASPA is launching ASPA+ — a new annual membership model designed to give screen printing professionals ongoing value, not just a one-time transaction. Whether you're a home-based printer, a production shop, or an industry supplier, ASPA+ has a tier built for you. Here's everything you need to know.
+            </p>
+        </div>
+    </div>
+
+    <!-- ========================================
+         ARTICLE WRAPPER (TOC + Content)
+         ======================================== -->
+    <div class="article-wrapper">
+        <!-- TABLE OF CONTENTS SIDEBAR -->
+        <aside class="toc-sidebar">
+            <h3>Contents</h3>
+            <ul class="toc-list">
+                <li><a href="#introduction">Introduction</a></li>
+                <li><a href="#why-change">Why the Change?</a></li>
+                <li><a href="#three-tiers">Three ASPA+ Tiers</a></li>
+                <li><a href="#continuing-education">Continuing Education</a></li>
+                <li><a href="#supplier-discounts">Supplier Discounts</a></li>
+                <li><a href="#what-stays-same">What Stays the Same</a></li>
+                <li><a href="#how-to-join">How to Join</a></li>
+                <li><a href="#future">The Future of ASPA</a></li>
+            </ul>
+        </aside>
+
+        <!-- MAIN ARTICLE CONTENT -->
+        <article class="article-content">
+            <!-- INTRODUCTION -->
+            <section id="introduction">
+                <h2>Introduction: A New Chapter for ASPA</h2>
+                <p>
+                    The American Screen Printing Association is evolving. In 2026, ASPA is launching ASPA+ — a new annual membership model designed to give screen printing professionals ongoing value, not just a one-time transaction. Whether you're a home-based printer, a production shop, or an industry supplier, ASPA+ has a tier built for you.
+                </p>
+                <p>
+                    This launch represents a fundamental shift in how we serve the screen printing community. Instead of a static, one-time membership purchase, ASPA+ delivers continuous benefits: fresh educational resources every month, evolving tools that grow with your business, expanded industry networking opportunities, and exclusive partnerships that directly impact your bottom line.
+                </p>
+                <p>
+                    For nearly 23 years, ASPA has been the home base for screen printing professionals worldwide. ASPA+ is our commitment to remaining the most valuable resource in the industry — one where membership actively supports your growth, year after year.
+                </p>
+            </section>
+
+            <!-- WHY THE CHANGE -->
+            <section id="why-change">
+                <h2>Why the Change?</h2>
+                <p>
+                    ASPA has served the screen printing community since 2004 with members in over 100 countries. The original membership model was one-time payment, lifetime access — and that worked for years. But the industry evolves fast, and members told us they want more: ongoing education, fresh resources, industry connections, and tools that grow with their businesses. ASPA+ is the answer — a sustainable model that lets us continuously invest in new content, tools, and community features for our members.
+                </p>
+
+                <h3>What About Existing Members?</h3>
+                <p>
+                    Here's the most important part: <span class="highlight-term">Legacy members (existing one-time purchases) are fully grandfathered</span> — nothing changes for them. They keep all current benefits indefinitely. They can upgrade to ASPA+ at a special discounted rate to unlock new perks, but there's zero pressure. Your existing membership remains valid forever.
+                </p>
+
+                <p>
+                    This is our way of honoring the professionals who believed in ASPA from the beginning. You're the foundation of this community, and we're not abandoning that trust.
+                </p>
+            </section>
+
+            <!-- THREE TIERS -->
+            <section id="three-tiers">
+                <h2>Three ASPA+ Tiers</h2>
+                <p>
+                    ASPA+ is designed for different needs across the screen printing ecosystem. Choose the tier that fits your role and business stage.
+                </p>
+
+                <h3>ASPA+ Business ($49/year)</h3>
+                <p>
+                    For screen printing shops, t-shirt businesses, and individual printers.
+                </p>
+                <ul>
+                    <li>Priority placement in the Member Directory (ASPA+ members appear first in search results)</li>
+                    <li>Annual CSP recertification included (no separate recert fee)</li>
+                    <li>Continuing Education (CE) credits through ASPA content and events</li>
+                    <li>Industry supplier discount program (exclusive deals on ink, equipment, blanks)</li>
+                    <li>Access to exclusive webinars and educational resources</li>
+                    <li>ASPA+ digital badge for your website and marketing</li>
+                    <li>Monthly member newsletter with industry insights</li>
+                </ul>
+
+                <h3>ASPA+ Supplier ($99/year)</h3>
+                <p>
+                    For equipment manufacturers, ink suppliers, blank garment distributors, and service providers.
+                </p>
+                <ul>
+                    <li>Featured supplier spotlight in the ASPA directory</li>
+                    <li>Promotion to ASPA members via newsletter and resource hub</li>
+                    <li>Member-to-supplier deal promotion platform</li>
+                    <li>Logo placement in ASPA publications and events</li>
+                    <li>Access to industry data and member demographics</li>
+                    <li>All Business tier benefits included</li>
+                </ul>
+
+                <h3>ASPA+ Training ($79/year)</h3>
+                <p>
+                    For educators, schools, and training programs.
+                </p>
+                <ul>
+                    <li>Updated training content and new modules released annually</li>
+                    <li>CE credits for instructors</li>
+                    <li>Curriculum alignment with CSP exam content</li>
+                    <li>Student discount on CSP exam fees</li>
+                    <li>Access to educational resources and teaching guides</li>
+                    <li>All Business tier benefits included</li>
+                </ul>
+
+                <div class="pro-tip">
+                    <strong>Pro Tip:</strong> Not sure which tier fits your situation? The Business tier is perfect for individual printers and small shops. Suppliers should go Supplier. If you run a training program, the Training tier gives you curriculum alignment and student discounts that justify the investment immediately.
+                </div>
+            </section>
+
+            <!-- CONTINUING EDUCATION -->
+            <section id="continuing-education">
+                <h2>Continuing Education: A First for Screen Printing</h2>
+                <p>
+                    One of the biggest additions in ASPA+: a structured CE credit system. This is genuinely new for the screen printing industry.
+                </p>
+
+                <p>
+                    <span class="highlight-term">CSP-certified professionals</span> will earn credits through ASPA content consumption, webinar attendance, training completion, and industry participation. CE credits keep your certification active and ensure you're staying current with evolving techniques, safety standards, and industry trends.
+                </p>
+
+                <p>
+                    Why does this matter? In other professional trades—plumbing, electrical work, healthcare—continuing education is the standard. It signals to clients and employers that you're serious about mastery. ASPA+ brings that same professional standard to screen printing.
+                </p>
+
+                <h3>How CE Credits Work</h3>
+                <ul>
+                    <li>Read an ASPA educational article (15 min): 0.25 credits</li>
+                    <li>Watch a training webinar (1 hour): 1 credit</li>
+                    <li>Complete a full course module: 2-4 credits</li>
+                    <li>Attend an ASPA industry event (half-day): 2 credits</li>
+                    <li>Participate in community forums and peer learning: Bonus credits</li>
+                </ul>
+
+                <p>
+                    Your credit tracking dashboard shows your progress toward renewal requirements. No complex forms. No confusion. Just transparent, trackable professional development.
+                </p>
+            </section>
+
+            <!-- SUPPLIER DISCOUNTS -->
+            <section id="supplier-discounts">
+                <h2>The Supplier Discount Program</h2>
+                <p>
+                    ASPA+ members get access to negotiated discounts with leading industry suppliers. We're building partnerships with equipment manufacturers, ink companies, blank garment distributors, and software providers to bring exclusive pricing to the ASPA community.
+                </p>
+
+                <p>
+                    Details on launch partners will be announced soon — but the goal is simple: <span class="highlight-term">your ASPA+ membership should pay for itself in supplier savings within the first few orders.</span>
+                </p>
+
+                <h3>Why This Works</h3>
+                <p>
+                    The screen printing supply chain is fragmented. You buy ink from one vendor, equipment from another, blanks from a third, software from a fourth. ASPA+ aggregates member buying power across 1,200+ professionals, giving us leverage to negotiate better pricing.
+                </p>
+
+                <p>
+                    Those savings flow directly to you. A shop that orders supplies monthly could save $300-$1,000 annually just through the discount program. That's 6-20 times the cost of a $49 membership.
+                </p>
+            </section>
+
+            <!-- WHAT STAYS THE SAME -->
+            <section id="what-stays-same">
+                <h2>What Stays the Same</h2>
+                <p>
+                    Important: ASPA's core offerings aren't changing. We're not gatekeeping existing resources or charging for things that were free before.
+                </p>
+
+                <ul>
+                    <li><strong>The CSP certification exam remains available to everyone ($59)</strong> — no paywall, no membership required</li>
+                    <li><strong>The Resource Hub and educational articles remain free and public</strong> — anyone can read, learn, and grow</li>
+                    <li><strong>The Member Directory remains accessible to the public</strong> — it helps your customers find you!</li>
+                    <li><strong>ASPA's mission — Education, Certification, Community — is unchanged</strong></li>
+                    <li><strong>Legacy members retain all existing benefits</strong></li>
+                </ul>
+
+                <p>
+                    ASPA+ is <span class="highlight-term">additive</span> — it adds new value on top of what already exists. Nothing is being taken away.
+                </p>
+            </section>
+
+            <!-- HOW TO JOIN -->
+            <section id="how-to-join">
+                <h2>How to Join</h2>
+                <p>
+                    Getting started is simple.
+                </p>
+
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h4>Visit the ASPA+ Membership Page</h4>
+                    <p>Go to <a href="join.html" style="color: var(--ink-cyan); text-decoration: underline;">join.aspa.org</a> and explore the three tiers.</p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h4>Choose Your Tier</h4>
+                    <p>Select Business ($49/yr), Supplier ($99/yr), or Training ($79/yr) based on your role.</p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h4>Complete Signup</h4>
+                    <p>Fill out your profile and payment information. Takes less than 5 minutes.</p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h4>Access Benefits Immediately</h4>
+                    <p>Your dashboard activates instantly — directory placement goes live, discount codes appear, CE tracking starts now.</p>
+                </div>
+
+                <h3>Already a Legacy Member?</h3>
+                <p>
+                    Log in to your account and you'll see your exclusive upgrade pricing. It's a 30-50% discount as a thank-you for your early support.
+                </p>
+
+                <h3>Still Not Sure?</h3>
+                <p>
+                    <a href="contact.html" style="color: var(--ink-cyan); text-decoration: underline;">Contact our membership team</a> and we'll help you choose the right tier and answer any questions.
+                </p>
+            </section>
+
+            <!-- FUTURE OF ASPA -->
+            <section id="future">
+                <h2>The Future of ASPA</h2>
+                <p>
+                    ASPA+ is just the beginning. In 2026 and beyond, we're investing in:
+                </p>
+
+                <ul>
+                    <li><strong>New training modules and online courses</strong> — video-based, hands-on learning from industry experts</li>
+                    <li><strong>Expanded Resource Hub with monthly new content</strong> — trending techniques, industry news, case studies</li>
+                    <li><strong>Member community features</strong> — forums, live networking events, regional meetups</li>
+                    <li><strong>Industry reports and trend analysis</strong> — data-driven insights about market demand, supply chain changes, and emerging techniques</li>
+                    <li><strong>A job board and marketplace</strong> — connect talent with opportunities, buy and sell used equipment</li>
+                    <li><strong>Specialty certification tracks beyond the general CSP</strong> — focused credentials in areas like discharge printing, plastisol foil, or digital/hybrid methods</li>
+                    <li><strong>Partnerships with industry events and organizations</strong> — making ASPA the hub of professional screen printing</li>
+                </ul>
+
+                <p>
+                    Screen printing is a <span class="highlight-term">$10+ billion global industry</span> — and ASPA is committed to being the home base for professionals who take their craft seriously.
+                </p>
+
+                <p>
+                    <strong>Join us.</strong> Whether you're printing one shirt a week or running a multi-million dollar operation, your growth matters to us. ASPA+ is built around your success.
+                </p>
+            </section>
+
+            <!-- RELATED ARTICLES -->
+            <section class="related-articles">
+                <h2>Related Articles</h2>
+                <div class="related-grid">
+                    <div class="article-card">
+                        <h3>How to Screen Print T-Shirts: Complete Beginner's Guide</h3>
+                        <p>Learn the fundamentals of screen printing from start to finish—equipment, artwork, exposure, printing, and curing.</p>
+                        <a href="article-how-to-screen-print.html">Read Article →</a>
+                    </div>
+                    <div class="article-card">
+                        <h3>Starting a Home-Based T-Shirt Business: From Garage to Growth</h3>
+                        <p>Turn your screen printing passion into a profitable business. Strategies for launching, scaling, and managing a home-based operation.</p>
+                        <a href="article-home-based-business.html">Read Article →</a>
+                    </div>
+                    <div class="article-card">
+                        <h3>What is Screen Printing? History, Process, and Modern Applications</h3>
+                        <p>Explore the history of screen printing, how it works today, and why it remains the gold standard for durable apparel decoration.</p>
+                        <a href="article-what-is-screen-printing.html">Read Article →</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA BANNER -->
+            <div class="cta-banner">
+                <h2>Ready to Join ASPA+?</h2>
+                <p>Choose your tier and unlock ongoing education, industry connections, supplier discounts, and professional growth. All for less than the cost of quality ink.</p>
+                <div class="cta-buttons">
+                    <a href="join.html" class="cta-btn cta-btn-primary">Join ASPA+ Today →</a>
+                    <a href="contact.html" class="cta-btn cta-btn-secondary">Ask Questions</a>
+                </div>
+            </div>
+        </article>
+    </div>
+
+    <!-- ========================================
+         FOOTER
+         ======================================== -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Directory</h4>
+                    <ul>
+                        <li><a href="directory.html">Member Directory</a></li>
+                        <li><a href="index.html#certification">CSP Certification</a></li>
+                        <li><a href="index.html#membership">Membership Tiers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Certification</h4>
+                    <ul>
+                        <li><a href="certified-roster.html">CSP Roster</a></li>
+                        <li><a href="index.html#certification">CSP Program</a></li>
+                        <li><a href="#">Certification Standards</a></li>
+                        <li><a href="#">Apply for Certification</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Association</h4>
+                    <ul>
+                        <li><a href="about.html">About ASPA</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                Copyright © 2004-2026 American Screen Printing Association. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========================================
+         JAVASCRIPT - TOC Active State & Mobile Menu
+         ======================================== -->
+    <script>
+        // Table of Contents - Active State Management
+        const tocLinks = document.querySelectorAll('.toc-list a');
+        const sections = document.querySelectorAll('section[id]');
+
+        function updateActiveTOC() {
+            let current = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 150;
+                if (window.pageYOffset >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveTOC);
+        window.addEventListener('load', updateActiveTOC);
+
+        // Smooth scroll for TOC links
+        tocLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Mobile Menu Toggle (Placeholder)
+        function toggleMobileMenu() {
+            console.log('Mobile menu toggled');
+        }
+    </script>
+</body>
+</html>

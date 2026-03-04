@@ -1,0 +1,1684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screen Printing vs DTG vs Sublimation: Which Method is Right for You? (2026) | ASPA</title>
+    <meta name="description" content="Compare screen printing, DTG, and sublimation printing. Pros, cons, costs, and best use cases for each method explained by the American Screen Printing Association.">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ========================================
+           DESIGN SYSTEM & ROOT VARIABLES
+           ======================================== */
+        :root {
+            --ink-black: #0a0a0a;
+            --ink-dark: #1a1a2e;
+            --ink-purple: #6c2bd9;
+            --ink-magenta: #e91e8c;
+            --ink-cyan: #00d4ff;
+            --ink-yellow: #ffd400;
+            --ink-orange: #ff6b35;
+            --ink-white: #f8f8f8;
+            --ink-gray: #b0b0b0;
+            --ink-gray-dark: #2a2a3e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--ink-black);
+            color: var(--ink-white);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ========================================
+           NAVIGATION BAR
+           ======================================== */
+        nav {
+            background-color: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 0 24px;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .nav-logo {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .nav-logo-main {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--ink-white);
+            letter-spacing: 2px;
+        }
+
+        .nav-logo-sub {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 9px;
+            font-weight: 600;
+            color: var(--ink-cyan);
+            letter-spacing: 1.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--ink-gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--ink-cyan);
+        }
+
+        .nav-links a.active {
+            color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            color: var(--ink-black);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background-color: var(--ink-white);
+            border-radius: 2px;
+            transition: 0.3s ease;
+        }
+
+        /* ========================================
+           ARTICLE HEADER
+           ======================================== */
+        .article-header {
+            background: linear-gradient(135deg, rgba(108, 43, 217, 0.1) 0%, rgba(233, 30, 140, 0.05) 100%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 48px 24px;
+        }
+
+        .article-header-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            color: var(--ink-gray);
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+        }
+
+        .breadcrumb a {
+            color: var(--ink-cyan);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--ink-yellow);
+        }
+
+        .category-tag {
+            display: inline-block;
+            background-color: rgba(0, 212, 255, 0.15);
+            border: 1px solid rgba(0, 212, 255, 0.4);
+            color: var(--ink-cyan);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .article-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--ink-white);
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+            line-height: 1.2;
+        }
+
+        .article-meta {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            color: var(--ink-gray);
+            margin-bottom: 24px;
+            letter-spacing: 0.3px;
+        }
+
+        .article-intro {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #d0d0d0;
+        }
+
+        /* ========================================
+           ARTICLE LAYOUT (TOC + Content)
+           ======================================== */
+        .article-wrapper {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        /* ========================================
+           TABLE OF CONTENTS (Sidebar)
+           ======================================== */
+        .toc-sidebar {
+            position: sticky;
+            top: 90px;
+            height: fit-content;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+        }
+
+        .toc-sidebar h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--ink-cyan);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        .toc-list {
+            list-style: none;
+        }
+
+        .toc-list li {
+            margin-bottom: 10px;
+        }
+
+        .toc-list a {
+            font-size: 14px;
+            color: var(--ink-gray);
+            text-decoration: none;
+            transition: color 0.2s ease;
+            padding-left: 12px;
+            border-left: 2px solid transparent;
+            display: block;
+            transition: all 0.2s ease;
+        }
+
+        .toc-list a:hover {
+            color: var(--ink-cyan);
+            border-left-color: var(--ink-cyan);
+        }
+
+        .toc-list a.active {
+            color: var(--ink-cyan);
+            border-left-color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        /* ========================================
+           ARTICLE CONTENT
+           ======================================== */
+        .article-content {
+            max-width: 800px;
+        }
+
+        article h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--ink-white);
+            margin-top: 48px;
+            margin-bottom: 20px;
+            padding-left: 16px;
+            border-left: 4px solid var(--ink-cyan);
+            letter-spacing: 0.5px;
+        }
+
+        article h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--ink-white);
+            margin-top: 32px;
+            margin-bottom: 16px;
+            letter-spacing: 0.3px;
+        }
+
+        article p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 18px;
+            color: #e0e0e0;
+        }
+
+        article strong {
+            color: var(--ink-white);
+            font-weight: 600;
+        }
+
+        article em {
+            color: var(--ink-cyan);
+            font-style: italic;
+        }
+
+        .highlight-term {
+            color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        article ul, article ol {
+            margin: 20px 0 20px 24px;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        article li {
+            margin-bottom: 12px;
+            color: #e0e0e0;
+        }
+
+        /* ========================================
+           CALLOUT BOXES
+           ======================================== */
+        .pro-tip {
+            background-color: rgba(0, 212, 255, 0.1);
+            border-left: 4px solid var(--ink-cyan);
+            border-radius: 4px;
+            padding: 20px;
+            margin: 28px 0;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .pro-tip strong {
+            color: var(--ink-cyan);
+            font-weight: 700;
+        }
+
+        .safety-warning {
+            background-color: rgba(255, 107, 53, 0.1);
+            border-left: 4px solid var(--ink-orange);
+            border-radius: 4px;
+            padding: 20px;
+            margin: 28px 0;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .safety-warning strong {
+            color: var(--ink-orange);
+            font-weight: 700;
+        }
+
+        .budget-breakdown {
+            background-color: rgba(0, 212, 255, 0.08);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 8px;
+            padding: 24px;
+            margin: 28px 0;
+        }
+
+        .budget-breakdown h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--ink-cyan);
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+        }
+
+        .budget-breakdown ul {
+            list-style: none;
+            margin: 0;
+        }
+
+        .budget-breakdown li {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 1.05rem;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        .budget-breakdown li:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .budget-range {
+            color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        /* ========================================
+           COMPARISON CARDS
+           ======================================== */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 28px 0;
+        }
+
+        .comparison-card {
+            background-color: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .comparison-card:hover {
+            border-color: var(--ink-cyan);
+            background-color: rgba(0, 212, 255, 0.05);
+        }
+
+        .comparison-card h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--ink-white);
+            margin-bottom: 12px;
+        }
+
+        .comparison-card p {
+            font-size: 1rem;
+            margin-bottom: 12px;
+        }
+
+        .comparison-item {
+            background-color: rgba(255, 255, 255, 0.02);
+            border-left: 3px solid var(--ink-cyan);
+            padding: 12px;
+            margin: 16px 0;
+            border-radius: 4px;
+        }
+
+        .comparison-item strong {
+            display: block;
+            color: var(--ink-cyan);
+            margin-bottom: 4px;
+            font-size: 0.95rem;
+        }
+
+        .comparison-item span {
+            color: #c0c0c0;
+            font-size: 0.95rem;
+        }
+
+        /* ========================================
+           RELATED ARTICLES SECTION
+           ======================================== */
+        .related-articles {
+            margin-top: 60px;
+            padding: 40px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .related-articles h2 {
+            margin-top: 0;
+            border-left: none;
+            padding-left: 0;
+            margin-bottom: 32px;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .article-card {
+            background-color: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 8px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .article-card:hover {
+            border-color: var(--ink-cyan);
+            background-color: rgba(0, 212, 255, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .article-card h3 {
+            margin-top: 0;
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        .article-card p {
+            font-size: 14px;
+            color: var(--ink-gray);
+            flex-grow: 1;
+            margin-bottom: 16px;
+        }
+
+        .article-card a {
+            color: var(--ink-cyan);
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            transition: color 0.2s ease;
+            align-self: flex-start;
+        }
+
+        .article-card a:hover {
+            color: var(--ink-yellow);
+        }
+
+        /* ========================================
+           CTA BANNER
+           ======================================== */
+        .cta-banner {
+            background: linear-gradient(135deg, rgba(108, 43, 217, 0.2) 0%, rgba(233, 30, 140, 0.1) 100%);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 12px;
+            padding: 40px;
+            margin-top: 60px;
+            text-align: center;
+        }
+
+        .cta-banner h2 {
+            border-left: none;
+            padding-left: 0;
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 32px;
+        }
+
+        .cta-banner p {
+            font-size: 18px;
+            color: #d0d0d0;
+            margin-bottom: 28px;
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .cta-btn-primary {
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            color: var(--ink-black);
+            border: none;
+        }
+
+        .cta-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
+        }
+
+        .cta-btn-secondary {
+            background-color: transparent;
+            color: var(--ink-cyan);
+            border: 2px solid var(--ink-cyan);
+        }
+
+        .cta-btn-secondary:hover {
+            background-color: rgba(0, 212, 255, 0.1);
+            border-color: var(--ink-yellow);
+            color: var(--ink-yellow);
+        }
+
+        /* ========================================
+           FOOTER
+           ======================================== */
+        footer {
+            background-color: var(--ink-dark);
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 40px 24px 20px;
+            margin-top: 60px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--ink-cyan);
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            display: block;
+            color: var(--ink-gray);
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 12px;
+            transition: color 0.2s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--ink-cyan);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            color: var(--ink-gray);
+            font-size: 13px;
+        }
+
+        /* ========================================
+           MOBILE RESPONSIVE
+           ======================================== */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .article-title {
+                font-size: 32px;
+            }
+
+            .article-wrapper {
+                grid-template-columns: 1fr;
+                gap: 24px;
+                padding: 24px 16px;
+            }
+
+            .toc-sidebar {
+                position: static;
+                top: auto;
+                max-height: none;
+                margin-bottom: 24px;
+                padding: 20px;
+                background-color: rgba(255, 255, 255, 0.03);
+                border-radius: 8px;
+                border-left: 4px solid var(--ink-cyan);
+            }
+
+            .toc-list a {
+                font-size: 13px;
+            }
+
+            article h2 {
+                font-size: 24px;
+                margin-top: 32px;
+            }
+
+            article h3 {
+                font-size: 18px;
+            }
+
+            article p {
+                font-size: 1rem;
+            }
+
+            .cta-banner {
+                padding: 24px;
+            }
+
+            .cta-banner h2 {
+                font-size: 24px;
+            }
+
+            .cta-banner p {
+                font-size: 16px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .cta-btn {
+                width: 100%;
+            }
+
+            .related-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ========================================
+           SCROLLBAR STYLING
+           ======================================== */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--ink-cyan);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--ink-magenta);
+        }
+    </style>
+</head>
+<body>
+    <!-- ========================================
+         NAVIGATION
+         ======================================== -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="nav-logo-main">ASPA</div>
+                <div class="nav-logo-sub">Since 2004</div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="directory.html">Directory</a></li>
+                <li><a href="certified-roster.html">Certified</a></li>
+                <li><a href="exam.html">Certification</a></li>
+                <li><a href="join.html">Membership</a></li>
+                <li><a href="resources.html">Resources</a></li>
+            </ul>
+            <a href="join.html" class="nav-cta">Join ASPA</a>
+            <button class="hamburger" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ========================================
+         ARTICLE HEADER
+         ======================================== -->
+    <div class="article-header">
+        <div class="article-header-container">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a> > <a href="resources.html">Resources</a> > <a href="resources.html#getting-started">Getting Started</a> > Screen Printing vs DTG vs Sublimation
+            </div>
+            <span class="category-tag">Getting Started</span>
+            <h1 class="article-title">Screen Printing vs DTG vs Sublimation: Which Method is Right for You?</h1>
+            <div class="article-meta">Updated March 2026 · 20 min read · By ASPA Editorial Team</div>
+            <p class="article-intro">
+                The apparel decoration industry offers multiple printing methods, each with distinct advantages and limitations. Whether you're starting a print business, launching a merchandise line, or handling custom orders, understanding screen printing, DTG (direct-to-garment), and sublimation is essential. This guide compares all three methods across cost, quality, speed, durability, and practical use cases to help you choose the right approach for your specific needs.
+            </p>
+        </div>
+    </div>
+
+    <!-- ========================================
+         ARTICLE WRAPPER (TOC + Content)
+         ======================================== -->
+    <div class="article-wrapper">
+        <!-- TABLE OF CONTENTS SIDEBAR -->
+        <aside class="toc-sidebar">
+            <h3>Contents</h3>
+            <ul class="toc-list">
+                <li><a href="#introduction">Introduction</a></li>
+                <li><a href="#screen-printing">Screen Printing</a></li>
+                <li><a href="#dtg">DTG: Digital Revolution</a></li>
+                <li><a href="#sublimation">Sublimation Printing</a></li>
+                <li><a href="#comparison">Head-to-Head Comparison</a></li>
+                <li><a href="#when-screen">When to Choose Screen</a></li>
+                <li><a href="#when-dtg">When to Choose DTG</a></li>
+                <li><a href="#when-sublimation">When to Choose Sublimation</a></li>
+                <li><a href="#combining">Combining Methods</a></li>
+                <li><a href="#decision">Making Your Decision</a></li>
+            </ul>
+        </aside>
+
+        <!-- MAIN ARTICLE CONTENT -->
+        <article class="article-content">
+            <!-- INTRODUCTION -->
+            <section id="introduction">
+                <h2>Introduction: Choosing the Right Printing Method</h2>
+                <p>
+                    The apparel decoration industry has evolved dramatically over the past two decades. What was once dominated entirely by screen printing now coexists with direct-to-garment (DTG) and sublimation technologies. Each method has proven itself valuable—but they excel in different scenarios.
+                </p>
+                <p>
+                    The three dominant decoration methods serve different market segments and solve different business problems. <span class="highlight-term">Screen printing</span> remains the industry standard for high-volume production with exceptional durability. <span class="highlight-term">DTG printing</span> revolutionized small-batch and print-on-demand operations by eliminating setup costs. <span class="highlight-term">Sublimation</span> captures the all-over-print and sportswear markets with vibrant, edge-to-edge results on polyester.
+                </p>
+                <p>
+                    Your choice depends on several factors: order volume, fabric type, design complexity, budget constraints, turnaround time requirements, and your target market. This comprehensive guide walks through each method's strengths, limitations, costs, and ideal use cases—so you can make an informed decision aligned with your business goals.
+                </p>
+            </section>
+
+            <!-- SECTION 1: SCREEN PRINTING -->
+            <section id="screen-printing">
+                <h2>Screen Printing: The Industry Standard</h2>
+                <p>
+                    Screen printing is the oldest and most refined decoration method in the industry. A design is exposed onto a light-sensitive emulsion-coated mesh screen, and then ink is pushed through the openings onto fabric using a squeegee. Despite decades of technological innovation, screen printing remains the method of choice for production work because of its unmatched economics at volume and exceptional durability.
+                </p>
+
+                <h3>How Screen Printing Works</h3>
+                <p>
+                    In screen printing, each color requires a separate screen. Your design is separated into different color layers (called color separations), and then each layer is exposed onto its own screen. During printing, the shirt moves through multiple print stations, receiving one color at a time, usually with flash-drying between colors to set the ink. The result: vibrant, thick, durable prints that last hundreds of washes.
+                </p>
+
+                <h3>Best For</h3>
+                <ul>
+                    <li><strong>Bulk orders:</strong> 24 or more units (the sweet spot is 50-500+)</li>
+                    <li><strong>Bold, solid designs:</strong> Logos, text, simple graphics</li>
+                    <li><strong>Athletic and performance wear:</strong> Screens printing delivers longevity</li>
+                    <li><strong>Prints on dark fabrics:</strong> Full vibrancy on blacks and navies without underbase needed</li>
+                </ul>
+
+                <h3>Pros of Screen Printing</h3>
+                <ul>
+                    <li><strong>Lowest per-unit cost at volume:</strong> After initial setup, the cost per shirt drops dramatically with quantity</li>
+                    <li><strong>Vibrant colors on darks:</strong> Screen printing produces brilliant colors on black and colored shirts</li>
+                    <li><strong>Exceptional durability:</strong> Properly cured plastisol prints outlast DTG and sublimation by far</li>
+                    <li><strong>Specialty effects:</strong> Only screen printing allows puff ink, metallic inks, foil effects, glow-in-the-dark, and discharge printing</li>
+                    <li><strong>Cost-effective at scale:</strong> Perfect for merch runs, team uniforms, and retail brands</li>
+                </ul>
+
+                <h3>Cons of Screen Printing</h3>
+                <ul>
+                    <li><strong>Setup cost per design:</strong> Each new design or color variation requires new screens</li>
+                    <li><strong>Not economical for one-offs:</strong> The setup cost makes small orders expensive per unit</li>
+                    <li><strong>Limited photographic detail:</strong> Reproducing photos requires halftone separation (advanced technique)</li>
+                    <li><strong>Turnaround time:</strong> Slower than DTG for design-to-delivery</li>
+                    <li><strong>Longer learning curve:</strong> Requires skill to master exposure, registration, and curing</li>
+                </ul>
+
+                <div class="budget-breakdown">
+                    <h4>Screen Printing Cost Breakdown</h4>
+                    <ul>
+                        <li>
+                            <span>Setup Cost per Screen (1-4 color design)</span>
+                            <span class="budget-range">$25–$50 per screen</span>
+                        </li>
+                        <li>
+                            <span>Per-Shirt Cost (24 units)</span>
+                            <span class="budget-range">$5–$7 each</span>
+                        </li>
+                        <li>
+                            <span>Per-Shirt Cost (144 units)</span>
+                            <span class="budget-range">$2–$4 each</span>
+                        </li>
+                        <li>
+                            <span>Per-Shirt Cost (500+ units)</span>
+                            <span class="budget-range">$1–$2 each</span>
+                        </li>
+                        <li>
+                            <span>Blank T-Shirt (wholesale)</span>
+                            <span class="budget-range">$2–$4 each</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <p>
+                    The math is clear: screen printing's per-unit cost advantage grows with volume. A design that costs $10 total to print 24 shirts ($6 setup + $1.50 labor on cheap blanks) drops to $0.50 per shirt on a 500-unit run. This is why screen printing dominates production runs.
+                </p>
+            </section>
+
+            <!-- SECTION 2: DTG PRINTING -->
+            <section id="dtg">
+                <h2>DTG (Direct-to-Garment): The Digital Revolution</h2>
+                <p>
+                    Direct-to-garment printing brings digital printing technology directly to apparel. A DTG printer works like an industrial inkjet printer—it sprays colored inks directly onto fabric without screens, setup, or preparation. This revolutionary technology transformed print-on-demand and small-batch custom apparel by eliminating the economics of setup while delivering unlimited colors per print.
+                </p>
+
+                <h3>How DTG Works</h3>
+                <p>
+                    DTG printers use specialized aqueous inks that require proper curing (heat) to set. Most DTG workflows include a pre-treatment step (applying a chemical to help ink adhere), then the digital image is printed directly onto the garment, and finally the shirt is heat-cured. The process is fast and requires no artwork preparation or color separation—you print what you design.
+                </p>
+
+                <h3>Best For</h3>
+                <ul>
+                    <li><strong>Short runs and one-offs:</strong> No minimums, no setup fees</li>
+                    <li><strong>Photo-realistic designs:</strong> Full-color artwork with gradients and photographic images</li>
+                    <li><strong>Print-on-demand businesses:</strong> Etsy, Shopify, and custom merchandise sites</li>
+                    <li><strong>Samples and proofs:</strong> Fast turnaround for design approval</li>
+                    <li><strong>Custom variable data:</strong> Each shirt can have different text or images (names, numbers, etc.)</li>
+                </ul>
+
+                <h3>Pros of DTG</h3>
+                <ul>
+                    <li><strong>No setup fees:</strong> Print one shirt or 1,000 for the same per-unit cost</li>
+                    <li><strong>Unlimited colors:</strong> Full-color artwork without color separation</li>
+                    <li><strong>Excellent for samples:</strong> Perfect for client proofs before screen printing production</li>
+                    <li><strong>Low minimum order:</strong> Ideal for e-commerce and custom gifting</li>
+                    <li><strong>Fast turnaround:</strong> Print-to-delivery in hours or days</li>
+                    <li><strong>No inventory pressure:</strong> Print only what sells (true print-on-demand)</li>
+                </ul>
+
+                <h3>Cons of DTG</h3>
+                <ul>
+                    <li><strong>Higher per-unit cost:</strong> $8–$20 per shirt regardless of quantity (vs. $1–$2 at volume in screen printing)</li>
+                    <li><strong>Slower production speed:</strong> Prints one shirt at a time (screen printing can run 10–100+ per minute)</li>
+                    <li><strong>Poor results on darks:</strong> Requires white underbase, which adds cost and can feel heavy on fabric</li>
+                    <li><strong>Cotton-only restriction:</strong> DTG works on 100% cotton or cotton-blend fabrics (not polyester or nylon)</li>
+                    <li><strong>Hand feel issues:</strong> Prints can feel thicker or stiffer than screen printing, especially with white underbase</li>
+                    <li><strong>Durability questions:</strong> Inks can fade faster than screen printing with heavy washing</li>
+                </ul>
+
+                <div class="budget-breakdown">
+                    <h4>DTG Printing Cost Breakdown</h4>
+                    <ul>
+                        <li>
+                            <span>Per-Shirt Cost (any quantity)</span>
+                            <span class="budget-range">$8–$20 each</span>
+                        </li>
+                        <li>
+                            <span>White Underbase (dark shirts)</span>
+                            <span class="budget-range">+$1–$3 per shirt</span>
+                        </li>
+                        <li>
+                            <span>Pre-treatment Chemical</span>
+                            <span class="budget-range">+$0.50–$1 per shirt</span>
+                        </li>
+                        <li>
+                            <span>Blank T-Shirt (wholesale)</span>
+                            <span class="budget-range">$2–$5 each</span>
+                        </li>
+                        <li>
+                            <span>Equipment Cost (entry-level)</span>
+                            <span class="budget-range">$8,000–$15,000</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <p>
+                    DTG pricing is refreshingly simple: a flat per-shirt cost regardless of order size. This makes it ideal for businesses selling 1-10 units at a time (e-commerce, custom gifts) but economically uncompetitive when printing 50+ shirts of the same design.
+                </p>
+            </section>
+
+            <!-- SECTION 3: SUBLIMATION -->
+            <section id="sublimation">
+                <h2>Sublimation: Full-Coverage Color</h2>
+                <p>
+                    Sublimation is a heat-transfer process where solid dyes become gaseous under heat and permanently bond with polyester fibers. The result is vibrant, edge-to-edge color with no texture or hand-feel issues. Sublimation dominates the all-over-print apparel market and hard goods (mugs, phone cases, mousepads) because it's the only method that achieves true full-bleed prints.
+                </p>
+
+                <h3>How Sublimation Works</h3>
+                <p>
+                    First, the design is printed onto special sublimation transfer paper using sublimation inks. Then the transfer and garment are placed together and heated in a heat press to 390–410°F. Under heat, the dyes transform into gas that penetrates and bonds with polyester fibers permanently. Once cooled, the transfer is removed and the design remains. The result: no texture, vivid colors, and permanent durability.
+                </p>
+
+                <h3>Best For</h3>
+                <ul>
+                    <li><strong>All-over prints:</strong> Edge-to-edge designs without white margins</li>
+                    <li><strong>Polyester and poly-blend garments:</strong> Sportswear, performance wear, esports jerseys</li>
+                    <li><strong>Vibrant, full-color designs:</strong> Artwork with complex gradients and photographic images</li>
+                    <li><strong>Hard goods:</strong> Mugs, mousepads, phone cases, blankets, and promotional products</li>
+                    <li><strong>Corporate promotional items:</strong> Branded merchandise with full-color logos</li>
+                </ul>
+
+                <h3>Pros of Sublimation</h3>
+                <ul>
+                    <li><strong>No texture or hand feel:</strong> Prints feel like part of the fabric (not on top of it)</li>
+                    <li><strong>Edge-to-edge printing:</strong> Designs can run all the way to the edges (true full-bleed)</li>
+                    <li><strong>Vibrant colors:</strong> Dyes bond permanently with polyester for bright, fade-resistant results</li>
+                    <li><strong>Exceptional durability:</strong> Colors last as long as the garment (never crack, peel, or fade)</li>
+                    <li><strong>Versatility:</strong> Works on apparel and hard goods (mugs, hats, blankets, etc.)</li>
+                </ul>
+
+                <h3>Cons of Sublimation</h3>
+                <ul>
+                    <li><strong>Polyester-only:</strong> Does NOT work on 100% cotton (the biggest limitation)</li>
+                    <li><strong>Light colors only:</strong> White and light-colored garments only (dyes won't show on dark fabrics)</li>
+                    <li><strong>Higher equipment cost:</strong> Heat press setup is expensive ($1,500–$3,000+)</li>
+                    <li><strong>Transfer paper waste:</strong> Leftover transfer paper is not reusable</li>
+                    <li><strong>Learning curve:</strong> Temperature control and curing time are critical</li>
+                    <li><strong>Bleed management:</strong> Mistakes in transfer placement can't be fixed</li>
+                </ul>
+
+                <div class="budget-breakdown">
+                    <h4>Sublimation Printing Cost Breakdown</h4>
+                    <ul>
+                        <li>
+                            <span>Per-Shirt Cost (light coverage)</span>
+                            <span class="budget-range">$5–$8 each</span>
+                        </li>
+                        <li>
+                            <span>Per-Shirt Cost (full coverage)</span>
+                            <span class="budget-range">$8–$15 each</span>
+                        </li>
+                        <li>
+                            <span>Transfer Paper</span>
+                            <span class="budget-range">$0.50–$1 per shirt</span>
+                        </li>
+                        <li>
+                            <span>Sublimation Inks</span>
+                            <span class="budget-range">$30–$50 per bottle</span>
+                        </li>
+                        <li>
+                            <span>Heat Press Equipment</span>
+                            <span class="budget-range">$1,500–$3,000</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <p>
+                    Sublimation's per-unit cost scales with print coverage. A small logo on a 100% poly shirt costs $5–$8, while a full-coverage all-over print runs $10–$15. This makes sublimation economical for higher-value products where customers expect premium quality.
+                </p>
+            </section>
+
+            <!-- SECTION 4: HEAD-TO-HEAD COMPARISON -->
+            <section id="comparison">
+                <h2>Head-to-Head Comparison</h2>
+                <p>
+                    To make the best choice, you need to understand how these three methods compare across critical metrics. Below is a detailed comparison covering the factors that matter most for your decision.
+                </p>
+
+                <h3>Print Quality & Color Vibrancy</h3>
+                <div class="comparison-grid">
+                    <div class="comparison-card">
+                        <h4>Screen Printing</h4>
+                        <div class="comparison-item">
+                            <strong>On Light Fabric:</strong>
+                            <span>Excellent; vibrant colors, opaque</span>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>On Dark Fabric:</strong>
+                            <span>Excellent; best choice for darks</span>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>Photorealistic:</strong>
+                            <span>Limited (requires halftone separation)</span>
+                        </div>
+                    </div>
+                    <div class="comparison-card">
+                        <h4>DTG Printing</h4>
+                        <div class="comparison-item">
+                            <strong>On Light Fabric:</strong>
+                            <span>Excellent; full-color photorealistic</span>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>On Dark Fabric:</strong>
+                            <span>Fair; requires white underbase (adds cost)</span>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>Photorealistic:</strong>
+                            <span>Excellent; perfect for photos and gradients</span>
+                        </div>
+                    </div>
+                    <div class="comparison-card">
+                        <h4>Sublimation</h4>
+                        <div class="comparison-item">
+                            <strong>On Light Fabric:</strong>
+                            <span>Excellent; vibrant dyes, permanent</span>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>On Dark Fabric:</strong>
+                            <span>Not possible; only works on light polyester</span>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>Photorealistic:</strong>
+                            <span>Excellent; gradients and photos shine</span>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Durability & Wash Fastness</h3>
+                <div class="comparison-grid">
+                    <div class="comparison-card">
+                        <h4>Screen Printing</h4>
+                        <div class="comparison-item">
+                            <strong>Wash Fastness:</strong>
+                            <span>50+ washes, minimal fading</span>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>Cracking/Peeling:</strong>
+                            <span>Extremely rare if cured properly</span>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>Best For:</strong>
+                            <span>Apparel that will be worn frequently</span>
+                        </div>
+                    </div>
+                    <div class="comparison-card">
+                        <h4>DTG Printing</h4>
+                        <div class="comparison-item">
+                            <strong>Wash Fastness:</strong>
+                            <span>20–30 washes, some fading</span>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>Cracking/Peeling:</strong>
+                            <span>Can crack if white underbase used heavily</span>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>Best For:</strong>
+                            <span>Casual wear, collectibles, low-wash items</span>
+                        </div>
+                    </div>
+                    <div class="comparison-card">
+                        <h4>Sublimation</h4>
+                        <div class="comparison-item">
+                            <strong>Wash Fastness:</strong>
+                            <span>100+ washes, no fading</span>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>Cracking/Peeling:</strong>
+                            <span>Impossible (dyes are part of fiber)</span>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>Best For:</strong>
+                            <span>Performance wear, high-wash items</span>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Fabric Compatibility</h3>
+                <div class="comparison-grid">
+                    <div class="comparison-card">
+                        <h4>Screen Printing</h4>
+                        <div class="comparison-item">
+                            <strong>Cotton:</strong>
+                            <span>Perfect; best results</span>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>Polyester:</strong>
+                            <span>Good; works well</span>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>Blends:</strong>
+                            <span>Excellent; most versatile</span>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>Nylon/Other:</strong>
+                            <span>Yes; works on most fabrics</span>
+                        </div>
+                    </div>
+                    <div class="comparison-card">
+                        <h4>DTG Printing</h4>
+                        <div class="comparison-item">
+                            <strong>Cotton:</strong>
+                            <span>Perfect; ideal choice</span>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>Polyester:</strong>
+                            <span>Poor; ink doesn't adhere well</span>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>Blends:</strong>
+                            <span>Fair; 50% cotton+ works</span>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>Nylon/Other:</strong>
+                            <span>No; cotton-only technology</span>
+                        </div>
+                    </div>
+                    <div class="comparison-card">
+                        <h4>Sublimation</h4>
+                        <div class="comparison-item">
+                            <strong>Cotton:</strong>
+                            <span>No; dyes won't bond</span>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>Polyester:</strong>
+                            <span>Perfect; designed for poly</span>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>Blends:</strong>
+                            <span>Good; 65%+ poly recommended</span>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>Hard Goods:</strong>
+                            <span>Yes; mugs, mousepads, etc.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Minimum Order & Per-Unit Cost at Scale</h3>
+                <div class="comparison-grid">
+                    <div class="comparison-card">
+                        <h4>Screen Printing</h4>
+                        <div class="comparison-item">
+                            <strong>Minimum Order:</strong>
+                            <span>1–24 units (but not economical under 24)</span>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>1 Shirt:</strong>
+                            <span>$30–$50 total (not recommended)</span>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>24 Shirts:</strong>
+                            <span>$5–$7 each</span>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>500 Shirts:</strong>
+                            <span>$1–$2 each</span>
+                        </div>
+                    </div>
+                    <div class="comparison-card">
+                        <h4>DTG Printing</h4>
+                        <div class="comparison-item">
+                            <strong>Minimum Order:</strong>
+                            <span>1 unit (true one-off capable)</span>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>1 Shirt:</strong>
+                            <span>$10–$20 each</span>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>24 Shirts:</strong>
+                            <span>$8–$15 each</span>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>500 Shirts:</strong>
+                            <span>$8–$15 each (no volume discount)</span>
+                        </div>
+                    </div>
+                    <div class="comparison-card">
+                        <h4>Sublimation</h4>
+                        <div class="comparison-item">
+                            <strong>Minimum Order:</strong>
+                            <span>1 unit (per-item pricing)</span>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>1 Shirt:</strong>
+                            <span>$8–$15 each</span>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>24 Shirts:</strong>
+                            <span>$8–$12 each</span>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>500 Shirts:</strong>
+                            <span>$6–$10 each (modest volume discount)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Turnaround Time</h3>
+                <div class="comparison-grid">
+                    <div class="comparison-card">
+                        <h4>Screen Printing</h4>
+                        <div class="comparison-item">
+                            <strong>Setup Time:</strong>
+                            <span>1–2 days (screen exposure, registration)</span>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>Production Time:</strong>
+                            <span>2–5 business days (depending on volume)</span>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>Fastest Option?:</strong>
+                            <span>No; slower than DTG</span>
+                        </div>
+                    </div>
+                    <div class="comparison-card">
+                        <h4>DTG Printing</h4>
+                        <div class="comparison-item">
+                            <strong>Setup Time:</strong>
+                            <span>Minimal; just load the file</span>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>Production Time:</strong>
+                            <span>Same day or next day (print-to-ship)</span>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>Fastest Option?:</strong>
+                            <span>Yes; fastest for small orders</span>
+                        </div>
+                    </div>
+                    <div class="comparison-card">
+                        <h4>Sublimation</h4>
+                        <div class="comparison-item">
+                            <strong>Setup Time:</strong>
+                            <span>Minimal; prepare transfer and garment</span>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>Production Time:</strong>
+                            <span>1–3 days (heat press cycle time)</span>
+                        </div>
+                        <div class="comparison-item">
+                            <strong>Fastest Option?:</strong>
+                            <span>Moderate; faster than screen printing</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pro-tip">
+                    <strong>Pro Tip:</strong> For most businesses, the best approach is understanding your volume and design type. 50+ units of simple designs? Screen printing wins on cost. 1–24 units of complex art? DTG is unbeatable. All-over sportswear designs? Sublimation owns that space.
+                </div>
+            </section>
+
+            <!-- SECTION 5: WHEN TO CHOOSE SCREEN PRINTING -->
+            <section id="when-screen">
+                <h2>When to Choose Screen Printing</h2>
+                <p>
+                    Screen printing remains the default choice for production work and bulk orders. If your business model involves printing the same (or similar) designs repeatedly, screen printing's unit economics are unbeatable. Here are the scenarios where screen printing is the clear winner.
+                </p>
+
+                <h3>Team Uniforms & Athletic Programs</h3>
+                <p>
+                    A high school needs 150 volleyball uniforms with the same logo and team name. Screen printing shines here. The cost for 150 shirts: approximately $225–$300 (at $1.50–$2 per shirt), compared to $1,200–$2,250 for DTG. The difference: screen printing saves $900+ on this single order. These are real, significant savings that make or break the business case for schools and athletic programs.
+                </p>
+
+                <h3>Merchandise Runs & Retail Brands</h3>
+                <p>
+                    A streetwear brand produces a limited edition drop of 500 hoodies with a custom graphic. With screen printing, the per-unit cost is $1.50–$2.50. The same order via DTG would cost $10–$15 per unit—a $4,000–$6,500 difference on margin. For brands with multiple product lines, this scale advantage is why they use screen printing almost exclusively.
+                </p>
+
+                <h3>Promotional Giveaways</h3>
+                <p>
+                    A corporation orders 1,000 branded t-shirts for a conference. Screen printing at $1–$1.50 per shirt costs $1,000–$1,500. DTG would cost $8,000–$15,000 for the same order. The decision is obvious.
+                </p>
+
+                <h3>Specialty Effects</h3>
+                <p>
+                    Only screen printing allows certain effects: <span class="highlight-term">puff ink</span> (3D texture), <span class="highlight-term">foil</span> (metallic shine), <span class="highlight-term">glow-in-the-dark</span>, <span class="highlight-term">metallic inks</span> (gold, silver, copper), and <span class="highlight-term">discharge printing</span> (removing dye from colored fabric). If your design requires any of these effects, screen printing is your only choice.
+                </p>
+
+                <h3>The Math of Screen Printing Economics</h3>
+                <p>
+                    Screen printing's cost advantage appears at volume. Here's a realistic scenario:
+                </p>
+                <ul>
+                    <li><strong>24-unit order:</strong> Screen printing ~$144 (setup + printing) vs DTG ~$240. Screen printing saves $96.</li>
+                    <li><strong>144-unit order:</strong> Screen printing ~$432 (setup + printing) vs DTG ~$1,440. Screen printing saves $1,008.</li>
+                    <li><strong>500-unit order:</strong> Screen printing ~$750 (setup + printing) vs DTG ~$5,000. Screen printing saves $4,250.</li>
+                </ul>
+
+                <p>
+                    The breakeven point is roughly 20–24 units. Below that, DTG is often competitive. Above that, screen printing's economics are overwhelming.
+                </p>
+
+                <div class="pro-tip">
+                    <strong>Pro Tip:</strong> Many shops combine methods strategically. Screen print the main design for the bulk of an order, then DTG custom variable data (names, numbers, custom requests) on top. This hybrid approach captures the cost savings of screen printing while offering customization.
+                </div>
+            </section>
+
+            <!-- SECTION 6: WHEN TO CHOOSE DTG -->
+            <section id="when-dtg">
+                <h2>When to Choose DTG</h2>
+                <p>
+                    DTG revolutionized the apparel business by eliminating the "minimum order" problem. If your model involves printing small quantities, unique designs, or one-off custom orders, DTG is your answer. The technology is perfect for e-commerce, print-on-demand, and custom gifting businesses.
+                </p>
+
+                <h3>Print-on-Demand Businesses</h3>
+                <p>
+                    An Etsy seller prints custom t-shirts: one order for a personalized gift, another for a niche fandom design, a third for a local band. Each order is unique. DTG eliminates setup costs and minimum orders, allowing the seller to operate a true made-to-order business. Without DTG (or sublimation), this entire business model doesn't exist.
+                </p>
+
+                <h3>Shopify / E-Commerce Storefronts</h3>
+                <p>
+                    A Shopify store sells 5–20 t-shirts per week in different designs. Screen printing requires 24+ unit minimums, making small e-commerce uneconomical. DTG allows the store to fulfill orders as they come in, holding no inventory. The customer pays $35–$50 for a custom shirt; the printer spends $10–$15 in DTG costs, leaving healthy margin without holding inventory risk.
+                </p>
+
+                <h3>Prototyping & Design Approval</h3>
+                <p>
+                    A large brand's design team creates a sample for client approval. Instead of committing to 24-unit screen printing minimums, they order 2–3 DTG samples for quick proofing. Once approved, the full production order goes to screen printing. DTG handles the risky, exploratory phase; screen printing handles the profitable production phase.
+                </p>
+
+                <h3>Photo-Based Designs</h3>
+                <p>
+                    A wedding photographer offers custom t-shirts with wedding photos. Each design is unique (different photos for different weddings). DTG's unlimited colors and photorealistic capability are perfect. Screen printing's halftone process would lose detail and require manual color separation for each unique image—not practical.
+                </p>
+
+                <h3>Custom Event Merchandise</h3>
+                <p>
+                    A local band records a concert and wants to sell limited-edition merchandise. DTG allows them to offer 50 unique designs (different concert photos, setlists, etc.) without committing to 24+ of each design. If a design sells 8 units and another sells 2, DTG accommodates both without waste.
+                </p>
+
+                <h3>The DTG Economics Sweet Spot</h3>
+                <p>
+                    DTG's flat per-unit pricing ($8–$20 per shirt, regardless of quantity) is optimal for:
+                </p>
+                <ul>
+                    <li>Orders under 24 units (where screen printing's setup cost isn't recovered)</li>
+                    <li>Highly variable designs (each shirt different)</li>
+                    <li>High-value custom products (where per-unit cost is less important than uniqueness)</li>
+                    <li>Businesses with capital constraints (no large equipment investment needed)</li>
+                </ul>
+
+                <p>
+                    DTG's weakness is volume. Printing 500 identical shirts via DTG costs $4,000–$7,500; screen printing costs $500–$1,000. For production runs, screen printing dominates.
+                </p>
+            </section>
+
+            <!-- SECTION 7: WHEN TO CHOOSE SUBLIMATION -->
+            <section id="when-sublimation">
+                <h2>When to Choose Sublimation</h2>
+                <p>
+                    Sublimation owns specific niches where its advantages (edge-to-edge printing, soft hand-feel, no texture, vibrant dyes) are essential. If your product is polyester or you need all-over prints without margins, sublimation is often the only practical option.
+                </p>
+
+                <h3>All-Over Print Apparel</h3>
+                <p>
+                    A streetwear brand designs a vibrant psychedelic pattern that covers the entire shirt from collar to hem, front and back. Sublimation's edge-to-edge capability allows designs to run all the way to the seams without white margins. Screen printing would require multiple screens and registration adjustments for near-full coverage; sublimation achieves true full-bleed easily. The result looks premium, feels soft, and costs $10–$15 per shirt.
+                </p>
+
+                <h3>Sportswear & Performance Wear</h3>
+                <p>
+                    A company manufactures moisture-wicking esports jerseys in polyester. Sublimation's soft hand-feel (no texture on the print), edge-to-edge capability, and exceptional wash-fastness are ideal. Players appreciate the comfort, and sponsors love the premium look. Sublimation is the standard in professional esports, sports apparel, and athletic wear.
+                </p>
+
+                <h3>Hard Goods & Promotional Products</h3>
+                <p>
+                    A promotional company wants to sell custom mugs, mousepads, phone cases, and blankets. Sublimation is the only method that works on these items. A polyester blanket with a vibrant full-bleed design is achievable only through sublimation. The economics work: each blank costs $5–$10, sublimation adds $3–$8, and retail price is $25–$40. Profit margin is healthy, and the product quality is premium.
+                </p>
+
+                <h3>Corporate Branded Items</h3>
+                <p>
+                    A Fortune 500 company orders 5,000 polyester branded hoodies for employee uniforms. Sublimation produces vibrant, edge-to-edge logos without texture. The soft hand-feel and premium appearance justify the cost ($8–$12 per unit). The perceived quality is high, and the durability is exceptional.
+                </p>
+
+                <h3>Fashion & Design-Focused Brands</h3>
+                <p>
+                    A designer brand sells limited-edition all-over-print polyester shirts at premium prices ($80–$150 retail). Sublimation's soft hand-feel, vibrant colors, and premium appearance justify the price point. Customers expect a certain level of quality; sublimation delivers it.
+                </p>
+
+                <h3>The Sublimation Constraint & Opportunity</h3>
+                <p>
+                    Sublimation's limitation (polyester-only) is simultaneously its opportunity. In the market segments that use polyester (sportswear, performance wear, all-over print fashion, hard goods), sublimation has minimal competition. Screen printing and DTG don't work well on polyester (or don't work at all), making sublimation the default technology in these niches.
+                </p>
+
+                <div class="pro-tip">
+                    <strong>Pro Tip:</strong> Look for 65–85% polyester / 15–35% cotton blends. These "poly-blend sweet spots" work well with sublimation while maintaining a premium cotton feel. They're ideal for eco-conscious brands and performance apparel.
+                </div>
+            </section>
+
+            <!-- SECTION 8: COMBINING METHODS -->
+            <section id="combining">
+                <h2>Can You Combine Methods?</h2>
+                <p>
+                    The most versatile print shops and brands don't choose one method—they combine them strategically. Using multiple technologies allows businesses to serve diverse market segments and handle complex projects that no single method can address optimally.
+                </p>
+
+                <h3>Screen Print + DTG Hybrid Approach</h3>
+                <p>
+                    A merchandise company takes a 100-shirt order: 98 identical designs + 2 custom one-offs. They screen print the 98 units for $2 each ($196 total), then DTG the 2 custom shirts for $15 each ($30 total). Total cost: $226. This hybrid approach captures screen printing's cost advantage while accommodating customization that DTG enables.
+                </p>
+
+                <h3>Screen Print Base + Custom Variable Data</h3>
+                <p>
+                    A team orders 24 jerseys with the team logo (screen printed) but each jersey needs a custom name and number on the back. The shop screen prints the logo on all 24, then DTG prints the variable data (different names/numbers) on each one. Cost: screen print 24 logos at $3 each ($72) + DTG 24 variable prints at $5 each ($120) = $192 total. The result combines the cost efficiency of screen printing with the customization of DTG.
+                </p>
+
+                <h3>Sublimation + Screen Print Hybrid</h3>
+                <p>
+                    A fashion brand designs a polyester all-over print shirt with metallic accents. Sublimation prints the base design (achieving edge-to-edge vibrant color), then screen printing adds metallic foil accents on top. The result is impossible with any single method: full-color edge-to-edge base + metallic shimmer accents. Cost is higher (~$15–$20 per unit), but perceived value is premium.
+                </p>
+
+                <h3>Multi-Method Shop Strategy</h3>
+                <p>
+                    Professional print shops invest in screen printing equipment (capital intensive but produces best margins at volume), DTG equipment (serves small orders and e-commerce), and sometimes sublimation. They route each order to the most appropriate method:
+                </p>
+                <ul>
+                    <li>Screen printing for 50+ unit bulk orders</li>
+                    <li>DTG for 1–24 unit custom orders</li>
+                    <li>Sublimation for polyester or all-over print work</li>
+                </ul>
+
+                <p>
+                    This flexibility allows them to serve every market segment, maximize profit margins, and build strong customer relationships across different business types.
+                </p>
+
+                <p>
+                    Being versatile is competitive. A shop that can only screen print loses DTG orders; one that only does DTG can't handle production runs. Multi-method shops are harder to displace and more resilient to market shifts.
+                </p>
+            </section>
+
+            <!-- SECTION 9: MAKING YOUR DECISION -->
+            <section id="decision">
+                <h2>Making Your Decision: A Practical Framework</h2>
+                <p>
+                    You've learned about all three methods. Now, how do you choose? Use this decision framework based on your specific situation.
+                </p>
+
+                <h3>Ask Yourself These Questions:</h3>
+                <ul>
+                    <li><strong>What is the typical order volume?</strong> 1–24 units? DTG. 25–99? It depends. 100+? Screen printing usually wins.</li>
+                    <li><strong>What fabric are you printing on?</strong> Cotton? Screen printing or DTG. Polyester? Sublimation. Blends? Screen printing is most versatile.</li>
+                    <li><strong>Do designs repeat or vary?</strong> Same design many times? Screen printing. Every design different? DTG. All-over prints? Sublimation.</li>
+                    <li><strong>What is your margin requirement?</strong> High-margin, low-volume? DTG or sublimation. Low-margin, high-volume? Screen printing.</li>
+                    <li><strong>Do you need specialty effects?</strong> Puff, foil, metallic, discharge? Screen printing only.</li>
+                    <li><strong>What is your capital budget?</strong> Limited budget? DTG or sublimation ($8,000–$15,000). Larger budget? Screen printing offers best long-term ROI ($3,000–$10,000+ for a complete setup).</li>
+                    <li><strong>What is your turnaround requirement?</strong> Next-day shipping? DTG. A few days? Any method. A week? Screen printing is fine.</li>
+                </ul>
+
+                <h3>Quick Decision Logic:</h3>
+                <ul>
+                    <li><strong>IF:</strong> Bulk orders (50+), simple designs, cotton or blends, any color <strong>THEN:</strong> Screen printing</li>
+                    <li><strong>IF:</strong> Small orders (1–24), complex art, photo-realistic, fast turnaround <strong>THEN:</strong> DTG</li>
+                    <li><strong>IF:</strong> Polyester or poly-blends, all-over prints, sportswear, premium perceived value <strong>THEN:</strong> Sublimation</li>
+                </ul>
+
+                <h3>Screen Printing Association Resources</h3>
+                <p>
+                    The ASPA is a screen printing association, but we believe in honest, balanced guidance. Screen printing remains the industry standard because it delivers unmatched economics and durability at scale. However, DTG and sublimation have found their markets—and many successful businesses use all three.
+                </p>
+
+                <p>
+                    If you're considering screen printing as your primary method, ASPA's <a href="exam.html">Certified Screen Printer (CSP) program</a> teaches the fundamentals, advanced troubleshooting, business management, and industry best practices. The <a href="article-how-to-screen-print.html">screen printing beginner's guide</a> walks through every step of getting started. And the <a href="directory.html">ASPA Member Directory</a> connects you with experienced printers who can mentor you through the learning process.
+                </p>
+
+                <p>
+                    Regardless of which method you choose, success comes from understanding the technology deeply, investing in quality equipment, and practicing relentlessly until you master consistency and quality. The best printers in the world started exactly where you are—asking which method is right for them.
+                </p>
+
+                <p>
+                    Ready to dive deeper? <a href="join.html">Join ASPA</a> to access exclusive training, industry resources, and a network of 1,200+ professionals who can guide your journey.
+                </p>
+            </section>
+
+            <!-- RELATED ARTICLES -->
+            <section class="related-articles">
+                <h2>Related Articles</h2>
+                <div class="related-grid">
+                    <div class="article-card">
+                        <h3>How to Screen Print T-Shirts: Complete Beginner's Guide</h3>
+                        <p>Learn the step-by-step process of screen printing, from preparing artwork and exposing screens to curing your first print.</p>
+                        <a href="article-how-to-screen-print.html">Read Article →</a>
+                    </div>
+                    <div class="article-card">
+                        <h3>How Much Does It Cost to Start a Screen Printing Business?</h3>
+                        <p>A detailed breakdown of startup costs, equipment budgets, and ROI timelines for launching a professional screen printing operation.</p>
+                        <a href="#">Read Article →</a>
+                    </div>
+                    <div class="article-card">
+                        <h3>What is Sublimation Printing?</h3>
+                        <p>An in-depth guide to sublimation technology, how it works, when to use it, and why it dominates certain markets.</p>
+                        <a href="#">Read Article →</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA BANNER -->
+            <div class="cta-banner">
+                <h2>Ready to Get Started?</h2>
+                <p>Whether you choose screen printing, DTG, or sublimation, ASPA is here to support your success. Learn from industry experts, get certified, and join a community of 1,200+ professional screen printers.</p>
+                <div class="cta-buttons">
+                    <a href="join.html" class="cta-btn cta-btn-primary">Join ASPA Today →</a>
+                    <a href="resources.html" class="cta-btn cta-btn-secondary">Explore Resources</a>
+                </div>
+            </div>
+        </article>
+    </div>
+
+    <!-- ========================================
+         FOOTER
+         ======================================== -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Directory</h4>
+                    <ul>
+                        <li><a href="directory.html">Member Directory</a></li>
+                        <li><a href="exam.html">CSP Certification</a></li>
+                        <li><a href="join.html">Membership Tiers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Certification</h4>
+                    <ul>
+                        <li><a href="certified-roster.html">CSP Roster</a></li>
+                        <li><a href="exam.html">CSP Program</a></li>
+                        <li><a href="#">Certification Standards</a></li>
+                        <li><a href="#">Apply for Certification</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Association</h4>
+                    <ul>
+                        <li><a href="#">About ASPA</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                Copyright © 2004-2026 American Screen Printing Association. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========================================
+         JAVASCRIPT - TOC Active State & Mobile Menu
+         ======================================== -->
+    <script>
+        // Table of Contents - Active State Management
+        const tocLinks = document.querySelectorAll('.toc-list a');
+        const sections = document.querySelectorAll('section[id]');
+
+        function updateActiveTOC() {
+            let current = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 150;
+                if (window.pageYOffset >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveTOC);
+        window.addEventListener('load', updateActiveTOC);
+
+        // Smooth scroll for TOC links
+        tocLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Mobile Menu Toggle (Placeholder)
+        function toggleMobileMenu() {
+            console.log('Mobile menu toggled');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Directory - ASPA | American Screen Printing Association</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* ========================================
+           DESIGN SYSTEM & ROOT VARIABLES
+           ======================================== */
+        :root {
+            --ink-black: #0a0a0a;
+            --ink-dark: #1a1a2e;
+            --ink-purple: #6c2bd9;
+            --ink-magenta: #e91e8c;
+            --ink-cyan: #00d4ff;
+            --ink-yellow: #ffd400;
+            --ink-orange: #ff6b35;
+            --ink-white: #f8f8f8;
+            --ink-gray: #b0b0b0;
+            --ink-gray-dark: #2a2a3e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--ink-black);
+            color: var(--ink-white);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ========================================
+           NAVIGATION BAR
+           ======================================== */
+        nav {
+            background-color: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 0 24px;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .nav-logo {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .nav-logo-main {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--ink-white);
+            letter-spacing: 2px;
+        }
+
+        .nav-logo-sub {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 9px;
+            font-weight: 600;
+            color: var(--ink-cyan);
+            letter-spacing: 1.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--ink-gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--ink-cyan);
+        }
+
+        .nav-links a.active {
+            color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            color: var(--ink-black);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background-color: var(--ink-white);
+            border-radius: 2px;
+            transition: 0.3s ease;
+        }
+
+        /* ========================================
+           HERO SECTION
+           ======================================== */
+        .hero {
+            background: linear-gradient(135deg, rgba(108, 43, 217, 0.1) 0%, rgba(233, 30, 140, 0.05) 100%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 60px 24px;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .hero-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--ink-cyan);
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+
+        .hero-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 56px;
+            font-weight: 700;
+            color: var(--ink-white);
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+        }
+
+        .hero-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            color: var(--ink-gray);
+            margin-bottom: 32px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--ink-cyan);
+            letter-spacing: 0.5px;
+        }
+
+        /* ========================================
+           FILTER & SEARCH BAR (STICKY)
+           ======================================== */
+        .filter-bar {
+            background-color: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 20px 24px;
+            position: sticky;
+            top: 70px;
+            z-index: 900;
+        }
+
+        .filter-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .filter-row {
+            display: grid;
+            grid-template-columns: 2fr 1.5fr 1.5fr auto auto 1fr;
+            gap: 12px;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .filter-input, .filter-select {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 10px 14px;
+            color: var(--ink-white);
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            transition: border-color 0.2s ease, background-color 0.2s ease;
+        }
+
+        .filter-input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .filter-input:focus, .filter-select:focus {
+            outline: none;
+            border-color: var(--ink-cyan);
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .filter-select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23f8f8f8' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            padding-right: 30px;
+        }
+
+        .filter-button-group {
+            display: flex;
+            gap: 8px;
+        }
+
+        .filter-toggle {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 8px 12px;
+            color: var(--ink-gray);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .filter-toggle:hover {
+            border-color: var(--ink-cyan);
+            color: var(--ink-cyan);
+        }
+
+        .filter-toggle.active {
+            background-color: rgba(0, 212, 255, 0.2);
+            border-color: var(--ink-cyan);
+            color: var(--ink-cyan);
+        }
+
+        .reset-btn {
+            background-color: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 8px 12px;
+            color: var(--ink-gray);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .reset-btn:hover {
+            border-color: var(--ink-magenta);
+            color: var(--ink-magenta);
+        }
+
+        .filter-stats {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--ink-cyan);
+            letter-spacing: 0.5px;
+        }
+
+        /* ========================================
+           RESULTS GRID
+           ======================================== */
+        .results-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .member-card {
+            background-color: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            padding: 24px;
+            position: relative;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .member-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(233, 30, 140, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .member-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--ink-cyan);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .member-card:hover::before {
+            opacity: 1;
+        }
+
+        .member-card.featured {
+            border-left: 4px solid;
+            border-image: linear-gradient(180deg, var(--ink-cyan), var(--ink-magenta)) 1;
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-badges {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-aspa-plus {
+            background-color: rgba(0, 212, 255, 0.2);
+            color: var(--ink-cyan);
+            border: 1px solid rgba(0, 212, 255, 0.4);
+        }
+
+        .badge-certified {
+            background-color: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+            border: 1px solid rgba(34, 197, 94, 0.4);
+        }
+
+        .badge-category {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--ink-white);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .badge-category.tshirt {
+            background-color: rgba(108, 43, 217, 0.2);
+            color: var(--ink-purple);
+            border-color: rgba(108, 43, 217, 0.4);
+        }
+
+        .badge-category.sign {
+            background-color: rgba(233, 30, 140, 0.2);
+            color: var(--ink-magenta);
+            border-color: rgba(233, 30, 140, 0.4);
+        }
+
+        .badge-category.embroidery {
+            background-color: rgba(255, 107, 53, 0.2);
+            color: var(--ink-orange);
+            border-color: rgba(255, 107, 53, 0.4);
+        }
+
+        .badge-category.equipment {
+            background-color: rgba(255, 212, 0, 0.2);
+            color: var(--ink-yellow);
+            border-color: rgba(255, 212, 0, 0.4);
+        }
+
+        .badge-category.supplier {
+            background-color: rgba(0, 212, 255, 0.2);
+            color: var(--ink-cyan);
+            border-color: rgba(0, 212, 255, 0.4);
+        }
+
+        .badge-category.education {
+            background-color: rgba(168, 85, 247, 0.2);
+            color: #a855f7;
+            border-color: rgba(168, 85, 247, 0.4);
+        }
+
+        .card-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--ink-white);
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .card-location {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: var(--ink-gray);
+            margin-bottom: 12px;
+        }
+
+        .location-icon {
+            width: 14px;
+            height: 14px;
+        }
+
+        .card-description {
+            font-size: 14px;
+            color: rgba(248, 248, 248, 0.7);
+            margin-bottom: 16px;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-contact {
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding-top: 16px;
+            margin-bottom: 16px;
+        }
+
+        .card-phone {
+            font-size: 13px;
+            color: var(--ink-gray);
+            margin-bottom: 12px;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .card-link {
+            flex: 1;
+            background-color: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 8px;
+            padding: 8px 12px;
+            color: var(--ink-cyan);
+            text-decoration: none;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .card-link:hover {
+            background-color: rgba(0, 212, 255, 0.2);
+            border-color: var(--ink-cyan);
+        }
+
+        /* ========================================
+           PAGINATION
+           ======================================== */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .pagination-btn {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 10px 14px;
+            color: var(--ink-gray);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .pagination-btn:hover:not(:disabled) {
+            border-color: var(--ink-cyan);
+            color: var(--ink-cyan);
+        }
+
+        .pagination-btn.active {
+            background-color: rgba(0, 212, 255, 0.2);
+            border-color: var(--ink-cyan);
+            color: var(--ink-cyan);
+        }
+
+        .pagination-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* ========================================
+           EMPTY STATE
+           ======================================== */
+        .empty-state {
+            text-align: center;
+            padding: 60px 24px;
+        }
+
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .empty-state-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--ink-white);
+            margin-bottom: 8px;
+        }
+
+        .empty-state-message {
+            font-size: 16px;
+            color: var(--ink-gray);
+            margin-bottom: 24px;
+        }
+
+        /* ========================================
+           CTA BANNER
+           ======================================== */
+        .cta-banner {
+            background: linear-gradient(135deg, rgba(108, 43, 217, 0.15) 0%, rgba(233, 30, 140, 0.15) 100%);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 16px;
+            padding: 40px 24px;
+            max-width: 1200px;
+            margin: 0 auto 60px;
+            text-align: center;
+        }
+
+        .cta-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--ink-white);
+            margin-bottom: 8px;
+        }
+
+        .cta-message {
+            font-size: 16px;
+            color: var(--ink-gray);
+            margin-bottom: 24px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            color: var(--ink-black);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 12px 28px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            letter-spacing: 0.5px;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(0, 212, 255, 0.3);
+        }
+
+        /* ========================================
+           FOOTER
+           ======================================== */
+        footer {
+            background-color: var(--ink-dark);
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 40px 24px 20px;
+            margin-top: 60px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--ink-cyan);
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            display: block;
+            color: var(--ink-gray);
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 12px;
+            transition: color 0.2s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--ink-cyan);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            color: var(--ink-gray);
+            font-size: 13px;
+        }
+
+        /* ========================================
+           MOBILE RESPONSIVE
+           ======================================== */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero-title {
+                font-size: 36px;
+            }
+
+            .hero-subtitle {
+                font-size: 16px;
+            }
+
+            .hero-stats {
+                gap: 16px;
+                font-size: 12px;
+            }
+
+            .filter-row {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-button-group {
+                grid-column: 1 / -1;
+            }
+
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .member-card {
+                padding: 16px;
+            }
+
+            .card-title {
+                font-size: 16px;
+            }
+
+            .cta-title {
+                font-size: 20px;
+            }
+
+            .cta-message {
+                font-size: 14px;
+            }
+        }
+
+        /* ========================================
+           FILTER PANEL (Mobile)
+           ======================================== */
+        .filter-panel-toggle {
+            display: none;
+            background-color: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 8px;
+            padding: 10px 16px;
+            color: var(--ink-cyan);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 16px;
+            width: 100%;
+            transition: all 0.2s ease;
+        }
+
+        .filter-panel-toggle:hover {
+            background-color: rgba(0, 212, 255, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .filter-bar {
+                top: 70px;
+            }
+
+            .filter-panel-toggle {
+                display: block;
+            }
+
+            .filter-row {
+                display: none;
+            }
+
+            .filter-row.open {
+                display: grid;
+            }
+
+            .filter-stats {
+                grid-column: 1 / -1;
+            }
+        }
+
+        /* ========================================
+           UTILITY CLASSES
+           ======================================== */
+        .hidden {
+            display: none !important;
+        }
+
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- ========================================
+         NAVIGATION
+         ======================================== -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="nav-logo-main">ASPA</div>
+                <div class="nav-logo-sub">SCREEN PRINTING</div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="directory.html" class="active">Directory</a></li>
+                <li><a href="certified-roster.html">Certified</a></li>
+                <li><a href="index.html#certification">Certification</a></li>
+                <li><a href="index.html#membership">Membership</a></li>
+                <li><a href="resources.html">Resources</a></li>
+            </ul>
+            <button class="nav-cta" onclick="window.location.href='join.html'">Join ASPA</button>
+            <button class="hamburger" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ========================================
+         HERO SECTION
+         ======================================== -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-label">Find a Printer</div>
+            <h1 class="hero-title">MEMBER DIRECTORY</h1>
+            <p class="hero-subtitle">Find an ASPA member printer or supplier by name, category, or location.</p>
+            <div class="hero-stats">
+                <span>500+ Members</span>
+                <span>100+ Countries</span>
+                <span>6 Categories</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         FILTER & SEARCH BAR
+         ======================================== -->
+    <div class="filter-bar" id="filterBar">
+        <div class="filter-container">
+            <button class="filter-panel-toggle" onclick="toggleFilterPanel()">
+                <span>⚙️ Show Filters</span>
+            </button>
+            <div class="filter-row" id="filterRow">
+                <input
+                    type="text"
+                    id="searchInput"
+                    class="filter-input"
+                    placeholder="Search by name, city, or state..."
+                    onkeyup="debounceSearch()"
+                >
+                <select id="categoryFilter" class="filter-select" onchange="applyFilters()">
+                    <option value="">All Categories</option>
+                    <option value="tshirt">Custom T-Shirt Shops</option>
+                    <option value="sign">Sign Shops</option>
+                    <option value="embroidery">Embroidery Shops</option>
+                    <option value="equipment">Equipment Manufacturers</option>
+                    <option value="supplier">Suppliers & Vendors</option>
+                    <option value="education">Educational Facilities</option>
+                </select>
+                <input
+                    type="text"
+                    id="locationFilter"
+                    class="filter-input"
+                    placeholder="Filter by state or country..."
+                    onkeyup="applyFilters()"
+                >
+                <div class="filter-button-group">
+                    <button class="filter-toggle" id="aspaToggle" onclick="toggleFilter('aspaToggle')">ASPA+ Only</button>
+                    <button class="filter-toggle" id="certToggle" onclick="toggleFilter('certToggle')">CSP Certified Only</button>
+                </div>
+                <button class="reset-btn" onclick="resetFilters()">Reset</button>
+                <div class="filter-stats" id="filterStats">Showing 0 of 0 members</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================
+         RESULTS SECTION
+         ======================================== -->
+    <section class="results-section">
+        <div id="emptyState" class="empty-state hidden">
+            <div class="empty-state-icon">🔍</div>
+            <h2 class="empty-state-title">No members found</h2>
+            <p class="empty-state-message">No members found matching your search. Try adjusting your filters.</p>
+            <button class="cta-button" onclick="resetFilters()">Reset Filters</button>
+        </div>
+
+        <div id="resultsGrid" class="results-grid"></div>
+
+        <div class="pagination" id="pagination"></div>
+    </section>
+
+    <!-- ========================================
+         CTA BANNER
+         ======================================== -->
+    <section class="cta-banner">
+        <h2 class="cta-title">Want your business in the ASPA directory?</h2>
+        <p class="cta-message">Join ASPA+ to get listed, earn your CSP certification, and unlock member-only perks.</p>
+        <button class="cta-button" onclick="window.location.href='join.html'">Join ASPA+ →</button>
+    </section>
+
+    <!-- ========================================
+         FOOTER
+         ======================================== -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Directory</h4>
+                    <ul>
+                        <li><a href="directory.html">Member Directory</a></li>
+                        <li><a href="index.html#certification">CSP Certification</a></li>
+                        <li><a href="index.html#membership">Membership Tiers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Certification</h4>
+                    <ul>
+                        <li><a href="certified-roster.html">CSP Roster</a></li>
+                        <li><a href="index.html#certification">CSP Program</a></li>
+                        <li><a href="#">Certification Standards</a></li>
+                        <li><a href="#">Apply for Certification</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Association</h4>
+                    <ul>
+                        <li><a href="about.html">About ASPA</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                Copyright © 2004-2026 American Screen Printing Association. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========================================
+         MEMBER DATA & JAVASCRIPT
+         ======================================== -->
+    <script>
+        // ========================================
+        // MEMBER DATA — Replace with API fetch when backend is ready
+        // To add members: add objects to this array
+        // To connect to backend: replace this array with fetch('/api/members')
+        // ========================================
+
+        const memberData = [
+            {
+                id: 1,
+                name: 'Blue Ridge Screen Products',
+                city: 'Charlotte',
+                state: 'NC',
+                country: 'USA',
+                category: 'supplier',
+                phone: '(704) 815-6401',
+                website: 'www.blueridgescreenproducts.com',
+                description: 'One of the fastest growing screen and digital print suppliers in the country. Over 1200 DTF and screen print customers.',
+                certified: true,
+                memberTier: 'aspa_plus',
+                featured: true
+            },
+            {
+                id: 2,
+                name: 'Enemy Ink Ltd.',
+                city: 'Bulkington',
+                state: 'Warwickshire',
+                country: 'United Kingdom',
+                category: 'tshirt',
+                phone: '(02477) 983059',
+                website: 'www.enemyink.co.uk',
+                description: 'Premium custom apparel decorating with expertise in screen printing and digital transfer techniques.',
+                certified: true,
+                memberTier: 'legacy'
+            },
+            {
+                id: 3,
+                name: 'Garden City High School',
+                city: 'Garden City',
+                state: 'MI',
+                country: 'USA',
+                category: 'education',
+                description: 'Educational institution teaching screen printing and apparel decoration to students.',
+                certified: true,
+                memberTier: 'legacy'
+            },
+            {
+                id: 4,
+                name: 'Bay-Arenac ISD Career Center',
+                city: 'Bay City',
+                state: 'MI',
+                country: 'USA',
+                category: 'education',
+                description: 'Career training center specializing in screen printing and graphic design education.',
+                certified: true,
+                memberTier: 'legacy'
+            },
+            {
+                id: 5,
+                name: 'Precision Graphics Co.',
+                city: 'Atlanta',
+                state: 'GA',
+                country: 'USA',
+                category: 'tshirt',
+                phone: '(404) 555-0123',
+                website: 'www.precisiongraphics.com',
+                description: 'Full-service screen printing and embroidery shop serving corporate and retail clients.',
+                certified: true,
+                memberTier: 'aspa_plus',
+                featured: false
+            },
+            {
+                id: 6,
+                name: 'SignCraft Solutions',
+                city: 'Portland',
+                state: 'OR',
+                country: 'USA',
+                category: 'sign',
+                phone: '(503) 555-0145',
+                website: 'www.signcraftsolutions.com',
+                description: 'Specializing in custom signage, vehicle wraps, and large-format printing for businesses.',
+                certified: false,
+                memberTier: 'aspa_plus'
+            },
+            {
+                id: 7,
+                name: 'Elite Embroidery Designs',
+                city: 'Dallas',
+                state: 'TX',
+                country: 'USA',
+                category: 'embroidery',
+                phone: '(214) 555-0167',
+                website: 'www.eliteembroiderydesigns.com',
+                description: 'Custom embroidery and monogramming services for corporate uniforms and apparel.',
+                certified: true,
+                memberTier: 'legacy'
+            },
+            {
+                id: 8,
+                name: 'PrintTech Industries',
+                city: 'Los Angeles',
+                state: 'CA',
+                country: 'USA',
+                category: 'equipment',
+                phone: '(323) 555-0189',
+                website: 'www.printechindustries.com',
+                description: 'Manufacturing and distribution of professional screen printing equipment and supplies.',
+                certified: false,
+                memberTier: 'legacy'
+            },
+            {
+                id: 9,
+                name: 'Apparel Masters',
+                city: 'New York',
+                state: 'NY',
+                country: 'USA',
+                category: 'tshirt',
+                phone: '(212) 555-0123',
+                website: 'www.apparelmasters.com',
+                description: 'High-volume screen printing facility serving major apparel brands and retailers.',
+                certified: true,
+                memberTier: 'aspa_plus',
+                featured: true
+            },
+            {
+                id: 10,
+                name: 'Urban Print Studio',
+                city: 'Seattle',
+                state: 'WA',
+                country: 'USA',
+                category: 'tshirt',
+                phone: '(206) 555-0145',
+                description: 'Boutique screen printing studio specializing in limited edition apparel and custom designs.',
+                certified: false,
+                memberTier: 'legacy'
+            },
+            {
+                id: 11,
+                name: 'Global Suppliers Ltd.',
+                city: 'Toronto',
+                state: 'Ontario',
+                country: 'Canada',
+                category: 'supplier',
+                phone: '(416) 555-0167',
+                website: 'www.globalsuppliers.ca',
+                description: 'International supplier of inks, emulsions, and screen printing materials to professional shops.',
+                certified: true,
+                memberTier: 'aspa_plus'
+            },
+            {
+                id: 12,
+                name: 'Heritage Sign Company',
+                city: 'Boston',
+                state: 'MA',
+                country: 'USA',
+                category: 'sign',
+                phone: '(617) 555-0189',
+                website: 'www.heritagesignco.com',
+                description: 'Historic signage company with expertise in traditional and digital sign production.',
+                certified: true,
+                memberTier: 'legacy'
+            },
+            {
+                id: 13,
+                name: 'TechWear Printing',
+                city: 'Austin',
+                state: 'TX',
+                country: 'USA',
+                category: 'tshirt',
+                phone: '(512) 555-0123',
+                website: 'www.techwearprintng.com',
+                description: 'Modern printing facility with DTF, screen printing, and direct-to-garment capabilities.',
+                certified: false,
+                memberTier: 'aspa_plus',
+                featured: true
+            },
+            {
+                id: 14,
+                name: 'Midwest Equipment Group',
+                city: 'Chicago',
+                state: 'IL',
+                country: 'USA',
+                category: 'equipment',
+                phone: '(312) 555-0145',
+                website: 'www.midwestequipment.com',
+                description: 'Equipment sales and technical support for screen printing operations across North America.',
+                certified: true,
+                memberTier: 'legacy'
+            },
+            {
+                id: 15,
+                name: 'Artisan Embroidery Studio',
+                city: 'Denver',
+                state: 'CO',
+                country: 'USA',
+                category: 'embroidery',
+                phone: '(720) 555-0167',
+                website: 'www.artisanembroidery.com',
+                description: 'Premium custom embroidery services specializing in intricate designs and luxury fabrics.',
+                certified: true,
+                memberTier: 'aspa_plus'
+            }
+        ];
+
+        // State variables
+        let filteredMembers = [...memberData];
+        let currentPage = 1;
+        const membersPerPage = 24;
+        let searchTimeout;
+        let filterPanelOpen = false;
+
+        // Category display names
+        const categoryLabels = {
+            tshirt: 'Custom T-Shirt Shops',
+            sign: 'Sign Shops',
+            embroidery: 'Embroidery Shops',
+            equipment: 'Equipment Manufacturers',
+            supplier: 'Suppliers & Vendors',
+            education: 'Educational Facilities'
+        };
+
+        // ========================================
+        // INITIALIZATION
+        // ========================================
+        document.addEventListener('DOMContentLoaded', function() {
+            loadFiltersFromHash();
+            renderMembers();
+        });
+
+        // ========================================
+        // SEARCH & FILTER FUNCTIONS
+        // ========================================
+        function debounceSearch() {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                applyFilters();
+            }, 300);
+        }
+
+        function applyFilters() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const category = document.getElementById('categoryFilter').value;
+            const location = document.getElementById('locationFilter').value.toLowerCase();
+            const aspaOnly = document.getElementById('aspaToggle').classList.contains('active');
+            const certOnly = document.getElementById('certToggle').classList.contains('active');
+
+            filteredMembers = memberData.filter(member => {
+                // Search filter
+                if (searchTerm) {
+                    const searchableText = `${member.name} ${member.city} ${member.state} ${member.country} ${member.description}`.toLowerCase();
+                    if (!searchableText.includes(searchTerm)) return false;
+                }
+
+                // Category filter
+                if (category && member.category !== category) return false;
+
+                // Location filter
+                if (location) {
+                    const locationText = `${member.city} ${member.state} ${member.country}`.toLowerCase();
+                    if (!locationText.includes(location)) return false;
+                }
+
+                // ASPA+ filter
+                if (aspaOnly && member.memberTier !== 'aspa_plus') return false;
+
+                // CSP Certified filter
+                if (certOnly && !member.certified) return false;
+
+                return true;
+            });
+
+            // Sort: ASPA+ first, then alphabetical
+            filteredMembers.sort((a, b) => {
+                if (a.memberTier === 'aspa_plus' && b.memberTier !== 'aspa_plus') return -1;
+                if (a.memberTier !== 'aspa_plus' && b.memberTier === 'aspa_plus') return 1;
+                return a.name.localeCompare(b.name);
+            });
+
+            currentPage = 1;
+            updateFilterStats();
+            renderMembers();
+            saveFiltersToHash();
+        }
+
+        function toggleFilter(filterId) {
+            const btn = document.getElementById(filterId);
+            btn.classList.toggle('active');
+            applyFilters();
+        }
+
+        function resetFilters() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('categoryFilter').value = '';
+            document.getElementById('locationFilter').value = '';
+            document.getElementById('aspaToggle').classList.remove('active');
+            document.getElementById('certToggle').classList.remove('active');
+            applyFilters();
+        }
+
+        function updateFilterStats() {
+            const total = memberData.length;
+            const showing = filteredMembers.length;
+            document.getElementById('filterStats').textContent = `Showing ${showing} of ${total} members`;
+        }
+
+        // ========================================
+        // PAGINATION & RENDERING
+        // ========================================
+        function renderMembers() {
+            const start = (currentPage - 1) * membersPerPage;
+            const end = start + membersPerPage;
+            const pageMembers = filteredMembers.slice(start, end);
+
+            const grid = document.getElementById('resultsGrid');
+            const emptyState = document.getElementById('emptyState');
+
+            if (filteredMembers.length === 0) {
+                grid.classList.add('hidden');
+                emptyState.classList.remove('hidden');
+            } else {
+                grid.classList.remove('hidden');
+                emptyState.classList.add('hidden');
+                grid.innerHTML = pageMembers.map(member => createMemberCard(member)).join('');
+            }
+
+            renderPagination();
+
+            // Scroll to results
+            window.scrollTo({
+                top: document.getElementById('resultsGrid').offsetTop - 100,
+                behavior: 'smooth'
+            });
+        }
+
+        function createMemberCard(member) {
+            const hasContact = member.phone || member.website;
+
+            return `
+                <div class="member-card${member.featured ? ' featured' : ''}">
+                    <div class="card-content">
+                        <div class="card-badges">
+                            ${member.memberTier === 'aspa_plus' ? '<span class="badge badge-aspa-plus">ASPA+</span>' : ''}
+                            ${member.certified ? '<span class="badge badge-certified">✓ CSP Certified</span>' : ''}
+                            <span class="badge badge-category ${member.category}">${categoryLabels[member.category]}</span>
+                        </div>
+                        <h3 class="card-title">${member.name}</h3>
+                        <div class="card-location">
+                            <svg class="location-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                            <span>${member.city}, ${member.state} • ${member.country}</span>
+                        </div>
+                        <p class="card-description">${member.description}</p>
+                        ${hasContact ? `
+                            <div class="card-contact">
+                                ${member.phone ? `<div class="card-phone">📞 ${member.phone}</div>` : ''}
+                                <div class="card-actions">
+                                    ${member.website ? `<a href="https://${member.website}" target="_blank" class="card-link">Visit Website</a>` : ''}
+                                </div>
+                            </div>
+                        ` : ''}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderPagination() {
+            const totalPages = Math.ceil(filteredMembers.length / membersPerPage);
+            const paginationContainer = document.getElementById('pagination');
+
+            if (totalPages <= 1) {
+                paginationContainer.innerHTML = '';
+                return;
+            }
+
+            let html = '';
+
+            // First & Prev
+            html += `<button class="pagination-btn" onclick="goToPage(1)" ${currentPage === 1 ? 'disabled' : ''}>« First</button>`;
+            html += `<button class="pagination-btn" onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>‹ Prev</button>`;
+
+            // Page numbers
+            const maxVisible = 5;
+            let startPage = Math.max(1, currentPage - Math.floor(maxVisible / 2));
+            let endPage = Math.min(totalPages, startPage + maxVisible - 1);
+            startPage = Math.max(1, endPage - maxVisible + 1);
+
+            if (startPage > 1) {
+                html += `<button class="pagination-btn" onclick="goToPage(1)">1</button>`;
+                if (startPage > 2) html += `<span class="pagination-btn" style="cursor: default; border: none;">...</span>`;
+            }
+
+            for (let i = startPage; i <= endPage; i++) {
+                html += `<button class="pagination-btn${i === currentPage ? ' active' : ''}" onclick="goToPage(${i})">${i}</button>`;
+            }
+
+            if (endPage < totalPages) {
+                if (endPage < totalPages - 1) html += `<span class="pagination-btn" style="cursor: default; border: none;">...</span>`;
+                html += `<button class="pagination-btn" onclick="goToPage(${totalPages})">${totalPages}</button>`;
+            }
+
+            // Next & Last
+            html += `<button class="pagination-btn" onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>Next ›</button>`;
+            html += `<button class="pagination-btn" onclick="goToPage(${totalPages})" ${currentPage === totalPages ? 'disabled' : ''}>Last »</button>`;
+
+            paginationContainer.innerHTML = html;
+        }
+
+        function goToPage(page) {
+            currentPage = page;
+            renderMembers();
+        }
+
+        // ========================================
+        // URL HASH SUPPORT
+        // ========================================
+        function saveFiltersToHash() {
+            const params = new URLSearchParams();
+            const search = document.getElementById('searchInput').value;
+            const category = document.getElementById('categoryFilter').value;
+            const location = document.getElementById('locationFilter').value;
+            const aspaOnly = document.getElementById('aspaToggle').classList.contains('active');
+            const certOnly = document.getElementById('certToggle').classList.contains('active');
+
+            if (search) params.set('q', search);
+            if (category) params.set('category', category);
+            if (location) params.set('location', location);
+            if (aspaOnly) params.set('aspa', 'true');
+            if (certOnly) params.set('cert', 'true');
+
+            const hash = params.toString() ? '#' + params.toString() : '';
+            window.history.replaceState(null, '', window.location.pathname + hash);
+        }
+
+        function loadFiltersFromHash() {
+            const params = new URLSearchParams(window.location.hash.substring(1));
+
+            if (params.has('q')) {
+                document.getElementById('searchInput').value = params.get('q');
+            }
+            if (params.has('category')) {
+                document.getElementById('categoryFilter').value = params.get('category');
+            }
+            if (params.has('location')) {
+                document.getElementById('locationFilter').value = params.get('location');
+            }
+            if (params.has('aspa') && params.get('aspa') === 'true') {
+                document.getElementById('aspaToggle').classList.add('active');
+            }
+            if (params.has('cert') && params.get('cert') === 'true') {
+                document.getElementById('certToggle').classList.add('active');
+            }
+        }
+
+        // ========================================
+        // MOBILE MENU & FILTER PANEL
+        // ========================================
+        function toggleMobileMenu() {
+            // Placeholder for mobile menu toggle
+            console.log('Mobile menu toggled');
+        }
+
+        function toggleFilterPanel() {
+            const filterRow = document.getElementById('filterRow');
+            const toggle = document.querySelector('.filter-panel-toggle');
+
+            filterPanelOpen = !filterPanelOpen;
+
+            if (filterPanelOpen) {
+                filterRow.classList.add('open');
+                toggle.textContent = '✕ Hide Filters';
+            } else {
+                filterRow.classList.remove('open');
+                toggle.textContent = '⚙️ Show Filters';
+            }
+        }
+    </script>
+</body>
+</html>

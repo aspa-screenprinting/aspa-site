@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12 Sure Ways to Fail in the T-Shirt Business (And How to Avoid Them) | ASPA</title>
+    <meta name="description" content="Avoid the 12 most common reasons t-shirt businesses fail. Learn from real mistakes and build a profitable screen printing business with ASPA's expert guide.">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ========================================
+           DESIGN SYSTEM & ROOT VARIABLES
+           ======================================== */
+        :root {
+            --ink-black: #0a0a0a;
+            --ink-dark: #1a1a2e;
+            --ink-purple: #6c2bd9;
+            --ink-magenta: #e91e8c;
+            --ink-cyan: #00d4ff;
+            --ink-yellow: #ffd400;
+            --ink-orange: #ff6b35;
+            --ink-white: #f8f8f8;
+            --ink-gray: #b0b0b0;
+            --ink-gray-dark: #2a2a3e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--ink-black);
+            color: var(--ink-white);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ========================================
+           NAVIGATION BAR
+           ======================================== */
+        nav {
+            background-color: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 0 24px;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .nav-logo {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .nav-logo-main {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--ink-white);
+            letter-spacing: 2px;
+        }
+
+        .nav-logo-sub {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 9px;
+            font-weight: 600;
+            color: var(--ink-cyan);
+            letter-spacing: 1.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--ink-gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--ink-cyan);
+        }
+
+        .nav-links a.active {
+            color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            color: var(--ink-black);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background-color: var(--ink-white);
+            border-radius: 2px;
+            transition: 0.3s ease;
+        }
+
+        /* ========================================
+           ARTICLE HEADER
+           ======================================== */
+        .article-header {
+            background: linear-gradient(135deg, rgba(108, 43, 217, 0.1) 0%, rgba(233, 30, 140, 0.05) 100%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 48px 24px;
+        }
+
+        .article-header-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            color: var(--ink-gray);
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+        }
+
+        .breadcrumb a {
+            color: var(--ink-cyan);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--ink-yellow);
+        }
+
+        .category-tag {
+            display: inline-block;
+            background-color: rgba(233, 30, 140, 0.15);
+            border: 1px solid rgba(233, 30, 140, 0.4);
+            color: var(--ink-magenta);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .article-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--ink-white);
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+            line-height: 1.2;
+        }
+
+        .article-meta {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            color: var(--ink-gray);
+            margin-bottom: 24px;
+            letter-spacing: 0.3px;
+        }
+
+        .article-intro {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #d0d0d0;
+        }
+
+        /* ========================================
+           ARTICLE LAYOUT (TOC + Content)
+           ======================================== */
+        .article-wrapper {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        /* ========================================
+           TABLE OF CONTENTS (Sidebar)
+           ======================================== */
+        .toc-sidebar {
+            position: sticky;
+            top: 90px;
+            height: fit-content;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+        }
+
+        .toc-sidebar h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--ink-cyan);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        .toc-list {
+            list-style: none;
+        }
+
+        .toc-list li {
+            margin-bottom: 10px;
+        }
+
+        .toc-list a {
+            font-size: 14px;
+            color: var(--ink-gray);
+            text-decoration: none;
+            transition: color 0.2s ease;
+            padding-left: 12px;
+            border-left: 2px solid transparent;
+            display: block;
+            transition: all 0.2s ease;
+        }
+
+        .toc-list a:hover {
+            color: var(--ink-cyan);
+            border-left-color: var(--ink-cyan);
+        }
+
+        .toc-list a.active {
+            color: var(--ink-cyan);
+            border-left-color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        /* ========================================
+           ARTICLE CONTENT
+           ======================================== */
+        .article-content {
+            max-width: 800px;
+        }
+
+        article h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--ink-white);
+            margin-top: 48px;
+            margin-bottom: 20px;
+            padding-left: 16px;
+            border-left: 4px solid var(--ink-cyan);
+            letter-spacing: 0.5px;
+        }
+
+        article h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--ink-white);
+            margin-top: 32px;
+            margin-bottom: 16px;
+            letter-spacing: 0.3px;
+        }
+
+        article p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 18px;
+            color: #e0e0e0;
+        }
+
+        article strong {
+            color: var(--ink-white);
+            font-weight: 600;
+        }
+
+        article em {
+            color: var(--ink-cyan);
+            font-style: italic;
+        }
+
+        .highlight-term {
+            color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        article ul, article ol {
+            margin: 20px 0 20px 24px;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        article li {
+            margin-bottom: 12px;
+            color: #e0e0e0;
+        }
+
+        /* ========================================
+           CALLOUT BOXES
+           ======================================== */
+        .pro-tip {
+            background-color: rgba(0, 212, 255, 0.1);
+            border-left: 4px solid var(--ink-cyan);
+            border-radius: 4px;
+            padding: 20px;
+            margin: 28px 0;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .pro-tip strong {
+            color: var(--ink-cyan);
+            font-weight: 700;
+        }
+
+        .safety-warning {
+            background-color: rgba(255, 107, 53, 0.1);
+            border-left: 4px solid var(--ink-orange);
+            border-radius: 4px;
+            padding: 20px;
+            margin: 28px 0;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .safety-warning strong {
+            color: var(--ink-orange);
+            font-weight: 700;
+        }
+
+        .budget-breakdown {
+            background-color: rgba(0, 212, 255, 0.08);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 8px;
+            padding: 24px;
+            margin: 28px 0;
+        }
+
+        .budget-breakdown h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--ink-cyan);
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+        }
+
+        .budget-breakdown ul {
+            list-style: none;
+            margin: 0;
+        }
+
+        .budget-breakdown li {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 1.05rem;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        .budget-breakdown li:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .budget-range {
+            color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        /* ========================================
+           NUMBERED STEPS
+           ======================================== */
+        .step {
+            margin: 32px 0;
+            padding: 24px;
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: 4px;
+            border-left: 4px solid var(--ink-purple);
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            color: var(--ink-black);
+            border-radius: 50%;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .step h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--ink-white);
+            margin-bottom: 12px;
+        }
+
+        .step p {
+            margin-bottom: 12px;
+        }
+
+        .step p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ========================================
+           RELATED ARTICLES SECTION
+           ======================================== */
+        .related-articles {
+            margin-top: 60px;
+            padding: 40px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .related-articles h2 {
+            margin-top: 0;
+            border-left: none;
+            padding-left: 0;
+            margin-bottom: 32px;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .article-card {
+            background-color: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 8px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .article-card:hover {
+            border-color: var(--ink-cyan);
+            background-color: rgba(0, 212, 255, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .article-card h3 {
+            margin-top: 0;
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        .article-card p {
+            font-size: 14px;
+            color: var(--ink-gray);
+            flex-grow: 1;
+            margin-bottom: 16px;
+        }
+
+        .article-card a {
+            color: var(--ink-cyan);
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            transition: color 0.2s ease;
+            align-self: flex-start;
+        }
+
+        .article-card a:hover {
+            color: var(--ink-yellow);
+        }
+
+        /* ========================================
+           CTA BANNER
+           ======================================== */
+        .cta-banner {
+            background: linear-gradient(135deg, rgba(108, 43, 217, 0.2) 0%, rgba(233, 30, 140, 0.1) 100%);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 12px;
+            padding: 40px;
+            margin-top: 60px;
+            text-align: center;
+        }
+
+        .cta-banner h2 {
+            border-left: none;
+            padding-left: 0;
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 32px;
+        }
+
+        .cta-banner p {
+            font-size: 18px;
+            color: #d0d0d0;
+            margin-bottom: 28px;
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .cta-btn-primary {
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            color: var(--ink-black);
+            border: none;
+        }
+
+        .cta-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
+        }
+
+        .cta-btn-secondary {
+            background-color: transparent;
+            color: var(--ink-cyan);
+            border: 2px solid var(--ink-cyan);
+        }
+
+        .cta-btn-secondary:hover {
+            background-color: rgba(0, 212, 255, 0.1);
+            border-color: var(--ink-yellow);
+            color: var(--ink-yellow);
+        }
+
+        /* ========================================
+           FOOTER
+           ======================================== */
+        footer {
+            background-color: var(--ink-dark);
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 40px 24px 20px;
+            margin-top: 60px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--ink-cyan);
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            display: block;
+            color: var(--ink-gray);
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 12px;
+            transition: color 0.2s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--ink-cyan);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            color: var(--ink-gray);
+            font-size: 13px;
+        }
+
+        /* ========================================
+           MOBILE RESPONSIVE
+           ======================================== */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .article-title {
+                font-size: 32px;
+            }
+
+            .article-wrapper {
+                grid-template-columns: 1fr;
+                gap: 24px;
+                padding: 24px 16px;
+            }
+
+            .toc-sidebar {
+                position: static;
+                top: auto;
+                max-height: none;
+                margin-bottom: 24px;
+                padding: 20px;
+                background-color: rgba(255, 255, 255, 0.03);
+                border-radius: 8px;
+                border-left: 4px solid var(--ink-cyan);
+            }
+
+            .toc-list a {
+                font-size: 13px;
+            }
+
+            article h2 {
+                font-size: 24px;
+                margin-top: 32px;
+            }
+
+            article h3 {
+                font-size: 18px;
+            }
+
+            article p {
+                font-size: 1rem;
+            }
+
+            .cta-banner {
+                padding: 24px;
+            }
+
+            .cta-banner h2 {
+                font-size: 24px;
+            }
+
+            .cta-banner p {
+                font-size: 16px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .cta-btn {
+                width: 100%;
+            }
+
+            .related-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ========================================
+           SCROLLBAR STYLING
+           ======================================== */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--ink-cyan);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--ink-magenta);
+        }
+    </style>
+</head>
+<body>
+    <!-- ========================================
+         NAVIGATION
+         ======================================== -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="nav-logo-main">ASPA</div>
+                <div class="nav-logo-sub">Since 2004</div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="directory.html">Directory</a></li>
+                <li><a href="certified-roster.html">Certified</a></li>
+                <li><a href="exam.html">Certification</a></li>
+                <li><a href="join.html">Membership</a></li>
+                <li><a href="resources.html">Resources</a></li>
+            </ul>
+            <a href="join.html" class="nav-cta">Join ASPA</a>
+            <button class="hamburger" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ========================================
+         ARTICLE HEADER
+         ======================================== -->
+    <div class="article-header">
+        <div class="article-header-container">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a> > <a href="resources.html">Resources</a> > <a href="resources.html#business-growth">Business & Growth</a> > 12 Sure Ways to Fail in the T-Shirt Business
+            </div>
+            <span class="category-tag">Business & Growth</span>
+            <h1 class="article-title">12 Sure Ways to Fail in the T-Shirt Business (And How to Avoid Them)</h1>
+            <div class="article-meta">Updated March 2026 · 16 min read</div>
+            <p class="article-intro">
+                The barrier to entry in screen printing is low—and that's both the opportunity and the trap. Most new t-shirt businesses fail within the first 2 years. Not because the craft is hard (it's learnable), but because the business side gets ignored. This article covers the 12 most common ways people kill their t-shirt business and how to avoid every single one.
+            </p>
+        </div>
+    </div>
+
+    <!-- ========================================
+         ARTICLE WRAPPER (TOC + Content)
+         ======================================== -->
+    <div class="article-wrapper">
+        <!-- TABLE OF CONTENTS SIDEBAR -->
+        <aside class="toc-sidebar">
+            <h3>Contents</h3>
+            <ul class="toc-list">
+                <li><a href="#introduction">Introduction</a></li>
+                <li><a href="#failure-1">Failure #1: Not Treating It Like a Business</a></li>
+                <li><a href="#failure-2">Failure #2: Underpricing Your Work</a></li>
+                <li><a href="#failure-3">Failure #3: Trying to Sell to Everyone</a></li>
+                <li><a href="#failure-4">Failure #4: Ignoring Print Quality</a></li>
+                <li><a href="#failure-5">Failure #5: Spending Too Much Too Soon</a></li>
+                <li><a href="#failure-6">Failure #6: Not Learning Properly</a></li>
+                <li><a href="#failure-7">Failure #7: Terrible Communication</a></li>
+                <li><a href="#failure-8">Failure #8: No Online Presence</a></li>
+                <li><a href="#failure-9">Failure #9: Not Collecting Money Properly</a></li>
+                <li><a href="#failure-10">Failure #10: Doing Everything Yourself</a></li>
+                <li><a href="#failure-11">Failure #11: Ignoring the Numbers</a></li>
+                <li><a href="#failure-12">Failure #12: Giving Up Too Soon</a></li>
+                <li><a href="#conclusion">The Common Thread</a></li>
+            </ul>
+        </aside>
+
+        <!-- MAIN ARTICLE CONTENT -->
+        <article class="article-content">
+            <!-- INTRODUCTION -->
+            <section id="introduction">
+                <h2>Why Most T-Shirt Businesses Fail</h2>
+                <p>
+                    The screen printing industry has never been easier to enter. A 2-color manual press costs under $500. Blank t-shirts can be ordered by the dozen. Online design tools are free. The barriers that once separated hobbyists from professionals have crumbled.
+                </p>
+                <p>
+                    But low barriers to entry create low barriers to failure.
+                </p>
+                <p>
+                    Over the past 20 years, the American Screen Printing Association has watched thousands of entrepreneurs launch t-shirt businesses. We've tracked patterns in what works and—more importantly—what fails. The data is clear: failure rarely comes from poor printing technique. Most new printers can produce quality work within 3-6 months of serious practice.
+                </p>
+                <p>
+                    The failures come from the business side. From ignoring fundamentals. From passion without planning. From printing beautiful shirts that nobody buys or can't afford.
+                </p>
+                <p>
+                    This guide catalogs the 12 most common fatal mistakes—and more importantly, how to avoid them. Skip even one of these, and you're likely to survive. Miss several, and your business joins the statistical graveyard of failed startups.
+                </p>
+            </section>
+
+            <!-- FAILURE #1 -->
+            <section id="failure-1">
+                <h2>#1: Not Treating It Like a Real Business</h2>
+                <p>
+                    The biggest killer. Many start with "I'll print some shirts and see what happens." No business plan. No budget. No goals. Just a press and some optimism.
+                </p>
+                <p>
+                    Here's the problem: optimism is free, but running a business isn't. Without a plan, you'll make every expensive mistake simultaneously. You'll guess on pricing, waste money on equipment you don't need, and fail to track where your money actually goes.
+                </p>
+                <p>
+                    The fix is simple: register your business, separate personal and business finances, set revenue targets, and track every dollar. Even a one-page business plan beats no plan. You don't need a 50-page MBA thesis. But you need clarity on:
+                </p>
+                <ul>
+                    <li>What you're selling (shirts for local sports teams? niche hobbies? corporate clients?)</li>
+                    <li>Who you're selling to (target market and customer profiles)</li>
+                    <li>How much you need to earn monthly to cover costs and profit</li>
+                    <li>What equipment and skills you need before launch</li>
+                    <li>How you'll find and keep customers</li>
+                </ul>
+                <div class="pro-tip">
+                    <strong>Pro Tip:</strong> Business license, DBA, EIN, and a business bank account cost under $200 total in most states. This is your cheapest insurance policy against chaos.
+                </div>
+            </section>
+
+            <!-- FAILURE #2 -->
+            <section id="failure-2">
+                <h2>#2: Underpricing Your Work</h2>
+                <p>
+                    "I'll just charge $10 a shirt." After ink, blank, emulsion, screen time, electricity, and YOUR time? You're not competitive—you're broke.
+                </p>
+                <p>
+                    Underpricing is seductive because it feels like the path to volume. Lower price = more customers, right? Wrong. Lower price = more work for less money. You'll print twice as many shirts, earn half as much, and burn out faster.
+                </p>
+                <p>
+                    The fix: calculate your TRUE cost per print. Take materials (ink, blank, emulsion) plus your labor time plus overhead (rent, utilities, equipment depreciation) divided by units produced. Then apply a healthy 50-100% markup for profit and business sustainability.
+                </p>
+                <p>
+                    Your time has value. Don't give it away. A quality 1-color print should cost $8-12 minimum. Multi-color or custom work? 15-30+. If you're cheaper than everyone in town, you're not competitive—you're broke.
+                </p>
+                <div class="safety-warning">
+                    <strong>Warning:</strong> If your price is significantly lower than competitors, you're either missing costs or heading toward failure. Refund the money spent on low-margin orders, raise your prices, or accept that you'll run out of cash.
+                </div>
+            </section>
+
+            <!-- FAILURE #3 -->
+            <section id="failure-3">
+                <h2>#3: Trying to Sell to Everyone</h2>
+                <p>
+                    "My market is anyone who wears t-shirts." That's not a market—that's 8 billion people spread across every geography, industry, and interest. You can't serve everyone. You'll serve no one.
+                </p>
+                <p>
+                    When you try to be everything to everyone, your marketing becomes generic, your inventory becomes bloated, and your message gets lost. You waste money on ads that target no one specifically. You spend time chasing the wrong customers.
+                </p>
+                <p>
+                    The fix: pick a niche. Go deep, not wide. Pick ONE:
+                </p>
+                <ul>
+                    <li>Local sports teams (youth leagues, high school, college)</li>
+                    <li>Dog lovers and pet enthusiasts</li>
+                    <li>Fishing and hunting communities</li>
+                    <li>Car and motorcycle clubs</li>
+                    <li>Churches and faith communities</li>
+                    <li>Schools and student organizations</li>
+                    <li>Gaming and esports communities</li>
+                    <li>Trade workers and tradespeople</li>
+                </ul>
+                <p>
+                    A focused niche means focused marketing, repeat customers, and word-of-mouth growth. You understand their problems, speak their language, and become THE printer they call. That's how you build a sustainable business.
+                </p>
+            </section>
+
+            <!-- FAILURE #4 -->
+            <section id="failure-4">
+                <h2>#4: Ignoring Print Quality</h2>
+                <p>
+                    Rushing setup. Skipping test prints. Undercuring ink. Poor registration on multi-color work. Using cheap blanks. Your customer won't know the technical terms—but they'll know the shirt looks cheap.
+                </p>
+                <p>
+                    Quality is your reputation. And reputation is your business. One customer with a bad print tells ten friends. A customer with a great print might tell two. The asymmetry is brutal.
+                </p>
+                <p>
+                    The fix: establish standards. Test every job before production. Cure every shirt properly using a temperature gun to verify. Inspect before packaging. Create a quality checklist and never skip it, even under deadline pressure.
+                </p>
+                <p>
+                    When you're starting out, it's better to print 10 perfect shirts than 50 mediocre ones. Quality builds reputation. Reputation builds demand. Demand justifies higher prices. Higher prices fund growth.
+                </p>
+            </section>
+
+            <!-- FAILURE #5 -->
+            <section id="failure-5">
+                <h2>#5: Spending Too Much on Equipment Too Soon</h2>
+                <p>
+                    Buying a 6-color automatic press and a 24" conveyor dryer before your first paying customer. Spending $50,000 on a full setup when you don't even have your first order.
+                </p>
+                <p>
+                    This kills businesses in two ways: (1) it burns through capital that should go to marketing and operations, and (2) it locks you into high overhead before you have revenue. Now you HAVE to print constantly just to cover equipment payments.
+                </p>
+                <p>
+                    The fix: start with what you need for your CURRENT volume, not your fantasy volume. A 4-color 1-station manual press produces professional work for orders up to 100+ shirts. A flash dryer and heat press cure perfectly. This setup costs $1,500-3,000 and teaches you proper technique.
+                </p>
+                <p>
+                    Scale equipment as revenue justifies it, not before. When you're consistently doing 50+ shirts per day and turning down work due to capacity, then upgrade to automation. Not before.
+                </p>
+            </section>
+
+            <!-- FAILURE #6 -->
+            <section id="failure-6">
+                <h2>#6: Not Learning the Craft Properly</h2>
+                <p>
+                    YouTube University is a start, not a finish. Watching a 10-minute video on screen printing doesn't make you a printer. It makes you dangerous—confident but unskilled, wasting materials and customer orders.
+                </p>
+                <p>
+                    The craft of screen printing has technical depth. Mesh counts, emulsion chemistry, cure temperatures, ink viscosity, registration precision—these aren't optional details. They're the difference between professional and garbage.
+                </p>
+                <p>
+                    The fix: invest in real education. Take a structured course (ASPA offers courses and webinars). Get hands-on practice under someone who knows the craft. Pursue ASPA certification to validate your knowledge. The printers who learn properly waste less material, produce faster, and keep customers. They outcompete self-taught competitors every time.
+                </p>
+                <div class="pro-tip">
+                    <strong>Pro Tip:</strong> The CSP (Certified Screen Printer) credential costs under $500 to pursue and can command 20%+ price premiums from clients. The ROI is immediate.
+                </div>
+            </section>
+
+            <!-- FAILURE #7 -->
+            <section id="failure-7">
+                <h2>#7: Terrible Customer Communication</h2>
+                <p>
+                    Not responding to quotes for 3 days. Not confirming artwork details. Not setting expectations on turnaround time. Not following up after delivery. Customers leave not because you can't print—but because you can't communicate.
+                </p>
+                <p>
+                    Poor communication creates two problems: (1) customers assume you're not professional or interested, and (2) expectations misalignment ruins orders. The customer orders red shirts, gets magenta ones, and blames you. They asked for rush delivery, and you deliver in 2 weeks. These aren't printing failures—they're communication failures.
+                </p>
+                <p>
+                    The fix: respond to inquiries within 24 hours (even if it's "received, will quote by tomorrow"). Send artwork proofs with explicit approval language. Give realistic delivery dates, then beat them if possible. Follow up after delivery asking how they like the shirts.
+                </p>
+                <p>
+                    Communication is free and takes 5 minutes. Poor communication loses customers. Good communication builds loyalty.
+                </p>
+            </section>
+
+            <!-- FAILURE #8 -->
+            <section id="failure-8">
+                <h2>#8: No Online Presence</h2>
+                <p>
+                    "I get all my work through word of mouth." Great—until word of mouth dries up. Until you get 5 referrals and can't handle them all. Until a competitor with a website captures the market you've been nurturing.
+                </p>
+                <p>
+                    People search for "screen printer near me" online. If you're not findable, they'll find someone else. In 2026, a business without an online presence is invisible.
+                </p>
+                <p>
+                    The fix: at minimum, have a website with your services, contact info, portfolio of work, and Google Business listing. Social media showing your process and finished products. A simple one-page website with 5 photos of your work beats no website every time.
+                </p>
+                <p>
+                    You don't need expensive design or flashy features. You need to be findable and show proof that you can print well. That's it.
+                </p>
+            </section>
+
+            <!-- FAILURE #9 -->
+            <section id="failure-9">
+                <h2>#9: Not Collecting Money Properly</h2>
+                <p>
+                    No deposits. Net-30 terms for strangers. No signed quotes. Printing first, invoicing later. Hoping customers pay eventually.
+                </p>
+                <p>
+                    This is how small businesses bleed to death. You front 100% of costs (materials, labor, overhead), and the customer pays 60 days later. If they pay at all. Every day you wait for payment, your cash position weakens.
+                </p>
+                <p>
+                    The fix: 50% deposit before production starts. Balance due on pickup/delivery. Written quotes signed by the customer. For large orders, 100% prepayment for new customers. For repeat customers, net-15 only for orders under $500.
+                </p>
+                <p>
+                    You're running a business, not a charity. Getting paid is not rude—it's survival.
+                </p>
+            </section>
+
+            <!-- FAILURE #10 -->
+            <section id="failure-10">
+                <h2>#10: Doing Everything Yourself Forever</h2>
+                <p>
+                    Burning out printing, designing, selling, delivering, bookkeeping, and answering the phone—all you, all day. You become a slave to your business instead of its owner.
+                </p>
+                <p>
+                    The trap is clear: delegation costs money. But not delegating costs your sanity, your health, and your business. You can't scale what only you do. You'll hit a ceiling where you can't print any more shirts per day, so you can't make more money, so you can't hire help. You're stuck.
+                </p>
+                <p>
+                    The fix: identify what ONLY YOU can do (sell, build customer relationships, make decisions, maintain quality standards) and start delegating or outsourcing the rest. Even a part-time helper for production doubles your capacity. Outsource bookkeeping. Use design templates to reduce custom design work. Automate where possible.
+                </p>
+                <p>
+                    Burnout is a business-ender. Don't let it happen.
+                </p>
+            </section>
+
+            <!-- FAILURE #11 -->
+            <section id="failure-11">
+                <h2>#11: Ignoring the Numbers</h2>
+                <p>
+                    Not tracking costs. Not knowing margins. Not understanding which jobs make money and which lose money. "I think I'm profitable" isn't a financial plan. It's a gamble.
+                </p>
+                <p>
+                    Many t-shirt businesses fail while looking successful. They have plenty of orders, print a lot of shirts, and feel busy. But their margins are thin or negative, and they don't realize it until the bank account is empty.
+                </p>
+                <p>
+                    The fix: track every expense. Know your cost per print by job. Review profit margins monthly. Use accounting tools like QuickBooks, Wave (free), or even a spreadsheet. Answer these questions monthly:
+                </p>
+                <ul>
+                    <li>What was my total revenue?</li>
+                    <li>What were my total expenses?</li>
+                    <li>What was my net profit?</li>
+                    <li>What's my average profit per order?</li>
+                    <li>Which types of orders are most profitable?</li>
+                    <li>Which are breaking even or losing money?</li>
+                </ul>
+                <p>
+                    Knowledge is power. Numbers are truth.
+                </p>
+            </section>
+
+            <!-- FAILURE #12 -->
+            <section id="failure-12">
+                <h2>#12: Giving Up Too Soon</h2>
+                <p>
+                    The first 6-12 months are the hardest. Building a customer base takes time. Getting consistent quality takes practice. Turning a profit takes patience. Many quit right before things would've clicked.
+                </p>
+                <p>
+                    Startup businesses don't show profit for 6-12 months minimum. That's normal and expected. But many new printers expect money immediately. When the first few orders are slow, they assume the business won't work. They quit.
+                </p>
+                <p>
+                    The fix: set realistic expectations. Plan for 6 months of building before expecting steady income. Celebrate small wins—your first order, your first repeat customer, your first five-shirt job. Stay connected with the screen printing community (ASPA, forums, local groups) for support and motivation.
+                </p>
+                <p>
+                    Most overnight successes take 2-3 years of hard work that nobody sees.
+                </p>
+            </section>
+
+            <!-- CONCLUSION -->
+            <section id="conclusion">
+                <h2>The Common Thread: Respect the Business</h2>
+                <p>
+                    Every failure on this list comes down to not treating screen printing like a real business. The craft is learnable. The equipment is affordable. The market is there. But running a business requires discipline, learning, and persistence.
+                </p>
+                <p>
+                    You can learn to print amazing t-shirts in 3-6 months. But building a sustainable, profitable business takes longer. It requires planning, focus, communication, financial discipline, and patience.
+                </p>
+                <p>
+                    ASPA exists to help you succeed—through education, certification, community, and resources. We've been supporting screen printers since 2004. We've seen what works and what fails. We want to help you avoid these 12 mistakes and build the business you're dreaming of.
+                </p>
+                <p>
+                    Don't become a statistic. Invest in your knowledge and your business.
+                </p>
+            </section>
+
+            <!-- RELATED ARTICLES -->
+            <section class="related-articles">
+                <h2>Related Articles</h2>
+                <div class="related-grid">
+                    <div class="article-card">
+                        <h3>Pricing Your Screen Printing Work: A Complete Guide</h3>
+                        <p>Master the math of pricing. Learn how to calculate true costs, apply markup, and set prices that sustain your business without leaving money on the table.</p>
+                        <a href="article-pricing-guide.html">Read Article →</a>
+                    </div>
+                    <div class="article-card">
+                        <h3>Starting a Home-Based T-Shirt Business</h3>
+                        <p>Launch your screen printing business from home. Learn space requirements, zoning rules, equipment selection, and strategies for growing from garage to storefront.</p>
+                        <a href="article-home-based-business.html">Read Article →</a>
+                    </div>
+                    <div class="article-card">
+                        <h3>How Much Does It Cost to Start a Screen Printing Business?</h3>
+                        <p>Complete breakdown of startup costs by equipment, skill level, and business type. Understand your investment and expected return timelines.</p>
+                        <a href="article-startup-costs.html">Read Article →</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA BANNER -->
+            <div class="cta-banner">
+                <h2>Ready to Build a Sustainable Business?</h2>
+                <p>Join ASPA to access courses, certification, expert resources, and a community of 1,200+ screen printing professionals. Learn the business side as well as the craft.</p>
+                <div class="cta-buttons">
+                    <a href="exam.html" class="cta-btn cta-btn-primary">Explore CSP Certification →</a>
+                    <a href="join.html" class="cta-btn cta-btn-secondary">Join ASPA</a>
+                </div>
+            </div>
+        </article>
+    </div>
+
+    <!-- ========================================
+         FOOTER
+         ======================================== -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Directory</h4>
+                    <ul>
+                        <li><a href="directory.html">Member Directory</a></li>
+                        <li><a href="certified-roster.html">CSP Certification</a></li>
+                        <li><a href="join.html">Membership Tiers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Certification</h4>
+                    <ul>
+                        <li><a href="certified-roster.html">CSP Roster</a></li>
+                        <li><a href="exam.html">CSP Program</a></li>
+                        <li><a href="#">Certification Standards</a></li>
+                        <li><a href="#">Apply for Certification</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Association</h4>
+                    <ul>
+                        <li><a href="index.html">About ASPA</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                Copyright © 2004-2026 American Screen Printing Association. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========================================
+         JAVASCRIPT - TOC Active State & Mobile Menu
+         ======================================== -->
+    <script>
+        // Table of Contents - Active State Management
+        const tocLinks = document.querySelectorAll('.toc-list a');
+        const sections = document.querySelectorAll('section[id]');
+
+        function updateActiveTOC() {
+            let current = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 150;
+                if (window.pageYOffset >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveTOC);
+        window.addEventListener('load', updateActiveTOC);
+
+        // Smooth scroll for TOC links
+        tocLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Mobile Menu Toggle (Placeholder)
+        function toggleMobileMenu() {
+            console.log('Mobile menu toggled');
+        }
+    </script>
+</body>
+</html>

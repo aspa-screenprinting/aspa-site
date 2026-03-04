@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Use - ASPA | American Screen Printing Association</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --ink-black: #0a0a0a;
+      --ink-dark: #1a1a2e;
+      --ink-purple: #6c2bd9;
+      --ink-magenta: #e91e8c;
+      --ink-cyan: #00d4ff;
+      --ink-yellow: #ffd400;
+      --ink-orange: #ff6b35;
+      --ink-white: #f8f8f8;
+      --ink-gray: #b0b0b0;
+      --ink-gray-dark: #2a2a3e;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--ink-black);
+      color: var(--ink-white);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Navigation Bar */
+    nav {
+      background-color: var(--ink-dark);
+      border-bottom: 1px solid var(--ink-gray-dark);
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-logo {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-decoration: none;
+      color: var(--ink-white);
+    }
+
+    .nav-logo-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--ink-cyan);
+    }
+
+    .nav-logo-subtitle {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: var(--ink-gray);
+      margin-top: -0.3rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--ink-white);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--ink-cyan);
+    }
+
+    .nav-cta {
+      background: linear-gradient(135deg, var(--ink-purple) 0%, var(--ink-magenta) 100%);
+      color: var(--ink-white);
+      padding: 0.6rem 1.5rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(233, 30, 140, 0.4);
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background-color: var(--ink-white);
+      margin: 4px 0;
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+      .hamburger {
+        display: flex;
+      }
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, var(--ink-dark) 0%, var(--ink-gray-dark) 100%);
+      padding: 4rem 2rem;
+      text-align: center;
+      border-bottom: 2px solid var(--ink-purple);
+    }
+
+    .hero-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: var(--ink-cyan);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      margin-bottom: 1rem;
+      color: var(--ink-white);
+    }
+
+    .hero-subtitle {
+      font-size: 1.2rem;
+      color: var(--ink-gray);
+      margin-bottom: 1.5rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .effective-date {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.9rem;
+      color: var(--ink-yellow);
+      font-weight: 500;
+    }
+
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 2.5rem;
+      }
+      .hero-subtitle {
+        font-size: 1rem;
+      }
+    }
+
+    /* Main Content */
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .content-wrapper {
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      gap: 3rem;
+      padding: 4rem 0;
+    }
+
+    /* Table of Contents */
+    .toc {
+      position: sticky;
+      top: 80px;
+      height: fit-content;
+      padding: 2rem;
+      background-color: var(--ink-gray-dark);
+      border: 1px solid var(--ink-purple);
+      border-radius: 8px;
+    }
+
+    .toc h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--ink-cyan);
+      margin-bottom: 1.5rem;
+    }
+
+    .toc ul {
+      list-style: none;
+    }
+
+    .toc li {
+      margin-bottom: 0.8rem;
+    }
+
+    .toc a {
+      color: var(--ink-gray);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.3s ease;
+    }
+
+    .toc a:hover {
+      color: var(--ink-cyan);
+    }
+
+    /* Terms Sections */
+    .terms-content {
+      padding-bottom: 4rem;
+    }
+
+    .term-section {
+      margin-bottom: 3rem;
+      padding: 2.5rem;
+      background-color: var(--ink-dark);
+      border: 1px solid var(--ink-gray-dark);
+      border-radius: 8px;
+      transition: border-color 0.3s ease;
+    }
+
+    .term-section:hover {
+      border-color: var(--ink-purple);
+    }
+
+    .term-section h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--ink-cyan);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .section-number {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--ink-purple) 0%, var(--ink-magenta) 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .term-section h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--ink-yellow);
+      margin-top: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .term-section h3:first-of-type {
+      margin-top: 0;
+    }
+
+    .term-section p {
+      margin-bottom: 1rem;
+      color: var(--ink-white);
+      line-height: 1.8;
+    }
+
+    .term-section ul,
+    .term-section ol {
+      margin-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .term-section li {
+      margin-bottom: 0.6rem;
+      color: var(--ink-white);
+    }
+
+    .term-section strong {
+      color: var(--ink-cyan);
+    }
+
+    .term-section em {
+      color: var(--ink-gray);
+      font-style: italic;
+    }
+
+    /* Legal Notice */
+    .legal-notice {
+      background-color: var(--ink-gray-dark);
+      border-left: 4px solid var(--ink-orange);
+      padding: 1.5rem;
+      margin-top: 3rem;
+      border-radius: 4px;
+    }
+
+    .legal-notice strong {
+      color: var(--ink-orange);
+    }
+
+    /* Scroll to Top Button */
+    .scroll-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--ink-purple) 0%, var(--ink-magenta) 100%);
+      color: var(--ink-white);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.5rem;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      z-index: 99;
+    }
+
+    .scroll-to-top:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(233, 30, 140, 0.5);
+    }
+
+    .scroll-to-top.active {
+      display: flex;
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--ink-dark);
+      border-top: 1px solid var(--ink-gray-dark);
+      padding: 3rem 2rem 1rem;
+      margin-top: 4rem;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-columns {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-column h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--ink-cyan);
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .footer-column ul {
+      list-style: none;
+    }
+
+    .footer-column li {
+      margin-bottom: 0.8rem;
+    }
+
+    .footer-column a {
+      color: var(--ink-gray);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.3s ease;
+    }
+
+    .footer-column a:hover {
+      color: var(--ink-cyan);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid var(--ink-gray-dark);
+      padding-top: 2rem;
+      text-align: center;
+      color: var(--ink-gray);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .content-wrapper {
+        grid-template-columns: 1fr;
+      }
+
+      .toc {
+        position: relative;
+        top: 0;
+      }
+
+      .scroll-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav>
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-title">ASPA</div>
+        <div class="nav-logo-subtitle">SCREEN PRINTING</div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="directory.html">Directory</a></li>
+        <li><a href="certified-roster.html">Certified</a></li>
+        <li><a href="index.html#certification">Certification</a></li>
+        <li><a href="index.html#membership">Membership</a></li>
+        <li><a href="resources.html">Resources</a></li>
+      </ul>
+      <a href="join.html" class="nav-cta">Join ASPA</a>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-label">Legal</div>
+      <h1 class="hero-title">TERMS OF USE</h1>
+      <p class="hero-subtitle">Please read these terms carefully before using the ASPA website and services.</p>
+      <div class="effective-date">Effective Date: March 2026</div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="content-wrapper">
+      <!-- Table of Contents -->
+      <aside class="toc">
+        <h3>Contents</h3>
+        <ul>
+          <li><a href="#section-1">Acceptance of Terms</a></li>
+          <li><a href="#section-2">ASPA Services</a></li>
+          <li><a href="#section-3">Membership Terms</a></li>
+          <li><a href="#section-4">CSP Certification Exam</a></li>
+          <li><a href="#section-5">User Accounts</a></li>
+          <li><a href="#section-6">Acceptable Use</a></li>
+          <li><a href="#section-7">Intellectual Property</a></li>
+          <li><a href="#section-8">Member Directory</a></li>
+          <li><a href="#section-9">Third-Party Links</a></li>
+          <li><a href="#section-10">Payment Processing</a></li>
+          <li><a href="#section-11">Disclaimer of Warranties</a></li>
+          <li><a href="#section-12">Limitation of Liability</a></li>
+          <li><a href="#section-13">Indemnification</a></li>
+          <li><a href="#section-14">Governing Law</a></li>
+          <li><a href="#section-15">Changes to Terms</a></li>
+          <li><a href="#section-16">Contact Information</a></li>
+        </ul>
+      </aside>
+
+      <!-- Terms Sections -->
+      <main class="terms-content">
+        <!-- Section 1 -->
+        <section class="term-section" id="section-1">
+          <h2><span class="section-number">1</span>Acceptance of Terms</h2>
+          <p>By accessing and using the ASPA website and associated domains (including but not limited to screen-printing.us, americanscreenprintingassociation.com, screenprinting-aspa.com, and aspaUSA.com), you agree to be bound by these Terms of Use. If you do not agree to abide by the above, please do not use this service. ASPA reserves the right to update and change these Terms of Use at any time. Your continued use of this site following the posting of revised Terms of Use means that you accept and agree to the changes.</p>
+        </section>
+
+        <!-- Section 2 -->
+        <section class="term-section" id="section-2">
+          <h2><span class="section-number">2</span>ASPA Services</h2>
+          <p>The American Screen Printing Association (ASPA) provides a comprehensive platform for screen printing professionals and businesses. Our services include:</p>
+          <ul>
+            <li><strong>Member Directory:</strong> A searchable database of ASPA members, allowing industry professionals to connect and discover printing service providers, suppliers, and related businesses.</li>
+            <li><strong>CSP Certification Program:</strong> The Certified Screen Printer (CSP) examination and credential program, designed to validate professional competency in screen printing techniques and industry standards.</li>
+            <li><strong>ASPA Institute:</strong> Online training courses, webinars, and educational resources covering screen printing methods, business practices, and industry trends.</li>
+            <li><strong>Resources and Content:</strong> How-to guides, technical articles, industry news, and best practice documentation to support professional development.</li>
+            <li><strong>Membership Benefits:</strong> Access to exclusive member content, discounted certifications, networking opportunities, and industry updates.</li>
+          </ul>
+          <p>ASPA makes commercially reasonable efforts to maintain service availability, but does not guarantee uninterrupted access to any service.</p>
+        </section>
+
+        <!-- Section 3 -->
+        <section class="term-section" id="section-3">
+          <h2><span class="section-number">3</span>Membership Terms</h2>
+          <h3>Membership Types and Pricing</h3>
+          <p>ASPA offers tiered membership levels at the following annual subscription rates:</p>
+          <ul>
+            <li><strong>ASPA+ Business:</strong> $49 per year (for screen printers, t-shirt shops, embroiderers, and sign shops)</li>
+            <li><strong>ASPA+ Supplier:</strong> $99 per year (for equipment manufacturers and supply companies)</li>
+            <li><strong>ASPA+ Training:</strong> $79 per year (for educators, schools, and training facilities)</li>
+          </ul>
+          <h3>Automatic Renewal</h3>
+          <p>All memberships renew automatically on the anniversary of the subscription start date, unless cancelled in accordance with our cancellation policy. You will receive email notification 30 days prior to renewal. You agree that ASPA is authorized to charge the credit card or payment method on file for the renewal amount.</p>
+          <h3>Cancellation Policy</h3>
+          <p>Members may cancel their membership at any time by submitting a cancellation request through their account dashboard or by contacting ASPA directly. Cancellations become effective at the end of the current billing period. No refunds will be issued for partial subscription periods.</p>
+          <h3>Legacy Member Grandfathering</h3>
+          <p>Members who held active ASPA memberships prior to the implementation of the current membership structure maintain grandfathered status, which provides continued membership benefits at their original subscription rate.</p>
+          <h3>Refund Policy</h3>
+          <p>Memberships are non-refundable except where required by law. If you have technical difficulties preventing access to membership benefits, ASPA will work with you to resolve the issue or provide a service credit toward a future billing period.</p>
+        </section>
+
+        <!-- Section 4 -->
+        <section class="term-section" id="section-4">
+          <h2><span class="section-number">4</span>CSP Certification Exam</h2>
+          <h3>Exam Details</h3>
+          <p>The Certified Screen Printer (CSP) examination is administered by ASPA as a comprehensive assessment of professional screen printing knowledge and competency. Exam details are as follows:</p>
+          <ul>
+            <li><strong>Examination Fee:</strong> $59 per attempt</li>
+            <li><strong>Number of Questions:</strong> 36 multiple-choice questions</li>
+            <li><strong>Passing Score:</strong> 80% (approximately 29 of 36 correct answers)</li>
+            <li><strong>Format:</strong> Open-book examination (official ASPA study guide permitted)</li>
+            <li><strong>Duration:</strong> 90 minutes</li>
+          </ul>
+          <h3>Examination Policies</h3>
+          <p><strong>No Refunds:</strong> Examination fees are non-refundable once the exam has been started. If you need to cancel prior to starting the exam, contact ASPA within 24 hours of registration for a potential refund.</p>
+          <p><strong>Study Materials:</strong> Candidates may reference the official ASPA CSP Study Guide during the examination. Unauthorized materials, external devices (except for basic calculators), or assistance from other individuals is strictly prohibited.</p>
+          <p><strong>Certificate Issuance:</strong> Candidates who achieve a passing score receive the CSP credential and official certificate within 5 business days. Certificates are valid for three (3) years from the date of issuance.</p>
+          <p><strong>Recertification:</strong> ASPA+ members (Professional or Business tier) are eligible for recertification renewal at a reduced rate within 90 days of credential expiration. Non-members and expired credentials require re-examination at full examination fee.</p>
+        </section>
+
+        <!-- Section 5 -->
+        <section class="term-section" id="section-5">
+          <h2><span class="section-number">5</span>User Accounts</h2>
+          <h3>Account Creation</h3>
+          <p>To access certain ASPA services, you must create an account by providing accurate, current, and complete information. You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account.</p>
+          <h3>Information Accuracy</h3>
+          <p>You agree to provide truthful, accurate, current, and complete information during account registration and to update this information promptly if changes occur. ASPA reserves the right to suspend or terminate accounts containing false or misleading information.</p>
+          <h3>Account Security</h3>
+          <p>You are solely responsible for maintaining the security of your account login credentials. You agree to immediately notify ASPA of any unauthorized access or breach of account security. ASPA will not be liable for losses or damages resulting from unauthorized account use if you have been negligent in protecting your credentials.</p>
+          <h3>Prohibited Account Activities</h3>
+          <p>You agree not to share your account login credentials with any other person or entity. You may not allow another individual to use your account to access services or represent themselves as you. Account sharing violates these Terms and may result in immediate account termination.</p>
+        </section>
+
+        <!-- Section 6 -->
+        <section class="term-section" id="section-6">
+          <h2><span class="section-number">6</span>Acceptable Use</h2>
+          <p>You agree that you will not use the ASPA website or services for any unlawful, offensive, or abusive purpose. Specifically, you agree not to:</p>
+          <ul>
+            <li><strong>Automated Data Collection:</strong> Use automated systems, scripts, bots, scrapers, or other tools to collect, extract, or download data from the ASPA website without express written permission.</li>
+            <li><strong>Harvest Member Data:</strong> Attempt to obtain, aggregate, or compile member information from the directory for commercial solicitation, marketing, or any purpose other than legitimate business networking in accordance with member privacy settings.</li>
+            <li><strong>Commercial Solicitation:</strong> Use the ASPA member directory or any ASPA service to conduct unsolicited commercial solicitation, spam, or marketing without prior explicit permission from members.</li>
+            <li><strong>Reverse Engineering:</strong> Attempt to reverse engineer, decompile, or discover the underlying technology or source code of ASPA platforms and services.</li>
+            <li><strong>Illegal Activity:</strong> Use ASPA services for any illegal purpose or in violation of any applicable laws or regulations.</li>
+            <li><strong>Interference:</strong> Interfere with or disrupt the normal operation of ASPA servers or networks, or attempt to gain unauthorized access to systems or networks.</li>
+            <li><strong>Harmful Content:</strong> Post, transmit, or distribute content that is defamatory, harassing, abusive, hateful, or contains malware or viruses.</li>
+          </ul>
+          <p>Violation of these acceptable use policies may result in immediate suspension or termination of your account and legal action.</p>
+        </section>
+
+        <!-- Section 7 -->
+        <section class="term-section" id="section-7">
+          <h2><span class="section-number">7</span>Intellectual Property</h2>
+          <h3>ASPA Ownership</h3>
+          <p>All content, materials, and intellectual property on the ASPA website and services, including but not limited to text, graphics, logos, images, audio clips, digital downloads, and software, are the exclusive property of the American Screen Printing Association or its content providers. This includes:</p>
+          <ul>
+            <li>CSP certification exam questions and answers</li>
+            <li>ASPA Institute course materials and online training content</li>
+            <li>Study guides, technical documentation, and educational resources</li>
+            <li>Certificates of certification</li>
+            <li>Website design, layout, and user interface</li>
+          </ul>
+          <h3>Limited License</h3>
+          <p>You are granted a limited, non-exclusive, non-transferable license to access and view ASPA content solely for your personal, non-commercial use. You may not reproduce, distribute, transmit, modify, or create derivative works of any ASPA content without express written permission.</p>
+          <h3>Member Content Rights</h3>
+          <p>Members retain all rights to content they provide in their directory listings, including business descriptions, contact information, and images. By posting member content to ASPA services, you grant ASPA a perpetual, worldwide, royalty-free license to use, display, and distribute that content for the purposes of operating the member directory and promoting ASPA services.</p>
+        </section>
+
+        <!-- Section 8 -->
+        <section class="term-section" id="section-8">
+          <h2><span class="section-number">8</span>Member Directory</h2>
+          <h3>Directory Accuracy</h3>
+          <p>ASPA makes reasonable efforts to maintain the accuracy and currency of information in the member directory. However, ASPA does not guarantee the accuracy, completeness, or timeliness of directory listings and assumes no liability for errors, omissions, or outdated information.</p>
+          <h3>Member Responsibility</h3>
+          <p>Each member is solely responsible for the accuracy and appropriateness of the information in their directory listing. Members are required to review and update their listing information at least annually. ASPA is not responsible for outdated contact information, business descriptions, or other listing content.</p>
+          <h3>Right to Remove Listings</h3>
+          <p>ASPA reserves the right to review, modify, or remove member listings that violate these Terms of Use, contain false or misleading information, or are dormant or inactive for extended periods. ASPA will make reasonable efforts to notify members before removing listings, except in cases of violations or abuse.</p>
+          <h3>Directory Listing Standards</h3>
+          <p>Member listings must not contain offensive, defamatory, or illegal content. ASPA may reject or remove listings that promote illegal activities, contain hate speech, are sexually explicit, or otherwise violate community standards.</p>
+        </section>
+
+        <!-- Section 9 -->
+        <section class="term-section" id="section-9">
+          <h2><span class="section-number">9</span>Third-Party Links</h2>
+          <p>The ASPA website may contain links to third-party websites and resources. ASPA is not responsible for the content, accuracy, availability, or practices of external websites. Your use of third-party websites is governed by their own terms and conditions and privacy policies. ASPA does not endorse and assumes no liability for third-party content, products, or services. If you encounter a broken link or believe a linked resource violates these Terms, please report it to ASPA contact information provided in Section 16.</p>
+        </section>
+
+        <!-- Section 10 -->
+        <section class="term-section" id="section-10">
+          <h2><span class="section-number">10</span>Payment Processing</h2>
+          <h3>Third-Party Payment Processors</h3>
+          <p>ASPA uses third-party payment processors, including Stripe and PayPal, to securely process membership subscriptions and examination fees. By submitting payment information, you consent to the sharing of necessary transaction data with these payment processors in accordance with their privacy policies and terms of service.</p>
+          <h3>Credit Card Security</h3>
+          <p><strong>ASPA does not store complete credit card information.</strong> Payment processing is handled entirely by PCI-DSS compliant third-party processors. Only the last four digits of your card may be retained for account reference purposes. You are responsible for keeping your payment method information current and accurate.</p>
+          <h3>Billing and Charges</h3>
+          <p>By submitting payment information, you authorize ASPA to charge the provided payment method for membership dues, examination fees, and other services you have selected. ASPA will charge your account on the dates specified in your subscription agreement.</p>
+          <h3>Dispute Resolution</h3>
+          <p>If you believe you have been charged in error, contact ASPA immediately with documentation of the dispute. ASPA will work with the relevant payment processor to investigate and resolve billing disputes. Refunds are subject to the refund policies outlined in these Terms.</p>
+        </section>
+
+        <!-- Section 11 -->
+        <section class="term-section" id="section-11">
+          <h2><span class="section-number">11</span>Disclaimer of Warranties</h2>
+          <p>ASPA SERVICES ARE PROVIDED ON AN "AS-IS" AND "AS-AVAILABLE" BASIS WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED. ASPA DISCLAIMS ALL WARRANTIES, INCLUDING BUT NOT LIMITED TO IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT, AND TITLE.</p>
+          <p>ASPA does not warrant that:</p>
+          <ul>
+            <li>Services will be uninterrupted, error-free, or completely secure</li>
+            <li>Defects will be corrected or that the services are free of harmful components</li>
+            <li>Information provided through services is accurate, complete, or reliable</li>
+            <li>Results obtained from services will meet your expectations</li>
+            <li>Examination scores or certifications are recognized by third parties outside of ASPA</li>
+          </ul>
+          <p>Some jurisdictions do not allow disclaimers of implied warranties, so the above disclaimer may not apply to you in full.</p>
+        </section>
+
+        <!-- Section 12 -->
+        <section class="term-section" id="section-12">
+          <h2><span class="section-number">12</span>Limitation of Liability</h2>
+          <p>TO THE MAXIMUM EXTENT PERMITTED BY LAW, ASPA SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, PUNITIVE, OR EXEMPLARY DAMAGES ARISING OUT OF OR RELATED TO THESE TERMS OR YOUR USE OF ASPA SERVICES, INCLUDING BUT NOT LIMITED TO DAMAGES FOR LOSS OF PROFITS, GOODWILL, USE, DATA, OR OTHER INTANGIBLE LOSSES, EVEN IF ASPA HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.</p>
+          <p>ASPA'S TOTAL LIABILITY UNDER THESE TERMS SHALL NOT EXCEED THE AMOUNT YOU HAVE PAID TO ASPA IN THE TWELVE (12) MONTHS PRECEDING THE CLAIM, OR $100, WHICHEVER IS GREATER.</p>
+          <p>This limitation of liability applies regardless of the legal theory (contract, tort, strict liability, or other) upon which the claim is based. Some jurisdictions do not allow limitations of liability, so this limitation may not apply to you in full.</p>
+        </section>
+
+        <!-- Section 13 -->
+        <section class="term-section" id="section-13">
+          <h2><span class="section-number">13</span>Indemnification</h2>
+          <p>You agree to indemnify, defend, and hold harmless ASPA and its officers, directors, employees, agents, and representatives from and against any and all claims, damages, losses, liabilities, costs, and expenses (including reasonable attorneys' fees) arising out of or related to:</p>
+          <ul>
+            <li>Your use of ASPA services or violation of these Terms</li>
+            <li>Your violation of any applicable law or regulation</li>
+            <li>Your violation of third-party rights, including intellectual property, privacy, or publicity rights</li>
+            <li>Content you post or transmit through ASPA services</li>
+            <li>Your conduct in connection with other users of ASPA services</li>
+          </ul>
+          <p>ASPA reserves the right to assume the exclusive defense of any indemnified claim, in which case you agree to cooperate fully with ASPA in the defense of such claim.</p>
+        </section>
+
+        <!-- Section 14 -->
+        <section class="term-section" id="section-14">
+          <h2><span class="section-number">14</span>Governing Law and Jurisdiction</h2>
+          <p>These Terms of Use shall be governed by and construed in accordance with the laws of the Commonwealth of Pennsylvania, without regard to conflicts of law principles. You agree that any legal action or proceeding arising under or related to these Terms shall be brought exclusively in the state or federal courts located in Butler County, Pennsylvania, and you consent to the personal jurisdiction and venue of such courts. You waive any objection to venue and any claim that such courts constitute an inconvenient forum.</p>
+        </section>
+
+        <!-- Section 15 -->
+        <section class="term-section" id="section-15">
+          <h2><span class="section-number">15</span>Changes to Terms</h2>
+          <p>ASPA reserves the right to modify these Terms of Use at any time. Changes will be effective immediately upon posting to the website unless otherwise specified. Your continued use of ASPA services following the posting of revised Terms constitutes your acceptance of the changes. If you do not agree to the revised Terms, you must discontinue your use of ASPA services and cancel any active memberships or subscriptions. ASPA will provide notice of material changes via email to your registered account email address when practicable.</p>
+        </section>
+
+        <!-- Section 16 -->
+        <section class="term-section" id="section-16">
+          <h2><span class="section-number">16</span>Contact Information</h2>
+          <p>If you have questions about these Terms of Use or need to report violations, contact ASPA using the contact information provided at <a href="contact.html" style="color: var(--ink-cyan); text-decoration: none;">contact.html</a>.</p>
+          <p>You can also reach ASPA by visiting our Contact page for the most current contact methods, mailing address, and support channels.</p>
+        </section>
+
+        <!-- Legal Notice -->
+        <div class="legal-notice">
+          <strong>Important Legal Notice:</strong> These Terms of Use have been prepared as a comprehensive framework for the ASPA website and services. However, <strong>these terms should be reviewed by a qualified legal professional before publication</strong> to ensure compliance with applicable federal, state, and local laws, including consumer protection regulations, payment processing requirements, certification standards, and other jurisdictional requirements. Legal counsel should verify all provisions, especially those related to membership terms, refund policies, liability limitations, and dispute resolution procedures.
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-columns">
+        <div class="footer-column">
+          <h4>Directory</h4>
+          <ul>
+            <li><a href="directory.html">Browse Members</a></li>
+            <li><a href="directory.html">Add Listing</a></li>
+            <li><a href="directory.html">Update Listing</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Certification</h4>
+          <ul>
+            <li><a href="certified-roster.html">CSP Roster</a></li>
+            <li><a href="index.html#certification">CSP Program</a></li>
+            <li><a href="index.html#certification">Study Materials</a></li>
+            <li><a href="index.html#certification">Schedule Exam</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Association</h4>
+          <ul>
+            <li><a href="about.html">About ASPA</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Use</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2004-2026 American Screen Printing Association. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll to Top Button -->
+  <button class="scroll-to-top" id="scrollTopBtn" title="Go to top">↑</button>
+
+  <script>
+    // Scroll to top button functionality
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollTopBtn.classList.add('active');
+      } else {
+        scrollTopBtn.classList.remove('active');
+      }
+    });
+
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // Smooth scroll for TOC links
+    document.querySelectorAll('.toc a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // Mobile hamburger menu toggle
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+
+    if (hamburger) {
+      hamburger.addEventListener('click', () => {
+        navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+      });
+    }
+  </script>
+</body>
+</html>

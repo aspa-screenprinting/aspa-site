@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screen Printing Equipment Guide for Beginners (2026) | ASPA</title>
+    <meta name="description" content="Complete guide to screen printing equipment for beginners. Learn about presses, screens, inks, exposure units, and more from the American Screen Printing Association.">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ========================================
+           DESIGN SYSTEM & ROOT VARIABLES
+           ======================================== */
+        :root {
+            --ink-black: #0a0a0a;
+            --ink-dark: #1a1a2e;
+            --ink-purple: #6c2bd9;
+            --ink-magenta: #e91e8c;
+            --ink-cyan: #00d4ff;
+            --ink-yellow: #ffd400;
+            --ink-orange: #ff6b35;
+            --ink-white: #f8f8f8;
+            --ink-gray: #b0b0b0;
+            --ink-gray-dark: #2a2a3e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--ink-black);
+            color: var(--ink-white);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ========================================
+           NAVIGATION BAR
+           ======================================== */
+        nav {
+            background-color: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 0 24px;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .nav-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--ink-white);
+            text-decoration: none;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--ink-gray);
+            text-decoration: none;
+            transition: color 0.2s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links a:hover {
+            color: var(--ink-cyan);
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            color: var(--ink-black);
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 13px;
+            text-decoration: none;
+            transition: transform 0.2s ease;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+        }
+
+        /* ========================================
+           BREADCRUMB
+           ======================================== */
+        .breadcrumb {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px 24px;
+            font-size: 13px;
+            color: var(--ink-gray);
+            letter-spacing: 0.5px;
+        }
+
+        .breadcrumb a {
+            color: var(--ink-gray);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--ink-cyan);
+        }
+
+        /* ========================================
+           ARTICLE HEADER
+           ======================================== */
+        .article-header {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .article-category {
+            display: inline-block;
+            background-color: rgba(255, 107, 53, 0.15);
+            border: 1px solid rgba(255, 107, 53, 0.4);
+            color: var(--ink-orange);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--ink-white);
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+            line-height: 1.2;
+        }
+
+        .article-meta {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            color: var(--ink-gray);
+            margin-bottom: 24px;
+            letter-spacing: 0.3px;
+        }
+
+        .article-intro {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #d0d0d0;
+        }
+
+        /* ========================================
+           ARTICLE LAYOUT (TOC + Content)
+           ======================================== */
+        .article-wrapper {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        /* ========================================
+           TABLE OF CONTENTS (Sidebar)
+           ======================================== */
+        .toc-sidebar {
+            position: sticky;
+            top: 90px;
+            height: fit-content;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+        }
+
+        .toc-sidebar h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--ink-cyan);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        .toc-list {
+            list-style: none;
+        }
+
+        .toc-list li {
+            margin-bottom: 10px;
+        }
+
+        .toc-list a {
+            font-size: 14px;
+            color: var(--ink-gray);
+            text-decoration: none;
+            transition: color 0.2s ease;
+            padding-left: 12px;
+            border-left: 2px solid transparent;
+            display: block;
+            transition: all 0.2s ease;
+        }
+
+        .toc-list a:hover {
+            color: var(--ink-cyan);
+            border-left-color: var(--ink-cyan);
+        }
+
+        .toc-list a.active {
+            color: var(--ink-cyan);
+            border-left-color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        /* ========================================
+           ARTICLE CONTENT
+           ======================================== */
+        .article-content {
+            max-width: 800px;
+        }
+
+        article h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--ink-white);
+            margin-top: 48px;
+            margin-bottom: 20px;
+            padding-left: 16px;
+            border-left: 4px solid var(--ink-cyan);
+            letter-spacing: 0.5px;
+        }
+
+        article h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--ink-white);
+            margin-top: 32px;
+            margin-bottom: 16px;
+            letter-spacing: 0.3px;
+        }
+
+        article p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 18px;
+            color: #e0e0e0;
+        }
+
+        article strong {
+            color: var(--ink-white);
+            font-weight: 600;
+        }
+
+        article em {
+            color: var(--ink-cyan);
+            font-style: italic;
+        }
+
+        .highlight-term {
+            color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        article ul, article ol {
+            margin: 20px 0 20px 24px;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        article li {
+            margin-bottom: 12px;
+            color: #e0e0e0;
+        }
+
+        /* ========================================
+           CALLOUT BOXES
+           ======================================== */
+        .pro-tip {
+            background-color: rgba(0, 212, 255, 0.08);
+            border-left: 4px solid var(--ink-cyan);
+            border-radius: 4px;
+            padding: 20px;
+            margin: 28px 0;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .pro-tip strong {
+            color: var(--ink-cyan);
+            font-weight: 700;
+        }
+
+        .safety-warning {
+            background-color: rgba(255, 107, 53, 0.1);
+            border-left: 4px solid var(--ink-orange);
+            border-radius: 4px;
+            padding: 20px;
+            margin: 28px 0;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .safety-warning strong {
+            color: var(--ink-orange);
+            font-weight: 700;
+        }
+
+        .budget-breakdown {
+            background-color: rgba(0, 212, 255, 0.08);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 8px;
+            padding: 24px;
+            margin: 28px 0;
+        }
+
+        .budget-breakdown h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--ink-cyan);
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+        }
+
+        .budget-breakdown ul {
+            list-style: none;
+            margin: 0;
+        }
+
+        .budget-breakdown li {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 1.05rem;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        .budget-breakdown li:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .budget-range {
+            color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        /* ========================================
+           RELATED ARTICLES SECTION
+           ======================================== */
+        .related-articles {
+            margin-top: 60px;
+            padding: 40px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .related-articles h2 {
+            margin-top: 0;
+            border-left: none;
+            padding-left: 0;
+            margin-bottom: 32px;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .article-card {
+            background-color: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 8px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .article-card:hover {
+            border-color: var(--ink-cyan);
+            background-color: rgba(0, 212, 255, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .article-card h3 {
+            margin-top: 0;
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        .article-card p {
+            flex-grow: 1;
+            margin-bottom: 16px;
+            font-size: 0.95rem;
+        }
+
+        .article-card a {
+            color: var(--ink-cyan);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+
+        .article-card a:hover {
+            color: var(--ink-magenta);
+        }
+
+        .category-tag {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .category-tag.getting-started {
+            color: var(--ink-cyan);
+        }
+
+        .category-tag.business {
+            color: var(--ink-magenta);
+        }
+
+        .category-tag.equipment {
+            color: var(--ink-orange);
+        }
+
+        /* ========================================
+           CTA BANNER
+           ======================================== */
+        .cta-banner {
+            background: linear-gradient(135deg, rgba(108, 43, 217, 0.2), rgba(233, 30, 140, 0.2));
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 12px;
+            padding: 40px;
+            margin: 60px 0;
+            text-align: center;
+        }
+
+        .cta-banner h2 {
+            border: none;
+            padding: 0;
+            margin-top: 0;
+            margin-bottom: 16px;
+        }
+
+        .cta-banner p {
+            font-size: 1.1rem;
+            margin-bottom: 24px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            padding: 12px 28px;
+            border-radius: 4px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+        }
+
+        .cta-btn-primary {
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            color: var(--ink-black);
+        }
+
+        .cta-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0, 212, 255, 0.3);
+        }
+
+        .cta-btn-secondary {
+            background: transparent;
+            color: var(--ink-cyan);
+            border: 2px solid var(--ink-cyan);
+        }
+
+        .cta-btn-secondary:hover {
+            background: rgba(0, 212, 255, 0.1);
+            border-color: var(--ink-magenta);
+            color: var(--ink-magenta);
+        }
+
+        /* ========================================
+           FOOTER
+           ======================================== */
+        footer {
+            background-color: var(--ink-dark);
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            margin-top: 80px;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 24px 24px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .footer-section h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--ink-cyan);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section a {
+            color: var(--ink-gray);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--ink-cyan);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            font-size: 13px;
+            color: var(--ink-gray);
+            letter-spacing: 0.5px;
+        }
+
+        /* ========================================
+           RESPONSIVE
+           ======================================== */
+        @media (max-width: 768px) {
+            .article-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .toc-sidebar {
+                position: relative;
+                top: 0;
+                margin-bottom: 40px;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            article h2 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ========================================
+         NAVIGATION BAR
+         ======================================== -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">ASPA</a>
+            <ul class="nav-links">
+                <li><a href="directory.html">Directory</a></li>
+                <li><a href="certified-roster.html">Certified</a></li>
+                <li><a href="exam.html">Certification</a></li>
+                <li><a href="resources.html">Resources</a></li>
+                <li><a href="join.html">Membership</a></li>
+            </ul>
+            <a href="join.html" class="nav-cta">Join ASPA</a>
+        </div>
+    </nav>
+
+    <!-- ========================================
+         BREADCRUMB
+         ======================================== -->
+    <div class="breadcrumb">
+        <a href="resources.html">Resources</a> > <a href="resources.html#equipment">Equipment & Supplies</a> > Screen Printing Equipment Guide for Beginners
+    </div>
+
+    <!-- ========================================
+         ARTICLE HEADER
+         ======================================== -->
+    <header class="article-header">
+        <span class="article-category">Equipment & Supplies</span>
+        <h1>Screen Printing Equipment Guide for Beginners</h1>
+        <p class="article-meta">Updated March 2026 · 18 min read</p>
+        <p class="article-intro">Starting a screen printing journey can feel overwhelming with so much equipment on the market. This comprehensive guide breaks down everything you need to know—from essential presses and screens to inks and curing equipment. Whether you're building a hobby setup in your garage or launching a professional business, you'll learn what to buy, what to skip, and how to make smart investment decisions as you scale.</p>
+    </header>
+
+    <!-- ========================================
+         ARTICLE WRAPPER (TOC + Content)
+         ======================================== -->
+    <div class="article-wrapper">
+        <!-- TABLE OF CONTENTS -->
+        <aside class="toc-sidebar">
+            <h3>Contents</h3>
+            <ul class="toc-list">
+                <li><a href="#essential">The Essential Equipment List</a></li>
+                <li><a href="#presses">Screen Printing Presses</a></li>
+                <li><a href="#screens">Screens and Frames</a></li>
+                <li><a href="#inks">Inks and Chemicals</a></li>
+                <li><a href="#exposure">Exposure Units</a></li>
+                <li><a href="#heat">Heat Curing Equipment</a></li>
+                <li><a href="#workspace">Workspace Essentials</a></li>
+                <li><a href="#packages">Starter Packages vs Individual Pieces</a></li>
+                <li><a href="#decisions">Making Smart Buying Decisions</a></li>
+            </ul>
+        </aside>
+
+        <!-- ARTICLE CONTENT -->
+        <article class="article-content">
+
+            <!-- SECTION 1: ESSENTIAL EQUIPMENT LIST -->
+            <section id="essential">
+                <h2>The Essential Equipment List</h2>
+                <p>
+                    Before spending money, let's clarify what you actually need versus what's nice to have. Many beginners buy equipment they never use or make expensive mistakes by overbought from the start. Understanding the difference will save you thousands of dollars and wasted space in your shop.
+                </p>
+
+                <h3>Must-Have Equipment</h3>
+                <p>
+                    These items are non-negotiable. You literally cannot screen print without them:
+                </p>
+                <ul>
+                    <li><strong>Screen Printing Press:</strong> The foundation. Holds your screens, positions your substrate, applies printing pressure. Prices range from $200 for a single-color manual tabletop press to $50,000+ for fully automatic production equipment.</li>
+                    <li><strong>Screens:</strong> Mesh stretched over wooden or aluminum frames. You'll need at least 6-10 screens to start, especially if you print multi-color designs where each screen holds one color.</li>
+                    <li><strong>Squeegee:</strong> The blade that pushes ink through the mesh onto your substrate. Most presses include one, but you'll want a backup. Cost: $15-$40.</li>
+                    <li><strong>Emulsion and Scoop Coater:</strong> Emulsion is light-sensitive liquid that creates your stencil. A scoop coater applies it evenly to screens. Total investment: $50-$100.</li>
+                    <li><strong>Exposure Unit or Light Source:</strong> UV light cures your emulsion. Options range from free sunlight to $2,000+ professional units.</li>
+                    <li><strong>Ink:</strong> Plastisol, water-based, or discharge ink depending on your substrate and design. Budget $30-$50 per color to start.</li>
+                    <li><strong>Heat Source for Curing:</strong> Flash dryer, conveyor dryer, heat press, or even a heat gun for small runs. Essential for proper ink polymerization.</li>
+                    <li><strong>Water Source for Washout:</strong> Sink with reasonable pressure, hose, or pressure washer. You need this to remove emulsion after exposure.</li>
+                </ul>
+
+                <h3>Nice-to-Have Equipment (For Later)</h3>
+                <p>
+                    These items improve efficiency, quality, or comfort but aren't required to get started:
+                </p>
+                <ul>
+                    <li><strong>Automatic Press:</strong> Takes the manual labor out of printing. Expensive ($5,000-$50,000+) but massive productivity increase.</li>
+                    <li><strong>Conveyor Dryer:</strong> Fully automated curing with consistent results. Professional quality but pricey ($2,000+).</li>
+                    <li><strong>Commercial Washout Station:</strong> Dedicated spray pressure system for screen reclaiming. Cost: $1,500-$5,000.</li>
+                    <li><strong>RIP Software:</strong> Converts artwork into halftone screens for photographic prints. Needed for advanced work, not basics.</li>
+                    <li><strong>Specialized Inks:</strong> Metallic, foil, glow, puff inks add effects but complicate your initial learning curve.</li>
+                    <li><strong>Registration System:</strong> Professional jig or pin systems align multi-color prints. Tape alignment is free and works fine starting out.</li>
+                </ul>
+
+                <div class="pro-tip">
+                    <strong>Pro Tip:</strong> Start with the must-haves. Every dollar you don't spend on equipment is a dollar you can reinvest in practice, quality supplies, and inventory. Nice-to-have items become important only after you've proven demand and are scaling production.
+                </div>
+            </section>
+
+            <!-- SECTION 2: SCREEN PRINTING PRESSES -->
+            <section id="presses">
+                <h2>Screen Printing Presses</h2>
+                <p>
+                    The screen printing press is your most important investment. It holds your screens, positions your substrate (shirt, hat, etc.), and applies pressure to transfer ink. Choosing the right press for your skill level and budget determines everything from print quality to production speed.
+                </p>
+
+                <h3>Manual vs Automatic Presses</h3>
+                <p>
+                    Manual presses require you to hand-operate every step: load the substrate, align the screen, pull the squeegee, remove the shirt, and repeat. Automatic presses do all this mechanically after you feed the first shirt.
+                </p>
+                <p>
+                    <strong>Manual presses</strong> are ideal for beginners and small shops. You control every variable, which means you learn faster and catch quality issues immediately. You're limited to perhaps 50-150 prints per hour by hand, but that's fine when learning.
+                </p>
+                <p>
+                    <strong>Automatic presses</strong> speed production dramatically (400-1,000+ per hour depending on complexity) but require significant investment and operator experience. Save these for when you have consistent orders and proven demand.
+                </p>
+
+                <h3>Single-Color Tabletop Presses (Budget: $200-$400)</h3>
+                <p>
+                    Perfect for beginners. These hold one screen at a time, print one color per pass, and fit on a table. They're compact, affordable, and teach you fundamentals without overwhelming complexity.
+                </p>
+                <p>
+                    Popular brands include Speedball, FusionTM, and Vastex. Print area is typically 12x14 or 16x20 inches—plenty for t-shirts and small designs. A single-color tabletop press is often your best first investment.
+                </p>
+
+                <h3>4-Color 1-Station Presses (Budget: $500-$1,200)</h3>
+                <p>
+                    Step up from single-color. These have four screen stations arranged in a carousel. You load the shirt once, rotate through each color station, and print all four colors in sequence. No flash drying between colors (though you can add one).
+                </p>
+                <p>
+                    One station means only one shirt prints at a time, but the carousel arrangement speeds up multi-color work significantly. Great for custom t-shirt shops or small businesses printing small-to-medium runs. Brands like STAR, Workhorse, and Ranar dominate this tier.
+                </p>
+
+                <h3>6-Color 2-Station and Larger Production Presses (Budget: $2,000+)</h3>
+                <p>
+                    Two or more stations mean you can load the next shirt while the first one prints. Six or more colors let you print complex multi-color designs without worrying about limited stations. These are professional-grade.
+                </p>
+                <p>
+                    Production presses cost $2,000 to $50,000+ depending on features, colors, automation, and brand reputation. Only invest here when you're operating a professional shop with consistent workflow.
+                </p>
+
+                <h3>What Each Station/Color Means</h3>
+                <p>
+                    In screen printing, each "color" is technically a separate screen and print pass. A "4-color" press can hold four screens simultaneously. You push the carousel to the next station after each color. With flash drying between each pass, colors are set before the next color prints on top, ensuring clean layering and vibrant results.
+                </p>
+
+                <div class="budget-breakdown">
+                    <h4>Press Budget Breakdown</h4>
+                    <ul>
+                        <li>
+                            <span>Single-Color Manual Tabletop</span>
+                            <span class="budget-range">$200–$400</span>
+                        </li>
+                        <li>
+                            <span>4-Color Carousel (Manual)</span>
+                            <span class="budget-range">$500–$1,200</span>
+                        </li>
+                        <li>
+                            <span>6+ Color 2-Station</span>
+                            <span class="budget-range">$2,000–$6,000</span>
+                        </li>
+                        <li>
+                            <span>Automatic Multi-Station</span>
+                            <span class="budget-range">$10,000–$50,000+</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <h3>Brands Worth Considering</h3>
+                <p>
+                    Established manufacturers with strong support: STAR Micronics, Workhorse Products, Ranar, Anatol, Vastex, and M&R are trusted by professionals. These brands cost more but hold resale value and have excellent customer support. Budget brands exist but often frustrate with quality issues and poor support.
+                </p>
+
+                <div class="pro-tip">
+                    <strong>Pro Tip:</strong> Buy used equipment, especially on your first press. The learning curve is steep, and many beginners discover they prefer a different style or business model after six months. A used tabletop press from a well-maintained shop is 50-70% cheaper than new and works just fine for learning.
+                </div>
+            </section>
+
+            <!-- SECTION 3: SCREENS AND FRAMES -->
+            <section id="screens">
+                <h2>Screens and Frames</h2>
+                <p>
+                    Screens are where your design lives. A screen consists of mesh (fabric) stretched tightly over a frame. When you coat it with emulsion and expose it to light, you create a stencil that holds ink in specific areas.
+                </p>
+
+                <h3>Aluminum vs Wood Frames</h3>
+                <p>
+                    <strong>Aluminum frames</strong> are professional standard. They're lightweight, durable, hold tension over time, don't warp from humidity, and are easy to reclaim and reuse. Cost: $30-$80 per frame depending on size.
+                </p>
+                <p>
+                    <strong>Wooden frames</strong> are cheaper ($10-$30 per frame) and work fine for beginners, but they absorb water, warp in humidity, and don't hold tension as well. If budget is extremely tight, wood works temporarily. Plan to upgrade to aluminum as you scale.
+                </p>
+
+                <h3>Standard Sizes</h3>
+                <p>
+                    Screens come in various sizes. The most common for t-shirt printing is 20x24 inches, which comfortably fits a chest print on most shirt sizes. Other common sizes: 14x20, 18x20, 23x31, and custom sizes for specialty work.
+                </p>
+                <p>
+                    For a beginner's first setup, stick with 20x24. It's versatile, affordable, and every supplier stocks them. Specialty sizes can wait until you have specific client needs.
+                </p>
+
+                <h3>Mesh Counts Explained</h3>
+                <p>
+                    Mesh count is threads per inch in the fabric. Higher mesh = finer threads, lower mesh = thicker threads. Each serves different purposes:
+                </p>
+                <ul>
+                    <li><strong>110 Mesh:</strong> Coarse, large openings. Perfect for bold graphics, dark inks on heavy garments, and maximum ink deposit. Use for thick plastisol on dark shirts.</li>
+                    <li><strong>156 Mesh:</strong> Medium, all-purpose. The sweet spot for most beginners. Works for general spot color printing on light and dark garments. Most versatile choice.</li>
+                    <li><strong>230 Mesh:</strong> Fine, small openings. For halftones, photographic details, and fine line work. Requires excellent exposure timing or it fills in (clogs with hardened emulsion).</li>
+                    <li><strong>305+ Mesh:</strong> Very fine, for advanced photographic work. Avoid until you're experienced.</li>
+                </ul>
+                <p>
+                    Most beginners should stock 156-mesh screens. It handles the majority of designs without requiring advanced exposure or technique skills.
+                </p>
+
+                <h3>How Many Screens Do You Need?</h3>
+                <p>
+                    Invest in 6-10 screens to start. Here's why: If you're printing multi-color designs, each color is a separate screen. While one design dries, you're setting up the next one. Having multiple screens lets you maximize your press and avoid downtime waiting for screens to dry.
+                </p>
+                <p>
+                    For a single-color press printing two-color designs, 4-6 screens is sufficient. For a 4-color carousel press, 8-10 screens ensures you always have screens ready. Reclaim and reuse screens when you're done with a design.
+                </p>
+
+                <div class="pro-tip">
+                    <strong>Pro Tip:</strong> Pre-coat screens during slow periods and store them in dry, dark conditions. This means screens are always ready to use without waiting for emulsion to dry. Improves your efficiency dramatically.
+                </div>
+            </section>
+
+            <!-- SECTION 4: INKS AND CHEMICALS -->
+            <section id="inks">
+                <h2>Inks and Chemicals</h2>
+                <p>
+                    The right ink for the right job makes the difference between vibrant, durable prints and faded, cracking disasters. Understanding the three main ink types and your chemical support system is essential for quality work and customer satisfaction.
+                </p>
+
+                <h3>Plastisol Ink (Most Common)</h3>
+                <p>
+                    Plastisol is the workhorse of screen printing. It's a suspension of PVC particles in plasticizer—think of it as plastic suspended in oil. When heated to 320°F, it bonds permanently to fabric.
+                </p>
+                <p>
+                    Advantages: Vibrant colors, excellent coverage, forgiving learning curve, long shelf life (up to 1 year), affordable ($6-$15 per pound).
+                </p>
+                <p>
+                    Disadvantages: Requires heat curing, thick on fabric (less comfortable feel), solvent-based cleanup, environmental concerns.
+                </p>
+                <p>
+                    For 95% of beginners, start with plastisol. It's reliable, widely available, and has the gentlest learning curve.
+                </p>
+
+                <h3>Water-Based Ink (Eco-Friendly)</h3>
+                <p>
+                    Water-based inks are liquid suspensions of pigments in water. They cure through evaporation and oxidation, creating a softer hand feel.
+                </p>
+                <p>
+                    Advantages: Eco-friendly, soft hand feel, washable with water, lower toxic fumes.
+                </p>
+                <p>
+                    Disadvantages: Requires 5-10 flash dryer passes, harder to master, more expensive ($10-$25/pound), shorter shelf life (3-6 months), trickier color mixing.
+                </p>
+                <p>
+                    Save water-based for after you've mastered plastisol basics. It has a steeper learning curve and requires more equipment investment (multiple flash passes).
+                </p>
+
+                <h3>Discharge Ink (Advanced)</h3>
+                <p>
+                    Discharge ink bleaches dyes out of already-colored fabric, leaving behind a softer, more natural print. Perfect for colored t-shirts.
+                </p>
+                <p>
+                    Challenges: Requires specific fabric composition, tricky chemistry, expensive, demands precise technique. Avoid until you're very comfortable with basics.
+                </p>
+
+                <h3>Starter Ink Investment</h3>
+                <p>
+                    Begin with plastisol in basic colors: white, black, red, blue, and yellow. Each color costs $8-$15 per pound. Start with 1 pound per color—you'll be shocked how little ink actually transfers to fabric. Most prints use just a few ounces.
+                </p>
+                <p>
+                    Total initial ink investment: $50-$75 for five colors at 1 pound each. That's enough for 100+ t-shirts or several thousand small prints, depending on coverage.
+                </p>
+
+                <h3>Essential Chemicals</h3>
+                <p>
+                    Beyond ink, you need supporting chemicals:
+                </p>
+                <ul>
+                    <li><strong>Emulsion:</strong> Light-sensitive coating that creates your stencil. Diazo emulsion is most common ($20-$40/gallon, makes 20+ screens).</li>
+                    <li><strong>Scoop Coater:</strong> Metal or plastic tool that applies emulsion evenly ($15-$30). Match the width to your screens.</li>
+                    <li><strong>Emulsion Remover:</strong> Chemical that strips hardened emulsion from screens for reuse ($15-$40/quart).</li>
+                    <li><strong>Screen Opener:</strong> Softens hardened ink and helps clear mesh during cleanup ($20-$35/quart).</li>
+                    <li><strong>Screen Degreaser:</strong> Cleans oils from new aluminum frames before coating ($15-$30/quart).</li>
+                    <li><strong>Ink Base/Reducer:</strong> Adjusts ink viscosity without diluting pigment ($10-$20/quart).</li>
+                </ul>
+
+                <div class="safety-warning">
+                    <strong>Safety Warning:</strong> Many screen printing chemicals contain volatile organic compounds (VOCs) and solvents. Ensure proper ventilation—open windows, use a fan, or install a spray booth with exhaust. Never work in a sealed space. Wear gloves and avoid skin contact. Read Safety Data Sheets (SDS) for every chemical you use. Emulsion and some removers can cause skin sensitization with repeated exposure.
+                </div>
+            </section>
+
+            <!-- SECTION 5: EXPOSURE UNITS -->
+            <section id="exposure">
+                <h2>Exposure Units</h2>
+                <p>
+                    An exposure unit hardens your emulsion-coated screen using UV light. Proper exposure creates sharp, detailed stencils. Poor exposure results in weak prints, filled-in details, or screens that wash out completely. Getting exposure right is crucial for quality control.
+                </p>
+
+                <h3>How Exposure Works</h3>
+                <p>
+                    Your film positive blocks UV light. Where light hits the emulsion, it hardens. Where the film blocks light, emulsion stays soft and washes away, creating openings for ink. The stronger your UV source and the longer you expose, the harder the emulsion becomes.
+                </p>
+                <p>
+                    Too little exposure: emulsion doesn't harden, screen washes out completely, no stencil. Too much exposure: emulsion gets rock-hard, fine details fill in with hardened emulsion, loss of sharpness.
+                </p>
+
+                <h3>DIY Sunlight Method (Free, but Inconsistent)</h3>
+                <p>
+                    In a pinch, you can expose screens outside on a sunny day. UV intensity varies with cloud cover, time of day, season, and geography. Typical exposure time: 2-5 minutes. Results are unpredictable but functional.
+                </p>
+                <p>
+                    Works for experimentation and extremely budget-conscious starts. Not viable for consistent production. Weather, season, and time of day make it unreliable.
+                </p>
+
+                <h3>DIY Halogen/Glass Setup ($50-$150)</h3>
+                <p>
+                    Some DIYers build exposure boxes with halogen lights and glass covers. Slightly more consistent than sun but still requires careful timing and testing. Effective but time-consuming to build and calibrate.
+                </p>
+
+                <h3>Budget LED Exposure Units ($150-$400)</h3>
+                <p>
+                    Entry-level LED exposure boxes are affordable and much more consistent than DIY. They feature a timer, consistent light output, and repeatability. Typical exposure times: 2-8 minutes depending on emulsion and light strength.
+                </p>
+                <p>
+                    Brands like Speedball, Saati, and others offer units in this range. Print area is typically 12x14 to 16x20. Perfect for hobbyists and small professional shops.
+                </p>
+
+                <h3>Professional Exposure Units ($800-$2,000+)</h3>
+                <p>
+                    High-end exposure units feature precise UV control, vacuum tables (lock screens in place), consistent light distribution, and timers down to the second. Some include exposure calculators or digital controls.
+                </p>
+                <p>
+                    Brands like Vastex, Ranar, and UCEC lead this category. Necessary for professional shops printing at volume where exposure consistency directly impacts efficiency and quality.
+                </p>
+
+                <h3>Choosing Your Exposure Unit</h3>
+                <p>
+                    If you're serious about screen printing, invest in a budget LED unit ($200-$300). It pays for itself quickly in time saved and consistent results. If budget is extremely tight, start with sunlight and upgrade when you have revenue.
+                </p>
+
+                <div class="pro-tip">
+                    <strong>Pro Tip:</strong> Use exposure calculators (cheap strips you place on your film before exposure). They help you dial in perfect timing by showing which exposure step produces the cleanest stencil. Saves months of trial-and-error. Cost: $5-$10 for a pack.
+                </div>
+            </section>
+
+            <!-- SECTION 6: HEAT CURING EQUIPMENT -->
+            <section id="heat">
+                <h2>Heat Curing Equipment</h2>
+                <p>
+                    Curing is where many beginners fail. Properly cured prints last through dozens of washes. Under-cured prints crack, fade, and peel within a few washes. Over-cured prints become brittle. Getting curing right is non-negotiable for customer satisfaction.
+                </p>
+
+                <h3>Why Plastisol Requires Heat Curing</h3>
+                <p>
+                    Plastisol ink feels dry to the touch after 24 hours but isn't truly cured. It must reach 320°F throughout the entire ink film to polymerize (bond) to the fabric. Temperatures below 320°F = incomplete cure = weak durability. This is the #1 reason for complaints from customers about fading and cracking.
+                </p>
+
+                <h3>Flash Dryers ($800-$5,000)</h3>
+                <p>
+                    Flash dryers use intense radiant heat and light to quickly set ink between colors in multi-color prints. They typically operate at higher temperatures (350-400°F) for 2-4 seconds.
+                </p>
+                <p>
+                    Purpose: Creates a temporary gel set so you can stack multiple colors without smudging. Flash drying doesn't fully cure—it just prevents colors from mixing.
+                </p>
+                <p>
+                    Popular brands: Speedball, Ranar, M&R. Essential for multi-color work. Single-color prints don't need a flash dryer.
+                </p>
+
+                <h3>Conveyor Dryers ($2,000-$15,000+)</h3>
+                <p>
+                    Conveyor dryers move shirts through a heated tunnel at consistent speed, ensuring full 320°F cure across the entire print. Most professional shops use conveyor dryers for consistent, production-speed curing.
+                </p>
+                <p>
+                    Advantages: Fully automated, consistent results, hands-off operation, handles high volume.
+                </p>
+                <p>
+                    Disadvantages: Expensive, requires electrical infrastructure, takes floor space, overkill for hobby/small shops.
+                </p>
+
+                <h3>Heat Press Method (Budget: $100-$300)</h3>
+                <p>
+                    Many beginners start with a heat press (designed for heat transfer printing). Place the shirt flat on the heated platen, close the clamp, and hold at 320°F for 60-90 seconds.
+                </p>
+                <p>
+                    Works but is slow (manual, one shirt at a time) and creates uneven curing if you're not careful with pressure. Better than nothing, but upgrading to a flash dryer or conveyor is worth the investment quickly.
+                </p>
+
+                <h3>Heat Gun Method (Emergency Only)</h3>
+                <p>
+                    For tiny runs or emergency curing, a heat gun can work. Hold it 6-8 inches from the print, keep moving to avoid scorching, and aim for 320°F as measured by a temperature gun. Very slow and inconsistent. Avoid if possible.
+                </p>
+
+                <h3>Curing Verification</h3>
+                <p>
+                    You can't see curing. To verify:
+                </p>
+                <ul>
+                    <li><strong>Stretch Test:</strong> Gently stretch the cured print. If ink cracks or peels, it's under-cured. Properly cured ink stretches with the fabric.</li>
+                    <li><strong>Temperature Gun:</strong> Measure ink surface temp during curing. Should reach 320°F+ for true cure. Budget guns cost $20-$50.</li>
+                    <li><strong>Wash Test:</strong> Wash a sample shirt 3-5 times in hot water. Inspect for cracking, fading, or loss of ink. Properly cured ink survives multiple washes intact.</li>
+                </ul>
+
+                <div class="safety-warning">
+                    <strong>Safety Warning:</strong> Heat curing equipment reaches dangerous temperatures (320°F+). Never touch the substrate immediately after curing—you will be burned. Ensure proper ventilation, as high heat can emit fumes from ink and fabric. Use temperature guns carefully and never point them at skin. Keep skin clear of all heated surfaces. If you're curing multiple shirts, take breaks to avoid heat-related stress.
+                </div>
+            </section>
+
+            <!-- SECTION 7: WORKSPACE ESSENTIALS -->
+            <section id="workspace">
+                <h2>Workspace Essentials</h2>
+                <p>
+                    Beyond large equipment, your workspace needs specific tools and areas for different functions. Proper organization reduces errors, speeds workflow, and makes the work safer and more enjoyable.
+                </p>
+
+                <h3>Washout Area or Booth</h3>
+                <p>
+                    You need water pressure to remove emulsion after exposure. Options:
+                </p>
+                <ul>
+                    <li><strong>Sink with decent water pressure:</strong> Free if you have one nearby. Not ideal but works for learning.</li>
+                    <li><strong>Outdoor hose or pressure washer:</strong> $50-$300 investment. Better pressure, outdoors avoids indoor mess.</li>
+                    <li><strong>Commercial washout booth:</strong> $1,500-$5,000. Professional, contained, plumbed waste system. Only for shops printing 40+ hours/week.</li>
+                </ul>
+
+                <h3>Dark Room or Yellow Safe-Light Area</h3>
+                <p>
+                    Emulsion is sensitive to UV and blue light but tolerant of yellow and red wavelengths. When coating screens and before exposure, work in dim light or install yellow safelights (cost: $20-$50).
+                </p>
+                <p>
+                    A dedicated dark room isn't necessary. A regular room with lights off or windows covered with yellow film works fine.
+                </p>
+
+                <h3>Squeegees (Multiple Types)</h3>
+                <p>
+                    Different squeegees have different hardness (durometer). Typical options:
+                </p>
+                <ul>
+                    <li><strong>70-75 Durometer (Soft):</strong> Flexible, deposits maximum ink. Good for textured or uneven surfaces.</li>
+                    <li><strong>80-85 Durometer (Medium):</strong> All-purpose. Balanced ink deposit and control. Best for learning.</li>
+                    <li><strong>90-100 Durometer (Hard):</strong> Stiff, minimal ink deposit. Use for halftones or fine detail work.</li>
+                </ul>
+                <p>
+                    Start with one 80-85 durometer squeegee. As you advance, you'll learn when softer or harder squeegees improve your work. Cost: $15-$40 per squeegee.
+                </p>
+
+                <h3>Scoop Coater</h3>
+                <p>
+                    Applies emulsion evenly to screens. Match the width to your most-used screen size. Cost: $15-$30. Essential for consistent screen preparation.
+                </p>
+
+                <h3>Spray Adhesive and Tape</h3>
+                <p>
+                    <strong>Spray adhesive</strong> (Cost: $5-$10 per can) holds blank garments in place on the platen during printing. Some printers use pins or mechanical alignment instead.
+                </p>
+                <p>
+                    <strong>Tape</strong> (painter's tape or platen tape, $10-$30 per roll) seals the edges of your screen to prevent ink leakage. Duct tape works but leaves sticky residue.
+                </p>
+
+                <h3>Supporting Tools</h3>
+                <ul>
+                    <li><strong>Screen degreaser and brushes:</strong> Clean new screens before coating. $15-$30 for solution, brushes cost $5-$10.</li>
+                    <li><strong>Temperature gun:</strong> Verify curing temperature. $20-$50.</li>
+                    <li><strong>Tack rags:</strong> Remove dust from screens before exposure. $5 for a pack.</li>
+                    <li><strong>Squeegee scraper:</strong> Clean squeegees between colors. $10-$20.</li>
+                    <li><strong>Ink mixing paddles:</strong> Stir ink thoroughly before use. $5-$15.</li>
+                    <li><strong>Gloves, apron, paper towels:</strong> Protect yourself from chemicals and ink. Ongoing supplies, budget $20-$30/month.</li>
+                </ul>
+
+                <h3>Workspace Layout</h3>
+                <p>
+                    Organize your shop into zones: coating area (dark, near water source), exposure area (light-controlled), press area (open space), flash drying area (near press), and final curing area (near dryer). This workflow prevents bottlenecks and cross-contamination.
+                </p>
+
+                <div class="pro-tip">
+                    <strong>Pro Tip:</strong> Keep a notebook of settings: exposure times, ink thickness, squeegee pressure, curing temps for each design. Over time, you'll reference these notes constantly, saving hours of re-testing and troubleshooting.
+                </div>
+            </section>
+
+            <!-- SECTION 8: STARTER PACKAGES VS BUYING INDIVIDUAL PIECES -->
+            <section id="packages">
+                <h2>Starter Packages vs Buying Individual Pieces</h2>
+                <p>
+                    Many suppliers offer "starter kits" bundling press, screens, ink, and chemicals into one package. These can be convenient but often include low-quality or unnecessary items. Let's break down the pros, cons, and what's typically missing.
+                </p>
+
+                <h3>All-in-One Starter Kits</h3>
+                <p>
+                    Common packages include: 1-2 color manual press, 4-6 screens, basic ink set, emulsion, chemicals, and squeegee.
+                </p>
+                <p>
+                    Advantages: Convenience, everything arrives together, usually cheaper than buying separately, less research required.
+                </p>
+                <p>
+                    Disadvantages: Often include low-quality items (plastic squeegees that don't work well, cheap ink that's hard to print with), press may be underpowered, limited options for later upgrades.
+                </p>
+
+                <h3>What's Usually Missing from Kits</h3>
+                <ul>
+                    <li>Exposure unit (biggest miss—kits often assume you'll use sunlight)</li>
+                    <li>Heat curing equipment (another massive omission)</li>
+                    <li>Quality squeegees (kits typically include one cheap squeegee)</li>
+                    <li>Proper scoop coater for emulsion application</li>
+                    <li>Screen degreaser (essential for aluminum frame prep)</li>
+                    <li>Temperature measurement tools</li>
+                    <li>Registration system for multi-color alignment</li>
+                    <li>Extra screens beyond the basic set</li>
+                </ul>
+
+                <h3>The Reality: Most Kits Require Additional Investment</h3>
+                <p>
+                    A $500 starter kit might save you $100 vs buying items separately, but you'll quickly spend $500+ on missing essentials (exposure unit, flash dryer, quality squeegees, etc.). You often end up disappointed with kit quality.
+                </p>
+
+                <h3>Better Approach: Buy Strategic Pieces Individually</h3>
+                <p>
+                    Pick a quality press you trust (even if used), add essential supporting equipment, and skip the kit. You'll invest slightly more initially but get better quality control and fewer surprises.
+                </p>
+
+                <h3>Recommended Budget Tiers</h3>
+
+                <div class="budget-breakdown">
+                    <h4>Hobby Setup ($500-$800)</h4>
+                    <ul style="margin-bottom: 0;">
+                        <li>Used single-color manual press: $200-$300</li>
+                        <li>6 aluminum screens: $180</li>
+                        <li>Basic ink set + chemicals: $100</li>
+                        <li>DIY or budget exposure unit: $50-$100</li>
+                        <li>Squeegees, scoop coater, tools: $50-$70</li>
+                        <li><em>Curing:</em> Heat press or heat gun (repurpose)</li>
+                    </ul>
+                </div>
+
+                <div class="budget-breakdown">
+                    <h4>Side Hustle Setup ($1,500-$3,000)</h4>
+                    <ul style="margin-bottom: 0;">
+                        <li>New 4-color carousel press: $800-$1,200</li>
+                        <li>10 aluminum screens: $300</li>
+                        <li>Full ink set + quality chemicals: $200</li>
+                        <li>LED exposure unit (budget): $200-$300</li>
+                        <li>Flash dryer: $800-$1,200</li>
+                        <li>Workspace setup + tools: $100-$200</li>
+                    </ul>
+                </div>
+
+                <div class="budget-breakdown">
+                    <h4>Small Professional Shop ($5,000-$10,000)</h4>
+                    <ul style="margin-bottom: 0;">
+                        <li>Quality 6+ color press: $2,000-$4,000</li>
+                        <li>20+ aluminum screens: $600</li>
+                        <li>Professional ink set + full chemical suite: $400</li>
+                        <li>Professional exposure unit: $800-$1,000</li>
+                        <li>Flash dryer + belt conveyor or heat press: $1,200-$2,000</li>
+                        <li>Pressure washer or washout booth: $300-$500</li>
+                        <li>Registration system, extra tools, workspace: $500-$1,000</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- SECTION 9: MAKING SMART BUYING DECISIONS -->
+            <section id="decisions">
+                <h2>Making Smart Buying Decisions</h2>
+                <p>
+                    You're about to invest hundreds or thousands of dollars. Smart decisions now prevent expensive mistakes. Here's how to evaluate options and build your equipment collection strategically.
+                </p>
+
+                <h3>New vs Used Equipment</h3>
+                <p>
+                    <strong>Used Equipment (Savings: 40-60%)</strong>
+                </p>
+                <p>
+                    Most screen printers start with used gear. A used tabletop press from a reputable seller is 50-70% cheaper than new and works identically. Many beginners quit or pivot business models within 6-12 months, flooding the used market with barely-used equipment.
+                </p>
+                <p>
+                    Where to find used equipment: Facebook Marketplace, Craigslist, eBay, local print shops closing or downsizing, industry auctions.
+                </p>
+
+                <h3>What to Inspect on Used Presses</h3>
+                <ul>
+                    <li><strong>Screen clamps:</strong> Do they clamp securely? Stripped threads or broken clamps are expensive to repair.</li>
+                    <li><strong>Platen condition:</strong> Cracks, dents, or warping affect print quality. A damaged platen is $100-$300 to replace.</li>
+                    <li><strong>Squeegee sharpness:</strong> Squeegees wear with use. Replacement squeegees cost $20-$40 each but are worth the investment for quality.</li>
+                    <li><strong>Bearings and hinges:</strong> Listen for grinding noises or grinding when you move the press. Indicates potential mechanical issues.</li>
+                    <li><strong>Off-contact adjustment:</strong> Do adjustment screws move smoothly? Stuck adjustments = press doesn't work properly.</li>
+                    <li><strong>Overall alignment:</strong> Place a level on the press. Is it square? Misalignment causes uneven prints.</li>
+                </ul>
+
+                <h3>New Equipment: When It Makes Sense</h3>
+                <p>
+                    Buy new if: You have specific needs (unusual size, automatic functionality), you want a warranty, or you can't find quality used equipment locally. New equipment holds resale value and has manufacturer support.
+                </p>
+                <p>
+                    For presses, new is rarely worth the premium unless you're a professional buying $10,000+ equipment. For chemicals and disposables, always buy new.
+                </p>
+
+                <h3>Upgrading Over Time</h3>
+                <p>
+                    Plan your equipment growth. Start with a single-color manual press, prove your skill and demand, then upgrade to multi-color. As volume grows, add flash drying and automated curing. As revenue increases, invest in better exposure units and registration systems.
+                </p>
+                <p>
+                    Don't buy everything at once. Let cash flow from early work fund better equipment. This approach teaches you what you actually need vs what salespeople claim you need.
+                </p>
+
+                <h3>Don't Overbuy at the Start</h3>
+                <p>
+                    The biggest mistake beginners make: buying a 6-color production press, a $2,000 exposure unit, and professional curing equipment before printing their first shirt. Then they discover screen printing isn't for them, or they lack the skill to use that equipment effectively.
+                </p>
+                <p>
+                    Start minimal, prove the concept, then scale. A $300 used press and $400 exposure unit are enough to learn everything and print thousands of shirts. Upgrade once you've built an actual customer base.
+                </p>
+
+                <h3>ASPA Member Discounts</h3>
+                <p>
+                    ASPA membership ($150-$500/year depending on tier) includes discounts with major equipment suppliers, ink manufacturers, and chemical companies. For shops buying regularly, membership pays for itself within months through vendor discounts alone.
+                </p>
+                <p>
+                    Members also get access to training resources, the CSP certification path, and a network of 1,200+ professionals who can advise on equipment decisions.
+                </p>
+
+                <h3>Building Your Equipment Network</h3>
+                <p>
+                    Connect with local screen printers. Visit established shops, ask questions, and learn what equipment they recommend. Most printers are generous with knowledge once you show genuine interest.
+                </p>
+                <p>
+                    Join ASPA or local screen printing meetups. You'll learn from experienced practitioners who've already made the mistakes you're about to make. The relationships pay dividends forever.
+                </p>
+
+                <div class="pro-tip">
+                    <strong>Pro Tip:</strong> When buying used, ask for a video call or site visit to see the equipment running. Poor videos, vague descriptions, or refusal to demonstrate are red flags. A seller confident in their equipment will happily show it working.
+                </div>
+            </section>
+
+            <!-- RELATED ARTICLES -->
+            <section class="related-articles">
+                <h2>Related Articles</h2>
+                <div class="related-grid">
+                    <div class="article-card">
+                        <span class="category-tag getting-started">Getting Started</span>
+                        <h3>How to Screen Print T-Shirts: Complete Beginner's Guide</h3>
+                        <p>Step-by-step instructions from artwork prep through curing. Learn exposure, printing technique, multi-color alignment, and troubleshooting with expert guidance.</p>
+                        <a href="article-how-to-screen-print.html">Read Article →</a>
+                    </div>
+                    <div class="article-card">
+                        <span class="category-tag business">Business & Growth</span>
+                        <h3>How Much Does It Cost to Start a Screen Printing Business?</h3>
+                        <p>Detailed breakdown of startup costs, equipment budgets, software, workspace, and ROI timelines for launching a professional screen printing operation.</p>
+                        <a href="article-startup-costs.html">Read Article →</a>
+                    </div>
+                    <div class="article-card">
+                        <span class="category-tag equipment">Equipment & Supplies</span>
+                        <h3>Essential Supplies Every New Screen Printer Needs</h3>
+                        <p>Beyond equipment, discover the consumables and supplies that keep your shop running smoothly. Coming soon.</p>
+                        <a href="#">Coming Soon →</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA BANNER -->
+            <div class="cta-banner">
+                <h2>Ready to Master Screen Printing?</h2>
+                <p>Get CSP certified and join 1,200+ screen printing professionals worldwide. Boost your credibility, command premium rates, and access exclusive ASPA training resources and vendor discounts.</p>
+                <div class="cta-buttons">
+                    <a href="exam.html" class="cta-btn cta-btn-primary">Start CSP Exam →</a>
+                    <a href="join.html" class="cta-btn cta-btn-secondary">Join ASPA+</a>
+                </div>
+            </div>
+        </article>
+    </div>
+
+    <!-- ========================================
+         FOOTER
+         ======================================== -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Directory</h4>
+                    <ul>
+                        <li><a href="directory.html">Member Directory</a></li>
+                        <li><a href="index.html#certification">CSP Certification</a></li>
+                        <li><a href="index.html#membership">Membership Tiers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Certification</h4>
+                    <ul>
+                        <li><a href="certified-roster.html">CSP Roster</a></li>
+                        <li><a href="index.html#certification">CSP Program</a></li>
+                        <li><a href="#">Certification Standards</a></li>
+                        <li><a href="#">Apply for Certification</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Association</h4>
+                    <ul>
+                        <li><a href="about.html">About ASPA</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                Copyright © 2004-2026 American Screen Printing Association. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========================================
+         JAVASCRIPT - TOC Active State & Mobile Menu
+         ======================================== -->
+    <script>
+        // Table of Contents - Active State Management
+        const tocLinks = document.querySelectorAll('.toc-list a');
+        const sections = document.querySelectorAll('section[id]');
+
+        function updateActiveTOC() {
+            let current = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 150;
+                if (window.pageYOffset >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveTOC);
+        window.addEventListener('load', updateActiveTOC);
+
+        // Smooth scroll for TOC links
+        tocLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Mobile Menu Toggle (Placeholder)
+        function toggleMobileMenu() {
+            console.log('Mobile menu toggled');
+        }
+    </script>
+</body>
+</html>

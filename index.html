@@ -1,0 +1,1619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASPA — American Screen Printing Association</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ========== RESET & BASE ========== */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --ink-black: #0a0a0a;
+            --ink-dark: #1a1a2e;
+            --ink-purple: #6c2bd9;
+            --ink-magenta: #e91e8c;
+            --ink-cyan: #00d4ff;
+            --ink-yellow: #ffd400;
+            --ink-orange: #ff6b35;
+            --ink-white: #f8f8f8;
+            --ink-gray: #b0b0b0;
+            --ink-gray-dark: #2a2a3e;
+            --font-display: 'Bebas Neue', sans-serif;
+            --font-heading: 'Space Grotesk', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--ink-black);
+            color: var(--ink-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a { color: var(--ink-cyan); text-decoration: none; transition: color 0.3s; }
+        a:hover { color: var(--ink-yellow); }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+        /* ========== INK SPLATTER SVG BACKGROUNDS ========== */
+        .ink-splatter {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ========== NAVIGATION ========== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 16px 0;
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            transition: all 0.3s;
+        }
+
+        nav .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            letter-spacing: 3px;
+            color: var(--ink-white);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-accent { color: var(--ink-cyan); }
+
+        .nav-links { display: flex; gap: 32px; list-style: none; }
+
+        .nav-links a {
+            color: var(--ink-gray);
+            font-family: var(--font-heading);
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            position: relative;
+            padding: 4px 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--ink-cyan), var(--ink-magenta));
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover { color: var(--ink-white); }
+        .nav-links a:hover::after { width: 100%; }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--ink-magenta), var(--ink-purple));
+            color: white !important;
+            padding: 10px 24px;
+            border-radius: 6px;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(233, 30, 140, 0.3);
+            color: white !important;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--ink-white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* ========== HERO ========== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+
+        .hero-bg .ink-splatter:nth-child(1) {
+            width: 600px; height: 600px;
+            background: var(--ink-purple);
+            top: -100px; right: -100px;
+            opacity: 0.2;
+        }
+
+        .hero-bg .ink-splatter:nth-child(2) {
+            width: 500px; height: 500px;
+            background: var(--ink-magenta);
+            bottom: -150px; left: -100px;
+            opacity: 0.12;
+        }
+
+        .hero-bg .ink-splatter:nth-child(3) {
+            width: 300px; height: 300px;
+            background: var(--ink-cyan);
+            top: 40%; left: 50%;
+            opacity: 0.08;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(108, 43, 217, 0.15);
+            border: 1px solid rgba(108, 43, 217, 0.3);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-family: var(--font-heading);
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--ink-cyan);
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(3.5rem, 8vw, 7rem);
+            line-height: 0.95;
+            letter-spacing: 2px;
+            margin-bottom: 24px;
+        }
+
+        .hero h1 .gradient-text {
+            background: linear-gradient(135deg, var(--ink-cyan) 0%, var(--ink-magenta) 50%, var(--ink-yellow) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--ink-gray);
+            max-width: 560px;
+            margin-bottom: 40px;
+            line-height: 1.7;
+        }
+
+        .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--ink-magenta), var(--ink-purple));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(233, 30, 140, 0.35);
+            color: white;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid rgba(255,255,255,0.2);
+            color: var(--ink-white);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--ink-cyan);
+            color: var(--ink-cyan);
+            transform: translateY(-3px);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 48px;
+            margin-top: 64px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .hero-stat h3 {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            color: var(--ink-cyan);
+            letter-spacing: 1px;
+        }
+
+        .hero-stat p {
+            font-size: 0.85rem;
+            color: var(--ink-gray);
+            margin-bottom: 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ========== SECTION STYLES ========== */
+        section {
+            padding: 120px 0;
+            position: relative;
+        }
+
+        .section-label {
+            font-family: var(--font-heading);
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--ink-magenta);
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+            line-height: 1;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--ink-gray);
+            max-width: 600px;
+            line-height: 1.7;
+        }
+
+        .section-header {
+            margin-bottom: 64px;
+        }
+
+        /* ========== DIRECTORY SECTION ========== */
+        #directory { background: var(--ink-dark); }
+
+        .directory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .directory-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 16px;
+            padding: 36px 28px;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .directory-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--ink-cyan), var(--ink-magenta));
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .directory-card:hover {
+            border-color: rgba(108, 43, 217, 0.3);
+            transform: translateY(-4px);
+            background: rgba(255,255,255,0.05);
+        }
+
+        .directory-card:hover::before { opacity: 1; }
+
+        .directory-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .directory-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .directory-card p {
+            color: var(--ink-gray);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .directory-card .card-count {
+            display: inline-block;
+            margin-top: 16px;
+            font-family: var(--font-heading);
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--ink-cyan);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .di-1 { background: linear-gradient(135deg, rgba(0,212,255,0.15), rgba(0,212,255,0.05)); }
+        .di-2 { background: linear-gradient(135deg, rgba(233,30,140,0.15), rgba(233,30,140,0.05)); }
+        .di-3 { background: linear-gradient(135deg, rgba(255,212,0,0.15), rgba(255,212,0,0.05)); }
+        .di-4 { background: linear-gradient(135deg, rgba(108,43,217,0.15), rgba(108,43,217,0.05)); }
+        .di-5 { background: linear-gradient(135deg, rgba(255,107,53,0.15), rgba(255,107,53,0.05)); }
+        .di-6 { background: linear-gradient(135deg, rgba(0,212,255,0.15), rgba(108,43,217,0.05)); }
+
+        /* Search Bar */
+        .directory-search {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 48px;
+            max-width: 600px;
+        }
+
+        .directory-search input {
+            flex: 1;
+            padding: 16px 24px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.05);
+            color: var(--ink-white);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .directory-search input::placeholder { color: var(--ink-gray); }
+        .directory-search input:focus { border-color: var(--ink-cyan); }
+
+        .directory-search button {
+            padding: 16px 28px;
+            border-radius: 8px;
+            border: none;
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-purple));
+            color: white;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .directory-search button:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,212,255,0.3); }
+
+        /* ========== CERTIFICATION SECTION ========== */
+        #certification {
+            background: var(--ink-black);
+            overflow: hidden;
+        }
+
+        .cert-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .cert-visual {
+            position: relative;
+        }
+
+        .cert-card-main {
+            background: linear-gradient(145deg, var(--ink-gray-dark), rgba(42,42,62,0.5));
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 24px;
+            padding: 48px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cert-card-main::before {
+            content: '';
+            position: absolute;
+            top: -50%; right: -50%;
+            width: 200%; height: 200%;
+            background: conic-gradient(from 180deg, transparent, var(--ink-purple), transparent 30%);
+            animation: spin 8s linear infinite;
+            opacity: 0.1;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .cert-card-inner {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .cert-seal {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--ink-yellow), var(--ink-orange));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 2.5rem;
+        }
+
+        .cert-card-inner h3 {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            letter-spacing: 3px;
+            margin-bottom: 8px;
+        }
+
+        .cert-card-inner .cert-subtitle {
+            font-family: var(--font-heading);
+            color: var(--ink-cyan);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 24px;
+        }
+
+        .cert-details {
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .cert-detail {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.95rem;
+            color: var(--ink-gray);
+        }
+
+        .cert-detail-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: rgba(0,212,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .cert-info h4 {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--ink-yellow);
+        }
+
+        .cert-topics {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 32px;
+        }
+
+        .cert-topic {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 20px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s;
+        }
+
+        .cert-topic:hover {
+            background: rgba(255,255,255,0.06);
+            border-color: rgba(108,43,217,0.3);
+        }
+
+        .cert-topic-num {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--ink-purple), var(--ink-magenta));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+
+        .cert-topic h5 {
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .cert-topic p {
+            font-size: 0.85rem;
+            color: var(--ink-gray);
+            line-height: 1.5;
+        }
+
+        .cert-price {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 4px;
+            margin-top: 24px;
+            margin-bottom: 24px;
+        }
+
+        .cert-price .amount {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            color: var(--ink-white);
+        }
+
+        .cert-price .label {
+            font-size: 0.9rem;
+            color: var(--ink-gray);
+        }
+
+        /* ========== MEMBERSHIP SECTION ========== */
+        #membership {
+            background: var(--ink-dark);
+        }
+
+        .membership-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 32px;
+        }
+
+        .membership-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 20px;
+            padding: 44px 36px;
+            position: relative;
+            transition: all 0.4s;
+        }
+
+        .membership-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(108,43,217,0.3);
+        }
+
+        .membership-card.featured {
+            border-color: rgba(233,30,140,0.3);
+            background: linear-gradient(145deg, rgba(233,30,140,0.06), rgba(108,43,217,0.06));
+        }
+
+        .membership-card.featured::before {
+            content: 'MOST POPULAR';
+            position: absolute;
+            top: -1px; left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(90deg, var(--ink-magenta), var(--ink-purple));
+            color: white;
+            font-family: var(--font-heading);
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            padding: 6px 20px;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .membership-type {
+            font-family: var(--font-heading);
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--ink-magenta);
+            margin-bottom: 8px;
+        }
+
+        .membership-card h3 {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .membership-card .price-row {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .membership-card .price {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            color: var(--ink-cyan);
+        }
+
+        .membership-card .price-note {
+            font-size: 0.85rem;
+            color: var(--ink-gray);
+        }
+
+        .membership-card .one-time-badge {
+            display: inline-block;
+            background: rgba(0,212,255,0.1);
+            border: 1px solid rgba(0,212,255,0.2);
+            padding: 4px 14px;
+            border-radius: 50px;
+            font-family: var(--font-heading);
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--ink-cyan);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 24px;
+        }
+
+        .membership-features {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 32px;
+        }
+
+        .membership-features li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.95rem;
+            color: var(--ink-gray);
+        }
+
+        .membership-features li .check {
+            color: var(--ink-cyan);
+            font-size: 1.1rem;
+        }
+
+        .btn-block {
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* ========== RESOURCES / HOW-TO SECTION ========== */
+        #resources {
+            background: var(--ink-black);
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 28px;
+        }
+
+        .resource-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.4s;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(108,43,217,0.3);
+        }
+
+        .resource-thumb {
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .resource-thumb .rt-bg {
+            width: 100%; height: 100%;
+            object-fit: cover;
+        }
+
+        .rt-1 { background: linear-gradient(135deg, #1a0533, #2d1b69, #0a192f); }
+        .rt-2 { background: linear-gradient(135deg, #1b2838, #0d3b4f, #1a2332); }
+        .rt-3 { background: linear-gradient(135deg, #2a1a0a, #3d1f00, #1a1a0a); }
+        .rt-4 { background: linear-gradient(135deg, #0a2a1a, #1a3d2a, #0a1a2a); }
+        .rt-5 { background: linear-gradient(135deg, #2a0a1a, #3d0a2a, #1a0a2a); }
+        .rt-6 { background: linear-gradient(135deg, #1a1a3d, #0a2a3d, #2a1a2a); }
+
+        .resource-thumb-label {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: rgba(10,10,10,0.7);
+            backdrop-filter: blur(10px);
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-family: var(--font-heading);
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--ink-cyan);
+        }
+
+        .resource-thumb-icon {
+            position: absolute;
+            bottom: 16px;
+            right: 16px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+
+        .resource-card:hover .resource-thumb-icon {
+            background: var(--ink-magenta);
+            transform: scale(1.1);
+        }
+
+        .resource-body {
+            padding: 28px;
+        }
+
+        .resource-body h3 {
+            font-family: var(--font-heading);
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .resource-body p {
+            font-size: 0.9rem;
+            color: var(--ink-gray);
+            line-height: 1.6;
+        }
+
+        .resource-meta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            font-size: 0.8rem;
+            color: var(--ink-gray);
+        }
+
+        /* ========== TESTIMONIALS ========== */
+        .testimonials {
+            background: var(--ink-dark);
+            padding: 100px 0;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 28px;
+            margin-top: 48px;
+        }
+
+        .testimonial-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 16px;
+            padding: 32px;
+            position: relative;
+        }
+
+        .testimonial-card .quote-mark {
+            font-family: var(--font-display);
+            font-size: 4rem;
+            line-height: 1;
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: -12px;
+        }
+
+        .testimonial-card p {
+            color: var(--ink-gray);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .testimonial-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--ink-purple), var(--ink-cyan));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .testimonial-author-info h5 {
+            font-family: var(--font-heading);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .testimonial-author-info span {
+            font-size: 0.8rem;
+            color: var(--ink-gray);
+        }
+
+        /* ========== CTA BANNER ========== */
+        .cta-banner {
+            padding: 120px 0;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(145deg, var(--ink-dark), var(--ink-black));
+        }
+
+        .cta-inner {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-inner h2 {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+        }
+
+        .cta-inner p {
+            font-size: 1.15rem;
+            color: var(--ink-gray);
+            max-width: 550px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+        }
+
+        .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+        /* ========== FOOTER ========== */
+        footer {
+            background: var(--ink-black);
+            border-top: 1px solid rgba(255,255,255,0.06);
+            padding: 80px 0 40px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand .logo { margin-bottom: 16px; }
+
+        .footer-brand p {
+            color: var(--ink-gray);
+            font-size: 0.9rem;
+            line-height: 1.7;
+            max-width: 300px;
+        }
+
+        .footer-col h4 {
+            font-family: var(--font-heading);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--ink-white);
+            margin-bottom: 20px;
+        }
+
+        .footer-col ul { list-style: none; }
+
+        .footer-col ul li { margin-bottom: 12px; }
+
+        .footer-col ul a {
+            color: var(--ink-gray);
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-col ul a:hover { color: var(--ink-cyan); }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 32px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            font-size: 0.85rem;
+            color: var(--ink-gray);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 16px;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            color: var(--ink-gray);
+            font-size: 1rem;
+        }
+
+        .footer-social a:hover {
+            background: var(--ink-purple);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* ========== ANIMATIONS ========== */
+        .fade-up {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-up.hidden {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 1024px) {
+            .cert-layout { grid-template-columns: 1fr; gap: 48px; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .nav-cta { display: none; }
+            .mobile-menu-btn { display: block; }
+
+            .nav-links.open {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(10,10,10,0.95);
+                backdrop-filter: blur(20px);
+                padding: 24px;
+                gap: 16px;
+                border-bottom: 1px solid rgba(255,255,255,0.06);
+            }
+
+            .hero-stats { flex-direction: column; gap: 24px; }
+            .hero-buttons { flex-direction: column; }
+            .btn { justify-content: center; }
+            .membership-cards { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+            .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+            .directory-search { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== NAVIGATION ========== -->
+    <nav>
+        <div class="container">
+            <div class="logo">
+                <span class="logo-accent">ASPA</span> <span style="font-size:0.6em; letter-spacing:1px; opacity:0.7; margin-top:4px;">SCREEN PRINTING</span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="directory.html">Directory</a></li>
+                <li><a href="certified-roster.html">Certified</a></li>
+                <li><a href="#certification">Certification</a></li>
+                <li><a href="#membership">Membership</a></li>
+                <li><a href="resources.html">Resources</a></li>
+            </ul>
+            <a href="join.html" class="nav-cta">Join ASPA</a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">&#9776;</button>
+        </div>
+    </nav>
+
+    <!-- ========== HERO ========== -->
+    <section class="hero">
+        <div class="hero-bg">
+            <div class="ink-splatter"></div>
+            <div class="ink-splatter"></div>
+            <div class="ink-splatter"></div>
+        </div>
+        <div class="container">
+            <div class="hero-content fade-up">
+                <div class="hero-badge">&#9733; The Industry's Home Since 2004</div>
+                <h1>INK RUNS<br><span class="gradient-text">IN OUR VEINS</span></h1>
+                <p>The American Screen Printing Association connects printers, suppliers, and educators with the tools, training, and community to push the craft forward.</p>
+                <div class="hero-buttons">
+                    <a href="join.html" class="btn btn-primary">Become a Member &#8594;</a>
+                    <a href="#directory" class="btn btn-outline">Find a Printer</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <h3>1,200+</h3>
+                        <p>Member Shops</p>
+                    </div>
+                    <div class="hero-stat">
+                        <h3>100+</h3>
+                        <p>Countries Reached</p>
+                    </div>
+                    <div class="hero-stat">
+                        <h3>20+</h3>
+                        <p>Years Strong</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== MEMBER DIRECTORY ========== -->
+    <section id="directory">
+        <div class="container">
+            <div class="section-header fade-up">
+                <div class="section-label">Member Directory</div>
+                <h2 class="section-title">FIND YOUR PEOPLE</h2>
+                <p class="section-subtitle">Browse our nationwide network of certified screen printers, suppliers, sign shops, and more.</p>
+            </div>
+
+            <div class="directory-search fade-up">
+                <input type="text" placeholder="Search by name, city, or state..." id="directorySearch" onkeydown="if(event.key==='Enter'){window.location='directory.html#q='+this.value;}">
+                <button onclick="window.location='directory.html#q='+document.getElementById('directorySearch').value;">Search</button>
+            </div>
+
+            <div class="directory-grid">
+                <a href="directory.html#category=tshirt" class="directory-card fade-up" style="text-decoration:none; color:inherit;">
+                    <div class="directory-icon di-1">&#128085;</div>
+                    <h3>Custom T-Shirt Shops</h3>
+                    <p>Screen printing businesses specializing in custom apparel, team uniforms, event merch, and promotional wear.</p>
+                    <span class="card-count">Browse Listings &#8594;</span>
+                </a>
+                <a href="directory.html#category=sign" class="directory-card fade-up" style="text-decoration:none; color:inherit;">
+                    <div class="directory-icon di-2">&#128444;</div>
+                    <h3>Sign Shops</h3>
+                    <p>Commercial and industrial sign makers offering screen-printed signage, decals, banners, and displays.</p>
+                    <span class="card-count">Browse Listings &#8594;</span>
+                </a>
+                <a href="directory.html#category=embroidery" class="directory-card fade-up" style="text-decoration:none; color:inherit;">
+                    <div class="directory-icon di-3">&#129525;</div>
+                    <h3>Embroidery Shops</h3>
+                    <p>Embroidery and decoration businesses offering combined screen print and stitch services.</p>
+                    <span class="card-count">Browse Listings &#8594;</span>
+                </a>
+                <a href="directory.html#category=supplier" class="directory-card fade-up" style="text-decoration:none; color:inherit;">
+                    <div class="directory-icon di-4">&#128736;</div>
+                    <h3>Equipment Manufacturers</h3>
+                    <p>Leading manufacturers of presses, dryers, exposure units, and screen printing machinery.</p>
+                    <span class="card-count">Browse Listings &#8594;</span>
+                </a>
+                <a href="directory.html#category=vendor" class="directory-card fade-up" style="text-decoration:none; color:inherit;">
+                    <div class="directory-icon di-5">&#128230;</div>
+                    <h3>Suppliers &amp; Vendors</h3>
+                    <p>Ink, emulsion, screen, squeegee, and blank apparel suppliers serving the industry.</p>
+                    <span class="card-count">Browse Listings &#8594;</span>
+                </a>
+                <a href="directory.html#category=education" class="directory-card fade-up" style="text-decoration:none; color:inherit;">
+                    <div class="directory-icon di-6">&#127891;</div>
+                    <h3>Educational Facilities</h3>
+                    <p>Schools, career centers, and training programs teaching screen printing fundamentals and beyond.</p>
+                    <span class="card-count">Browse Listings &#8594;</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CERTIFICATION ========== -->
+    <section id="certification">
+        <div class="container">
+            <div class="section-header fade-up">
+                <div class="section-label">CSP Certification</div>
+                <h2 class="section-title">PROVE YOUR CRAFT</h2>
+                <p class="section-subtitle">Earn the industry-recognized Certified Screen Printer (CSP) credential and stand out from the competition.</p>
+            </div>
+
+            <div class="cert-layout">
+                <div class="cert-visual fade-up">
+                    <div class="cert-card-main">
+                        <div class="cert-card-inner">
+                            <div class="cert-seal">&#127942;</div>
+                            <h3>CERTIFIED SCREEN PRINTER</h3>
+                            <div class="cert-subtitle">ASPA Official Credential</div>
+                            <div class="cert-details">
+                                <div class="cert-detail">
+                                    <div class="cert-detail-icon">&#128221;</div>
+                                    <span>36 questions &mdash; multiple choice &amp; true/false</span>
+                                </div>
+                                <div class="cert-detail">
+                                    <div class="cert-detail-icon">&#127919;</div>
+                                    <span>75% passing score (27 of 36 correct)</span>
+                                </div>
+                                <div class="cert-detail">
+                                    <div class="cert-detail-icon">&#9201;</div>
+                                    <span>Take online, at your own pace</span>
+                                </div>
+                                <div class="cert-detail">
+                                    <div class="cert-detail-icon">&#128196;</div>
+                                    <span>Certificate + Proof of Certification letter</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cert-info fade-up">
+                    <h4>What the Exam Covers</h4>
+                    <div class="cert-topics">
+                        <div class="cert-topic">
+                            <div class="cert-topic-num">01</div>
+                            <div>
+                                <h5>General Screen Printing</h5>
+                                <p>History, terminology, equipment setup, safety, and workflow fundamentals.</p>
+                            </div>
+                        </div>
+                        <div class="cert-topic">
+                            <div class="cert-topic-num">02</div>
+                            <div>
+                                <h5>Graphics &amp; Art Fundamentals</h5>
+                                <p>CMYK color theory, color separations, halftones, and artwork preparation.</p>
+                            </div>
+                        </div>
+                        <div class="cert-topic">
+                            <div class="cert-topic-num">03</div>
+                            <div>
+                                <h5>Textile Printing</h5>
+                                <p>Plastisol and water-based inks, curing temperatures, garment types, and print techniques.</p>
+                            </div>
+                        </div>
+                        <div class="cert-topic">
+                            <div class="cert-topic-num">04</div>
+                            <div>
+                                <h5>Non-Textile &amp; Industrial</h5>
+                                <p>Signage, decals, specialty substrates, UV inks, and industrial applications.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cert-price">
+                        <span class="amount">$59</span>
+                        <span class="label">one-time exam fee</span>
+                    </div>
+                    <a href="exam.html" class="btn btn-primary">Take the CSP Exam &#8594;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== MEMBERSHIP ========== -->
+    <section id="membership">
+        <div class="container">
+            <div class="section-header fade-up">
+                <div class="section-label">Membership</div>
+                <h2 class="section-title">JOIN THE ASSOCIATION</h2>
+                <p class="section-subtitle">Annual ASPA+ membership. Discounts, CE credits, recertification &amp; more &mdash; all included.</p>
+            </div>
+
+            <div class="membership-cards">
+                <div class="membership-card featured fade-up">
+                    <div class="membership-type">For Printers &amp; Shops</div>
+                    <h3>ASPA+ BUSINESS</h3>
+                    <div class="price-row">
+                        <span class="price">$49</span>
+                        <span style="font-size:1rem; color:var(--ink-gray);">/year</span>
+                    </div>
+                    <span class="one-time-badge" style="background:linear-gradient(135deg, rgba(0,212,255,0.15), rgba(108,43,217,0.15)); color:var(--ink-cyan);">Annual Membership</span>
+                    <ul class="membership-features">
+                        <li><span class="check">&#10003;</span> Listed in ASPA Member Directory</li>
+                        <li><span class="check">&#10003;</span> Website link &amp; YouTube video placement</li>
+                        <li><span class="check">&#10003;</span> Featured New Member promotion</li>
+                        <li><span class="check">&#10003;</span> ASPA Membership Certificate</li>
+                        <li><span class="check">&#10003;</span> CSP Exam access</li>
+                        <li><span class="check">&#10003;</span> "ASPA Certified" directory badge</li>
+                        <li><span class="check">&#10003;</span> Free video advertising</li>
+                        <li><span class="check" style="color:var(--ink-cyan);">&#9733;</span> <strong>Industry discounts program</strong></li>
+                        <li><span class="check" style="color:var(--ink-cyan);">&#9733;</span> <strong>CE credits &amp; annual recertification</strong></li>
+                        <li><span class="check" style="color:var(--ink-cyan);">&#9733;</span> <strong>Priority directory placement</strong></li>
+                    </ul>
+                    <a href="join.html" class="btn btn-primary btn-block">Join ASPA+ Business &#8594;</a>
+                </div>
+
+                <div class="membership-card fade-up">
+                    <div class="membership-type">For Equipment &amp; Ink Companies</div>
+                    <h3>ASPA+ SUPPLIER</h3>
+                    <div class="price-row">
+                        <span class="price">$99</span>
+                        <span style="font-size:1rem; color:var(--ink-gray);">/year</span>
+                    </div>
+                    <span class="one-time-badge" style="background:linear-gradient(135deg, rgba(0,212,255,0.15), rgba(108,43,217,0.15)); color:var(--ink-cyan);">Annual Membership</span>
+                    <ul class="membership-features">
+                        <li><span class="check">&#10003;</span> Equipment &amp; Supplies Directory listing</li>
+                        <li><span class="check">&#10003;</span> Website link &amp; YouTube video placement</li>
+                        <li><span class="check">&#10003;</span> ASPA Membership Certificate</li>
+                        <li><span class="check">&#10003;</span> Exposure to thousands of daily buyers</li>
+                        <li><span class="check">&#10003;</span> Free video advertising</li>
+                        <li><span class="check" style="color:var(--ink-cyan);">&#9733;</span> <strong>Featured supplier spotlights</strong></li>
+                        <li><span class="check" style="color:var(--ink-cyan);">&#9733;</span> <strong>Priority directory placement</strong></li>
+                    </ul>
+                    <a href="join.html" class="btn btn-outline btn-block">Join ASPA+ Supplier &#8594;</a>
+                </div>
+
+                <div class="membership-card fade-up">
+                    <div class="membership-type">For Students &amp; Educators</div>
+                    <h3>ASPA+ TRAINING</h3>
+                    <div class="price-row">
+                        <span class="price">$79</span>
+                        <span style="font-size:1rem; color:var(--ink-gray);">/year</span>
+                    </div>
+                    <span class="one-time-badge" style="background:linear-gradient(135deg, rgba(0,212,255,0.15), rgba(108,43,217,0.15)); color:var(--ink-cyan);">Annual Access</span>
+                    <ul class="membership-features">
+                        <li><span class="check">&#10003;</span> Complete screen printing curriculum</li>
+                        <li><span class="check">&#10003;</span> 22 online training modules</li>
+                        <li><span class="check">&#10003;</span> Ready-made lesson plans</li>
+                        <li><span class="check">&#10003;</span> Student assessment tools</li>
+                        <li><span class="check">&#10003;</span> Certificate of completion</li>
+                        <li><span class="check" style="color:var(--ink-cyan);">&#9733;</span> <strong>Updated content &amp; new modules yearly</strong></li>
+                        <li><span class="check" style="color:var(--ink-cyan);">&#9733;</span> <strong>CE credits for educators</strong></li>
+                    </ul>
+                    <a href="join.html" class="btn btn-outline btn-block">Join ASPA+ Training &#8594;</a>
+                </div>
+            </div>
+
+            <div style="text-align:center; margin-top:32px; padding:20px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:12px;" class="fade-up">
+                <p style="color:var(--ink-gray); margin:0; font-size:0.95rem;">
+                    <strong style="color:var(--ink-white);">Already a Legacy member?</strong> Your existing membership and benefits are fully grandfathered.
+                    <a href="join.html" style="color:var(--ink-cyan);">Upgrade to ASPA+</a> to unlock discounts, CE credits, and priority placement at a special Legacy rate.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== RESOURCES / HOW-TO ========== -->
+    <section id="resources">
+        <div class="container">
+            <div class="section-header fade-up">
+                <div class="section-label">Learn &amp; Grow</div>
+                <h2 class="section-title">THE INK LAB</h2>
+                <p class="section-subtitle">How-to guides, video tutorials, and reference materials to sharpen your screen printing skills.</p>
+            </div>
+
+            <div class="resources-grid">
+                <div class="resource-card fade-up">
+                    <div class="resource-thumb rt-1">
+                        <span class="resource-thumb-label">Beginner Guide</span>
+                        <span class="resource-thumb-icon">&#9654;</span>
+                    </div>
+                    <div class="resource-body">
+                        <h3>How to Screen Print T-Shirts</h3>
+                        <p>The complete step-by-step guide from artwork prep to final cure. Everything a beginner needs to get started.</p>
+                        <div class="resource-meta">
+                            <span>&#128214; 15 min read</span>
+                            <span>&#128293; Most Popular</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="resource-card fade-up">
+                    <div class="resource-thumb rt-2">
+                        <span class="resource-thumb-label">Video Course</span>
+                        <span class="resource-thumb-icon">&#9654;</span>
+                    </div>
+                    <div class="resource-body">
+                        <h3>Screen Printing Training Course</h3>
+                        <p>22 online video modules covering setup, exposure, printing techniques, curing, and troubleshooting.</p>
+                        <div class="resource-meta">
+                            <span>&#127909; 22 Videos</span>
+                            <span>&#128218; Full Course</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="resource-card fade-up">
+                    <div class="resource-thumb rt-3">
+                        <span class="resource-thumb-label">Reference</span>
+                        <span class="resource-thumb-icon">&#128209;</span>
+                    </div>
+                    <div class="resource-body">
+                        <h3>Screen Printing Glossary</h3>
+                        <p>A-to-Z terminology reference covering every screen printing term you'll encounter in the shop and the industry.</p>
+                        <div class="resource-meta">
+                            <span>&#128214; Reference</span>
+                            <span>&#128279; Searchable</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="resource-card fade-up">
+                    <div class="resource-thumb rt-4">
+                        <span class="resource-thumb-label">Business</span>
+                        <span class="resource-thumb-icon">&#128176;</span>
+                    </div>
+                    <div class="resource-body">
+                        <h3>How Much Do Screen Printers Make?</h3>
+                        <p>Real earnings data, pricing strategies, and business models for running a profitable screen printing operation.</p>
+                        <div class="resource-meta">
+                            <span>&#128200; Data Driven</span>
+                            <span>&#11088; Editor's Pick</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="resource-card fade-up">
+                    <div class="resource-thumb rt-5">
+                        <span class="resource-thumb-label">Startup</span>
+                        <span class="resource-thumb-icon">&#127968;</span>
+                    </div>
+                    <div class="resource-body">
+                        <h3>Screen Printing from Home</h3>
+                        <p>Setup your garage or basement shop on a budget. Equipment recommendations, space planning, and ventilation tips.</p>
+                        <div class="resource-meta">
+                            <span>&#128214; Guide</span>
+                            <span>&#128293; Trending</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="resource-card fade-up">
+                    <div class="resource-thumb rt-6">
+                        <span class="resource-thumb-label">Technical</span>
+                        <span class="resource-thumb-icon">&#128736;</span>
+                    </div>
+                    <div class="resource-body">
+                        <h3>Equipment Buyer's Guide</h3>
+                        <p>Compare presses, dryers, exposure units, and accessories. Recommendations for every budget level.</p>
+                        <div class="resource-meta">
+                            <span>&#128736; Technical</span>
+                            <span>&#128338; Updated 2026</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== TESTIMONIALS ========== -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-header fade-up" style="text-align:center;">
+                <div class="section-label">Community Voices</div>
+                <h2 class="section-title">WHAT MEMBERS SAY</h2>
+            </div>
+            <div class="testimonial-grid">
+                <div class="testimonial-card fade-up">
+                    <div class="quote-mark">&ldquo;</div>
+                    <p>Being ASPA certified helped me improve and advance to production manager at my company. Very happy that I became certified and learned from doing so.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">BL</div>
+                        <div class="testimonial-author-info">
+                            <h5>Barry L.</h5>
+                            <span>ASPA Certified Screen Printer &mdash; Virginia Beach, VA</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card fade-up">
+                    <div class="quote-mark">&ldquo;</div>
+                    <p>The Diploma in Screen Printing course helped take my business to the next level. I went from depending on others to being fully equipped to run my own operation. Great value.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">DV</div>
+                        <div class="testimonial-author-info">
+                            <h5>Dhanabal Venkatesan</h5>
+                            <span>24 X 7 Digitizing.com &mdash; India</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card fade-up">
+                    <div class="quote-mark">&ldquo;</div>
+                    <p>The ASPA directory brings in steady leads every month. The ASPA+ membership has been the best marketing investment I've ever made.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">BR</div>
+                        <div class="testimonial-author-info">
+                            <h5>Blue Ridge Screen Products</h5>
+                            <span>ASPA Member &mdash; Charlotte, NC</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CTA BANNER ========== -->
+    <section class="cta-banner">
+        <div class="hero-bg">
+            <div class="ink-splatter" style="width:500px;height:500px;background:var(--ink-purple);top:-100px;right:20%;opacity:0.15;"></div>
+            <div class="ink-splatter" style="width:400px;height:400px;background:var(--ink-magenta);bottom:-100px;left:10%;opacity:0.1;"></div>
+        </div>
+        <div class="container">
+            <div class="cta-inner fade-up">
+                <h2>READY TO <span class="gradient-text">LEVEL UP?</span></h2>
+                <p>Join the largest community of screen printing professionals in America. Discounts, CE credits, recertification &amp; more.</p>
+                <div class="cta-buttons">
+                    <a href="join.html" class="btn btn-primary">Join ASPA Today &#8594;</a>
+                    <a href="#certification" class="btn btn-outline">Get Certified</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <span class="logo-accent">ASPA</span>
+                    </div>
+                    <p>The American Screen Printing Association has been connecting and certifying screen printing professionals since 2004.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Directory</h4>
+                    <ul>
+                        <li><a href="directory.html#category=tshirt">T-Shirt Shops</a></li>
+                        <li><a href="directory.html#category=sign">Sign Shops</a></li>
+                        <li><a href="directory.html#category=embroidery">Embroidery</a></li>
+                        <li><a href="directory.html#category=supplier">Suppliers</a></li>
+                        <li><a href="directory.html#category=education">Educators</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Certification</h4>
+                    <ul>
+                        <li><a href="certified-roster.html">CSP Roster</a></li>
+                        <li><a href="#certification">CSP Exam</a></li>
+                        <li><a href="#resources">Training Course</a></li>
+                        <li><a href="#resources">Study Materials</a></li>
+                        <li><a href="#resources">Lesson Plans</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Association</h4>
+                    <ul>
+                        <li><a href="join.html">Join ASPA</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Use</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>&copy; 2026 American Screen Printing Association. All rights reserved.</span>
+                <div class="footer-social">
+                    <a href="#" aria-label="Facebook">f</a>
+                    <a href="#" aria-label="YouTube">&#9654;</a>
+                    <a href="#" aria-label="Instagram">&#9737;</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== SCRIPTS ========== -->
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+            document.getElementById('navLinks').classList.toggle('open');
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('open');
+            });
+        });
+
+        // Scroll-triggered fade-in
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+        // Nav background on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.style.padding = '10px 0';
+                nav.style.background = 'rgba(10,10,10,0.95)';
+            } else {
+                nav.style.padding = '16px 0';
+                nav.style.background = 'rgba(10,10,10,0.85)';
+            }
+        });
+
+        // Placeholder search
+        function handleSearch() {
+            const val = document.getElementById('directorySearch').value;
+            if (val.trim()) {
+                alert('Search for "' + val + '" — In a live site, this would filter the member directory.');
+            }
+        }
+
+        document.getElementById('directorySearch').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') handleSearch();
+        });
+    </script>
+</body>
+</html>
