@@ -1922,7 +1922,11 @@
         updateNavAuthState();
     }
 
+    if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', updateNavAuthState);
+} else {
+    updateNavAuthState();
+}
     </script>
 
 </body>

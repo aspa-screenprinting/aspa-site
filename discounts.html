@@ -1154,10 +1154,15 @@
             }
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
+        function _initAll() {
             updateNavAuthState();
             initPage();
-        });
+        }
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', _initAll);
+        } else {
+            _initAll();
+        }
     </script>
 </body>
 </html>

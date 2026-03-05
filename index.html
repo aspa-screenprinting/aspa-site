@@ -3111,10 +3111,15 @@
         }
 
         // Initialize on page load
-        document.addEventListener('DOMContentLoaded', () => {
-            updateNavAuthState();
+        function initPage() {
+updateNavAuthState();
             updateASPAPlusSection();
-        });
+}
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPage);
+} else {
+    initPage();
+}
     </script>
 </body>
 </html>

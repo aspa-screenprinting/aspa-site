@@ -2746,11 +2746,15 @@
         // LOGOUT LINK HANDLER
         // ========================================
 
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initialize auth state on page load
+        function _initAll() {
             updateNavAuthState();
             updateMemberResourcesDisplay();
-        });
+        }
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', _initAll);
+        } else {
+            _initAll();
+        }
     </script>
 </body>
 </html>

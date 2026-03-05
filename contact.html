@@ -1313,7 +1313,11 @@
             updateNavAuthState();
         }
 
-        document.addEventListener('DOMContentLoaded', updateNavAuthState);
+        if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', updateNavAuthState);
+} else {
+    updateNavAuthState();
+}
 
         // Form submission
         const contactForm = document.getElementById('contactForm');
