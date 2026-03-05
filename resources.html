@@ -1526,7 +1526,7 @@
         // ========================================
 
         function createArticleCard(article) {
-            const isLoggedIn = localStorage.getItem('aspa_member') === 'true';
+            const isLoggedIn = !!localStorage.getItem('aspa_member');
             const card = document.createElement('div');
             const memberClass = article.memberExclusive ? (isLoggedIn ? 'member-exclusive logged-in' : 'member-exclusive not-logged-in') : '';
             card.className = `article-card ${article.comingSoon ? 'coming-soon' : ''} ${memberClass}`;
@@ -1685,7 +1685,7 @@
         // ========================================
 
         function updateNavAuthState() {
-            const isLoggedIn = localStorage.getItem('aspa_member') === 'true';
+            const isLoggedIn = !!localStorage.getItem('aspa_member');
             const navJoinBtn = document.getElementById('navJoinBtn');
             const navLogoutLink = document.getElementById('navLogoutLink');
             const navDashboardLink = document.getElementById('navDashboardLink');
@@ -1717,7 +1717,7 @@
         // ========================================
 
         function updateMemberResourcesDisplay() {
-            const isLoggedIn = localStorage.getItem('aspa_member') === 'true';
+            const isLoggedIn = !!localStorage.getItem('aspa_member');
             const cards = document.querySelectorAll('.member-resource-card');
 
             cards.forEach(card => {
