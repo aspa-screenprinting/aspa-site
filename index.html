@@ -3110,16 +3110,9 @@
             renderBubbleCards();
         }
 
-        // Initialize on page load
-        function initPage() {
-updateNavAuthState();
-            updateASPAPlusSection();
-}
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initPage);
-} else {
-    initPage();
-}
+        // Initialize on page load — direct call (script is at page bottom, DOM is ready)
+        updateNavAuthState();
+        updateASPAPlusSection();
     </script>
 </body>
 </html>

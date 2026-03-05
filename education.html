@@ -1092,15 +1092,9 @@
             updatePageForMember();
         }
 
-        function _initAll() {
-            updateNavAuthState();
-            initPage();
-        }
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', _initAll);
-        } else {
-            _initAll();
-        }
+        // Direct init — script is at page bottom, DOM is ready
+        updateNavAuthState();
+        initPage();
     </script>
 </body>
 </html>

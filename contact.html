@@ -1313,11 +1313,8 @@
             updateNavAuthState();
         }
 
-        if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', updateNavAuthState);
-} else {
-    updateNavAuthState();
-}
+                // Direct init — script is at page bottom, DOM is ready
+        updateNavAuthState();
 
         // Form submission
         const contactForm = document.getElementById('contactForm');

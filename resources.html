@@ -2746,15 +2746,9 @@
         // LOGOUT LINK HANDLER
         // ========================================
 
-        function _initAll() {
-            updateNavAuthState();
-            updateMemberResourcesDisplay();
-        }
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', _initAll);
-        } else {
-            _initAll();
-        }
+        // Direct init — script is at page bottom, DOM is ready
+        updateNavAuthState();
+        updateMemberResourcesDisplay();
     </script>
 </body>
 </html>

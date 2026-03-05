@@ -1613,11 +1613,8 @@
         updateNavAuthState();
     }
 
-    if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', updateNavAuthState);
-} else {
-    updateNavAuthState();
-}
+            // Direct init — script is at page bottom, DOM is ready
+        updateNavAuthState();
     </script>
 
 </body>
