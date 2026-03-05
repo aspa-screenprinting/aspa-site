@@ -3113,6 +3113,8 @@
         // Initialize on page load — direct call (script is at page bottom, DOM is ready)
         updateNavAuthState();
         updateASPAPlusSection();
+        // Fallback: re-run auth state after all synchronous code completes
+        setTimeout(updateNavAuthState, 0);
     </script>
 </body>
 </html>

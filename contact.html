@@ -1315,6 +1315,7 @@
 
                 // Direct init — script is at page bottom, DOM is ready
         updateNavAuthState();
+        setTimeout(updateNavAuthState, 0);
 
         // Form submission
         const contactForm = document.getElementById('contactForm');

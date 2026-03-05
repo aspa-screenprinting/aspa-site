@@ -1095,6 +1095,7 @@
         // Direct init — script is at page bottom, DOM is ready
         updateNavAuthState();
         initPage();
+        setTimeout(updateNavAuthState, 0);
     </script>
 </body>
 </html>
