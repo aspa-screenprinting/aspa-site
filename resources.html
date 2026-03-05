@@ -984,7 +984,7 @@
     <!-- ========================================
          NAVIGATION
          ======================================== -->
-    <nav>
+        <nav>
         <div class="nav-container">
             <a href="index.html" class="nav-logo">
                 <div class="nav-logo-main">ASPA</div>
@@ -994,15 +994,14 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="directory.html">Directory</a></li>
                 <li><a href="certified-roster.html">Certified</a></li>
-                <li><a href="index.html#certification">Certification</a></li>
                 <li><a href="index.html#membership">Membership</a></li>
                 <li><a href="resources.html" class="active">Resources</a></li>
                 <li><a href="discounts.html" class="nav-aspa-plus">Discounts<sup>+</sup></a></li>
                 <li><a href="education.html" class="nav-aspa-plus">Education<sup>+</sup></a></li>
             </ul>
-            <button id="navJoinBtn" class="nav-cta" onclick="window.location.href='join.html'">Join ASPA</button>
-            <a id="navLogoutLink" href="#" style="display:none; color: var(--ink-cyan); text-decoration: none; font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 500; margin-right: 16px;">Log Out</a>
-            <a id="navDashboardLink" href="dashboard.html" style="display:none; color: var(--ink-cyan); text-decoration: none; font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 500;">My ASPA+</a>
+            <div id="navAuthContainer" style="display: flex; align-items: center; gap: 16px;">
+                <a href="join.html" class="nav-cta" id="navJoinBtn">Join ASPA</a>
+            </div>
             <button class="hamburger" onclick="toggleMobileMenu()">
                 <span></span>
                 <span></span>
@@ -1708,26 +1707,32 @@
         // ========================================
 
         function updateNavAuthState() {
-            const isLoggedIn = !!localStorage.getItem('aspa_member');
-            const navJoinBtn = document.getElementById('navJoinBtn');
-            const navLogoutLink = document.getElementById('navLogoutLink');
-            const navDashboardLink = document.getElementById('navDashboardLink');
+            const memberData = localStorage.getItem('aspa_member');
+            const navAuthContainer = document.getElementById('navAuthContainer');
+            if (!navAuthContainer) return;
 
-            if (isLoggedIn) {
-                // Show logged-in state
-                navJoinBtn.style.display = 'none';
-                navLogoutLink.style.display = 'inline-block';
-                navDashboardLink.style.display = 'inline-block';
+            if (memberData) {
+                try {
+                    const member = JSON.parse(memberData);
+                    const firstName = member.name ? member.name.split(' ')[0] : 'Member';
+                    navAuthContainer.innerHTML = `
+                        <span style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #b0b0b0;">Hi, ${firstName}</span>
+                        <a href="dashboard.html" style="color: #00d4ff; font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1.5px; text-decoration: none;">My ASPA+</a>
+                        <a href="#" onclick="handleLogout(event)" style="color: #b0b0b0; font-family: 'Inter', sans-serif; font-size: 0.85rem; cursor: pointer; text-decoration: none;">Log Out</a>
+                    `;
+                } catch(e) {}
             } else {
-                // Show logged-out state
-                navJoinBtn.style.display = 'block';
-                navLogoutLink.style.display = 'none';
-                navDashboardLink.style.display = 'none';
+                navAuthContainer.innerHTML = `
+                    <a href="join.html" class="nav-cta" id="navJoinBtn">Join ASPA</a>
+                    <a href="login.html" style="color: #b0b0b0; font-family: 'Inter', sans-serif; font-size: 0.85rem; cursor: pointer; text-decoration: none;">Log In</a>
+                `;
             }
         }
 
-        function handleLogout() {
+        function handleLogout(e) {
+            if (e) e.preventDefault();
             localStorage.removeItem('aspa_member');
+            localStorage.removeItem('aspa_firstName');
             updateNavAuthState();
             // Refresh article cards to update member badges
             renderArticles();
@@ -1785,13 +1790,6 @@
         // ========================================
 
         document.addEventListener('DOMContentLoaded', function() {
-            // Set up logout link
-            const logoutLink = document.getElementById('navLogoutLink');
-            logoutLink.onclick = function(e) {
-                e.preventDefault();
-                handleLogout();
-            };
-
             // Initialize auth state on page load
             updateNavAuthState();
             updateMemberResourcesDisplay();

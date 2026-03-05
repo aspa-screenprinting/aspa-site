@@ -42,109 +42,118 @@
 
         .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 
-        /* ========== INK SPLATTER SVG BACKGROUNDS ========== */
-        .ink-splatter {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.15;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        /* ========== NAVIGATION ========== */
-        nav {
-            position: fixed;
+                nav {
+            background-color: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            position: sticky;
             top: 0;
-            left: 0;
-            right: 0;
             z-index: 1000;
-            padding: 16px 0;
-            background: rgba(10, 10, 10, 0.85);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255,255,255,0.06);
-            transition: all 0.3s;
+            padding: 0 24px;
         }
 
-        nav .container {
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
             display: flex;
-            align-items: center;
             justify-content: space-between;
-        }
-
-        .logo {
-            font-family: var(--font-display);
-            font-size: 2rem;
-            letter-spacing: 3px;
-            color: var(--ink-white);
-            display: flex;
             align-items: center;
+            height: 70px;
+        }
+
+        .nav-logo {
+            display: flex;
+            flex-direction: row;
             gap: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            align-items: center;
         }
 
-        .logo-accent {
+        .nav-logo-main {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
             background: linear-gradient(135deg, #00d4ff 0%, #e91e8c 50%, #ffd400 100%);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2px;
         }
 
-        .nav-links { display: flex; gap: 32px; list-style: none; }
+        .nav-logo-sub {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--ink-gray);
+            letter-spacing: 1.5px;
+            opacity: 0.7;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+            list-style: none;
+        }
 
         .nav-links a {
-            color: var(--ink-gray);
-            font-family: var(--font-heading);
-            font-size: 0.9rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
             font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
+            color: var(--ink-gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
             position: relative;
-            padding: 4px 0;
         }
 
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--ink-cyan), var(--ink-magenta));
-            transition: width 0.3s;
+        .nav-links a:hover {
+            color: var(--ink-cyan);
         }
 
-        .nav-links a:hover { color: var(--ink-white); }
-        .nav-links a:hover::after { width: 100%; }
+        .nav-links a.active {
+            color: var(--ink-cyan);
+            font-weight: 600;
+        }
 
         .nav-cta {
-            background: linear-gradient(135deg, var(--ink-magenta), var(--ink-purple));
-            color: white !important;
-            padding: 10px 24px;
-            border-radius: 6px;
-            font-family: var(--font-heading);
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            color: var(--ink-black);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
             font-weight: 600;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            transition: transform 0.3s, box-shadow 0.3s;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            letter-spacing: 0.5px;
+            text-decoration: none;
         }
 
         .nav-cta:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(233, 30, 140, 0.3);
-            color: white !important;
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
         }
 
-        .mobile-menu-btn {
+        .hamburger {
             display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
             background: none;
             border: none;
-            color: var(--ink-white);
-            font-size: 1.5rem;
-            cursor: pointer;
         }
 
-        /* ========== HERO ========== */
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background-color: var(--ink-white);
+            border-radius: 2px;
+            transition: 0.3s ease;
+        }
+
+        
         .hero {
             min-height: 100vh;
             display: flex;
@@ -1242,16 +1251,17 @@
 <body>
 
     <!-- ========== NAVIGATION ========== -->
-    <nav>
-        <div class="container">
-            <div class="logo">
-                <span class="logo-accent">ASPA</span> <span style="font-size:0.6em; letter-spacing:1px; opacity:0.7; margin-top:4px;">SCREEN PRINTING</span>
-            </div>
-            <ul class="nav-links" id="navLinks">
+        <nav>
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="nav-logo-main">ASPA</div>
+                <div class="nav-logo-sub">SCREEN PRINTING</div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
                 <li><a href="directory.html">Directory</a></li>
                 <li><a href="certified-roster.html">Certified</a></li>
-                <li><a href="#certification">Certification</a></li>
-                <li><a href="#membership">Membership</a></li>
+                <li><a href="index.html#membership">Membership</a></li>
                 <li><a href="resources.html">Resources</a></li>
                 <li><a href="discounts.html" class="nav-aspa-plus">Discounts<sup>+</sup></a></li>
                 <li><a href="education.html" class="nav-aspa-plus">Education<sup>+</sup></a></li>
@@ -1259,7 +1269,11 @@
             <div id="navAuthContainer" style="display: flex; align-items: center; gap: 16px;">
                 <a href="join.html" class="nav-cta" id="navJoinBtn">Join ASPA</a>
             </div>
-            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">&#9776;</button>
+            <button class="hamburger" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </nav>
 
@@ -1818,23 +1832,24 @@
 
         // ========== NAVIGATION AUTH STATE =========
         function updateNavAuthState() {
-            const isMember = localStorage.getItem('aspa_member');
+            const memberData = localStorage.getItem('aspa_member');
             const navAuthContainer = document.getElementById('navAuthContainer');
-            const navJoinBtn = document.getElementById('navJoinBtn');
+            if (!navAuthContainer) return;
 
-            if (isMember) {
-                // Member is logged in
-                const firstName = localStorage.getItem('aspa_firstName') || 'Member';
-                navAuthContainer.innerHTML = `
-                    <span style="font-family: var(--font-body); font-size: 0.9rem; color: var(--ink-gray);">Hi, ${firstName}</span>
-                    <a href="dashboard.html" class="nav-links" style="color: var(--ink-cyan); font-family: var(--font-heading); font-size: 0.9rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1.5px;">My ASPA+</a>
-                    <a href="#" onclick="handleLogout(event)" style="color: var(--ink-gray); font-family: var(--font-body); font-size: 0.85rem; cursor: pointer; transition: color 0.3s;">Log Out</a>
-                `;
+            if (memberData) {
+                try {
+                    const member = JSON.parse(memberData);
+                    const firstName = member.name ? member.name.split(' ')[0] : 'Member';
+                    navAuthContainer.innerHTML = `
+                        <span style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #b0b0b0;">Hi, ${firstName}</span>
+                        <a href="dashboard.html" style="color: #00d4ff; font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1.5px; text-decoration: none;">My ASPA+</a>
+                        <a href="#" onclick="handleLogout(event)" style="color: #b0b0b0; font-family: 'Inter', sans-serif; font-size: 0.85rem; cursor: pointer; text-decoration: none;">Log Out</a>
+                    `;
+                } catch(e) {}
             } else {
-                // Not logged in - show Join button with Log In link
                 navAuthContainer.innerHTML = `
                     <a href="join.html" class="nav-cta" id="navJoinBtn">Join ASPA</a>
-                    <a href="login.html" style="color: var(--ink-gray); font-family: var(--font-body); font-size: 0.85rem; cursor: pointer; transition: color 0.3s;">Log In</a>
+                    <a href="login.html" style="color: #b0b0b0; font-family: 'Inter', sans-serif; font-size: 0.85rem; cursor: pointer; text-decoration: none;">Log In</a>
                 `;
             }
         }
