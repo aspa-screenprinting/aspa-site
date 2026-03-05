@@ -28,7 +28,12 @@
         nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 16px 0; background: rgba(10,10,10,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.06); }
         nav .container { display: flex; align-items: center; justify-content: space-between; }
         .logo { font-family: var(--font-display); font-size: 2rem; letter-spacing: 3px; color: var(--ink-white); display: flex; align-items: center; gap: 10px; }
-        .logo-accent { color: var(--ink-cyan); }
+        .logo-accent {
+            background: linear-gradient(135deg, #00d4ff 0%, #e91e8c 50%, #ffd400 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+        }
         .nav-back { color: var(--ink-gray); font-family: var(--font-heading); font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
         .nav-back:hover { color: var(--ink-cyan); }
 
