@@ -768,7 +768,9 @@
                 <li><a href="index.html#membership">Membership</a></li>
                 <li><a href="resources.html">Resources</a></li>
             </ul>
-            <a href="join.html" class="nav-cta">Join ASPA</a>
+            <div id="navAuthContainer" style="display: flex; align-items: center; gap: 16px;">
+                <a href="join.html" class="nav-cta" id="navJoinBtn">Join ASPA</a>
+            </div>
             <button class="hamburger" onclick="toggleMobileMenu()">
                 <span></span>
                 <span></span>
@@ -1496,6 +1498,41 @@
         function toggleMobileMenu() {
             console.log('Mobile menu toggled');
         }
+    
+        // ========== NAVIGATION AUTH STATE =========
+        function updateNavAuthState() {
+            const memberData = localStorage.getItem('aspa_member');
+            const navAuthContainer = document.getElementById('navAuthContainer');
+            if (!navAuthContainer) return;
+
+            if (memberData) {
+                try {
+                    const member = JSON.parse(memberData);
+                    const firstName = member.name ? member.name.split(' ')[0] : 'Member';
+                    navAuthContainer.innerHTML = `
+                        <span style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #b0b0b0;">Hi, ${firstName}</span>
+                        <a href="dashboard.html" style="color: #00d4ff; font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1.5px; text-decoration: none;">My ASPA+</a>
+                        <a href="#" onclick="handleLogout(event)" style="color: #b0b0b0; font-family: 'Inter', sans-serif; font-size: 0.85rem; cursor: pointer; text-decoration: none;">Log Out</a>
+                    `;
+                } catch(e) {
+                    // Invalid data, show default
+                }
+            } else {
+                navAuthContainer.innerHTML = `
+                    <a href="join.html" class="nav-cta" id="navJoinBtn">Join ASPA</a>
+                    <a href="login.html" style="color: #b0b0b0; font-family: 'Inter', sans-serif; font-size: 0.85rem; cursor: pointer; text-decoration: none;">Log In</a>
+                `;
+            }
+        }
+
+        function handleLogout(e) {
+            e.preventDefault();
+            localStorage.removeItem('aspa_member');
+            localStorage.removeItem('aspa_firstName');
+            updateNavAuthState();
+        }
+
+        document.addEventListener('DOMContentLoaded', updateNavAuthState);
     </script>
 </body>
 </html>

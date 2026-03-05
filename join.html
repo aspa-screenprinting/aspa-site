@@ -145,6 +145,15 @@
         .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(176,176,176,0.5); }
         .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--ink-cyan); }
         .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .password-input-wrapper { position: relative; display: flex; align-items: center; }
+        .password-input-wrapper input { width: 100%; padding-right: 40px; }
+        .password-toggle-btn { position: absolute; right: 12px; background: none; border: none; color: var(--ink-cyan); cursor: pointer; font-size: 1.2rem; padding: 6px; transition: opacity 0.2s ease; }
+        .password-toggle-btn:hover { opacity: 0.7; }
+        .password-helper-text { font-size: 0.8rem; color: var(--ink-gray); margin-top: 4px; font-style: italic; }
+        .form-error { border-color: var(--ink-red) !important; background: rgba(255, 61, 90, 0.08) !important; }
+        .error-message { font-size: 0.8rem; color: var(--ink-red); margin-top: 4px; }
+        .login-nav-link { color: var(--ink-cyan); font-size: 0.9rem; display: inline-block; }
+        .dashboard-link { color: var(--ink-white); font-size: 0.9rem; }
 
         .payment-methods { display: flex; gap: 12px; margin-bottom: 24px; }
         .payment-method { flex: 1; padding: 14px; border-radius: 10px; border: 2px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.03); cursor: pointer; text-align: center; transition: all 0.3s; font-family: var(--font-heading); font-size: 0.85rem; font-weight: 600; color: var(--ink-gray); text-transform: uppercase; letter-spacing: 1px; }
@@ -203,7 +212,19 @@
     <nav>
         <div class="container">
             <a href="index.html" class="logo"><span class="logo-accent">ASPA</span> <span style="font-size:0.6em;letter-spacing:1px;opacity:0.7;margin-top:4px;">MEMBERSHIP</span></a>
-            <a href="index.html" class="nav-back">&larr; Back to Home</a>
+            <div style="display: flex; gap: 20px; align-items: center;">
+                <div id="navMemberLinks" style="display: none;">
+                    <a href="dashboard.html" class="dashboard-link">My ASPA+ &#8594;</a>
+                    <span style="color: var(--ink-gray); margin: 0 10px;">|</span>
+                    <a href="#" onclick="logoutMember(); return false;" style="color: var(--ink-cyan);">Log Out</a>
+                </div>
+                <div id="navGuestLinks">
+                    <a href="index.html" class="nav-back">&larr; Back to Home</a>
+                    <span style="display: inline-block; margin-left: 20px; border-left: 1px solid rgba(255,255,255,0.1); padding-left: 20px;">
+                        <a href="#" onclick="alert('Log in feature coming soon'); return false;" class="login-nav-link">Already a member? Log In</a>
+                    </span>
+                </div>
+            </div>
         </div>
     </nav>
 
@@ -435,6 +456,27 @@
                                 <div class="payment-method" onclick="selectPayment(this,'paypal')">&#127920; PayPal</div>
                             </div>
                         </div>
+
+                        <!-- Password Fields -->
+                        <div style="padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.08); margin-bottom: 24px;">
+                            <div class="form-group">
+                                <label>Create Password</label>
+                                <div class="password-input-wrapper">
+                                    <input type="password" id="mPassword" placeholder="Enter a strong password" required>
+                                    <button type="button" class="password-toggle-btn" onclick="togglePasswordVisibility('mPassword')" style="border: none; background: none; cursor: pointer;">👁</button>
+                                </div>
+                                <div class="password-helper-text">You'll use this to log in to your ASPA+ dashboard</div>
+                                <div id="passwordError" class="error-message" style="display: none;"></div>
+                            </div>
+                            <div class="form-group">
+                                <label>Confirm Password</label>
+                                <div class="password-input-wrapper">
+                                    <input type="password" id="mConfirmPassword" placeholder="Confirm your password" required>
+                                    <button type="button" class="password-toggle-btn" onclick="togglePasswordVisibility('mConfirmPassword')" style="border: none; background: none; cursor: pointer;">👁</button>
+                                </div>
+                                <div id="confirmPasswordError" class="error-message" style="display: none;"></div>
+                            </div>
+                        </div>
                         <div id="mCardFields">
                             <div class="form-group">
                                 <label>Card Number</label>
@@ -505,6 +547,7 @@
 
                 <div class="welcome-actions">
                     <button class="btn btn-primary" id="downloadCertBtn">&#128196; Download Membership Certificate</button>
+                    <a href="dashboard.html" class="btn" style="background: linear-gradient(135deg, var(--ink-magenta), var(--ink-purple)); border: none;">Go to My Dashboard &#8594;</a>
                     <a href="exam.html" class="btn btn-outline">&#127942; Take the CSP Exam</a>
                     <a href="index.html" class="btn btn-outline">&larr; Back to Home</a>
                 </div>
@@ -549,13 +592,46 @@
         const city = document.getElementById('mCity').value.trim();
         const state = document.getElementById('mState').value.trim();
         const web = document.getElementById('mWebsite').value.trim();
+        const password = document.getElementById('mPassword').value.trim();
+        const confirmPassword = document.getElementById('mConfirmPassword').value.trim();
+
+        // Clear previous errors
+        document.getElementById('passwordError').style.display = 'none';
+        document.getElementById('confirmPasswordError').style.display = 'none';
+        document.getElementById('mPassword').classList.remove('form-error');
+        document.getElementById('mConfirmPassword').classList.remove('form-error');
 
         if (!fn || !ln || !em || !co) {
             alert('Please fill in your name, email, and business name.');
             return;
         }
 
-        memberData = { name: fn + ' ' + ln, email: em, company: co, city, state, website: web };
+        // Validate passwords
+        let hasError = false;
+        if (!password) {
+            document.getElementById('passwordError').textContent = 'Password is required';
+            document.getElementById('passwordError').style.display = 'block';
+            document.getElementById('mPassword').classList.add('form-error');
+            hasError = true;
+        } else if (password.length < 6) {
+            document.getElementById('passwordError').textContent = 'Password must be at least 6 characters';
+            document.getElementById('passwordError').style.display = 'block';
+            document.getElementById('mPassword').classList.add('form-error');
+            hasError = true;
+        }
+
+        if (password !== confirmPassword) {
+            document.getElementById('confirmPasswordError').textContent = 'Passwords do not match';
+            document.getElementById('confirmPasswordError').style.display = 'block';
+            document.getElementById('mConfirmPassword').classList.add('form-error');
+            hasError = true;
+        }
+
+        if (hasError) {
+            return;
+        }
+
+        memberData = { name: fn + ' ' + ln, email: em, company: co, city, state, website: web, password: password };
 
         const btn = document.getElementById('payBtn');
         btn.disabled = true;
@@ -564,6 +640,17 @@
             btn.innerHTML = '&#9989; Payment Confirmed!';
             setTimeout(() => showWelcome(), 800);
         }, 1500);
+    }
+
+    // ===== SIMPLE HASH FUNCTION =====
+    function simpleHash(str) {
+        let hash = 0;
+        for (let i = 0; i < str.length; i++) {
+            const char = str.charCodeAt(i);
+            hash = ((hash << 5) - hash) + char;
+            hash = hash & hash;
+        }
+        return hash.toString();
     }
 
     // ===== SCREEN 3 =====
@@ -582,6 +669,28 @@
         document.getElementById('wcId').textContent = 'Member ID: ' + memberId;
 
         document.getElementById('downloadCertBtn').onclick = () => downloadMemberCert(memberData.name, memberData.company, dateStr, memberId, selectedPlan.label);
+
+        // Create member object and auto-login
+        const newMember = {
+            id: memberId,
+            name: memberData.name,
+            email: memberData.email,
+            company: memberData.company,
+            tier: selectedPlan.name,
+            joinDate: dateStr,
+            password: simpleHash(memberData.password)
+        };
+
+        // Store active session
+        localStorage.setItem('aspa_member', JSON.stringify(newMember));
+
+        // Add to members database
+        let members = JSON.parse(localStorage.getItem('aspa_members') || '[]');
+        members.push(newMember);
+        localStorage.setItem('aspa_members', JSON.stringify(members));
+
+        // Update navigation to show logged-in state
+        updateNavigation();
 
         showScreen('screenWelcome');
         window.scrollTo(0, 0);
@@ -648,6 +757,45 @@
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
         document.getElementById(id).classList.add('active');
     }
+
+    // ===== PASSWORD VISIBILITY TOGGLE =====
+    function togglePasswordVisibility(inputId) {
+        const input = document.getElementById(inputId);
+        if (input.type === 'password') {
+            input.type = 'text';
+        } else {
+            input.type = 'password';
+        }
+    }
+
+    // ===== NAVIGATION MANAGEMENT =====
+    function updateNavigation() {
+        const member = localStorage.getItem('aspa_member');
+        const navMemberLinks = document.getElementById('navMemberLinks');
+        const navGuestLinks = document.getElementById('navGuestLinks');
+
+        if (member) {
+            navMemberLinks.style.display = 'flex';
+            navGuestLinks.style.display = 'none';
+        } else {
+            navMemberLinks.style.display = 'none';
+            navGuestLinks.style.display = 'flex';
+        }
+    }
+
+    function logoutMember() {
+        if (confirm('Are you sure you want to log out?')) {
+            localStorage.removeItem('aspa_member');
+            updateNavigation();
+            showScreen('screenPlans');
+            window.scrollTo(0, 0);
+        }
+    }
+
+    // Initialize navigation on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        updateNavigation();
+    });
     </script>
 </body>
 </html>

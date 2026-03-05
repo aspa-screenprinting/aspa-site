@@ -415,6 +415,51 @@
             letter-spacing: 0.5px;
         }
 
+        /* ========================================
+           MEMBER EXCLUSIVE BADGES
+           ======================================== */
+        .member-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background-color: rgba(108, 43, 217, 0.2);
+            color: var(--ink-purple);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-left: 8px;
+        }
+
+        .member-badge-icon {
+            font-size: 8px;
+        }
+
+        .article-card.member-exclusive {
+            position: relative;
+        }
+
+        .article-card.member-exclusive.not-logged-in {
+            opacity: 0.75;
+        }
+
+        .article-card.member-exclusive.not-logged-in::before {
+            content: "🔒";
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            font-size: 16px;
+            opacity: 0.6;
+        }
+
+        .article-card.member-exclusive.logged-in .member-badge {
+            background-color: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+        }
+
         .article-title {
             font-family: 'Space Grotesk', sans-serif;
             font-size: 18px;
@@ -611,6 +656,159 @@
         }
 
         /* ========================================
+           MEMBER EXCLUSIVE RESOURCES SECTION
+           ======================================== */
+        .member-resources-section {
+            max-width: 1200px;
+            margin: 80px auto 60px;
+            padding: 0 24px;
+        }
+
+        .member-resources-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .member-resources-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--ink-white);
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .member-resources-subtitle {
+            font-size: 16px;
+            color: var(--ink-gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .member-resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .member-resource-card {
+            position: relative;
+            border-radius: 16px;
+            padding: 40px 24px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            overflow: hidden;
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .member-resource-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 16px;
+            z-index: -1;
+        }
+
+        .member-resource-card.business-templates::before {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.2) 0%, rgba(108, 43, 217, 0.2) 100%);
+        }
+
+        .member-resource-card.industry-reports::before {
+            background: linear-gradient(135deg, rgba(233, 30, 140, 0.2) 0%, rgba(255, 107, 53, 0.2) 100%);
+        }
+
+        .member-resource-card.video-masterclasses::before {
+            background: linear-gradient(135deg, rgba(108, 43, 217, 0.2) 0%, rgba(233, 30, 140, 0.2) 100%);
+        }
+
+        .member-resource-card.stch-supplier::before {
+            background: linear-gradient(135deg, rgba(255, 212, 0, 0.15) 0%, rgba(0, 212, 255, 0.15) 100%);
+        }
+
+        .member-resource-card {
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .member-resource-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .member-resource-card.locked {
+            opacity: 0.65;
+        }
+
+        .member-resource-card.locked::after {
+            content: '🔒';
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            font-size: 24px;
+            opacity: 0.7;
+        }
+
+        .member-resource-icon {
+            font-size: 40px;
+            margin-bottom: 16px;
+        }
+
+        .member-resource-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--ink-white);
+            margin-bottom: 12px;
+        }
+
+        .member-resource-description {
+            font-size: 14px;
+            color: var(--ink-gray);
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        .member-resource-cta {
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            color: var(--ink-black);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            letter-spacing: 0.5px;
+            margin-top: auto;
+        }
+
+        .member-resource-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
+        }
+
+        .member-resource-unlock {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--ink-gray);
+            cursor: default;
+        }
+
+        .member-resource-unlock:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* ========================================
            FOOTER
            ======================================== */
         footer {
@@ -779,7 +977,9 @@
                 <li><a href="index.html#membership">Membership</a></li>
                 <li><a href="resources.html" class="active">Resources</a></li>
             </ul>
-            <button class="nav-cta" onclick="window.location.href='join.html'">Join ASPA</button>
+            <button id="navJoinBtn" class="nav-cta" onclick="window.location.href='join.html'">Join ASPA</button>
+            <a id="navLogoutLink" href="#" style="display:none; color: var(--ink-cyan); text-decoration: none; font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 500; margin-right: 16px;">Log Out</a>
+            <a id="navDashboardLink" href="dashboard.html" style="display:none; color: var(--ink-cyan); text-decoration: none; font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 500;">My ASPA+</a>
             <button class="hamburger" onclick="toggleMobileMenu()">
                 <span></span>
                 <span></span>
@@ -862,6 +1062,46 @@
                 <h3 class="journey-step-title">Join the Community</h3>
                 <p class="journey-step-description">Connect with 1,200+ members in 100+ countries</p>
                 <a href="join.html" class="journey-step-link">Join ASPA+ →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         MEMBER EXCLUSIVE RESOURCES SECTION
+         ======================================== -->
+    <section class="member-resources-section">
+        <div class="member-resources-header">
+            <h2 class="member-resources-title">ASPA+ MEMBER RESOURCES</h2>
+            <p class="member-resources-subtitle">Premium content and tools exclusive to ASPA+ members</p>
+        </div>
+
+        <div class="member-resources-grid" id="memberResourcesGrid">
+            <div class="member-resource-card business-templates locked" id="businessTemplatesCard">
+                <div class="member-resource-icon">📋</div>
+                <h3 class="member-resource-title">Business Templates</h3>
+                <p class="member-resource-description">Downloadable business plan templates, pricing calculators, and financial models</p>
+                <button class="member-resource-cta member-resource-unlock">Join ASPA+ to Unlock</button>
+            </div>
+
+            <div class="member-resource-card industry-reports locked" id="industryReportsCard">
+                <div class="member-resource-icon">📊</div>
+                <h3 class="member-resource-title">Industry Reports</h3>
+                <p class="member-resource-description">Annual screen printing industry data, market trends, and benchmarking reports</p>
+                <button class="member-resource-cta member-resource-unlock">Join ASPA+ to Unlock</button>
+            </div>
+
+            <div class="member-resource-card video-masterclasses locked" id="videoMasterclassesCard">
+                <div class="member-resource-icon">🎬</div>
+                <h3 class="member-resource-title">Video Masterclasses</h3>
+                <p class="member-resource-description">Advanced technique videos, industry expert interviews, and skill-building courses</p>
+                <button class="member-resource-cta member-resource-unlock">Join ASPA+ to Unlock</button>
+            </div>
+
+            <div class="member-resource-card stch-supplier locked" id="stchSupplierCard">
+                <div class="member-resource-icon">🤝</div>
+                <h3 class="member-resource-title">STCH Supplier Guide</h3>
+                <p class="member-resource-description">Complete guide to STCH deals, partner discounts, and member-exclusive supplier benefits</p>
+                <button class="member-resource-cta member-resource-unlock">Join ASPA+ to Unlock</button>
             </div>
         </div>
     </section>
@@ -968,7 +1208,8 @@
                 date: "2026-02-05",
                 featured: true,
                 url: "article-startup-costs.html",
-                comingSoon: false
+                comingSoon: false,
+                memberExclusive: true
             },
             {
                 id: 5,
@@ -996,7 +1237,8 @@
                 date: "2026-03-04",
                 featured: true,
                 url: "article-pricing-guide.html",
-                comingSoon: false
+                comingSoon: false,
+                memberExclusive: true
             },
             {
                 id: 7,
@@ -1094,7 +1336,8 @@
                 date: "2026-03-04",
                 featured: true,
                 url: "article-best-presses.html",
-                comingSoon: false
+                comingSoon: false,
+                memberExclusive: true
             },
             {
                 id: 14,
@@ -1283,10 +1526,13 @@
         // ========================================
 
         function createArticleCard(article) {
+            const isLoggedIn = localStorage.getItem('aspa_member') === 'true';
             const card = document.createElement('div');
-            card.className = `article-card ${article.comingSoon ? 'coming-soon' : ''}`;
+            const memberClass = article.memberExclusive ? (isLoggedIn ? 'member-exclusive logged-in' : 'member-exclusive not-logged-in') : '';
+            card.className = `article-card ${article.comingSoon ? 'coming-soon' : ''} ${memberClass}`;
 
             const featuredBadge = article.featured ? `<span class="featured-badge">★ Featured</span>` : '';
+            const memberBadge = article.memberExclusive ? `<span class="member-badge"><span class="member-badge-icon">●</span> ${isLoggedIn ? 'ASPA+ ACCESS' : 'MEMBER EXCLUSIVE'}</span>` : '';
 
             card.innerHTML = `
                 <div class="${article.categoryClass} article-category-tag">
@@ -1294,7 +1540,10 @@
                 </div>
                 <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
                     <h3 class="article-title">${article.title}</h3>
-                    ${featuredBadge}
+                    <div style="display: flex; gap: 8px;">
+                        ${featuredBadge}
+                        ${memberBadge}
+                    </div>
                 </div>
                 <p class="article-description">${article.description}</p>
                 <div class="article-meta">
@@ -1430,6 +1679,100 @@
             // Placeholder for mobile menu toggle
             console.log('Mobile menu toggled');
         }
+
+        // ========================================
+        // NAVIGATION AUTH STATE
+        // ========================================
+
+        function updateNavAuthState() {
+            const isLoggedIn = localStorage.getItem('aspa_member') === 'true';
+            const navJoinBtn = document.getElementById('navJoinBtn');
+            const navLogoutLink = document.getElementById('navLogoutLink');
+            const navDashboardLink = document.getElementById('navDashboardLink');
+
+            if (isLoggedIn) {
+                // Show logged-in state
+                navJoinBtn.style.display = 'none';
+                navLogoutLink.style.display = 'inline-block';
+                navDashboardLink.style.display = 'inline-block';
+            } else {
+                // Show logged-out state
+                navJoinBtn.style.display = 'block';
+                navLogoutLink.style.display = 'none';
+                navDashboardLink.style.display = 'none';
+            }
+        }
+
+        function handleLogout() {
+            localStorage.removeItem('aspa_member');
+            updateNavAuthState();
+            // Refresh article cards to update member badges
+            renderArticles();
+            // Refresh member resources cards
+            updateMemberResourcesDisplay();
+        }
+
+        // ========================================
+        // MEMBER EXCLUSIVE RESOURCES
+        // ========================================
+
+        function updateMemberResourcesDisplay() {
+            const isLoggedIn = localStorage.getItem('aspa_member') === 'true';
+            const cards = document.querySelectorAll('.member-resource-card');
+
+            cards.forEach(card => {
+                const button = card.querySelector('.member-resource-cta');
+
+                if (isLoggedIn) {
+                    card.classList.remove('locked');
+                    card.style.opacity = '1';
+
+                    // Update button to be functional
+                    if (card.id === 'businessTemplatesCard') {
+                        button.textContent = 'Access Templates →';
+                        button.classList.remove('member-resource-unlock');
+                        button.onclick = () => window.location.href = 'dashboard.html#business-tools';
+                    } else if (card.id === 'industryReportsCard') {
+                        button.textContent = 'View Reports →';
+                        button.classList.remove('member-resource-unlock');
+                        button.onclick = () => window.location.href = 'dashboard.html#industry-reports';
+                    } else if (card.id === 'videoMasterclassesCard') {
+                        button.textContent = 'Watch Videos →';
+                        button.classList.remove('member-resource-unlock');
+                        button.onclick = () => window.location.href = 'dashboard.html#masterclasses';
+                    } else if (card.id === 'stchSupplierCard') {
+                        button.textContent = 'View Supplier Guide →';
+                        button.classList.remove('member-resource-unlock');
+                        button.onclick = () => window.location.href = 'dashboard.html#supplier-guide';
+                    }
+                } else {
+                    card.classList.add('locked');
+                    card.style.opacity = '0.65';
+
+                    // Reset button to locked state
+                    button.textContent = 'Join ASPA+ to Unlock';
+                    button.classList.add('member-resource-unlock');
+                    button.onclick = () => window.location.href = 'join.html';
+                }
+            });
+        }
+
+        // ========================================
+        // LOGOUT LINK HANDLER
+        // ========================================
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set up logout link
+            const logoutLink = document.getElementById('navLogoutLink');
+            logoutLink.onclick = function(e) {
+                e.preventDefault();
+                handleLogout();
+            };
+
+            // Initialize auth state on page load
+            updateNavAuthState();
+            updateMemberResourcesDisplay();
+        });
     </script>
 </body>
 </html>

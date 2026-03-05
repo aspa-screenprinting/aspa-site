@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASPA+ Login - Screen Printing Community</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --ink-black: #0a0a0a;
+            --ink-dark: #1a1a2e;
+            --ink-purple: #6c2bd9;
+            --ink-magenta: #e91e8c;
+            --ink-cyan: #00d4ff;
+            --ink-yellow: #ffd400;
+            --ink-orange: #ff6b35;
+            --ink-white: #f8f8f8;
+            --ink-gray: #b0b0b0;
+            --ink-gray-dark: #2a2a3e;
+            --ink-green: #00e676;
+            --ink-red: #ff3d5a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--ink-black);
+            color: var(--ink-white);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* Ink splatter effects */
+        body::before,
+        body::after {
+            content: '';
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.15;
+            z-index: 0;
+        }
+
+        body::before {
+            width: 500px;
+            height: 500px;
+            background: linear-gradient(135deg, var(--ink-cyan) 0%, var(--ink-purple) 100%);
+            top: -200px;
+            left: -150px;
+        }
+
+        body::after {
+            width: 600px;
+            height: 600px;
+            background: linear-gradient(45deg, var(--ink-magenta) 0%, var(--ink-orange) 100%);
+            bottom: -250px;
+            right: -200px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background-color: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0 40px;
+            height: 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            text-decoration: none;
+            color: var(--ink-white);
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-logo:hover {
+            opacity: 0.8;
+        }
+
+        .nav-logo-text {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .nav-logo-text span {
+            color: var(--ink-cyan);
+        }
+
+        .nav-logo-subtext {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 11px;
+            letter-spacing: 1px;
+            color: var(--ink-gray);
+            text-transform: uppercase;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .nav-back {
+            color: var(--ink-cyan);
+            text-decoration: none;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-back:hover {
+            color: var(--ink-magenta);
+        }
+
+        /* Main content */
+        main {
+            position: relative;
+            z-index: 1;
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 120px 20px 80px;
+        }
+
+        /* Login card */
+        .login-card {
+            background-color: var(--ink-dark);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 48px;
+            max-width: 480px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-header {
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .card-title {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 48px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, var(--ink-cyan) 0%, var(--ink-magenta) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+        }
+
+        .card-subtitle {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 20px;
+            letter-spacing: 1px;
+            color: var(--ink-white);
+            margin-bottom: 16px;
+        }
+
+        .card-description {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: var(--ink-gray);
+            line-height: 1.6;
+        }
+
+        /* Form */
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            margin-top: 32px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            color: var(--ink-gray);
+        }
+
+        .form-input-wrapper {
+            position: relative;
+        }
+
+        .form-input {
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            color: var(--ink-white);
+            transition: all 0.3s ease;
+        }
+
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--ink-cyan);
+            background-color: rgba(0, 212, 255, 0.05);
+            box-shadow: 0 0 16px rgba(0, 212, 255, 0.2);
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--ink-gray);
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.3s ease;
+            padding: 0;
+            width: 40px;
+            height: 40px;
+        }
+
+        .password-toggle:hover {
+            color: var(--ink-cyan);
+        }
+
+        .forgot-password {
+            text-align: right;
+            margin-top: 8px;
+        }
+
+        .forgot-password a {
+            font-size: 13px;
+            color: var(--ink-cyan);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-password a:hover {
+            color: var(--ink-magenta);
+        }
+
+        /* Submit button */
+        .login-button {
+            width: 100%;
+            padding: 16px;
+            margin-top: 16px;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, var(--ink-magenta) 0%, var(--ink-purple) 100%);
+            color: var(--ink-white);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 24px rgba(233, 30, 140, 0.3);
+        }
+
+        .login-button:hover {
+            box-shadow: 0 12px 32px rgba(233, 30, 140, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .login-button:active {
+            transform: translateY(0);
+        }
+
+        /* Error message */
+        .error-message {
+            background-color: rgba(255, 61, 90, 0.1);
+            border: 1px solid var(--ink-red);
+            border-radius: 12px;
+            padding: 12px 16px;
+            color: var(--ink-red);
+            font-size: 13px;
+            font-family: 'Inter', sans-serif;
+            display: none;
+            margin-bottom: 16px;
+            animation: slideIn 0.3s ease;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Divider */
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin: 24px 0;
+            color: var(--ink-gray);
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .divider-text {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Sign up link */
+        .signup-link {
+            text-align: center;
+            margin-top: 24px;
+        }
+
+        .signup-link-text {
+            font-size: 13px;
+            color: var(--ink-gray);
+        }
+
+        .signup-link a {
+            color: var(--ink-cyan);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 600;
+        }
+
+        .signup-link a:hover {
+            color: var(--ink-magenta);
+        }
+
+        /* Demo info */
+        .demo-info {
+            text-align: center;
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 12px;
+            color: var(--ink-gray);
+            line-height: 1.6;
+        }
+
+        .demo-info strong {
+            color: var(--ink-cyan);
+        }
+
+        /* Footer */
+        footer {
+            position: relative;
+            z-index: 1;
+            background-color: rgba(10, 10, 10, 0.9);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 60px 40px;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--ink-white);
+            margin-bottom: 16px;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-column ul li a {
+            color: var(--ink-gray);
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--ink-cyan);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 12px;
+            color: var(--ink-gray);
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-bottom-links a {
+            color: var(--ink-gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-bottom-links a:hover {
+            color: var(--ink-cyan);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 0 20px;
+            }
+
+            .nav-right {
+                gap: 20px;
+            }
+
+            .nav-logo-text {
+                font-size: 20px;
+            }
+
+            main {
+                padding: 100px 16px 60px;
+            }
+
+            .login-card {
+                padding: 36px 24px;
+            }
+
+            .card-title {
+                font-size: 36px;
+            }
+
+            footer {
+                padding: 40px 20px;
+            }
+
+            .footer-content {
+                gap: 24px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+
+            .footer-bottom-links {
+                flex-direction: column;
+                gap: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav {
+                padding: 0 16px;
+                height: 70px;
+            }
+
+            .nav-right {
+                gap: 16px;
+            }
+
+            .nav-logo-text {
+                font-size: 18px;
+            }
+
+            .nav-back {
+                font-size: 12px;
+            }
+
+            main {
+                padding: 90px 12px 50px;
+            }
+
+            .login-card {
+                padding: 28px 20px;
+            }
+
+            .card-title {
+                font-size: 32px;
+            }
+
+            .card-subtitle {
+                font-size: 18px;
+            }
+
+            .login-form {
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="nav-logo">
+            <div>
+                <div class="nav-logo-text"><span>ASPA</span></div>
+                <div class="nav-logo-subtext">Screen Printing</div>
+            </div>
+        </a>
+        <div class="nav-right">
+            <a href="index.html" class="nav-back">← Back to Home</a>
+        </div>
+    </nav>
+
+    <main>
+        <div class="login-card">
+            <div class="card-header">
+                <div class="card-title">ASPA+</div>
+                <div class="card-subtitle">LOG IN</div>
+                <p class="card-description">Welcome back. Sign in to access your ASPA+ member benefits.</p>
+            </div>
+
+            <form class="login-form" id="loginForm">
+                <div class="error-message" id="errorMessage"></div>
+
+                <div class="form-group">
+                    <label class="form-label" for="email">Email Address</label>
+                    <input
+                        type="email"
+                        id="email"
+                        class="form-input"
+                        placeholder="your@email.com"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="password">Password</label>
+                    <div class="form-input-wrapper">
+                        <input
+                            type="password"
+                            id="password"
+                            class="form-input"
+                            placeholder="••••••••"
+                            required
+                        >
+                        <button type="button" class="password-toggle" id="passwordToggle" aria-label="Toggle password visibility">
+                            👁️
+                        </button>
+                    </div>
+                    <div class="forgot-password">
+                        <a href="#" id="forgotPasswordLink">Forgot password?</a>
+                    </div>
+                </div>
+
+                <button type="submit" class="login-button">Log In</button>
+            </form>
+
+            <div class="divider">
+                <span class="divider-text">or</span>
+            </div>
+
+            <div class="signup-link">
+                <p class="signup-link-text">
+                    Not a member yet? <a href="join.html">Join ASPA+</a>
+                </p>
+            </div>
+
+            <div class="demo-info">
+                <p><strong>For testing:</strong> use any email with password <strong>aspa2026</strong></p>
+                <p style="margin-top: 8px;">Example: cochran.dustin@gmail.com</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>About ASPA+</h3>
+                <ul>
+                    <li><a href="#">Community</a></li>
+                    <li><a href="#">Features</a></li>
+                    <li><a href="#">Membership Tiers</a></li>
+                    <li><a href="#">Pricing</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#">Design Library</a></li>
+                    <li><a href="#">Tutorials</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Support</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Press</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                    <li><a href="#">Accessibility</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 ASPA. All rights reserved.</p>
+            <div class="footer-bottom-links">
+                <a href="#">Twitter</a>
+                <a href="#">Instagram</a>
+                <a href="#">Discord</a>
+                <a href="#">LinkedIn</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple hash function for client-side password storage
+        function simpleHash(str) {
+            let hash = 0;
+            for (let i = 0; i < str.length; i++) {
+                const char = str.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash; // Convert to 32bit integer
+            }
+            return hash.toString();
+        }
+
+        // Seed test member for demo purposes
+        function seedTestMember() {
+            if (!localStorage.getItem('aspa_members')) {
+                const testMembers = [{
+                    name: "Dustin Cochran",
+                    email: "cochran.dustin@gmail.com",
+                    company: "ASPA",
+                    tier: "business",
+                    joinDate: "2026-03-05",
+                    password: simpleHash("aspa2026")
+                }];
+                localStorage.setItem('aspa_members', JSON.stringify(testMembers));
+            }
+        }
+
+        // Show error message
+        function showError(message) {
+            const errorElement = document.getElementById('errorMessage');
+            errorElement.textContent = message;
+            errorElement.classList.add('show');
+
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                errorElement.classList.remove('show');
+            }, 5000);
+        }
+
+        // Clear error message on input
+        function clearError() {
+            const errorElement = document.getElementById('errorMessage');
+            errorElement.classList.remove('show');
+        }
+
+        // Handle login
+        function handleLogin(e) {
+            e.preventDefault();
+            clearError();
+
+            const email = document.getElementById('email').value.trim().toLowerCase();
+            const password = document.getElementById('password').value;
+
+            // Validate inputs
+            if (!email || !password) {
+                showError('Please enter both email and password.');
+                return;
+            }
+
+            // Check localStorage for registered members
+            const members = JSON.parse(localStorage.getItem('aspa_members') || '[]');
+            const member = members.find(m => m.email === email);
+
+            if (!member) {
+                showError('No account found with that email. Please check your email or join ASPA+.');
+                return;
+            }
+
+            // Check password
+            if (simpleHash(password) !== member.password) {
+                showError('Incorrect password. Please try again.');
+                return;
+            }
+
+            // Login successful — set active member in localStorage
+            localStorage.setItem('aspa_member', JSON.stringify({
+                name: member.name,
+                email: member.email,
+                company: member.company,
+                tier: member.tier,
+                joinDate: member.joinDate
+            }));
+
+            // Redirect to dashboard
+            window.location.href = 'dashboard.html';
+        }
+
+        // Toggle password visibility
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('password');
+            const passwordToggle = document.getElementById('passwordToggle');
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                passwordToggle.textContent = '🙈';
+            } else {
+                passwordInput.type = 'password';
+                passwordToggle.textContent = '👁️';
+            }
+        }
+
+        // Handle forgot password
+        function handleForgotPassword(e) {
+            e.preventDefault();
+            showError('Password reset functionality coming soon. Please contact support.');
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            seedTestMember();
+
+            const loginForm = document.getElementById('loginForm');
+            const passwordToggle = document.getElementById('passwordToggle');
+            const forgotPasswordLink = document.getElementById('forgotPasswordLink');
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+
+            loginForm.addEventListener('submit', handleLogin);
+            passwordToggle.addEventListener('click', togglePasswordVisibility);
+            forgotPasswordLink.addEventListener('click', handleForgotPassword);
+            emailInput.addEventListener('input', clearError);
+            passwordInput.addEventListener('input', clearError);
+        });
+    </script>
+</body>
+</html>

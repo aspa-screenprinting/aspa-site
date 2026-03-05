@@ -1073,6 +1073,150 @@
             .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
             .directory-search { flex-direction: column; }
         }
+
+        /* ========== ASPA+ PREVIEW BUBBLE CARDS ========== */
+        .aspa-plus-bubble {
+            border-radius: 24px;
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            min-height: 240px;
+            position: relative;
+            border: 1px solid;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            overflow: hidden;
+        }
+
+        .aspa-plus-bubble::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 24px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+        }
+
+        .aspa-plus-bubble:hover {
+            transform: translateY(-6px);
+        }
+
+        .aspa-plus-bubble:hover::before {
+            opacity: 1;
+        }
+
+        /* Individual bubble gradient backgrounds */
+        .aspa-bubble-deals {
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.15), rgba(255, 212, 0, 0.1));
+            border-color: rgba(255, 107, 53, 0.3);
+        }
+
+        .aspa-bubble-deals:hover::before {
+            box-shadow: 0 12px 40px rgba(255, 107, 53, 0.25);
+        }
+
+        .aspa-bubble-credits {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(108, 43, 217, 0.1));
+            border-color: rgba(0, 212, 255, 0.3);
+        }
+
+        .aspa-bubble-credits:hover::before {
+            box-shadow: 0 12px 40px rgba(0, 212, 255, 0.25);
+        }
+
+        .aspa-bubble-training {
+            background: linear-gradient(135deg, rgba(233, 30, 140, 0.15), rgba(108, 43, 217, 0.1));
+            border-color: rgba(233, 30, 140, 0.3);
+        }
+
+        .aspa-bubble-training:hover::before {
+            box-shadow: 0 12px 40px rgba(233, 30, 140, 0.25);
+        }
+
+        .aspa-bubble-resources {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(233, 30, 140, 0.1));
+            border-color: rgba(0, 212, 255, 0.3);
+        }
+
+        .aspa-bubble-resources:hover::before {
+            box-shadow: 0 12px 40px rgba(0, 212, 255, 0.25);
+        }
+
+        /* Locked state for non-members */
+        .aspa-plus-bubble.locked {
+            opacity: 0.55;
+            filter: grayscale(30%);
+            cursor: pointer;
+        }
+
+        .aspa-plus-bubble.locked:hover {
+            transform: none;
+        }
+
+        .aspa-plus-bubble.locked::after {
+            content: '🔒';
+            position: absolute;
+            font-size: 3rem;
+            color: rgba(255, 255, 255, 0.6);
+            z-index: 10;
+        }
+
+        .aspa-plus-bubble-title {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--ink-white);
+        }
+
+        .aspa-plus-bubble-text {
+            font-size: 0.9rem;
+            color: var(--ink-gray);
+            margin-bottom: 16px;
+        }
+
+        .aspa-plus-bubble.locked .aspa-plus-bubble-title,
+        .aspa-plus-bubble.locked .aspa-plus-bubble-text {
+            display: none;
+        }
+
+        .aspa-plus-bubble.locked .aspa-plus-lock-text {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--ink-gray);
+        }
+
+        .aspa-plus-bubble:not(.locked) .aspa-plus-lock-text {
+            display: none;
+        }
+
+        .aspa-plus-link {
+            font-size: 0.85rem;
+            color: var(--ink-cyan);
+            text-decoration: underline;
+            transition: color 0.3s;
+        }
+
+        .aspa-plus-bubble:not(.locked):hover .aspa-plus-link {
+            color: var(--ink-yellow);
+        }
+
+        /* Responsive grid */
+        @media (max-width: 1024px) {
+            #aspa-bubbles-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+        }
+
+        @media (max-width: 640px) {
+            #aspa-bubbles-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1090,7 +1234,9 @@
                 <li><a href="#membership">Membership</a></li>
                 <li><a href="resources.html">Resources</a></li>
             </ul>
-            <a href="join.html" class="nav-cta">Join ASPA</a>
+            <div id="navAuthContainer" style="display: flex; align-items: center; gap: 16px;">
+                <a href="join.html" class="nav-cta" id="navJoinBtn">Join ASPA</a>
+            </div>
             <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">&#9776;</button>
         </div>
     </nav>
@@ -1451,6 +1597,39 @@
         </div>
     </section>
 
+    <!-- ========== ASPA+ EXCLUSIVE PREVIEW ========== -->
+    <section id="aspa-plus-preview" style="padding: 100px 0; background: var(--ink-black); position: relative;">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 60px;">
+                <p class="section-label">MEMBERS ONLY</p>
+                <h2 class="section-title">ASPA+ <span class="gradient-text">EXCLUSIVE</span></h2>
+                <p style="color: var(--ink-gray); max-width: 600px; margin: 0 auto; font-size: 1.1rem;">
+                    Unlock premium tools, supplier deals, and resources designed to grow your screen printing business.
+                </p>
+            </div>
+
+            <!-- Bubble Grid -->
+            <div id="aspa-bubbles-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;">
+                <!-- 4 preview bubbles will be inserted here by JS -->
+            </div>
+
+            <!-- CTA for non-members (hidden when logged in) -->
+            <div id="aspa-plus-cta" style="text-align: center; margin-top: 48px;">
+                <a href="join.html" class="btn btn-primary" style="font-size: 1.1rem; padding: 18px 40px;">
+                    Become an ASPA+ Member →
+                </a>
+                <p style="color: var(--ink-gray); margin-top: 16px; font-size: 0.9rem;">Starting at $49/year</p>
+            </div>
+
+            <!-- Link for members (hidden when not logged in) -->
+            <div id="aspa-plus-member-link" style="text-align: center; margin-top: 48px; display: none;">
+                <a href="dashboard.html" class="btn btn-primary" style="font-size: 1.1rem; padding: 18px 40px;">
+                    Go to My Dashboard →
+                </a>
+            </div>
+        </div>
+    </section>
+
     <!-- ========== TESTIMONIALS ========== -->
     <section class="testimonials">
         <div class="container">
@@ -1613,6 +1792,87 @@
 
         document.getElementById('directorySearch').addEventListener('keydown', (e) => {
             if (e.key === 'Enter') handleSearch();
+        });
+
+        // ========== NAVIGATION AUTH STATE =========
+        function updateNavAuthState() {
+            const isMember = localStorage.getItem('aspa_member');
+            const navAuthContainer = document.getElementById('navAuthContainer');
+            const navJoinBtn = document.getElementById('navJoinBtn');
+
+            if (isMember) {
+                // Member is logged in
+                const firstName = localStorage.getItem('aspa_firstName') || 'Member';
+                navAuthContainer.innerHTML = `
+                    <span style="font-family: var(--font-body); font-size: 0.9rem; color: var(--ink-gray);">Hi, ${firstName}</span>
+                    <a href="dashboard.html" class="nav-links" style="color: var(--ink-cyan); font-family: var(--font-heading); font-size: 0.9rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1.5px;">My ASPA+</a>
+                    <a href="#" onclick="handleLogout(event)" style="color: var(--ink-gray); font-family: var(--font-body); font-size: 0.85rem; cursor: pointer; transition: color 0.3s;">Log Out</a>
+                `;
+            } else {
+                // Not logged in - show Join button with Log In link
+                navAuthContainer.innerHTML = `
+                    <a href="join.html" class="nav-cta" id="navJoinBtn">Join ASPA</a>
+                    <a href="login.html" style="color: var(--ink-gray); font-family: var(--font-body); font-size: 0.85rem; cursor: pointer; transition: color 0.3s;">Log In</a>
+                `;
+            }
+        }
+
+        function handleLogout(e) {
+            e.preventDefault();
+            localStorage.removeItem('aspa_member');
+            localStorage.removeItem('aspa_firstName');
+            updateNavAuthState();
+            updateASPAPlusSection();
+        }
+
+        // ========== ASPA+ PREVIEW SECTION =========
+        const bubbleCardsData = [
+            { title: 'STCH Deals', description: 'Exclusive supplier discounts', class: 'aspa-bubble-deals', icon: '💰' },
+            { title: 'CE Credits', description: 'Continuing Education credits', class: 'aspa-bubble-credits', icon: '🎓' },
+            { title: 'Advanced Training', description: 'Expert-led workshops & courses', class: 'aspa-bubble-training', icon: '🚀' },
+            { title: 'Exclusive Resources', description: 'Premium guides & tools', class: 'aspa-bubble-resources', icon: '📚' }
+        ];
+
+        function renderBubbleCards() {
+            const grid = document.getElementById('aspa-bubbles-grid');
+            const isMember = localStorage.getItem('aspa_member');
+
+            grid.innerHTML = bubbleCardsData.map((bubble, idx) => {
+                const isLocked = !isMember;
+                const onClick = isLocked ? 'onclick="window.location=\'join.html\'"' : 'onclick="window.location=\'dashboard.html\'"';
+                const lockedClass = isLocked ? 'locked' : '';
+
+                return `
+                    <div class="aspa-plus-bubble ${bubble.class} ${lockedClass}" ${onClick} style="cursor: pointer;">
+                        <div style="font-size: 2.5rem; margin-bottom: 12px;">${bubble.icon}</div>
+                        <div class="aspa-plus-bubble-title">${bubble.title}</div>
+                        <div class="aspa-plus-bubble-text">${bubble.description}</div>
+                        <div class="aspa-plus-lock-text">ASPA+ Members Only</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function updateASPAPlusSection() {
+            const isMember = localStorage.getItem('aspa_member');
+            const ctaDiv = document.getElementById('aspa-plus-cta');
+            const memberLinkDiv = document.getElementById('aspa-plus-member-link');
+
+            if (isMember) {
+                ctaDiv.style.display = 'none';
+                memberLinkDiv.style.display = 'block';
+            } else {
+                ctaDiv.style.display = 'block';
+                memberLinkDiv.style.display = 'none';
+            }
+
+            renderBubbleCards();
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            updateNavAuthState();
+            updateASPAPlusSection();
         });
     </script>
 </body>

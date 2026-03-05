@@ -2,8 +2,8 @@
 
 **Project:** screen-printing.us redesign
 **Client:** Dustin Cochran (cochran.dustin@gmail.com)
-**Date:** March 3–4, 2026 (last updated: Session 5)
-**Status:** In Progress — Core Pages Built, Directory & Roster Complete, Resource Hub COMPLETE (All 18 Articles Live)
+**Date:** March 3–5, 2026 (last updated: Session 6)
+**Status:** In Progress — Core Pages Built, Resource Hub COMPLETE (All 18 Articles), **SITE LIVE on GitHub Pages**
 
 ---
 
@@ -477,7 +477,7 @@ screen-printing.us/contact                   → local SEO signal
 ### Polish & Production
 - [ ] Favicon
 - [ ] Analytics integration (GA4)
-- [ ] SSL and hosting setup
+- [x] SSL and hosting setup → **GitHub Pages** ✅ (HTTPS enforced)
 - [ ] 301 redirects from old Google Sites URLs
 - [ ] Mobile hamburger menu implementation (currently placeholder on all pages)
 
@@ -601,6 +601,49 @@ Both pillar articles use a reusable template pattern:
 13. **Printing United Alliance = partner, not competitor** — they don't offer a screen printing craft certification; ASPA fills that niche
 14. **Blog content to migrate on-site** — stop building equity for Blogger subdomains; all new content on screen-printing.us
 15. **Article template standardized** — sticky TOC, callout boxes, related articles, dual-CTA; reusable for all future articles
+
+## Deployment & Infrastructure (Session 6)
+
+### Live Site
+- **URL:** https://aspa-screenprinting.github.io/aspa-site/
+- **Platform:** GitHub Pages (free, static hosting with HTTPS)
+- **Repository:** https://github.com/aspa-screenprinting/aspa-site (PUBLIC)
+- **GitHub Organization:** aspa-screenprinting (owned by ASPA)
+- **Branch:** main, deployed from / (root)
+- **HTTPS:** Enforced via GitHub Pages settings
+- **Files deployed:** 31 files (28 HTML, 1 SVG, 1 PDF, 1 MD)
+
+### GitHub Account
+- **Personal username:** truhavoc
+- **Organization:** aspa-screenprinting (repo lives here)
+- **Repo visibility:** Public (required for free GitHub Pages)
+
+### Cloudflare Account (For Future Custom Domain)
+- **Email:** cochran.dustin@gmail.com
+- **Account ID:** 5f600700ed2890bad60674f53f985e9a
+- **Status:** Account created, Cloudflare Workers & Pages GitHub app installed
+- **Use case:** When ready to point screen-printing.us to the new site, use Cloudflare DNS to configure the custom domain. GitHub Pages supports custom domains — just add a CNAME record pointing to aspa-screenprinting.github.io and configure in repo Settings > Pages > Custom domain.
+
+### Deployment Workflow
+To update the live site:
+1. Push changes to the `main` branch on GitHub
+2. GitHub Pages automatically rebuilds and deploys (typically under 1 minute)
+3. Changes are live at the GitHub Pages URL immediately after build completes
+
+### Security Cleanup Needed
+- [ ] Revoke the GitHub Personal Access Token (PAT) created during Session 5 — it was used for the initial push and is no longer needed
+- [ ] Revoke the Cloudflare API token created during Session 6 (Z3y3...) — it was for a CLI deployment attempt that didn't work out
+- [ ] Consider adding branch protection rules to the main branch if multiple collaborators will be editing
+
+### Future: Custom Domain Setup
+When ready to go live on screen-printing.us:
+1. In Cloudflare DNS, add a CNAME record: `www` → `aspa-screenprinting.github.io`
+2. In Cloudflare DNS, add A records for apex domain pointing to GitHub Pages IPs (185.199.108-111.153)
+3. In GitHub repo Settings > Pages > Custom domain, enter `screen-printing.us`
+4. GitHub will auto-provision an SSL cert via Let's Encrypt
+5. Set up 301 redirects from old Google Sites pages to new URLs
+
+---
 
 ## Technical Notes
 
