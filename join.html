@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="supabase-init.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -662,20 +663,8 @@
         }, 1500);
     }
 
-    // ===== SIMPLE HASH FUNCTION =====
-    function simpleHash(str) {
-        let hash = 0;
-        for (let i = 0; i < str.length; i++) {
-            const char = str.charCodeAt(i);
-            hash = ((hash << 5) - hash) + char;
-            hash = hash & hash;
-        }
-        return hash.toString();
-    }
-
     // ===== SCREEN 3 =====
     function showWelcome() {
-        const memberId = 'ASPA-' + Date.now().toString(36).toUpperCase() + '-' + Math.random().toString(36).substring(2, 5).toUpperCase();
         const dateStr = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 
         document.getElementById('welcomeName').textContent = memberData.name;
@@ -686,34 +675,62 @@
         document.getElementById('wcName').textContent = memberData.name.toUpperCase();
         document.getElementById('wcCompany').textContent = memberData.company;
         document.getElementById('wcDate').textContent = 'Member Since: ' + dateStr;
-        document.getElementById('wcId').textContent = 'Member ID: ' + memberId;
 
-        document.getElementById('downloadCertBtn').onclick = () => downloadMemberCert(memberData.name, memberData.company, dateStr, memberId, selectedPlan.label);
+        // Generate Member ID after successful auth
+        function setMemberId(memberId) {
+            document.getElementById('wcId').textContent = 'Member ID: ' + memberId;
+            document.getElementById('downloadCertBtn').onclick = () => downloadMemberCert(memberData.name, memberData.company, dateStr, memberId, selectedPlan.label);
+        }
 
-        // Create member object and auto-login
-        const newMember = {
-            id: memberId,
-            name: memberData.name,
-            email: memberData.email,
-            company: memberData.company,
-            tier: selectedPlan.name,
-            joinDate: dateStr,
-            password: simpleHash(memberData.password)
-        };
+        // Sign up with Supabase
+        if (window._supabase) {
+            window._supabase.auth.signUp({
+                email: memberData.email,
+                password: memberData.password,
+                options: {
+                    data: {
+                        full_name: memberData.name
+                    }
+                }
+            }).then(function(result) {
+                if (result.error) {
+                    alert('Signup failed: ' + result.error.message);
+                    showScreen('screenPlans');
+                    return;
+                }
 
-        // Store active session
-        localStorage.setItem('aspa_member', JSON.stringify(newMember));
+                // Generate member ID
+                const memberId = 'ASPA-' + Date.now().toString(36).toUpperCase() + '-' + Math.random().toString(36).substring(2, 5).toUpperCase();
+                setMemberId(memberId);
 
-        // Add to members database
-        let members = JSON.parse(localStorage.getItem('aspa_members') || '[]');
-        members.push(newMember);
-        localStorage.setItem('aspa_members', JSON.stringify(members));
-
-        // Update navigation to show logged-in state
-        updateNavigation();
-
-        showScreen('screenWelcome');
-        window.scrollTo(0, 0);
+                // Update profile with additional info
+                const membershipTier = selectedPlan.key || selectedPlan.name.toLowerCase();
+                window._supabase
+                    .from('profiles')
+                    .update({
+                        company: memberData.company,
+                        city: memberData.city,
+                        state: memberData.state,
+                        website: memberData.website,
+                        membership_tier: membershipTier,
+                        member_id: memberId,
+                        join_date: dateStr
+                    })
+                    .eq('id', result.data.user.id)
+                    .then(function(updateResult) {
+                        if (updateResult.error) {
+                            console.error('Profile update error:', updateResult.error);
+                        }
+                        // Update navigation to show logged-in state
+                        updateNavigation();
+                        showScreen('screenWelcome');
+                        window.scrollTo(0, 0);
+                    });
+            });
+        } else {
+            console.error('Supabase client not initialized');
+            alert('Authentication service is not ready. Please refresh the page.');
+        }
     }
 
     // ===== MEMBERSHIP CERTIFICATE PDF =====
@@ -790,13 +807,15 @@
 
     // ===== NAVIGATION MANAGEMENT =====
     function updateNavigation() {
-        const member = localStorage.getItem('aspa_member');
         const navMemberLinks = document.getElementById('navMemberLinks');
         const navGuestLinks = document.getElementById('navGuestLinks');
 
-        if (member) {
+        if (window._memberProfile) {
             navMemberLinks.style.display = 'flex';
             navGuestLinks.style.display = 'none';
+            if (window.updateNavForSupabase) {
+                window.updateNavForSupabase(window._memberProfile);
+            }
         } else {
             navMemberLinks.style.display = 'none';
             navGuestLinks.style.display = 'flex';
@@ -805,16 +824,32 @@
 
     function logoutMember() {
         if (confirm('Are you sure you want to log out?')) {
-            localStorage.removeItem('aspa_member');
-            updateNavigation();
-            showScreen('screenPlans');
-            window.scrollTo(0, 0);
+            if (window._supabase) {
+                window._supabase.auth.signOut().then(function() {
+                    window.location.href = 'index.html';
+                });
+            }
         }
     }
 
     // Initialize navigation on page load
     document.addEventListener('DOMContentLoaded', function() {
-        updateNavigation();
+        // Wait for Supabase to be ready before updating navigation
+        if (window._supabaseSession) {
+            updateNavigation();
+        } else {
+            // Listen for auth ready event from supabase-init.js
+            window.addEventListener('aspa-auth-ready', function() {
+                updateNavigation();
+            });
+        }
+    });
+
+    // If user is already logged in when visiting join.html, show them as logged in
+    window.addEventListener('aspa-auth-ready', function() {
+        if (window._memberProfile && !document.getElementById('screenWelcome').classList.contains('active')) {
+            updateNavigation();
+        }
     });
     </script>
 </body>

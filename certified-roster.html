@@ -6,6 +6,7 @@
     <title>CSP Certified Screen Printers - ASPA | American Screen Printing Association</title>
     <meta name="description" content="Find certified screen printing professionals who have passed the ASPA CSP (Certified Screen Printer) exam. Browse by specialty, state, and certification year.">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="supabase-init.js"></script>
     <style>
         /* ========================================
            DESIGN SYSTEM & ROOT VARIABLES
@@ -841,7 +842,9 @@
                 <a href="login.html" style="color: #b0b0b0; font-family: 'Inter', sans-serif; font-size: 0.85rem; cursor: pointer; text-decoration: none;">Log In</a>
             </div>
             <script>
-            (function(){var m=localStorage.getItem('aspa_member');if(m){try{var n=JSON.parse(m).name;var f=n?n.split(' ')[0]:'Member';document.getElementById('navAuthContainer').innerHTML='<span style="font-family:Inter,sans-serif;font-size:0.9rem;color:#b0b0b0;">Hi, '+f+'</span><a href="dashboard.html" style="color:#00d4ff;font-family:Space Grotesk,sans-serif;font-size:0.9rem;font-weight:500;text-transform:uppercase;letter-spacing:1.5px;text-decoration:none;">My ASPA+</a><a href="#" onclick="handleLogout(event)" style="color:#b0b0b0;font-family:Inter,sans-serif;font-size:0.85rem;cursor:pointer;text-decoration:none;">Log Out</a>';}}catch(e){}}})();
+            window.addEventListener('aspa-auth-ready', function(e) {
+                if (e.detail && e.detail.profile) { window.updateNavForSupabase(e.detail.profile); }
+            });
             </script>
             <button class="hamburger" onclick="toggleMobileMenu()">
                 <span></span>
@@ -1004,6 +1007,8 @@
     <script>
         // ========================================
         // CERTIFIED PROFESSIONAL DATA
+        // ========================================
+        // CSP DATA — Hardcoded fallback for when Supabase is unavailable
         // ========================================
         const cspData = [
             {
@@ -1304,12 +1309,90 @@
         };
 
         // ========================================
+        // SUPABASE DATA LOADING
+        // ========================================
+        async function loadCertifiedFromSupabase() {
+            if (!window._supabase) return false;
+
+            try {
+                const { data, error } = await window._supabase
+                    .from('csp_certifications')
+                    .select('*, profiles:user_id(full_name, company, city, state, country, membership_tier)')
+                    .eq('status', 'active')
+                    .order('certification_date', { ascending: false });
+
+                if (error || !data || data.length === 0) {
+                    return false;
+                }
+
+                // Map Supabase CSP certifications to the format the existing code expects
+                const mappedCSPs = data.map(cert => ({
+                    id: cert.id,
+                    name: cert.profiles?.full_name || '',
+                    company: cert.profiles?.company || '',
+                    city: cert.profiles?.city || '',
+                    state: cert.profiles?.state || '',
+                    country: cert.profiles?.country || 'USA',
+                    specialty: mapSpecialtyArray(cert.specialty),
+                    certNumber: cert.cert_number || '',
+                    certDate: cert.certification_date ? new Date(cert.certification_date).toLocaleDateString('en-US', { year: 'numeric', month: 'long' }) : '',
+                    certYear: cert.certification_date ? new Date(cert.certification_date).getFullYear() : new Date().getFullYear(),
+                    status: cert.status || 'active',
+                    aspaPlus: cert.profiles?.membership_tier ? (cert.profiles.membership_tier === 'business') : false
+                }));
+
+                // Replace the hardcoded data with live data
+                cspData.length = 0;
+                cspData.push(...mappedCSPs);
+                filteredCSPs = [...cspData];
+
+                return true;
+            } catch (err) {
+                console.error('Failed to load certifications from Supabase:', err);
+                return false;
+            }
+        }
+
+        function mapSpecialtyArray(spec) {
+            // If spec is a string, convert to array
+            if (typeof spec === 'string') {
+                return [mapSpecialty(spec)];
+            }
+            // If it's already an array, map each element
+            if (Array.isArray(spec)) {
+                return spec.map(s => mapSpecialty(s));
+            }
+            return ['textile'];
+        }
+
+        function mapSpecialty(spec) {
+            switch (spec) {
+                case 'textile': return 'textile';
+                case 'signage': return 'signage';
+                case 'industrial': return 'industrial';
+                case 'multi': return 'multi';
+                default: return 'textile';
+            }
+        }
+
+        // ========================================
         // INITIALIZATION
         // ========================================
         document.addEventListener('DOMContentLoaded', function() {
             loadFiltersFromHash();
             updateHeroStats();
             renderCSPs();
+        });
+
+        // Try to load Supabase data when auth is ready
+        window.addEventListener('aspa-auth-ready', async function() {
+            const loaded = await loadCertifiedFromSupabase();
+            if (loaded) {
+                // Re-render with live data
+                updateHeroStats();
+                loadFiltersFromHash();
+                applyFilters();
+            }
         });
 
         // ========================================
@@ -1586,17 +1669,7 @@
 
     <!-- Navigation Auth State -->
     <script>
-    function updateNavAuthState() {
-        const memberData = localStorage.getItem('aspa_member');
-        const navAuthContainer = document.getElementById('navAuthContainer');
-        if (!navAuthContainer) return;
-
-        if (memberData) {
-            try {
-                const member = JSON.parse(memberData);
-                const firstName = member.name ? member.name.split(' ')[0] : 'Member';
-                navAuthContainer.innerHTML = `
-                    <span style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #b0b0b0;">Hi, ${firstName}</span>
+    </span>
                     <a href="dashboard.html" style="color: #00d4ff; font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1.5px; text-decoration: none;">My ASPA+</a>
                     <a href="#" onclick="handleLogout(event)" style="color: #b0b0b0; font-family: 'Inter', sans-serif; font-size: 0.85rem; cursor: pointer; text-decoration: none;">Log Out</a>
                 `;
@@ -1609,17 +1682,8 @@
         }
     }
 
-    function handleLogout(e) {
-        e.preventDefault();
-        localStorage.removeItem('aspa_member');
-        localStorage.removeItem('aspa_firstName');
-        updateNavAuthState();
-    }
-
             // Direct init — script is at page bottom, DOM is ready
-        updateNavAuthState();
-        setTimeout(updateNavAuthState, 0);
-    </script>
+        </script>
 
 </body>
 </html>

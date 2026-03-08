@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="supabase-init.js"></script>
     <style>
         /* ========== RESET & BASE ========== */
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -161,7 +162,6 @@
     font-weight: 600 !important;
 }
 
-        
         .hero {
             min-height: 100vh;
             display: flex;
@@ -1382,7 +1382,6 @@
     font-weight: 600 !important;
 }
 
-        
         .hero {
             min-height: 100vh;
             display: flex;
@@ -2474,7 +2473,9 @@
                 <a href="login.html" style="color: #b0b0b0; font-family: 'Inter', sans-serif; font-size: 0.85rem; cursor: pointer; text-decoration: none;">Log In</a>
             </div>
             <script>
-            (function(){var m=localStorage.getItem('aspa_member');if(m){try{var n=JSON.parse(m).name;var f=n?n.split(' ')[0]:'Member';document.getElementById('navAuthContainer').innerHTML='<span style="font-family:Inter,sans-serif;font-size:0.9rem;color:#b0b0b0;">Hi, '+f+'</span><a href="dashboard.html" style="color:#00d4ff;font-family:Space Grotesk,sans-serif;font-size:0.9rem;font-weight:500;text-transform:uppercase;letter-spacing:1.5px;text-decoration:none;">My ASPA+</a><a href="#" onclick="handleLogout(event)" style="color:#b0b0b0;font-family:Inter,sans-serif;font-size:0.85rem;cursor:pointer;text-decoration:none;">Log Out</a>';}catch(e){}}})();
+            window.addEventListener('aspa-auth-ready', function(e) {
+                if (e.detail && e.detail.profile) { window.updateNavForSupabase(e.detail.profile); }
+            });
             </script>
             <button class="hamburger" onclick="toggleMobileMenu()">
                 <span></span>
@@ -3038,17 +3039,7 @@
         });
 
         // ========== NAVIGATION AUTH STATE =========
-        function updateNavAuthState() {
-            const memberData = localStorage.getItem('aspa_member');
-            const navAuthContainer = document.getElementById('navAuthContainer');
-            if (!navAuthContainer) return;
-
-            if (memberData) {
-                try {
-                    const member = JSON.parse(memberData);
-                    const firstName = member.name ? member.name.split(' ')[0] : 'Member';
-                    navAuthContainer.innerHTML = `
-                        <span style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #b0b0b0;">Hi, ${firstName}</span>
+        </span>
                         <a href="dashboard.html" style="color: #00d4ff; font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1.5px; text-decoration: none;">My ASPA+</a>
                         <a href="#" onclick="handleLogout(event)" style="color: #b0b0b0; font-family: 'Inter', sans-serif; font-size: 0.85rem; cursor: pointer; text-decoration: none;">Log Out</a>
                     `;
@@ -3059,14 +3050,6 @@
                     <a href="login.html" style="color: #b0b0b0; font-family: 'Inter', sans-serif; font-size: 0.85rem; cursor: pointer; text-decoration: none;">Log In</a>
                 `;
             }
-        }
-
-        function handleLogout(e) {
-            e.preventDefault();
-            localStorage.removeItem('aspa_member');
-            localStorage.removeItem('aspa_firstName');
-            updateNavAuthState();
-            updateASPAPlusSection();
         }
 
         // ========== ASPA+ PREVIEW SECTION =========
@@ -3114,10 +3097,8 @@
         }
 
         // Initialize on page load — direct call (script is at page bottom, DOM is ready)
-        updateNavAuthState();
         updateASPAPlusSection();
         // Fallback: re-run auth state after all synchronous code completes
-        setTimeout(updateNavAuthState, 0);
-    </script>
+        </script>
 </body>
 </html>

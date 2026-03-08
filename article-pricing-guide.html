@@ -6,6 +6,7 @@
     <title>How to Price Screen Printing Jobs: Complete Pricing Guide (2026) | ASPA</title>
     <meta name="description" content="Learn how to price screen printing jobs for profit. Covers cost calculation, markup strategies, quantity breaks, and real pricing examples from ASPA.">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="supabase-init.js"></script>
     <style>
         /* ========================================
            DESIGN SYSTEM & ROOT VARIABLES
@@ -1543,7 +1544,9 @@
                 <a href="login.html" style="color: #b0b0b0; font-family: 'Inter', sans-serif; font-size: 0.85rem; cursor: pointer; text-decoration: none;">Log In</a>
             </div>
             <script>
-            (function(){var m=localStorage.getItem('aspa_member');if(m){try{var n=JSON.parse(m).name;var f=n?n.split(' ')[0]:'Member';document.getElementById('navAuthContainer').innerHTML='<span style="font-family:Inter,sans-serif;font-size:0.9rem;color:#b0b0b0;">Hi, '+f+'</span><a href="dashboard.html" style="color:#00d4ff;font-family:Space Grotesk,sans-serif;font-size:0.9rem;font-weight:500;text-transform:uppercase;letter-spacing:1.5px;text-decoration:none;">My ASPA+</a><a href="#" onclick="handleLogout(event)" style="color:#b0b0b0;font-family:Inter,sans-serif;font-size:0.85rem;cursor:pointer;text-decoration:none;">Log Out</a>';}}catch(e){}}})();
+            window.addEventListener('aspa-auth-ready', function(e) {
+                if (e.detail && e.detail.profile) { window.updateNavForSupabase(e.detail.profile); }
+            });
             </script>
         </div>
     </nav>
@@ -2338,17 +2341,7 @@
 
     <!-- Navigation Auth State -->
     <script>
-    function updateNavAuthState() {
-        const memberData = localStorage.getItem('aspa_member');
-        const navAuthContainer = document.getElementById('navAuthContainer');
-        if (!navAuthContainer) return;
-
-        if (memberData) {
-            try {
-                const member = JSON.parse(memberData);
-                const firstName = member.name ? member.name.split(' ')[0] : 'Member';
-                navAuthContainer.innerHTML = `
-                    <span style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #b0b0b0;">Hi, ${firstName}</span>
+    </span>
                     <a href="dashboard.html" style="color: #00d4ff; font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1.5px; text-decoration: none;">My ASPA+</a>
                     <a href="#" onclick="handleLogout(event)" style="color: #b0b0b0; font-family: 'Inter', sans-serif; font-size: 0.85rem; cursor: pointer; text-decoration: none;">Log Out</a>
                 `;
@@ -2361,17 +2354,8 @@
         }
     }
 
-    function handleLogout(e) {
-        e.preventDefault();
-        localStorage.removeItem('aspa_member');
-        localStorage.removeItem('aspa_firstName');
-        updateNavAuthState();
-    }
-
             // Direct init — script is at page bottom, DOM is ready
-        updateNavAuthState();
-        setTimeout(updateNavAuthState, 0);
-    </script>
+        </script>
 
 </body>
 </html>

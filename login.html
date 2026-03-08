@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="supabase-init.js"></script>
 
     <style>
         :root {
@@ -701,32 +702,6 @@
     </footer>
 
     <script>
-        // Simple hash function for client-side password storage
-        function simpleHash(str) {
-            let hash = 0;
-            for (let i = 0; i < str.length; i++) {
-                const char = str.charCodeAt(i);
-                hash = ((hash << 5) - hash) + char;
-                hash = hash & hash; // Convert to 32bit integer
-            }
-            return hash.toString();
-        }
-
-        // Seed test member for demo purposes
-        function seedTestMember() {
-            if (!localStorage.getItem('aspa_members')) {
-                const testMembers = [{
-                    name: "Dustin Cochran",
-                    email: "cochran.dustin@gmail.com",
-                    company: "ASPA",
-                    tier: "business",
-                    joinDate: "2026-03-05",
-                    password: simpleHash("aspa2026")
-                }];
-                localStorage.setItem('aspa_members', JSON.stringify(testMembers));
-            }
-        }
-
         // Show error message
         function showError(message) {
             const errorElement = document.getElementById('errorMessage');
@@ -745,46 +720,55 @@
             errorElement.classList.remove('show');
         }
 
-        // Handle login
-        function handleLogin(e) {
+        // Handle login via Supabase Auth
+        async function handleLogin(e) {
             e.preventDefault();
             clearError();
 
             const email = document.getElementById('email').value.trim().toLowerCase();
             const password = document.getElementById('password').value;
 
-            // Validate inputs
             if (!email || !password) {
                 showError('Please enter both email and password.');
                 return;
             }
 
-            // Check localStorage for registered members
-            const members = JSON.parse(localStorage.getItem('aspa_members') || '[]');
-            const member = members.find(m => m.email === email);
-
-            if (!member) {
-                showError('No account found with that email. Please check your email or join ASPA+.');
+            if (!window._supabase) {
+                showError('Loading... please try again in a moment.');
                 return;
             }
 
-            // Check password
-            if (simpleHash(password) !== member.password) {
-                showError('Incorrect password. Please try again.');
-                return;
+            // Disable button while loading
+            const submitBtn = document.querySelector('.login-btn');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Signing in...';
+            submitBtn.disabled = true;
+
+            try {
+                const { data, error } = await window._supabase.auth.signInWithPassword({
+                    email: email,
+                    password: password
+                });
+
+                if (error) {
+                    if (error.message.includes('Invalid login')) {
+                        showError('Invalid email or password. Please try again.');
+                    } else {
+                        showError(error.message);
+                    }
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                    return;
+                }
+
+                // Success — redirect to dashboard
+                window.location.href = 'dashboard.html';
+
+            } catch (err) {
+                showError('An error occurred. Please try again.');
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
             }
-
-            // Login successful — set active member in localStorage
-            localStorage.setItem('aspa_member', JSON.stringify({
-                name: member.name,
-                email: member.email,
-                company: member.company,
-                tier: member.tier,
-                joinDate: member.joinDate
-            }));
-
-            // Redirect to dashboard
-            window.location.href = 'dashboard.html';
         }
 
         // Toggle password visibility
@@ -801,16 +785,42 @@
             }
         }
 
-        // Handle forgot password
-        function handleForgotPassword(e) {
+        // Handle forgot password via Supabase
+        async function handleForgotPassword(e) {
             e.preventDefault();
-            showError('Password reset functionality coming soon. Please contact support.');
+            const email = document.getElementById('email').value.trim().toLowerCase();
+
+            if (!email) {
+                showError('Please enter your email address first, then click Forgot Password.');
+                return;
+            }
+
+            if (!window._supabase) {
+                showError('Loading... please try again in a moment.');
+                return;
+            }
+
+            const { error } = await window._supabase.auth.resetPasswordForEmail(email, {
+                redirectTo: window.location.origin + window.location.pathname.replace('login.html', 'login.html')
+            });
+
+            if (error) {
+                showError(error.message);
+            } else {
+                showError('Password reset email sent! Check your inbox.');
+                document.getElementById('errorMessage').style.color = '#00d4ff';
+            }
         }
+
+        // If already logged in, redirect to dashboard
+        window.addEventListener('aspa-auth-ready', function(e) {
+            if (e.detail && e.detail.session) {
+                window.location.href = 'dashboard.html';
+            }
+        });
 
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
-            seedTestMember();
-
             const loginForm = document.getElementById('loginForm');
             const passwordToggle = document.getElementById('passwordToggle');
             const forgotPasswordLink = document.getElementById('forgotPasswordLink');

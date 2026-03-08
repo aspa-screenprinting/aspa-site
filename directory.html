@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Member Directory - ASPA | American Screen Printing Association</title>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="supabase-init.js"></script>
     <style>
         /* ========================================
            DESIGN SYSTEM & ROOT VARIABLES
@@ -1675,7 +1676,9 @@
                 <a href="login.html" style="color: #b0b0b0; font-family: 'Inter', sans-serif; font-size: 0.85rem; cursor: pointer; text-decoration: none;">Log In</a>
             </div>
             <script>
-            (function(){var m=localStorage.getItem('aspa_member');if(m){try{var n=JSON.parse(m).name;var f=n?n.split(' ')[0]:'Member';document.getElementById('navAuthContainer').innerHTML='<span style="font-family:Inter,sans-serif;font-size:0.9rem;color:#b0b0b0;">Hi, '+f+'</span><a href="dashboard.html" style="color:#00d4ff;font-family:Space Grotesk,sans-serif;font-size:0.9rem;font-weight:500;text-transform:uppercase;letter-spacing:1.5px;text-decoration:none;">My ASPA+</a><a href="#" onclick="handleLogout(event)" style="color:#b0b0b0;font-family:Inter,sans-serif;font-size:0.85rem;cursor:pointer;text-decoration:none;">Log Out</a>';}}catch(e){}}})();
+            window.addEventListener('aspa-auth-ready', function(e) {
+                if (e.detail && e.detail.profile) { window.updateNavForSupabase(e.detail.profile); }
+            });
             </script>
             <button class="hamburger" onclick="toggleMobileMenu()">
                 <span></span>
@@ -1812,9 +1815,7 @@
          ======================================== -->
     <script>
         // ========================================
-        // MEMBER DATA — Replace with API fetch when backend is ready
-        // To add members: add objects to this array
-        // To connect to backend: replace this array with fetch('/api/members')
+        // MEMBER DATA — Hardcoded fallback for when Supabase is unavailable
         // ========================================
 
         const memberData = [
@@ -2032,11 +2033,83 @@
         };
 
         // ========================================
+        // SUPABASE DATA LOADING
+        // ========================================
+        async function loadMembersFromSupabase() {
+            if (!window._supabase) return false;
+
+            try {
+                const { data: profilesData, error: profilesError } = await window._supabase
+                    .from('profiles')
+                    .select('*')
+                    .eq('membership_status', 'active')
+                    .order('full_name');
+
+                if (profilesError || !profilesData || profilesData.length === 0) {
+                    return false;
+                }
+
+                // Fetch CSP certifications to determine who is certified
+                const { data: cspsData, error: cspsError } = await window._supabase
+                    .from('csp_certifications')
+                    .select('user_id')
+                    .eq('status', 'active');
+
+                const certifiedUserIds = new Set(cspsData ? cspsData.map(c => c.user_id) : []);
+
+                // Map Supabase profiles to the format the existing filter/render code expects
+                const mappedMembers = profilesData.map(p => ({
+                    id: p.id,
+                    name: p.full_name || '',
+                    city: p.city || '',
+                    state: p.state || '',
+                    country: p.country || 'USA',
+                    category: mapTierToCategory(p.membership_tier),
+                    phone: '',
+                    website: p.website || '',
+                    description: p.company || '',
+                    certified: certifiedUserIds.has(p.id),
+                    memberTier: p.membership_tier === 'business' ? 'aspa_plus' : 'legacy',
+                    featured: false
+                }));
+
+                // Replace the hardcoded data with live data
+                memberData.length = 0;
+                memberData.push(...mappedMembers);
+                filteredMembers = [...memberData];
+
+                return true;
+            } catch (err) {
+                console.error('Failed to load members from Supabase:', err);
+                return false;
+            }
+        }
+
+        function mapTierToCategory(tier) {
+            switch (tier) {
+                case 'business': return 'tshirt';
+                case 'supplier': return 'supplier';
+                case 'training': return 'education';
+                default: return 'tshirt';
+            }
+        }
+
+        // ========================================
         // INITIALIZATION
         // ========================================
         document.addEventListener('DOMContentLoaded', function() {
             loadFiltersFromHash();
             renderMembers();
+        });
+
+        // Try to load Supabase data when auth is ready
+        window.addEventListener('aspa-auth-ready', async function() {
+            const loaded = await loadMembersFromSupabase();
+            if (loaded) {
+                // Re-render with live data
+                loadFiltersFromHash();
+                applyFilters();
+            }
         });
 
         // ========================================
@@ -2289,41 +2362,9 @@
         }
 
         // ========== NAVIGATION AUTH STATE =========
-        function updateNavAuthState() {
-            const memberData = localStorage.getItem('aspa_member');
-            const navAuthContainer = document.getElementById('navAuthContainer');
-            if (!navAuthContainer) return;
-
-            if (memberData) {
-                try {
-                    const member = JSON.parse(memberData);
-                    const firstName = member.name ? member.name.split(' ')[0] : 'Member';
-                    navAuthContainer.innerHTML = `
-                        <span style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #b0b0b0;">Hi, ${firstName}</span>
-                        <a href="dashboard.html" style="color: #00d4ff; font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1.5px; text-decoration: none;">My ASPA+</a>
-                        <a href="#" onclick="handleLogout(event)" style="color: #b0b0b0; font-family: 'Inter', sans-serif; font-size: 0.85rem; cursor: pointer; text-decoration: none;">Log Out</a>
-                    `;
-                } catch(e) {
-                    // Invalid data, show default
-                }
-            } else {
-                navAuthContainer.innerHTML = `
-                    <button class="nav-cta" onclick="window.location.href='join.html'" id="navJoinBtn">Join ASPA</button>
-                    <a href="login.html" style="color: #b0b0b0; font-family: 'Inter', sans-serif; font-size: 0.85rem; cursor: pointer; text-decoration: none;">Log In</a>
-                `;
-            }
-        }
-
-        function handleLogout(e) {
-            e.preventDefault();
-            localStorage.removeItem('aspa_member');
-            localStorage.removeItem('aspa_firstName');
-            updateNavAuthState();
-        }
+        // Auth state is now handled by supabase-init.js
 
                 // Direct init — script is at page bottom, DOM is ready
-        updateNavAuthState();
-        setTimeout(updateNavAuthState, 0);
-    </script>
+        </script>
 </body>
 </html>

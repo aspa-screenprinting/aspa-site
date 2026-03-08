@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ASPA+ Member Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="supabase-init.js"></script>
     <style>
         :root {
             --ink-black: #0a0a0a;
@@ -628,9 +629,9 @@
                 <li><a href="education.html" class="nav-aspa-plus">Education<sup>+</sup></a></li>
             </ul>
         </div>
-        <div class="nav-right">
+        <div class="nav-right" id="navAuthContainer">
             <div class="member-greeting" id="memberGreeting">Welcome, Member</div>
-            <button class="logout-btn" onclick="logout()">Log Out</button>
+            <button class="logout-btn" onclick="window.handleLogout(event)">Log Out</button>
         </div>
         <button class="menu-toggle" onclick="toggleMenu()">
             <span></span>
@@ -793,28 +794,19 @@
     </footer>
 
     <script>
-        // CHECK MEMBER LOGIN
-        function initializeDashboard() {
-            const memberData = JSON.parse(localStorage.getItem('aspa_member'));
-
-            if (!memberData) {
-                window.location.href = 'login.html';
-                return;
-            }
-
-            // Populate member info
-            const nameDisplay = memberData.name || 'Member';
+        // AUTH GATE AND INITIALIZATION
+        function initDashboard(profile) {
+            // Populate member info from Supabase profile
+            const nameDisplay = profile.full_name || 'Member';
             document.getElementById('welcomeTitle').textContent = `WELCOME BACK, ${nameDisplay.toUpperCase()}`;
             document.getElementById('memberGreeting').textContent = `Welcome, ${nameDisplay.split(' ')[0]}`;
 
             // Tier badge
-            const tierText = memberData.tier === 'business' ? 'ASPA+ BUSINESS MEMBER' :
-                           memberData.tier === 'supplier' ? 'ASPA+ SUPPLIER MEMBER' :
-                           'ASPA+ TRAINING MEMBER';
+            const tierText = profile.membership_tier ? profile.membership_tier.toUpperCase() : 'ASPA+ MEMBER';
             document.getElementById('tierBadge').textContent = tierText;
 
             // Membership dates
-            const joinDate = new Date(memberData.joinDate);
+            const joinDate = new Date(profile.join_date);
             const renewDate = new Date(joinDate);
             renewDate.setFullYear(renewDate.getFullYear() + 1);
 
@@ -826,11 +818,18 @@
                 `${joinDate.toLocaleDateString('en-US', { month: 'short', year: '2-digit' })}`;
         }
 
-        // LOGOUT FUNCTION
-        function logout() {
-            localStorage.removeItem('aspa_member');
-            window.location.href = 'index.html';
-        }
+        // Listen for Supabase auth ready event
+        window.addEventListener('aspa-auth-ready', function(e) {
+            if (!e.detail || !e.detail.session) {
+                window.location.href = 'login.html';
+                return;
+            }
+            var profile = e.detail.profile;
+            if (profile) {
+                initDashboard(profile);
+                window.updateNavForSupabase(profile);
+            }
+        });
 
         // TOGGLE MOBILE MENU
         function toggleMenu() {
@@ -856,16 +855,20 @@
             }
         }
 
-        // DOWNLOAD CERTIFICATE (uses jsPDF-like functionality)
+        // DOWNLOAD CERTIFICATE
         function downloadCertificate() {
-            const memberData = JSON.parse(localStorage.getItem('aspa_member'));
+            const profile = window._memberProfile;
 
-            if (!memberData) {
+            if (!profile) {
                 alert('Please log in to download your certificate.');
                 return;
             }
 
             // Create a simple text-based certificate download
+            const joinDate = new Date(profile.join_date);
+            const renewDate = new Date(joinDate);
+            renewDate.setFullYear(renewDate.getFullYear() + 1);
+
             const certificateText = `
 ╔════════════════════════════════════════════════════════════════╗
 ║          AMERICAN SCREEN PRINTING ASSOCIATION (ASPA)           ║
@@ -874,19 +877,19 @@
 
 This certifies that
 
-    ${memberData.name}
+    ${profile.full_name}
 
 has been recognized as an ASPA+ Member
 
-Member Since: ${new Date(memberData.joinDate).toLocaleDateString()}
-Company: ${memberData.company}
-Status: Active
-Tier: ${memberData.tier.toUpperCase()}
+Member Since: ${joinDate.toLocaleDateString()}
+Company: ${profile.company}
+Status: ${profile.membership_status}
+Tier: ${profile.membership_tier.toUpperCase()}
 
 ═════════════════════════════════════════════════════════════════
 
 Issued on: ${new Date().toLocaleDateString()}
-Valid through: ${new Date(new Date(memberData.joinDate).setFullYear(new Date(memberData.joinDate).getFullYear() + 1)).toLocaleDateString()}
+Valid through: ${renewDate.toLocaleDateString()}
 
 ═════════════════════════════════════════════════════════════════
 ASPA - Supporting the Screen Printing Industry Since 1995
@@ -895,17 +898,14 @@ ASPA - Supporting the Screen Printing Industry Since 1995
             // Create and download file
             const element = document.createElement('a');
             element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(certificateText));
-            element.setAttribute('download', `ASPA_Membership_Certificate_${memberData.name.replace(/\s+/g, '_')}.txt`);
+            element.setAttribute('download', `ASPA_Membership_Certificate_${profile.full_name.replace(/\s+/g, '_')}.txt`);
             element.style.display = 'none';
             document.body.appendChild(element);
             element.click();
             document.body.removeChild(element);
 
-            alert(`Certificate downloaded for ${memberData.name}!`);
+            alert(`Certificate downloaded for ${profile.full_name}!`);
         }
-
-        // Initialize on page load
-        window.addEventListener('DOMContentLoaded', initializeDashboard);
     </script>
 </body>
 </html>

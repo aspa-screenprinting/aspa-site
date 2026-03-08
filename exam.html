@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="supabase-init.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -629,6 +630,7 @@
     let timeRemaining = 45 * 60;
     let candidateName = '';
     let candidateEmail = '';
+    let examStartTime = null;
 
     // ===== SCREEN 1: REGISTRATION =====
     function selectPayment(el, type) {
@@ -678,6 +680,7 @@
         const shuffled = [...questionBank].sort(() => Math.random() - 0.5);
         examQuestions = shuffled.slice(0, 36);
         userAnswers = {};
+        examStartTime = Date.now();
         showScreen('screenExam');
         renderQuestions();
         renderDots();
@@ -755,7 +758,55 @@
         examQuestions.forEach((q, i) => { if (userAnswers[i] === q.answer) correct++; });
         const total = 36;
         const percent = Math.round((correct / total) * 100);
-        showResults(correct, total, percent, percent >= 75);
+        const passed = percent >= 75;
+        const timeSpentSeconds = examStartTime ? Math.round((Date.now() - examStartTime) / 1000) : 0;
+        saveExamResults(percent, correct, passed, timeSpentSeconds);
+        showResults(correct, total, percent, passed);
+    }
+
+    // ===== SUPABASE INTEGRATION =====
+    async function saveExamResults(scorePercent, correctCount, passed, timeSpentSeconds) {
+        if (!window._supabase || !window._supabaseSession) {
+            console.log('Not logged in — exam results not saved to server');
+            return;
+        }
+
+        try {
+            // Save exam result
+            const { error: examError } = await window._supabase
+                .from('exam_results')
+                .insert({
+                    user_id: window._supabaseSession.user.id,
+                    score_percentage: scorePercent,
+                    questions_correct: correctCount,
+                    passed: passed,
+                    time_spent_seconds: timeSpentSeconds
+                });
+
+            if (examError) {
+                console.error('Failed to save exam results:', examError);
+                return;
+            }
+
+            // If passed, create CSP certification
+            if (passed) {
+                const certNumber = 'CSP-' + Date.now().toString(36).toUpperCase() + '-' + Math.random().toString(36).substring(2, 5).toUpperCase();
+                const renewalDate = new Date();
+                renewalDate.setFullYear(renewalDate.getFullYear() + 3);
+
+                await window._supabase
+                    .from('csp_certifications')
+                    .insert({
+                        user_id: window._supabaseSession.user.id,
+                        cert_number: certNumber,
+                        status: 'active',
+                        specialty: 'textile',
+                        renewal_due_date: renewalDate.toISOString()
+                    });
+            }
+        } catch (err) {
+            console.error('Error saving exam results:', err);
+        }
     }
 
     function showResults(correct, total, percent, passed) {
@@ -863,6 +914,11 @@
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
         document.getElementById(id).classList.add('active');
     }
+
+    // ===== SUPABASE AUTH READY =====
+    window.addEventListener('aspa-auth-ready', function(e) {
+        if (e.detail && e.detail.profile) { window.updateNavForSupabase(e.detail.profile); }
+    });
     </script>
 </body>
 </html>

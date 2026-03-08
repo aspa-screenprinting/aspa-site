@@ -2,8 +2,8 @@
 
 **Project:** screen-printing.us redesign
 **Client:** Dustin Cochran (cochran.dustin@gmail.com)
-**Date:** March 3–5, 2026 (last updated: Session 6)
-**Status:** In Progress — Core Pages Built, Resource Hub COMPLETE (All 18 Articles), **SITE LIVE on GitHub Pages**
+**Date:** March 3–5, 2026 (last updated: Session 11)
+**Status:** In Progress — Core Pages Built, Resource Hub COMPLETE (All 18 Articles), **SITE LIVE on GitHub Pages**, Nav Standardized, Auth System Deployed, ASPA+ Gated Content Live
 
 ---
 
@@ -141,7 +141,7 @@ Single-page site with anchor navigation. Sections:
 - **CTA Banner** — Final conversion push
 - **Footer** — Full nav columns with links to all pages (directory.html, certified-roster.html, about.html, contact.html, privacy.html, terms.html)
 
-Nav includes: Directory, Certified, Certification, Membership, Resources, Join ASPA CTA
+Nav includes: Directory, Certified, Certification, Membership, Resources, Discounts⁺, Education⁺, Join ASPA CTA, Log In (or Hi, [Name] | My ASPA+ | Log Out when authenticated)
 
 ### `exam.html` — CSP Certification Exam (Full Flow)
 A 5-screen single-page application:
@@ -380,6 +380,32 @@ Central content hub ("The Ink Lab") with:
 - Gray category tag (Industry News)
 - **SEO target: "ASPA membership" / "screen printing association membership"**
 
+### `login.html` — Member Login Page *(NEW — Session 7)*
+Client-side login flow for ASPA+ members:
+- Email + password form with mock authentication
+- localStorage-based session management (`aspa_member` key stores JSON with name and email)
+- Successful login redirects to dashboard.html
+- "Forgot Password" and "Join ASPA+" links
+
+### `dashboard.html` — Member Dashboard *(NEW — Session 7)*
+ASPA+ member dashboard (auth-gated):
+- Welcome header with member name
+- Quick-action cards: My Profile, Certifications, CE Credits, Discounts
+- Membership status display
+- Redirects to login.html if not authenticated
+
+### `discounts.html` — ASPA+ Discounts Page *(NEW — Session 9)*
+Dual-view discount page with auth gating:
+- **Non-member view:** High-level overview of ASPA+ discount benefits (supplier partnerships, exclusive codes, group buying power) with a prominent "Join ASPA+" CTA
+- **Member view:** Full discount listings, partner deals, and active promo codes
+- Auth-gated using `localStorage.getItem('aspa_member')` pattern
+
+### `education.html` — Continuous Education Page *(NEW — Session 9)*
+Dual-view education hub with auth gating:
+- **Non-member view:** Overview of CE opportunities (CE credits, webinars, advanced training, certification prep) with "Join ASPA+" CTA
+- **Member view:** Full education catalog with course listings and CE credit tracking
+- Same auth-gating pattern as discounts.html
+
 ### `ASPA_CSP_Study_Guide.pdf` — Placeholder
 Auto-generated placeholder. Dustin will provide the real study guide — just swap the file.
 
@@ -387,8 +413,10 @@ Auto-generated placeholder. Dustin will provide the real study guide — just sw
 
 ## Cross-Page Navigation
 
-All pages now have consistent navigation:
-- **Nav bar:** Home, Directory, Certified, Certification, Membership, Resources, Join ASPA (CTA)
+All pages now have consistent navigation (standardized in Sessions 10–11):
+- **Nav bar:** Home, Directory, Certified, Certification, Membership, Resources, Discounts⁺, Education⁺, Join ASPA (CTA) / Log In
+- **ASPA+ gradient links:** Discounts and Education use `.nav-aspa-plus` class with gradient text (`linear-gradient(135deg, #00d4ff, #e91e8c, #ffd400)`) and a gold "⁺" superscript
+- **Auth state:** Nav displays "Join ASPA | Log In" for guests, or "Hi, [FirstName] | My ASPA+ | Log Out" for logged-in members
 - **Footer:** Directory section (links to directory.html categories), Certification section (CSP Roster, CSP Exam links), Association section (About, Contact, Privacy, Terms)
 
 ---
@@ -428,14 +456,110 @@ screen-printing.us/contact                   → local SEO signal
 
 ---
 
+## Session 7–11 Changelog
+
+### Session 7 — ASPA+ Login System
+- Created `login.html` and `dashboard.html` for member authentication
+- Implemented client-side auth via `localStorage.getItem('aspa_member')` storing `{name, email}` JSON
+- Added auth-gated content sections on index.html (ASPA+ exclusive resources area)
+- Auth check on resources.html was comparing to `'true'` string instead of checking existence — fixed
+
+### Session 8 — Logo & Nav Gradient Styling
+- Applied gradient styling to ASPA logo text across all pages
+- Standardized nav layout using inline `.nav-logo` pattern (logo text + subtitle)
+
+### Session 9 — Discounts & Education Pages + ASPA+ Gating
+- Created `discounts.html` with dual-view (public teaser / member content)
+- Created `education.html` with dual-view (public teaser / member content)
+- Added gradient `.nav-aspa-plus` links to nav on all pages
+- Standardized nav bar across all pages to match `certified-roster.html` baseline format
+
+### Session 10 — Nav Standardization (Major Cleanup)
+- Used `certified-roster.html` as the nav CSS baseline and audited all 28+ pages
+- Fixed 11 non-compliant pages: standardized nav CSS (`.nav-container`, `.nav-links`, `.nav-cta`, etc.)
+- Fixed `about.html` leftover `.nav-logo` CSS that was hiding the "SCREEN PRINTING" subtitle
+- Fixed `discounts.html` erroneous extra nav row
+- Standardized mobile-menu visibility, generic selector scoping, logo structure, hamburger element, and `.nav-aspa-plus` CSS across all pages
+
+### Session 11 — Auth State Timing Fix (Major Debug)
+- **Problem:** `updateNavAuthState()` worked when called manually from console but failed on automatic page load on `index.html`, despite no JS errors, correct DOM, and correct localStorage data
+- Tried four approaches in order: readyState/DOMContentLoaded pattern → direct function calls at page bottom → `setTimeout(updateNavAuthState, 0)` → inline `<script>` immediately after `navAuthContainer`
+- **Solution:** Inline `<script>` tag placed immediately after the `navAuthContainer` div that runs during HTML parsing (before any other scripts execute). This was the only approach that reliably worked.
+- Applied the inline auth script to all 28 content pages
+- Added "Log In" link to the static nav HTML on all pages so it's visible even without JS
+- All commits pushed and verified on live GitHub Pages site
+
+### Commit History (Session 7–11)
+```
+944c061 Add inline auth script to all 28 pages for instant login state display
+0467b2b Add inline auth script immediately after navAuthContainer on index.html
+6d71210 Add setTimeout fallback for updateNavAuthState on all pages
+da0fd83 Replace readyState/DOMContentLoaded pattern with direct init calls on all pages
+b493a0d Fix auth state timing: use readyState check so Hi/Login shows reliably
+a8e84ac Add Log In link to initial nav HTML on all pages
+e56874b Fix nav variability: mobile-menu, selectors, logo, hamburger, nav-aspa-plus CSS
+9f56fa1 Standardize nav CSS across all 11 non-compliant pages
+3975a88 Fix about.html: remove leftover nav-logo CSS that hid subtitle
+4bf9540 Standardize nav bar across all pages to match certified-roster format
+be39c82 Add Discounts+ and Education+ pages with ASPA+ gated content
+1277e45 Apply gradient to ASPA logo text and standardize nav across all pages
+63ef08f Fix resources.html auth check — was comparing to 'true' string
+8507cf7 Add ASPA+ member login system with gated content
+```
+
+---
+
+## Authentication Architecture (Session 7–11)
+
+### How It Works
+- **Storage:** `localStorage.getItem('aspa_member')` stores a JSON object: `{"name": "Dustin Cochran", "email": "cochran.dustin@gmail.com"}`
+- **Login:** `login.html` validates credentials (currently mock) and sets the localStorage key
+- **Logout:** `handleLogout(event)` clears localStorage and redirects to index.html
+- **Auth check:** Every page checks for the `aspa_member` key on load
+
+### Nav Auth State (the navAuthContainer pattern)
+Each page has a `<div id="navAuthContainer">` in the nav with default guest HTML:
+```html
+<div id="navAuthContainer" style="display: flex; align-items: center; gap: 16px;">
+    <a href="join.html" class="nav-cta" id="navJoinBtn">Join ASPA</a>
+    <a href="login.html" style="...">Log In</a>
+</div>
+```
+
+Immediately after this div, an inline `<script>` checks localStorage during HTML parsing and swaps in the logged-in state if applicable:
+```html
+<script>
+(function(){var m=localStorage.getItem('aspa_member');if(m){try{var n=JSON.parse(m).name;
+var f=n?n.split(' ')[0]:'Member';document.getElementById('navAuthContainer').innerHTML=
+'<span style="...">Hi, '+f+'</span><a href="dashboard.html" style="...">My ASPA+</a>'+
+'<a href="#" onclick="handleLogout(event)" style="...">Log Out</a>';}catch(e){}}})();
+</script>
+```
+
+This inline approach was necessary because bottom-of-page scripts (even direct calls, setTimeout, readyState patterns) were unreliable — particularly on `index.html` where something (suspected browser extension or rendering pipeline) was reverting the navAuthContainer content between script execution and paint.
+
+### Auth-Gated Content Pages
+- `discounts.html` and `education.html` show teaser content for guests, full content for members
+- `dashboard.html` requires authentication (redirects to login.html if not logged in)
+- `index.html` has an ASPA+ exclusive section that toggles based on auth state
+
+### Future: Replace with Real Auth
+The localStorage approach is a client-side prototype. When ready for production:
+1. Replace with Supabase Auth (already planned — see Next Steps)
+2. Keep the same `navAuthContainer` DOM pattern but populate from session tokens
+3. Move auth-gated content to server-side rendering or API calls
+
+---
+
 ## What's Still Needed
 
 ### Immediate Next Steps
+- [ ] **Admin backend (Supabase)** — Agreed upon but not yet started. Feature set: view/edit/delete members, reset passwords, toggle ASPA+ access, manage certifications, member data storage. Will replace the client-side localStorage auth with real server-side authentication.
+- [ ] **Mobile-friendly responsive design audit** — Next priority after auth. Preliminary audit completed (audit files in repo directory, not committed). Mobile hamburger menu needs full implementation.
 - [ ] **Real study guide PDF** — Dustin to provide; swap into `ASPA_CSP_Study_Guide.pdf`
 - [ ] **Payment integration** — Wire up Stripe/PayPal for ASPA+ recurring billing + CSP exam one-time payment
 - [ ] **Email delivery** — SendGrid/Mailgun for exam access links
 - [ ] **Exam link security** — One-time-use tokens for exam access
-- [ ] **Backend/database** — Store exam results, certifications, member data, subscriptions
 - [ ] **Real ASPA logo** — Currently text-only branding
 - [ ] **About page leadership section** — Update with Dustin's info (currently placeholder)
 
@@ -479,7 +603,10 @@ screen-printing.us/contact                   → local SEO signal
 - [ ] Analytics integration (GA4)
 - [x] SSL and hosting setup → **GitHub Pages** ✅ (HTTPS enforced)
 - [ ] 301 redirects from old Google Sites URLs
-- [ ] Mobile hamburger menu implementation (currently placeholder on all pages)
+- [x] ~~Nav bar standardization~~ → All 32 HTML pages use consistent nav from certified-roster.html baseline ✅
+- [x] ~~Auth state in nav~~ → Inline script pattern shows logged-in/logged-out state instantly ✅
+- [x] ~~ASPA+ gradient nav links~~ → Discounts⁺ and Education⁺ with gradient text styling ✅
+- [ ] Mobile responsive polish (hamburger menu functional but needs responsive design pass)
 
 ---
 
@@ -601,6 +728,10 @@ Both pillar articles use a reusable template pattern:
 13. **Printing United Alliance = partner, not competitor** — they don't offer a screen printing craft certification; ASPA fills that niche
 14. **Blog content to migrate on-site** — stop building equity for Blogger subdomains; all new content on screen-printing.us
 15. **Article template standardized** — sticky TOC, callout boxes, related articles, dual-CTA; reusable for all future articles
+16. **Client-side auth first, Supabase later** — localStorage-based auth as a functional prototype; will migrate to Supabase for production
+17. **Nav baseline: certified-roster.html** — chosen as the canonical nav CSS reference, all pages standardized to match
+18. **Inline auth script pattern** — inline `<script>` immediately after navAuthContainer for instant auth state; bottom-of-page scripts proved unreliable
+19. **ASPA+ gated content = dual-view** — non-members see teaser + CTA; members see full content (discounts.html, education.html)
 
 ## Deployment & Infrastructure (Session 6)
 
@@ -611,7 +742,7 @@ Both pillar articles use a reusable template pattern:
 - **GitHub Organization:** aspa-screenprinting (owned by ASPA)
 - **Branch:** main, deployed from / (root)
 - **HTTPS:** Enforced via GitHub Pages settings
-- **Files deployed:** 31 files (28 HTML, 1 SVG, 1 PDF, 1 MD)
+- **Files deployed:** 35 files (32 HTML, 1 SVG, 1 PDF, 1 MD)
 
 ### GitHub Account
 - **Personal username:** truhavoc
@@ -631,8 +762,10 @@ To update the live site:
 3. Changes are live at the GitHub Pages URL immediately after build completes
 
 ### Security Cleanup Needed
-- [ ] Revoke the GitHub Personal Access Token (PAT) created during Session 5 — it was used for the initial push and is no longer needed
+- [x] ~~Revoke the GitHub PAT from Session 5~~ — Deleted ✅
+- [x] ~~Revoke "login-link-push" PAT~~ — Deleted ✅
 - [ ] Revoke the Cloudflare API token created during Session 6 (Z3y3...) — it was for a CLI deployment attempt that didn't work out
+- [ ] Verify "direct-init-fix" PAT was fully deleted (may still exist on GitHub)
 - [ ] Consider adding branch protection rules to the main branch if multiple collaborators will be editing
 
 ### Future: Custom Domain Setup
@@ -647,13 +780,17 @@ When ready to go live on screen-printing.us:
 
 ## Technical Notes
 
-- All files are self-contained HTML with inline CSS and JS
+- All files are self-contained HTML with inline CSS and JS — no shared stylesheets or scripts (every page needs individual fixes when making cross-site changes)
 - jsPDF for client-side PDF certificate generation (CDN)
-- Mobile responsive throughout (breakpoint at 768px)
+- Mobile responsive throughout (breakpoint at 768px) — needs responsive polish pass
 - URL hash-based filter state for shareable directory/roster links
 - SPA pattern with showScreen() for multi-step flows (exam, join)
 - Debounced search (300ms) with AND logic for combined filters
 - Files designed to sit in the same directory
+- Client-side auth via `localStorage.getItem('aspa_member')` — stores JSON `{name, email}`
+- Nav auth state uses inline `<script>` immediately after `navAuthContainer` div for instant display (bottom-of-page scripts were unreliable — see Session 11 notes)
+- `.nav-aspa-plus` CSS class provides gradient text for premium nav links
+- `certified-roster.html` is the canonical nav CSS reference — all other pages were standardized to match it
 
 ---
 

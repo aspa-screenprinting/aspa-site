@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ASPA+ Continuous Education</title>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="supabase-init.js"></script>
     <style>
         :root {
             --ink-black: #0a0a0a;
@@ -880,7 +881,9 @@
                 <a href="login.html" style="color: #b0b0b0; font-family: 'Inter', sans-serif; font-size: 0.85rem; cursor: pointer; text-decoration: none;">Log In</a>
             </div>
             <script>
-            (function(){var m=localStorage.getItem('aspa_member');if(m){try{var n=JSON.parse(m).name;var f=n?n.split(' ')[0]:'Member';document.getElementById('navAuthContainer').innerHTML='<span style="font-family:Inter,sans-serif;font-size:0.9rem;color:#b0b0b0;">Hi, '+f+'</span><a href="dashboard.html" style="color:#00d4ff;font-family:Space Grotesk,sans-serif;font-size:0.9rem;font-weight:500;text-transform:uppercase;letter-spacing:1.5px;text-decoration:none;">My ASPA+</a><a href="#" onclick="handleLogout(event)" style="color:#b0b0b0;font-family:Inter,sans-serif;font-size:0.85rem;cursor:pointer;text-decoration:none;">Log Out</a>';}}catch(e){}}})();
+            window.addEventListener('aspa-auth-ready', function(e) {
+                if (e.detail && e.detail.profile) { window.updateNavForSupabase(e.detail.profile); }
+            });
             </script>
             <button class="hamburger" onclick="toggleMobileMenu()">
                 <span></span><span></span><span></span>
@@ -989,27 +992,11 @@
             navLinks.classList.toggle('active');
         }
 
-        function isMember() {
-            return localStorage.getItem('aspa_member') !== null;
-        }
-
-        function getMemberName() {
-            const memberData = localStorage.getItem('aspa_member');
-            if (memberData) {
-                try {
-                    const member = JSON.parse(memberData);
-                    return member.name ? member.name.split(' ')[0] : 'Member';
-                } catch(e) {
-                    return 'Member';
-                }
-            }
-            return null;
-        }
+        let isMemberStatus = false;
 
         function updateHero() {
             const heroTitle = document.getElementById('heroTitle');
-            const memberName = getMemberName();
-            if (isMember() && memberName) {
+            if (isMemberStatus) {
                 heroTitle.textContent = `YOUR LEARNING HUB`;
             } else {
                 heroTitle.textContent = 'ASPA+ CONTINUOUS EDUCATION';
@@ -1018,7 +1005,6 @@
 
         function renderCards() {
             const cardsGrid = document.getElementById('cardsGrid');
-            const isMemberStatus = isMember();
 
             cardsGrid.innerHTML = educationCategories.map(category => `
                 <div class="education-card ${category.color}">
@@ -1047,7 +1033,7 @@
             const nonMemberCTA = document.getElementById('nonMemberCTA');
             const nonMemberMessage = document.getElementById('nonMemberMessage');
 
-            if (isMember()) {
+            if (isMemberStatus) {
                 progressSection.style.display = 'block';
                 nonMemberCTA.style.display = 'none';
                 nonMemberMessage.style.display = 'none';
@@ -1058,47 +1044,22 @@
             }
         }
 
-        function updateNavAuthState() {
-            const memberData = localStorage.getItem('aspa_member');
-            const navAuthContainer = document.getElementById('navAuthContainer');
-            if (!navAuthContainer) return;
-
-            if (memberData) {
-                try {
-                    const member = JSON.parse(memberData);
-                    const firstName = member.name ? member.name.split(' ')[0] : 'Member';
-                    navAuthContainer.innerHTML = `
-                        <span style="font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #b0b0b0;">Hi, ${firstName}</span>
-                        <a href="dashboard.html" style="color: #00d4ff; font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1.5px; text-decoration: none;">My ASPA+</a>
-                        <a href="#" onclick="handleLogout(event)" style="color: #b0b0b0; font-family: 'Inter', sans-serif; font-size: 0.85rem; cursor: pointer; text-decoration: none;">Log Out</a>
-                    `;
-                } catch(e) {}
-            } else {
-                navAuthContainer.innerHTML = `
-                    <a href="join.html" class="nav-cta" id="navJoinBtn">Join ASPA</a>
-                    <a href="login.html" style="color: #b0b0b0; font-family: 'Inter', sans-serif; font-size: 0.85rem; cursor: pointer; text-decoration: none;">Log In</a>
-                `;
-            }
-        }
-
-        function handleLogout(e) {
-            e.preventDefault();
-            localStorage.removeItem('aspa_member');
-            localStorage.removeItem('aspa_firstName');
-            updateNavAuthState();
-            initPage();
-        }
-
-        function initPage() {
+        // Listen for Supabase auth ready event
+        window.addEventListener('aspa-auth-ready', function(e) {
+            isMemberStatus = !!(e.detail && e.detail.session);
             updateHero();
             renderCards();
+            updatePageForMember();
+        });
+
+        function initPage() {
+            // Default state before auth resolves
+            isMemberStatus = false;
             updatePageForMember();
         }
 
         // Direct init — script is at page bottom, DOM is ready
-        updateNavAuthState();
         initPage();
-        setTimeout(updateNavAuthState, 0);
-    </script>
+        </script>
 </body>
 </html>

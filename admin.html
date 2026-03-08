@@ -1,0 +1,1905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard — ASPA</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="supabase-init.js"></script>
+
+    <style>
+        :root {
+            --ink-black: #0a0a0a;
+            --ink-dark: #1a1a2e;
+            --ink-purple: #6c2bd9;
+            --ink-magenta: #e91e8c;
+            --ink-cyan: #00d4ff;
+            --ink-yellow: #ffd400;
+            --ink-orange: #ff6b35;
+            --ink-white: #f8f8f8;
+            --ink-gray: #b0b0b0;
+            --ink-gray-dark: #2a2a3e;
+            --ink-gray-darker: #1e1e2e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            background-color: var(--ink-black);
+            color: var(--ink-white);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 0 24px;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .nav-logo {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            align-items: center;
+        }
+
+        .nav-logo-main {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00d4ff 0%, #e91e8c 50%, #ffd400 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2px;
+        }
+
+        .nav-logo-sub {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--ink-gray);
+            letter-spacing: 1.5px;
+            opacity: 0.7;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--ink-gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--ink-cyan);
+        }
+
+        .nav-links a.active {
+            color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            color: var(--ink-black);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
+        }
+
+        /* Main Container */
+        .admin-wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 20px;
+        }
+
+        .admin-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .admin-title h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 36px;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #00d4ff 0%, #e91e8c 50%, #ffd400 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .admin-badge {
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-purple));
+            color: var(--ink-black);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .admin-user-info {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            color: var(--ink-gray);
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .user-name {
+            color: var(--ink-white);
+            font-weight: 600;
+        }
+
+        /* Tab Navigation */
+        .tab-nav {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 32px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 0;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--ink-gray);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            border-bottom: 3px solid transparent;
+            white-space: nowrap;
+        }
+
+        .tab-btn:hover {
+            color: var(--ink-cyan);
+        }
+
+        .tab-btn.active {
+            color: var(--ink-cyan);
+            border-bottom-color: var(--ink-cyan);
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: rgba(26, 26, 46, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            padding: 20px;
+            transition: border-color 0.3s ease;
+        }
+
+        .stat-card:hover {
+            border-color: rgba(0, 212, 255, 0.3);
+        }
+
+        .stat-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 12px;
+            color: var(--ink-gray);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--ink-cyan);
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Search & Filter Bar */
+        .content-header {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-bar {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            background: rgba(26, 26, 46, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            padding: 10px 14px;
+            font-family: 'Inter', sans-serif;
+            color: var(--ink-white);
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-bar input::placeholder {
+            color: var(--ink-gray);
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: var(--ink-cyan);
+            box-shadow: 0 0 12px rgba(0, 212, 255, 0.2);
+        }
+
+        .filter-dropdown {
+            background: rgba(26, 26, 46, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            padding: 10px 14px;
+            font-family: 'Inter', sans-serif;
+            color: var(--ink-white);
+            font-size: 14px;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+
+        .filter-dropdown:hover,
+        .filter-dropdown:focus {
+            border-color: var(--ink-cyan);
+        }
+
+        .action-btn {
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-purple));
+            color: var(--ink-black);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 212, 255, 0.3);
+        }
+
+        /* Data Table */
+        .table-container {
+            background: rgba(26, 26, 46, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        th {
+            background: rgba(26, 26, 46, 0.8);
+            padding: 14px 16px;
+            text-align: left;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            color: var(--ink-gray);
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            text-transform: uppercase;
+            font-size: 12px;
+        }
+
+        td {
+            padding: 14px 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        tr:hover {
+            background-color: rgba(0, 212, 255, 0.05);
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-active {
+            background: rgba(0, 212, 255, 0.15);
+            color: var(--ink-cyan);
+        }
+
+        .badge-renewal-due {
+            background: rgba(255, 212, 0, 0.15);
+            color: var(--ink-yellow);
+        }
+
+        .badge-lapsed {
+            background: rgba(255, 107, 53, 0.15);
+            color: var(--ink-orange);
+        }
+
+        .badge-expired {
+            background: rgba(233, 30, 140, 0.15);
+            color: var(--ink-magenta);
+        }
+
+        .badge-inactive {
+            background: rgba(176, 176, 176, 0.15);
+            color: var(--ink-gray);
+        }
+
+        .badge-business {
+            background: rgba(0, 212, 255, 0.15);
+            color: var(--ink-cyan);
+        }
+
+        .badge-supplier {
+            background: rgba(108, 43, 217, 0.15);
+            color: var(--ink-purple);
+        }
+
+        .badge-training {
+            background: rgba(255, 212, 0, 0.15);
+            color: var(--ink-yellow);
+        }
+
+        .badge-admin {
+            background: rgba(233, 30, 140, 0.15);
+            color: var(--ink-magenta);
+        }
+
+        .badge-pass {
+            background: rgba(34, 197, 94, 0.15);
+            color: #22c55e;
+        }
+
+        .badge-fail {
+            background: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+        }
+
+        /* Row Actions */
+        .row-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .row-btn {
+            background: none;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: var(--ink-cyan);
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-family: 'Space Grotesk', sans-serif;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .row-btn:hover {
+            background: rgba(0, 212, 255, 0.1);
+            border-color: var(--ink-cyan);
+        }
+
+        .row-btn.delete {
+            color: var(--ink-orange);
+            border-color: rgba(255, 107, 53, 0.3);
+        }
+
+        .row-btn.delete:hover {
+            background: rgba(255, 107, 53, 0.1);
+            border-color: var(--ink-orange);
+        }
+
+        /* Empty State */
+        .empty-state {
+            padding: 60px 24px;
+            text-align: center;
+            color: var(--ink-gray);
+        }
+
+        .empty-state p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(2px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--ink-dark);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 32px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-content h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 24px;
+            letter-spacing: 1px;
+            margin-bottom: 24px;
+            color: var(--ink-white);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--ink-gray);
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            background: rgba(26, 26, 46, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            padding: 10px 12px;
+            font-family: 'Inter', sans-serif;
+            color: var(--ink-white);
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: var(--ink-gray);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--ink-cyan);
+            box-shadow: 0 0 12px rgba(0, 212, 255, 0.15);
+        }
+
+        .form-group input[type="checkbox"] {
+            width: auto;
+            margin-right: 8px;
+            cursor: pointer;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 32px;
+        }
+
+        .modal-btn {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .modal-btn.cancel {
+            background: rgba(26, 26, 46, 0.8);
+            color: var(--ink-gray);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-btn.cancel:hover {
+            border-color: var(--ink-gray);
+            color: var(--ink-white);
+        }
+
+        .modal-btn.save {
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-purple));
+            color: var(--ink-black);
+        }
+
+        .modal-btn.save:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 212, 255, 0.3);
+        }
+
+        /* Loading State */
+        .loading {
+            text-align: center;
+            padding: 60px 24px;
+            color: var(--ink-gray);
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(0, 212, 255, 0.2);
+            border-top-color: var(--ink-cyan);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 16px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Auth Gate */
+        .auth-error {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: calc(100vh - 70px);
+            text-align: center;
+        }
+
+        .auth-error-content h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 32px;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        .auth-error-content p {
+            color: var(--ink-gray);
+            margin-bottom: 24px;
+        }
+
+        .auth-error-content a {
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            color: var(--ink-black);
+            padding: 10px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            display: inline-block;
+            transition: transform 0.2s ease;
+        }
+
+        .auth-error-content a:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 16px;
+            }
+
+            .admin-wrapper {
+                padding: 24px 16px;
+            }
+
+            .admin-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+            }
+
+            .admin-user-info {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .content-header {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .search-bar,
+            .action-btn {
+                width: 100%;
+            }
+
+            .tab-nav {
+                gap: 4px;
+            }
+
+            .tab-btn {
+                padding: 10px 12px;
+            }
+
+            table {
+                font-size: 12px;
+            }
+
+            td, th {
+                padding: 10px 12px;
+            }
+
+            .modal-content {
+                padding: 24px;
+            }
+
+            .row-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .row-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <span class="nav-logo-main">ASPA</span>
+                <span class="nav-logo-sub">ADMIN</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="members.html">Members</a></li>
+            </ul>
+            <div id="navAuthContainer" style="display: flex; align-items: center; gap: 16px;">
+                <a href="join.html" class="nav-cta" id="navJoinBtn">Join ASPA</a>
+                <a href="login.html" style="color: #b0b0b0; font-family: 'Inter', sans-serif; font-size: 0.85rem; cursor: pointer; text-decoration: none;">Log In</a>
+            </div>
+            <script>
+            window.addEventListener('aspa-auth-ready', function(e) {
+                if (e.detail && e.detail.profile) { window.updateNavForSupabase(e.detail.profile); }
+            });
+            </script>
+        </div>
+    </nav>
+
+    <!-- Admin Content -->
+    <div class="admin-wrapper" id="adminContent" style="display: none;">
+        <!-- Header -->
+        <div class="admin-header">
+            <div class="admin-title">
+                <h1>Admin Dashboard</h1>
+                <span class="admin-badge">ADMIN</span>
+            </div>
+            <div class="admin-user-info">
+                <div>Logged in as <span class="user-name" id="adminUserName">Admin</span></div>
+                <a href="login.html?logout=true" style="color: var(--ink-cyan); text-decoration: none; cursor: pointer;">Log Out</a>
+            </div>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="tab-nav">
+            <button class="tab-btn active" onclick="switchTab('members')">Members</button>
+            <button class="tab-btn" onclick="switchTab('certifications')">Certifications</button>
+            <button class="tab-btn" onclick="switchTab('examResults')">Exam Results</button>
+            <button class="tab-btn" onclick="switchTab('ceCredits')">CE Credits</button>
+            <button class="tab-btn" onclick="switchTab('auditLog')">Audit Log</button>
+        </div>
+
+        <!-- Members Tab -->
+        <div id="membersTab" class="tab-content active">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Total Members</div>
+                    <div class="stat-value" id="totalMembers">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Active</div>
+                    <div class="stat-value" id="activeMembers">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Business Tier</div>
+                    <div class="stat-value" id="businessMembers">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Supplier Tier</div>
+                    <div class="stat-value" id="supplierMembers">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Training Tier</div>
+                    <div class="stat-value" id="trainingMembers">0</div>
+                </div>
+            </div>
+
+            <div class="content-header">
+                <div class="search-bar">
+                    <input type="text" id="memberSearch" placeholder="Search by name or email..." onkeyup="filterMembers()">
+                </div>
+                <select class="filter-dropdown" id="memberStatusFilter" onchange="filterMembers()">
+                    <option value="">All Statuses</option>
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                    <option value="expired">Expired</option>
+                </select>
+            </div>
+
+            <div class="table-container">
+                <div id="membersLoadingState" class="loading" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>Loading members...</p>
+                </div>
+                <table id="membersTable" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Company</th>
+                            <th>Tier</th>
+                            <th>Status</th>
+                            <th>Admin</th>
+                            <th>Join Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="membersTableBody">
+                    </tbody>
+                </table>
+                <div id="membersEmptyState" class="empty-state" style="display: none;">
+                    <p>No members found</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Certifications Tab -->
+        <div id="certificationsTab" class="tab-content">
+            <div class="content-header">
+                <div class="search-bar">
+                    <input type="text" id="certSearch" placeholder="Search by name or email..." onkeyup="filterCertifications()">
+                </div>
+                <select class="filter-dropdown" id="certStatusFilter" onchange="filterCertifications()">
+                    <option value="">All Statuses</option>
+                    <option value="active">Active</option>
+                    <option value="renewal_due">Renewal Due</option>
+                    <option value="lapsed">Lapsed</option>
+                </select>
+            </div>
+
+            <div class="table-container">
+                <div id="certsLoadingState" class="loading" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>Loading certifications...</p>
+                </div>
+                <table id="certificationsTable" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Cert #</th>
+                            <th>Status</th>
+                            <th>Specialty</th>
+                            <th>Cert Date</th>
+                            <th>Renewal Due</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="certificationsTableBody">
+                    </tbody>
+                </table>
+                <div id="certsEmptyState" class="empty-state" style="display: none;">
+                    <p>No certifications found</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Exam Results Tab -->
+        <div id="examResultsTab" class="tab-content">
+            <div class="content-header">
+                <div class="search-bar">
+                    <input type="text" id="examSearch" placeholder="Search by name or email..." onkeyup="filterExamResults()">
+                </div>
+                <select class="filter-dropdown" id="examPassFailFilter" onchange="filterExamResults()">
+                    <option value="">All Results</option>
+                    <option value="pass">Passed</option>
+                    <option value="fail">Failed</option>
+                </select>
+            </div>
+
+            <div class="table-container">
+                <div id="examsLoadingState" class="loading" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>Loading exam results...</p>
+                </div>
+                <table id="examResultsTable" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Score</th>
+                            <th>Result</th>
+                            <th>Time (min)</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="examResultsTableBody">
+                    </tbody>
+                </table>
+                <div id="examsEmptyState" class="empty-state" style="display: none;">
+                    <p>No exam results found</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CE Credits Tab -->
+        <div id="ceCreditsTab" class="tab-content">
+            <div class="content-header">
+                <button class="action-btn" onclick="openAddCreditModal()">+ Add Credit</button>
+                <div class="search-bar">
+                    <input type="text" id="ceSearch" placeholder="Search by name..." onkeyup="filterCECredits()">
+                </div>
+            </div>
+
+            <div class="table-container">
+                <div id="ceLoadingState" class="loading" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>Loading CE credits...</p>
+                </div>
+                <table id="ceCreditsTable" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Title</th>
+                            <th>Credits</th>
+                            <th>Date</th>
+                            <th>Provider</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ceCreditsTableBody">
+                    </tbody>
+                </table>
+                <div id="ceEmptyState" class="empty-state" style="display: none;">
+                    <p>No CE credits found</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Audit Log Tab -->
+        <div id="auditLogTab" class="tab-content">
+            <div class="content-header">
+                <div class="search-bar">
+                    <input type="text" id="auditSearch" placeholder="Search by action or target..." onkeyup="filterAuditLog()">
+                </div>
+            </div>
+
+            <div class="table-container">
+                <div id="auditLoadingState" class="loading" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>Loading audit log...</p>
+                </div>
+                <table id="auditTable" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>Admin</th>
+                            <th>Action</th>
+                            <th>Target</th>
+                            <th>Details</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="auditTableBody">
+                    </tbody>
+                </table>
+                <div id="auditEmptyState" class="empty-state" style="display: none;">
+                    <p>No audit logs found</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Auth Error State -->
+    <div id="authErrorContent" style="display: none;">
+        <div class="auth-error">
+            <div class="auth-error-content">
+                <h2>Access Denied</h2>
+                <p>You do not have permission to access this page. Admin credentials required.</p>
+                <a href="index.html">Return to Home</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Member Modal -->
+    <div class="modal-overlay" id="editMemberModal">
+        <div class="modal-content">
+            <h3>Edit Member</h3>
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" id="editMemberName" readonly style="opacity: 0.7;">
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="editMemberEmail" readonly style="opacity: 0.7;">
+            </div>
+            <div class="form-group">
+                <label>Company</label>
+                <input type="text" id="editMemberCompany">
+            </div>
+            <div class="form-group">
+                <label>Tier</label>
+                <select id="editMemberTier">
+                    <option value="business">Business</option>
+                    <option value="supplier">Supplier</option>
+                    <option value="training">Training</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Status</label>
+                <select id="editMemberStatus">
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                    <option value="expired">Expired</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="editMemberAdmin">
+                    <span style="margin-left: 8px;">Admin Privileges</span>
+                </label>
+            </div>
+            <div class="modal-actions">
+                <button class="modal-btn cancel" onclick="closeEditMemberModal()">Cancel</button>
+                <button class="modal-btn save" onclick="saveMemberChanges()">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Certification Modal -->
+    <div class="modal-overlay" id="editCertModal">
+        <div class="modal-content">
+            <h3>Edit Certification</h3>
+            <div class="form-group">
+                <label>Member Name</label>
+                <input type="text" id="editCertName" readonly style="opacity: 0.7;">
+            </div>
+            <div class="form-group">
+                <label>Status</label>
+                <select id="editCertStatus">
+                    <option value="active">Active</option>
+                    <option value="renewal_due">Renewal Due</option>
+                    <option value="lapsed">Lapsed</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Renewal Due Date</label>
+                <input type="date" id="editCertRenewalDate">
+            </div>
+            <div class="modal-actions">
+                <button class="modal-btn cancel" onclick="closeEditCertModal()">Cancel</button>
+                <button class="modal-btn save" onclick="saveCertChanges()">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add CE Credit Modal -->
+    <div class="modal-overlay" id="addCreditModal">
+        <div class="modal-content">
+            <h3>Add CE Credit</h3>
+            <div class="form-group">
+                <label>Member</label>
+                <select id="addCreditUser">
+                    <option value="">Select Member...</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Credit Type</label>
+                <select id="addCreditType">
+                    <option value="course">Course</option>
+                    <option value="workshop">Workshop</option>
+                    <option value="conference">Conference</option>
+                    <option value="seminar">Seminar</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Title</label>
+                <input type="text" id="addCreditTitle" placeholder="Credit title">
+            </div>
+            <div class="form-group">
+                <label>Credits</label>
+                <input type="number" id="addCreditAmount" placeholder="Number of credits" min="0" step="0.5">
+            </div>
+            <div class="form-group">
+                <label>Date Completed</label>
+                <input type="date" id="addCreditDate">
+            </div>
+            <div class="form-group">
+                <label>Provider</label>
+                <input type="text" id="addCreditProvider" placeholder="Organization/Provider">
+            </div>
+            <div class="modal-actions">
+                <button class="modal-btn cancel" onclick="closeAddCreditModal()">Cancel</button>
+                <button class="modal-btn save" onclick="saveNewCredit()">Add Credit</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirm Delete Modal -->
+    <div class="modal-overlay" id="confirmDeleteModal">
+        <div class="modal-content">
+            <h3>Confirm Delete</h3>
+            <p id="deleteConfirmMessage" style="margin-bottom: 24px; color: var(--ink-gray);"></p>
+            <div class="modal-actions">
+                <button class="modal-btn cancel" onclick="closeConfirmDelete()">Cancel</button>
+                <button class="modal-btn save" style="background: linear-gradient(135deg, #ff6b35, #e91e8c);" onclick="confirmDelete()">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global state
+        let currentUser = null;
+        let currentEditingMemberId = null;
+        let currentEditingCertId = null;
+        let currentDeleteCallback = null;
+
+        // Cached data
+        let cachedMembers = [];
+        let cachedCertifications = [];
+        let cachedExamResults = [];
+        let cachedCECredits = [];
+        let cachedAuditLog = [];
+
+        // Initialize
+        window.addEventListener('aspa-auth-ready', function(e) {
+            if (e.detail && e.detail.profile) {
+                const profile = e.detail.profile;
+
+                if (!profile.is_admin) {
+                    document.getElementById('adminContent').style.display = 'none';
+                    document.getElementById('authErrorContent').style.display = 'block';
+                    return;
+                }
+
+                currentUser = profile;
+                document.getElementById('adminUserName').textContent = profile.full_name || 'Admin';
+                document.getElementById('adminContent').style.display = 'block';
+                document.getElementById('authErrorContent').style.display = 'none';
+
+                // Load data
+                loadMembers();
+                loadCertifications();
+                loadExamResults();
+                loadCECredits();
+                loadAuditLog();
+            }
+        });
+
+        // Tab switching
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Deactivate all buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Show selected tab
+            document.getElementById(tabName + 'Tab').classList.add('active');
+
+            // Activate button
+            event.target.classList.add('active');
+
+            // Scroll tab nav
+            event.target.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+        }
+
+        // Load Members
+        async function loadMembers() {
+            const loadingEl = document.getElementById('membersLoadingState');
+            const tableEl = document.getElementById('membersTable');
+            const emptyEl = document.getElementById('membersEmptyState');
+
+            loadingEl.style.display = 'block';
+            tableEl.style.display = 'none';
+            emptyEl.style.display = 'none';
+
+            try {
+                const { data, error } = await window._supabase
+                    .from('profiles')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+
+                cachedMembers = data || [];
+                updateMemberStats();
+                renderMembers(cachedMembers);
+
+                loadingEl.style.display = 'none';
+                if (cachedMembers.length === 0) {
+                    emptyEl.style.display = 'block';
+                } else {
+                    tableEl.style.display = 'table';
+                }
+            } catch (err) {
+                console.error('Error loading members:', err);
+                loadingEl.innerHTML = '<p style="color: var(--ink-orange);">Error loading members</p>';
+            }
+        }
+
+        function updateMemberStats() {
+            const total = cachedMembers.length;
+            const active = cachedMembers.filter(m => m.status === 'active').length;
+            const business = cachedMembers.filter(m => m.tier === 'business').length;
+            const supplier = cachedMembers.filter(m => m.tier === 'supplier').length;
+            const training = cachedMembers.filter(m => m.tier === 'training').length;
+
+            document.getElementById('totalMembers').textContent = total;
+            document.getElementById('activeMembers').textContent = active;
+            document.getElementById('businessMembers').textContent = business;
+            document.getElementById('supplierMembers').textContent = supplier;
+            document.getElementById('trainingMembers').textContent = training;
+        }
+
+        function renderMembers(members) {
+            const tbody = document.getElementById('membersTableBody');
+            tbody.innerHTML = '';
+
+            members.forEach(member => {
+                const row = document.createElement('tr');
+                const statusBadgeClass = `badge-${member.status || 'active'}`;
+                const tierBadgeClass = `badge-${member.tier || 'business'}`;
+                const adminBadge = member.is_admin ? '<span class="badge badge-admin">ADMIN</span>' : '<span style="color: var(--ink-gray);">—</span>';
+
+                row.innerHTML = `
+                    <td>${member.full_name || 'N/A'}</td>
+                    <td>${member.email}</td>
+                    <td>${member.company || '—'}</td>
+                    <td><span class="badge ${tierBadgeClass}">${(member.tier || 'business').toUpperCase()}</span></td>
+                    <td><span class="badge ${statusBadgeClass}">${(member.status || 'active').toUpperCase()}</span></td>
+                    <td>${adminBadge}</td>
+                    <td>${formatDate(member.created_at)}</td>
+                    <td>
+                        <div class="row-actions">
+                            <button class="row-btn" onclick="openEditMemberModal('${member.id}')">Edit</button>
+                            <button class="row-btn delete" onclick="openDeleteConfirm('member', '${member.id}', '${member.full_name}')">Delete</button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function filterMembers() {
+            const search = document.getElementById('memberSearch').value.toLowerCase();
+            const status = document.getElementById('memberStatusFilter').value;
+
+            let filtered = cachedMembers;
+
+            if (search) {
+                filtered = filtered.filter(m =>
+                    (m.full_name || '').toLowerCase().includes(search) ||
+                    (m.email || '').toLowerCase().includes(search)
+                );
+            }
+
+            if (status) {
+                filtered = filtered.filter(m => m.status === status);
+            }
+
+            renderMembers(filtered);
+        }
+
+        function openEditMemberModal(memberId) {
+            const member = cachedMembers.find(m => m.id === memberId);
+            if (!member) return;
+
+            currentEditingMemberId = memberId;
+            document.getElementById('editMemberName').value = member.full_name || '';
+            document.getElementById('editMemberEmail').value = member.email || '';
+            document.getElementById('editMemberCompany').value = member.company || '';
+            document.getElementById('editMemberTier').value = member.tier || 'business';
+            document.getElementById('editMemberStatus').value = member.status || 'active';
+            document.getElementById('editMemberAdmin').checked = member.is_admin || false;
+
+            document.getElementById('editMemberModal').classList.add('active');
+        }
+
+        function closeEditMemberModal() {
+            document.getElementById('editMemberModal').classList.remove('active');
+        }
+
+        async function saveMemberChanges() {
+            const updates = {
+                company: document.getElementById('editMemberCompany').value,
+                tier: document.getElementById('editMemberTier').value,
+                status: document.getElementById('editMemberStatus').value,
+                is_admin: document.getElementById('editMemberAdmin').checked
+            };
+
+            const originalMember = cachedMembers.find(m => m.id === currentEditingMemberId);
+            const changedFields = {};
+
+            Object.keys(updates).forEach(key => {
+                if (updates[key] !== originalMember[key]) {
+                    changedFields[key] = { from: originalMember[key], to: updates[key] };
+                }
+            });
+
+            try {
+                const { error } = await window._supabase
+                    .from('profiles')
+                    .update(updates)
+                    .eq('id', currentEditingMemberId);
+
+                if (error) throw error;
+
+                // Log to audit
+                await window._supabase.from('audit_logs').insert({
+                    admin_id: window._supabaseSession.user.id,
+                    action: 'update_member',
+                    target_user_id: currentEditingMemberId,
+                    details: changedFields
+                });
+
+                closeEditMemberModal();
+                loadMembers();
+            } catch (err) {
+                console.error('Error saving member:', err);
+                alert('Error saving changes');
+            }
+        }
+
+        // Load Certifications
+        async function loadCertifications() {
+            const loadingEl = document.getElementById('certsLoadingState');
+            const tableEl = document.getElementById('certificationsTable');
+            const emptyEl = document.getElementById('certsEmptyState');
+
+            loadingEl.style.display = 'block';
+            tableEl.style.display = 'none';
+            emptyEl.style.display = 'none';
+
+            try {
+                const { data, error } = await window._supabase
+                    .from('csp_certifications')
+                    .select('*, profiles:user_id(full_name, email)')
+                    .order('certification_date', { ascending: false });
+
+                if (error) throw error;
+
+                cachedCertifications = data || [];
+                renderCertifications(cachedCertifications);
+
+                loadingEl.style.display = 'none';
+                if (cachedCertifications.length === 0) {
+                    emptyEl.style.display = 'block';
+                } else {
+                    tableEl.style.display = 'table';
+                }
+            } catch (err) {
+                console.error('Error loading certifications:', err);
+                loadingEl.innerHTML = '<p style="color: var(--ink-orange);">Error loading certifications</p>';
+            }
+        }
+
+        function renderCertifications(certs) {
+            const tbody = document.getElementById('certificationsTableBody');
+            tbody.innerHTML = '';
+
+            certs.forEach(cert => {
+                const row = document.createElement('tr');
+                const statusBadgeClass = `badge-${cert.status || 'active'}`;
+                const profile = cert.profiles;
+
+                row.innerHTML = `
+                    <td>${profile ? profile.full_name : 'N/A'}</td>
+                    <td>${profile ? profile.email : 'N/A'}</td>
+                    <td>${cert.certification_number || 'N/A'}</td>
+                    <td><span class="badge ${statusBadgeClass}">${(cert.status || 'active').toUpperCase()}</span></td>
+                    <td>${cert.specialty || '—'}</td>
+                    <td>${formatDate(cert.certification_date)}</td>
+                    <td>${cert.renewal_due_date ? formatDate(cert.renewal_due_date) : '—'}</td>
+                    <td>
+                        <div class="row-actions">
+                            <button class="row-btn" onclick="openEditCertModal('${cert.id}')">Edit</button>
+                            <button class="row-btn delete" onclick="openDeleteConfirm('cert', '${cert.id}', '${cert.certification_number}')">Delete</button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function filterCertifications() {
+            const search = document.getElementById('certSearch').value.toLowerCase();
+            const status = document.getElementById('certStatusFilter').value;
+
+            let filtered = cachedCertifications;
+
+            if (search) {
+                filtered = filtered.filter(c => {
+                    const profile = c.profiles;
+                    return (profile && profile.full_name && profile.full_name.toLowerCase().includes(search)) ||
+                           (profile && profile.email && profile.email.toLowerCase().includes(search));
+                });
+            }
+
+            if (status) {
+                filtered = filtered.filter(c => c.status === status);
+            }
+
+            renderCertifications(filtered);
+        }
+
+        function openEditCertModal(certId) {
+            const cert = cachedCertifications.find(c => c.id === certId);
+            if (!cert) return;
+
+            currentEditingCertId = certId;
+            document.getElementById('editCertName').value = cert.profiles ? cert.profiles.full_name : '';
+            document.getElementById('editCertStatus').value = cert.status || 'active';
+            document.getElementById('editCertRenewalDate').value = cert.renewal_due_date || '';
+
+            document.getElementById('editCertModal').classList.add('active');
+        }
+
+        function closeEditCertModal() {
+            document.getElementById('editCertModal').classList.remove('active');
+        }
+
+        async function saveCertChanges() {
+            const updates = {
+                status: document.getElementById('editCertStatus').value,
+                renewal_due_date: document.getElementById('editCertRenewalDate').value
+            };
+
+            const originalCert = cachedCertifications.find(c => c.id === currentEditingCertId);
+            const changedFields = {};
+
+            Object.keys(updates).forEach(key => {
+                if (updates[key] !== originalCert[key]) {
+                    changedFields[key] = { from: originalCert[key], to: updates[key] };
+                }
+            });
+
+            try {
+                const { error } = await window._supabase
+                    .from('csp_certifications')
+                    .update(updates)
+                    .eq('id', currentEditingCertId);
+
+                if (error) throw error;
+
+                // Log to audit
+                await window._supabase.from('audit_logs').insert({
+                    admin_id: window._supabaseSession.user.id,
+                    action: 'update_certification',
+                    target_user_id: originalCert.user_id,
+                    details: changedFields
+                });
+
+                closeEditCertModal();
+                loadCertifications();
+            } catch (err) {
+                console.error('Error saving certification:', err);
+                alert('Error saving changes');
+            }
+        }
+
+        // Load Exam Results
+        async function loadExamResults() {
+            const loadingEl = document.getElementById('examsLoadingState');
+            const tableEl = document.getElementById('examResultsTable');
+            const emptyEl = document.getElementById('examsEmptyState');
+
+            loadingEl.style.display = 'block';
+            tableEl.style.display = 'none';
+            emptyEl.style.display = 'none';
+
+            try {
+                const { data, error } = await window._supabase
+                    .from('exam_results')
+                    .select('*, profiles:user_id(full_name, email)')
+                    .order('exam_date', { ascending: false });
+
+                if (error) throw error;
+
+                cachedExamResults = data || [];
+                renderExamResults(cachedExamResults);
+
+                loadingEl.style.display = 'none';
+                if (cachedExamResults.length === 0) {
+                    emptyEl.style.display = 'block';
+                } else {
+                    tableEl.style.display = 'table';
+                }
+            } catch (err) {
+                console.error('Error loading exam results:', err);
+                loadingEl.innerHTML = '<p style="color: var(--ink-orange);">Error loading exam results</p>';
+            }
+        }
+
+        function renderExamResults(results) {
+            const tbody = document.getElementById('examResultsTableBody');
+            tbody.innerHTML = '';
+
+            results.forEach(result => {
+                const row = document.createElement('tr');
+                const passed = result.score >= 70;
+                const badgeClass = passed ? 'badge-pass' : 'badge-fail';
+                const resultText = passed ? 'PASS' : 'FAIL';
+                const profile = result.profiles;
+
+                row.innerHTML = `
+                    <td>${profile ? profile.full_name : 'N/A'}</td>
+                    <td>${profile ? profile.email : 'N/A'}</td>
+                    <td>${result.score || 0}%</td>
+                    <td><span class="badge ${badgeClass}">${resultText}</span></td>
+                    <td>${result.time_taken_minutes || 0}</td>
+                    <td>${formatDate(result.exam_date)}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function filterExamResults() {
+            const search = document.getElementById('examSearch').value.toLowerCase();
+            const passFailFilter = document.getElementById('examPassFailFilter').value;
+
+            let filtered = cachedExamResults;
+
+            if (search) {
+                filtered = filtered.filter(r => {
+                    const profile = r.profiles;
+                    return (profile && profile.full_name && profile.full_name.toLowerCase().includes(search)) ||
+                           (profile && profile.email && profile.email.toLowerCase().includes(search));
+                });
+            }
+
+            if (passFailFilter) {
+                const isPassing = passFailFilter === 'pass';
+                filtered = filtered.filter(r => (r.score >= 70) === isPassing);
+            }
+
+            renderExamResults(filtered);
+        }
+
+        // Load CE Credits
+        async function loadCECredits() {
+            const loadingEl = document.getElementById('ceLoadingState');
+            const tableEl = document.getElementById('ceCreditsTable');
+            const emptyEl = document.getElementById('ceEmptyState');
+
+            loadingEl.style.display = 'block';
+            tableEl.style.display = 'none';
+            emptyEl.style.display = 'none';
+
+            try {
+                const { data, error } = await window._supabase
+                    .from('ce_credits')
+                    .select('*, profiles:user_id(full_name, email)')
+                    .order('completion_date', { ascending: false });
+
+                if (error) throw error;
+
+                cachedCECredits = data || [];
+                populateUserDropdown();
+                renderCECredits(cachedCECredits);
+
+                loadingEl.style.display = 'none';
+                if (cachedCECredits.length === 0) {
+                    emptyEl.style.display = 'block';
+                } else {
+                    tableEl.style.display = 'table';
+                }
+            } catch (err) {
+                console.error('Error loading CE credits:', err);
+                loadingEl.innerHTML = '<p style="color: var(--ink-orange);">Error loading CE credits</p>';
+            }
+        }
+
+        function renderCECredits(credits) {
+            const tbody = document.getElementById('ceCreditsTableBody');
+            tbody.innerHTML = '';
+
+            credits.forEach(credit => {
+                const row = document.createElement('tr');
+                const profile = credit.profiles;
+
+                row.innerHTML = `
+                    <td>${profile ? profile.full_name : 'N/A'}</td>
+                    <td>${credit.credit_type || '—'}</td>
+                    <td>${credit.title || '—'}</td>
+                    <td>${credit.credits || 0}</td>
+                    <td>${formatDate(credit.completion_date)}</td>
+                    <td>${credit.provider || '—'}</td>
+                    <td>
+                        <div class="row-actions">
+                            <button class="row-btn delete" onclick="openDeleteConfirm('ceCredit', '${credit.id}', '${credit.title}')">Delete</button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        async function populateUserDropdown() {
+            const dropdown = document.getElementById('addCreditUser');
+            dropdown.innerHTML = '<option value="">Select Member...</option>';
+
+            const { data: members } = await window._supabase
+                .from('profiles')
+                .select('id, full_name, email');
+
+            if (members) {
+                members.forEach(member => {
+                    const option = document.createElement('option');
+                    option.value = member.id;
+                    option.textContent = `${member.full_name} (${member.email})`;
+                    dropdown.appendChild(option);
+                });
+            }
+        }
+
+        function filterCECredits() {
+            const search = document.getElementById('ceSearch').value.toLowerCase();
+
+            let filtered = cachedCECredits;
+
+            if (search) {
+                filtered = filtered.filter(c => {
+                    const profile = c.profiles;
+                    return (profile && profile.full_name && profile.full_name.toLowerCase().includes(search));
+                });
+            }
+
+            renderCECredits(filtered);
+        }
+
+        function openAddCreditModal() {
+            document.getElementById('addCreditUser').value = '';
+            document.getElementById('addCreditType').value = 'course';
+            document.getElementById('addCreditTitle').value = '';
+            document.getElementById('addCreditAmount').value = '';
+            document.getElementById('addCreditDate').value = '';
+            document.getElementById('addCreditProvider').value = '';
+
+            document.getElementById('addCreditModal').classList.add('active');
+        }
+
+        function closeAddCreditModal() {
+            document.getElementById('addCreditModal').classList.remove('active');
+        }
+
+        async function saveNewCredit() {
+            const userId = document.getElementById('addCreditUser').value;
+            const type = document.getElementById('addCreditType').value;
+            const title = document.getElementById('addCreditTitle').value;
+            const credits = parseFloat(document.getElementById('addCreditAmount').value);
+            const date = document.getElementById('addCreditDate').value;
+            const provider = document.getElementById('addCreditProvider').value;
+
+            if (!userId || !title || !date || credits <= 0) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            try {
+                const { error } = await window._supabase
+                    .from('ce_credits')
+                    .insert({
+                        user_id: userId,
+                        credit_type: type,
+                        title: title,
+                        credits: credits,
+                        completion_date: date,
+                        provider: provider
+                    });
+
+                if (error) throw error;
+
+                // Log to audit
+                await window._supabase.from('audit_logs').insert({
+                    admin_id: window._supabaseSession.user.id,
+                    action: 'add_ce_credit',
+                    target_user_id: userId,
+                    details: { title, credits, date }
+                });
+
+                closeAddCreditModal();
+                loadCECredits();
+            } catch (err) {
+                console.error('Error saving CE credit:', err);
+                alert('Error saving credit');
+            }
+        }
+
+        // Load Audit Log
+        async function loadAuditLog() {
+            const loadingEl = document.getElementById('auditLoadingState');
+            const tableEl = document.getElementById('auditTable');
+            const emptyEl = document.getElementById('auditEmptyState');
+
+            loadingEl.style.display = 'block';
+            tableEl.style.display = 'none';
+            emptyEl.style.display = 'none';
+
+            try {
+                const { data, error } = await window._supabase
+                    .from('audit_logs')
+                    .select('*, profiles:admin_id(full_name), target_profiles:target_user_id(full_name)')
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+
+                cachedAuditLog = data || [];
+                renderAuditLog(cachedAuditLog);
+
+                loadingEl.style.display = 'none';
+                if (cachedAuditLog.length === 0) {
+                    emptyEl.style.display = 'block';
+                } else {
+                    tableEl.style.display = 'table';
+                }
+            } catch (err) {
+                console.error('Error loading audit log:', err);
+                loadingEl.innerHTML = '<p style="color: var(--ink-orange);">Error loading audit log</p>';
+            }
+        }
+
+        function renderAuditLog(logs) {
+            const tbody = document.getElementById('auditTableBody');
+            tbody.innerHTML = '';
+
+            logs.forEach(log => {
+                const row = document.createElement('tr');
+                const adminProfile = log.profiles;
+                const targetProfile = log.target_profiles;
+
+                row.innerHTML = `
+                    <td>${adminProfile ? adminProfile.full_name : 'Unknown'}</td>
+                    <td>${log.action.replace(/_/g, ' ').toUpperCase()}</td>
+                    <td>${targetProfile ? targetProfile.full_name : 'Unknown'}</td>
+                    <td style="font-size: 12px; color: var(--ink-gray); max-width: 200px; overflow: hidden; text-overflow: ellipsis;">
+                        ${JSON.stringify(log.details || {}).substring(0, 100)}...
+                    </td>
+                    <td>${formatDate(log.created_at)}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function filterAuditLog() {
+            const search = document.getElementById('auditSearch').value.toLowerCase();
+
+            let filtered = cachedAuditLog;
+
+            if (search) {
+                filtered = filtered.filter(log =>
+                    log.action.toLowerCase().includes(search)
+                );
+            }
+
+            renderAuditLog(filtered);
+        }
+
+        // Delete Confirmation
+        function openDeleteConfirm(type, id, name) {
+            const messages = {
+                member: `Are you sure you want to delete member "${name}"? This action cannot be undone.`,
+                cert: `Are you sure you want to delete certification "${name}"?`,
+                ceCredit: `Are you sure you want to delete CE credit "${name}"?`
+            };
+
+            document.getElementById('deleteConfirmMessage').textContent = messages[type] || 'Are you sure?';
+
+            currentDeleteCallback = async () => {
+                try {
+                    let error = null;
+
+                    if (type === 'member') {
+                        const member = cachedMembers.find(m => m.id === id);
+                        ({ error } = await window._supabase.from('profiles').delete().eq('id', id));
+
+                        if (!error) {
+                            await window._supabase.from('audit_logs').insert({
+                                admin_id: window._supabaseSession.user.id,
+                                action: 'delete_member',
+                                target_user_id: id,
+                                details: { name: member.full_name }
+                            });
+                            loadMembers();
+                        }
+                    } else if (type === 'cert') {
+                        const cert = cachedCertifications.find(c => c.id === id);
+                        ({ error } = await window._supabase.from('csp_certifications').delete().eq('id', id));
+
+                        if (!error) {
+                            await window._supabase.from('audit_logs').insert({
+                                admin_id: window._supabaseSession.user.id,
+                                action: 'delete_certification',
+                                target_user_id: cert.user_id,
+                                details: { cert_number: cert.certification_number }
+                            });
+                            loadCertifications();
+                        }
+                    } else if (type === 'ceCredit') {
+                        const credit = cachedCECredits.find(c => c.id === id);
+                        ({ error } = await window._supabase.from('ce_credits').delete().eq('id', id));
+
+                        if (!error) {
+                            await window._supabase.from('audit_logs').insert({
+                                admin_id: window._supabaseSession.user.id,
+                                action: 'delete_ce_credit',
+                                target_user_id: credit.user_id,
+                                details: { title: credit.title }
+                            });
+                            loadCECredits();
+                        }
+                    }
+
+                    if (error) throw error;
+                    closeConfirmDelete();
+                } catch (err) {
+                    console.error('Delete error:', err);
+                    alert('Error deleting record');
+                }
+            };
+
+            document.getElementById('confirmDeleteModal').classList.add('active');
+        }
+
+        function closeConfirmDelete() {
+            document.getElementById('confirmDeleteModal').classList.remove('active');
+            currentDeleteCallback = null;
+        }
+
+        function confirmDelete() {
+            if (currentDeleteCallback) {
+                currentDeleteCallback();
+            }
+        }
+
+        // Utilities
+        function formatDate(dateString) {
+            if (!dateString) return '—';
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+        }
+
+        // Close modals on background click
+        document.querySelectorAll('.modal-overlay').forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
