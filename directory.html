@@ -529,6 +529,68 @@
             border-color: var(--ink-cyan);
         }
 
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            background-color: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            color: var(--ink-cyan);
+            text-decoration: none;
+            font-size: 16px;
+            transition: all 0.2s ease;
+        }
+
+        .social-link:hover {
+            background-color: rgba(0, 212, 255, 0.2);
+            border-color: var(--ink-cyan);
+            transform: translateY(-2px);
+        }
+
+        .social-link.twitter {
+            border-color: rgba(29, 155, 240, 0.3);
+            background-color: rgba(29, 155, 240, 0.1);
+            color: #1d9bf0;
+        }
+
+        .social-link.twitter:hover {
+            background-color: rgba(29, 155, 240, 0.2);
+            border-color: #1d9bf0;
+        }
+
+        .social-link.instagram {
+            border-color: rgba(240, 72, 126, 0.3);
+            background-color: rgba(240, 72, 126, 0.1);
+            color: #f0487e;
+        }
+
+        .social-link.instagram:hover {
+            background-color: rgba(240, 72, 126, 0.2);
+            border-color: #f0487e;
+        }
+
+        .social-link.linkedin {
+            border-color: rgba(0, 119, 181, 0.3);
+            background-color: rgba(0, 119, 181, 0.1);
+            color: #0077b5;
+        }
+
+        .social-link.linkedin:hover {
+            background-color: rgba(0, 119, 181, 0.2);
+            border-color: #0077b5;
+        }
+
         /* ========================================
            PAGINATION
            ======================================== */
@@ -1351,6 +1413,68 @@
             border-color: var(--ink-cyan);
         }
 
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            background-color: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            color: var(--ink-cyan);
+            text-decoration: none;
+            font-size: 16px;
+            transition: all 0.2s ease;
+        }
+
+        .social-link:hover {
+            background-color: rgba(0, 212, 255, 0.2);
+            border-color: var(--ink-cyan);
+            transform: translateY(-2px);
+        }
+
+        .social-link.twitter {
+            border-color: rgba(29, 155, 240, 0.3);
+            background-color: rgba(29, 155, 240, 0.1);
+            color: #1d9bf0;
+        }
+
+        .social-link.twitter:hover {
+            background-color: rgba(29, 155, 240, 0.2);
+            border-color: #1d9bf0;
+        }
+
+        .social-link.instagram {
+            border-color: rgba(240, 72, 126, 0.3);
+            background-color: rgba(240, 72, 126, 0.1);
+            color: #f0487e;
+        }
+
+        .social-link.instagram:hover {
+            background-color: rgba(240, 72, 126, 0.2);
+            border-color: #f0487e;
+        }
+
+        .social-link.linkedin {
+            border-color: rgba(0, 119, 181, 0.3);
+            background-color: rgba(0, 119, 181, 0.1);
+            color: #0077b5;
+        }
+
+        .social-link.linkedin:hover {
+            background-color: rgba(0, 119, 181, 0.2);
+            border-color: #0077b5;
+        }
+
         /* ========================================
            PAGINATION
            ======================================== */
@@ -2041,7 +2165,7 @@
             try {
                 const { data: profilesData, error: profilesError } = await window._supabase
                     .from('profiles')
-                    .select('*')
+                    .select('*, twitter_handle, instagram_handle, linkedin_url')
                     .eq('membership_status', 'active')
                     .order('full_name');
 
@@ -2070,7 +2194,10 @@
                     description: p.company || '',
                     certified: certifiedUserIds.has(p.id),
                     memberTier: p.membership_tier === 'business' ? 'aspa_plus' : 'legacy',
-                    featured: false
+                    featured: false,
+                    twitterHandle: p.twitter_handle || '',
+                    instagramHandle: p.instagram_handle || '',
+                    linkedinUrl: p.linkedin_url || ''
                 }));
 
                 // Replace the hardcoded data with live data
@@ -2219,6 +2346,22 @@
 
         function createMemberCard(member) {
             const hasContact = member.phone || member.website;
+            const hasSocial = member.twitterHandle || member.instagramHandle || member.linkedinUrl;
+
+            let socialLinksHtml = '';
+            if (hasSocial) {
+                socialLinksHtml = '<div class="social-links">';
+                if (member.twitterHandle) {
+                    socialLinksHtml += `<a href="https://twitter.com/${member.twitterHandle}" target="_blank" rel="noopener noreferrer" class="social-link twitter" title="Twitter">𝕏</a>`;
+                }
+                if (member.instagramHandle) {
+                    socialLinksHtml += `<a href="https://instagram.com/${member.instagramHandle}" target="_blank" rel="noopener noreferrer" class="social-link instagram" title="Instagram">📷</a>`;
+                }
+                if (member.linkedinUrl) {
+                    socialLinksHtml += `<a href="${member.linkedinUrl}" target="_blank" rel="noopener noreferrer" class="social-link linkedin" title="LinkedIn">in</a>`;
+                }
+                socialLinksHtml += '</div>';
+            }
 
             return `
                 <div class="member-card${member.featured ? ' featured' : ''}">
@@ -2245,6 +2388,7 @@
                                 </div>
                             </div>
                         ` : ''}
+                        ${socialLinksHtml}
                     </div>
                 </div>
             `;
