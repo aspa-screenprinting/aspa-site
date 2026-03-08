@@ -2,8 +2,8 @@
 
 **Project:** screen-printing.us redesign
 **Client:** Dustin Cochran (cochran.dustin@gmail.com)
-**Date:** March 3–5, 2026 (last updated: Session 11)
-**Status:** In Progress — Core Pages Built, Resource Hub COMPLETE (All 18 Articles), **SITE LIVE on GitHub Pages**, Nav Standardized, Auth System Deployed, ASPA+ Gated Content Live
+**Date:** March 3–8, 2026 (last updated: Session 12)
+**Status:** In Progress — Core Pages Built, Resource Hub COMPLETE (All 18 Articles), **SITE LIVE on GitHub Pages**, Nav Standardized, **Supabase Backend Live** (Auth + Database), ASPA+ Gated Content Live, Admin Dashboard Built
 
 ---
 
@@ -728,7 +728,7 @@ Both pillar articles use a reusable template pattern:
 13. **Printing United Alliance = partner, not competitor** — they don't offer a screen printing craft certification; ASPA fills that niche
 14. **Blog content to migrate on-site** — stop building equity for Blogger subdomains; all new content on screen-printing.us
 15. **Article template standardized** — sticky TOC, callout boxes, related articles, dual-CTA; reusable for all future articles
-16. **Client-side auth first, Supabase later** — localStorage-based auth as a functional prototype; will migrate to Supabase for production
+16. **Supabase backend live** — Migrated from localStorage mock auth to Supabase Auth + PostgreSQL in Session 12. All 35 pages updated.
 17. **Nav baseline: certified-roster.html** — chosen as the canonical nav CSS reference, all pages standardized to match
 18. **Inline auth script pattern** — inline `<script>` immediately after navAuthContainer for instant auth state; bottom-of-page scripts proved unreliable
 19. **ASPA+ gated content = dual-view** — non-members see teaser + CTA; members see full content (discounts.html, education.html)
@@ -742,7 +742,7 @@ Both pillar articles use a reusable template pattern:
 - **GitHub Organization:** aspa-screenprinting (owned by ASPA)
 - **Branch:** main, deployed from / (root)
 - **HTTPS:** Enforced via GitHub Pages settings
-- **Files deployed:** 35 files (32 HTML, 1 SVG, 1 PDF, 1 MD)
+- **Files deployed:** 41 files (33 HTML, 1 JS, 1 SVG, 1 PDF, 5 MD/TXT/CSV)
 
 ### GitHub Account
 - **Personal username:** truhavoc
@@ -778,19 +778,71 @@ When ready to go live on screen-printing.us:
 
 ---
 
+## Supabase Backend (Session 12)
+
+### Project Info
+- **Organization:** ASPA Screen Printing (FREE tier)
+- **Project:** ASPA Website Backend
+- **Project URL:** https://wstonlslhlvdtbdyteeo.supabase.co
+- **Anon Key:** eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndzdG9ubHNsaGx2ZHRiZHl0ZWVvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI5NzQ0MzEsImV4cCI6MjA4ODU1MDQzMX0.FF-M1GDXzXT_c09dSScNA5Gpw7Zxyzcfsjeu5seHS0c
+- **Dashboard:** https://supabase.com/dashboard/project/wstonlslhlvdtbdyteeo
+
+### Admin Account
+- **Email:** cochran.dustin@gmail.com
+- **UID:** 459976f7-968f-487a-9d2b-952f4fdbd09f
+- **Role:** is_admin = TRUE, membership_tier = business
+
+### Database Schema (5 tables, all with RLS enabled)
+1. **profiles** — Member info (full_name, email, company, membership_tier, is_admin, join_date). Auto-created on signup via `handle_new_user()` trigger.
+2. **exam_results** — CSP exam attempts (user_id, score, passed, total_questions, time_taken_seconds, answers_json)
+3. **csp_certifications** — CSP certs (user_id, cert_number, status, issued_date, renewal_date). Auto-created on exam pass.
+4. **ce_credits** — Continuing education credits (user_id, activity_type, credits, description, earned_date)
+5. **audit_logs** — Admin action tracking (admin_id, action, target_table, target_id, details)
+
+### Row Level Security (RLS) Policies
+- All tables have RLS enabled
+- `is_admin()` helper function checks `profiles.is_admin` for the authenticated user
+- Users can read/update their own data; admins can read/write all data
+- Profiles are publicly readable (for directory/roster)
+- Audit logs are admin-only
+
+### Key Files
+- **supabase-init.js** — Shared script loaded on ALL pages. Loads Supabase JS v2 from CDN, initializes client, manages auth state, dispatches `aspa-auth-ready` custom event on window. Provides `window.updateNavForSupabase(profile)` and `window.handleLogout(e)` globally.
+- **admin.html** — Full admin dashboard with 5 tabs (Members, Certifications, Exam Results, CE Credits, Audit Log). Admin-gated via `profile.is_admin` check.
+
+### Auth Architecture
+- Supabase Auth replaces the old localStorage mock auth
+- Every page loads `supabase-init.js` in the `<head>`
+- Pages listen for `aspa-auth-ready` custom event to update nav state
+- Default nav shows guest state; updates to member state when session resolves (brief flash is expected — async auth)
+- Login uses `supabase.auth.signInWithPassword()`
+- Signup uses `supabase.auth.signUp()` + profile UPDATE
+- Logout clears both Supabase session and legacy localStorage (transition period)
+- Password reset uses `supabase.auth.resetPasswordForEmail()`
+
+### What's NOT Set Up Yet
+- Email confirmation (Supabase sends default confirmation emails — should customize template)
+- Password reset redirect URL (needs to point to a reset-password.html page on the site)
+- Google OAuth / social login (free to add, recommended for friction reduction)
+- Email templates customization in Supabase dashboard
+- Rate limiting / abuse prevention
+
+---
+
 ## Technical Notes
 
-- All files are self-contained HTML with inline CSS and JS — no shared stylesheets or scripts (every page needs individual fixes when making cross-site changes)
+- All files are self-contained HTML with inline CSS and JS — **one shared script: `supabase-init.js`** loaded on every page
+- **Supabase Auth** replaces the old localStorage mock auth (Session 12). Auth is async — pages show guest nav first, then update via `aspa-auth-ready` event.
 - jsPDF for client-side PDF certificate generation (CDN)
 - Mobile responsive throughout (breakpoint at 768px) — needs responsive polish pass
 - URL hash-based filter state for shareable directory/roster links
 - SPA pattern with showScreen() for multi-step flows (exam, join)
 - Debounced search (300ms) with AND logic for combined filters
 - Files designed to sit in the same directory
-- Client-side auth via `localStorage.getItem('aspa_member')` — stores JSON `{name, email}`
-- Nav auth state uses inline `<script>` immediately after `navAuthContainer` div for instant display (bottom-of-page scripts were unreliable — see Session 11 notes)
 - `.nav-aspa-plus` CSS class provides gradient text for premium nav links
 - `certified-roster.html` is the canonical nav CSS reference — all other pages were standardized to match it
+- Directory and roster pages fall back to hardcoded sample data when Supabase data isn't available
+- Exam results are persisted to Supabase; CSP certification auto-created on pass
 
 ---
 
