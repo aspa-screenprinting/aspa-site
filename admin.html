@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="supabase-init.js"></script>
+    <script src="points-system.js"></script>
 
     <style>
         :root {
@@ -806,6 +807,7 @@
             <button class="tab-btn" onclick="switchTab('examResults')">Exam Results</button>
             <button class="tab-btn" onclick="switchTab('ceCredits')">CE Credits</button>
             <button class="tab-btn" onclick="switchTab('auditLog')">Audit Log</button>
+            <button class="tab-btn" onclick="switchTab('pointsRewards')" style="color:var(--ink-cyan);">Points & Rewards</button>
         </div>
 
         <!-- Members Tab -->
@@ -1017,6 +1019,98 @@
                 </div>
             </div>
         </div>
+
+        <!-- Points & Rewards Tab -->
+        <div id="pointsRewardsTab" class="tab-content">
+            <!-- Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Points In Circulation</div>
+                    <div class="stat-value" id="ptsInCirculation" style="color:var(--ink-cyan);">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Pending Claims</div>
+                    <div class="stat-value" id="ptsPendingClaims" style="color:var(--ink-yellow);">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Total Redemptions</div>
+                    <div class="stat-value" id="ptsTotalRedemptions">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Active Earners</div>
+                    <div class="stat-value" id="ptsActiveEarners">0</div>
+                </div>
+            </div>
+
+            <!-- Pending Claims Approval Queue -->
+            <div class="content-header" style="margin-top:2rem;">
+                <h3 style="font-family:'Space Grotesk',sans-serif;font-size:1.2rem;">Pending Claims</h3>
+            </div>
+            <div class="table-container">
+                <div id="claimsLoadingState" class="loading" style="display:none;">
+                    <div class="spinner"></div>
+                    <p>Loading claims...</p>
+                </div>
+                <table id="claimsTable" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th>Member</th>
+                            <th>Activity</th>
+                            <th>Evidence</th>
+                            <th>Submitted</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="claimsTableBody">
+                    </tbody>
+                </table>
+                <div id="claimsEmptyState" class="empty-state" style="display:none;">
+                    <p>No pending claims — all caught up!</p>
+                </div>
+            </div>
+
+            <!-- Award Bonus Points -->
+            <div class="content-header" style="margin-top:2rem;">
+                <h3 style="font-family:'Space Grotesk',sans-serif;font-size:1.2rem;">Award Bonus Points</h3>
+            </div>
+            <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:20px;display:flex;gap:12px;align-items:end;flex-wrap:wrap;">
+                <div style="flex:1;min-width:200px;">
+                    <label style="display:block;font-size:0.8rem;color:var(--ink-gray);margin-bottom:4px;">Member Email</label>
+                    <input type="email" id="bonusEmail" placeholder="member@email.com" style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:10px;color:var(--ink-white);font-family:Inter,sans-serif;">
+                </div>
+                <div style="min-width:100px;">
+                    <label style="display:block;font-size:0.8rem;color:var(--ink-gray);margin-bottom:4px;">Points</label>
+                    <input type="number" id="bonusAmount" placeholder="100" min="1" style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:10px;color:var(--ink-white);font-family:Inter,sans-serif;">
+                </div>
+                <div style="flex:1;min-width:200px;">
+                    <label style="display:block;font-size:0.8rem;color:var(--ink-gray);margin-bottom:4px;">Reason</label>
+                    <input type="text" id="bonusReason" placeholder="Reason for bonus" style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:10px;color:var(--ink-white);font-family:Inter,sans-serif;">
+                </div>
+                <button onclick="adminAwardBonus()" style="background:linear-gradient(135deg,#e91e8c,#6c2bd9);color:white;border:none;padding:10px 24px;border-radius:8px;font-family:'Space Grotesk',sans-serif;font-weight:600;cursor:pointer;white-space:nowrap;">Award Points</button>
+            </div>
+
+            <!-- Rewards Catalog Management -->
+            <div class="content-header" style="margin-top:2rem;">
+                <h3 style="font-family:'Space Grotesk',sans-serif;font-size:1.2rem;">Rewards Catalog</h3>
+            </div>
+            <div class="table-container">
+                <table id="rewardsAdminTable" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th>Reward</th>
+                            <th>Category</th>
+                            <th>Cost</th>
+                            <th>Claimed</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="rewardsAdminBody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
     </div>
 
     <!-- Auth Error State -->
@@ -1900,6 +1994,207 @@
                 }
             });
         });
+
+        // ── POINTS & REWARDS ADMIN ─────────────────────────────
+
+        async function loadPointsAdmin() {
+            try {
+                // Load stats
+                var stats = await PointsSystem.getSystemStats();
+                document.getElementById('ptsInCirculation').textContent = stats.inCirculation.toLocaleString();
+                document.getElementById('ptsPendingClaims').textContent = stats.pendingClaims;
+                document.getElementById('ptsTotalRedemptions').textContent = stats.totalRedemptions;
+                document.getElementById('ptsActiveEarners').textContent = stats.activeMembersWithPoints;
+
+                // Load pending claims
+                await loadAdminClaims();
+
+                // Load rewards catalog
+                await loadAdminRewards();
+            } catch (err) {
+                console.error('[Admin Points]', err);
+            }
+        }
+
+        async function loadAdminClaims() {
+            var loading = document.getElementById('claimsLoadingState');
+            var table = document.getElementById('claimsTable');
+            var empty = document.getElementById('claimsEmptyState');
+
+            loading.style.display = 'block';
+            table.style.display = 'none';
+            empty.style.display = 'none';
+
+            try {
+                var claims = await PointsSystem.getPendingClaims();
+                loading.style.display = 'none';
+
+                if (claims.length === 0) {
+                    empty.style.display = 'block';
+                    return;
+                }
+
+                var body = document.getElementById('claimsTableBody');
+                body.innerHTML = '';
+
+                for (var i = 0; i < claims.length; i++) {
+                    var c = claims[i];
+                    var memberName = c.profiles ? c.profiles.full_name : 'Unknown';
+                    var actName = c.activities ? c.activities.display_name : 'Unknown';
+                    var pts = c.activities ? c.activities.points_value : 0;
+                    var date = formatDate(c.submitted_at);
+                    var evidence = c.evidence || '—';
+
+                    var row = document.createElement('tr');
+                    row.innerHTML = '<td>' + memberName + '</td>' +
+                        '<td>' + actName + ' <span style="color:var(--ink-cyan);font-size:0.8rem;">(' + pts + ' pts)</span></td>' +
+                        '<td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;">' + evidence + '</td>' +
+                        '<td>' + date + '</td>' +
+                        '<td>' +
+                        '<button onclick="adminApproveClaim(\'' + c.id + '\')" style="background:rgba(0,230,118,0.15);color:var(--ink-green);border:1px solid rgba(0,230,118,0.3);border-radius:6px;padding:4px 12px;cursor:pointer;margin-right:6px;font-size:0.8rem;">Approve</button>' +
+                        '<button onclick="adminDenyClaim(\'' + c.id + '\')" style="background:rgba(255,61,90,0.15);color:var(--ink-red);border:1px solid rgba(255,61,90,0.3);border-radius:6px;padding:4px 12px;cursor:pointer;font-size:0.8rem;">Deny</button>' +
+                        '</td>';
+                    body.appendChild(row);
+                }
+
+                table.style.display = 'table';
+            } catch (err) {
+                loading.style.display = 'none';
+                empty.style.display = 'block';
+                empty.querySelector('p').textContent = 'Error loading claims: ' + err.message;
+            }
+        }
+
+        async function adminApproveClaim(claimId) {
+            try {
+                await PointsSystem.approveClaim(claimId);
+                alert('Claim approved — points awarded!');
+                await loadAdminClaims();
+                var stats = await PointsSystem.getSystemStats();
+                document.getElementById('ptsPendingClaims').textContent = stats.pendingClaims;
+                document.getElementById('ptsInCirculation').textContent = stats.inCirculation.toLocaleString();
+            } catch (err) {
+                alert('Error: ' + err.message);
+            }
+        }
+
+        async function adminDenyClaim(claimId) {
+            var reason = prompt('Reason for denial (optional):');
+            try {
+                await PointsSystem.denyClaim(claimId, reason);
+                alert('Claim denied.');
+                await loadAdminClaims();
+                var stats = await PointsSystem.getSystemStats();
+                document.getElementById('ptsPendingClaims').textContent = stats.pendingClaims;
+            } catch (err) {
+                alert('Error: ' + err.message);
+            }
+        }
+
+        async function adminAwardBonus() {
+            var email = document.getElementById('bonusEmail').value.trim();
+            var amount = parseInt(document.getElementById('bonusAmount').value);
+            var reason = document.getElementById('bonusReason').value.trim();
+
+            if (!email || !amount || amount <= 0) {
+                alert('Please fill in email and a positive point amount.');
+                return;
+            }
+
+            try {
+                // Look up user by email
+                var sb = window._supabase;
+                var { data: profile, error: pErr } = await sb
+                    .from('profiles')
+                    .select('id, full_name')
+                    .eq('email', email)
+                    .single();
+
+                if (pErr || !profile) {
+                    alert('Member not found with email: ' + email);
+                    return;
+                }
+
+                await PointsSystem.awardBonusPoints(profile.id, amount, reason || 'Admin bonus');
+                alert('Awarded ' + amount + ' points to ' + profile.full_name + '!');
+
+                document.getElementById('bonusEmail').value = '';
+                document.getElementById('bonusAmount').value = '';
+                document.getElementById('bonusReason').value = '';
+
+                var stats = await PointsSystem.getSystemStats();
+                document.getElementById('ptsInCirculation').textContent = stats.inCirculation.toLocaleString();
+                document.getElementById('ptsActiveEarners').textContent = stats.activeMembersWithPoints;
+            } catch (err) {
+                alert('Error: ' + err.message);
+            }
+        }
+
+        async function loadAdminRewards() {
+            try {
+                // Get ALL rewards (including inactive) for admin view
+                var sb = window._supabase;
+                var { data: rewards, error } = await sb
+                    .from('rewards')
+                    .select('*')
+                    .order('points_cost', { ascending: true });
+
+                if (error) throw error;
+
+                var table = document.getElementById('rewardsAdminTable');
+                var body = document.getElementById('rewardsAdminBody');
+                body.innerHTML = '';
+
+                if (!rewards || rewards.length === 0) {
+                    table.style.display = 'none';
+                    return;
+                }
+
+                for (var i = 0; i < rewards.length; i++) {
+                    var r = rewards[i];
+                    var qtyText = r.quantity_available !== null ? r.quantity_claimed + '/' + r.quantity_available : r.quantity_claimed + '/∞';
+                    var statusText = r.is_active ? '<span style="color:var(--ink-green);">Active</span>' : '<span style="color:var(--ink-red);">Inactive</span>';
+
+                    var row = document.createElement('tr');
+                    row.innerHTML = '<td>' + r.title + '</td>' +
+                        '<td><span style="text-transform:capitalize;">' + r.category + '</span></td>' +
+                        '<td style="color:var(--ink-cyan);font-weight:600;">' + r.points_cost + ' pts</td>' +
+                        '<td>' + qtyText + '</td>' +
+                        '<td>' + statusText + '</td>' +
+                        '<td>' +
+                        (r.is_active ?
+                            '<button onclick="adminDeactivateReward(\'' + r.id + '\')" style="background:rgba(255,61,90,0.1);color:var(--ink-red);border:1px solid rgba(255,61,90,0.2);border-radius:6px;padding:4px 10px;cursor:pointer;font-size:0.8rem;">Deactivate</button>'
+                            : '<span style="color:var(--ink-gray);font-size:0.8rem;">Deactivated</span>') +
+                        '</td>';
+                    body.appendChild(row);
+                }
+
+                table.style.display = 'table';
+            } catch (err) {
+                console.error('[Admin Rewards]', err);
+            }
+        }
+
+        async function adminDeactivateReward(rewardId) {
+            if (!confirm('Deactivate this reward? Members will no longer be able to redeem it.')) return;
+            try {
+                await PointsSystem.deactivateReward(rewardId);
+                await loadAdminRewards();
+            } catch (err) {
+                alert('Error: ' + err.message);
+            }
+        }
+
+        // Load points admin data when the tab is first opened
+        var _pointsAdminLoaded = false;
+        var _origSwitchTab = switchTab;
+        switchTab = function(tabName) {
+            _origSwitchTab.call(null, tabName);
+            if (tabName === 'pointsRewards' && !_pointsAdminLoaded) {
+                _pointsAdminLoaded = true;
+                loadPointsAdmin();
+            }
+        };
     </script>
 </body>
 </html>

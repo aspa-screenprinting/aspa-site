@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASPA+ Rewards Store</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="supabase-init.js"></script>
+    <script src="points-system.js"></script>
+    <style>
+        :root {
+            --ink-black: #0a0a0a;
+            --ink-dark: #1a1a2e;
+            --ink-purple: #6c2bd9;
+            --ink-magenta: #e91e8c;
+            --ink-cyan: #00d4ff;
+            --ink-yellow: #ffd400;
+            --ink-orange: #ff6b35;
+            --ink-white: #f8f8f8;
+            --ink-gray: #b0b0b0;
+            --ink-gray-dark: #2a2a3e;
+            --ink-green: #00e676;
+            --ink-red: #ff3d5a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--ink-black);
+            color: var(--ink-white);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 0 24px;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .nav-logo {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            align-items: center;
+        }
+
+        .nav-logo-main {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00d4ff 0%, #e91e8c 50%, #ffd400 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2px;
+        }
+
+        .nav-logo-sub {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            color: var(--ink-gray);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--ink-gray);
+            text-decoration: none;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover { color: var(--ink-cyan); }
+
+        .nav-links a.active { color: var(--ink-cyan); }
+
+        .nav-aspa-plus {
+            background: linear-gradient(135deg, #00d4ff 0%, #e91e8c 50%, #ffd400 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
+        }
+
+        .nav-auth {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, #e91e8c, #6c2bd9);
+            color: white !important;
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-size: 0.85rem !important;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(233, 30, 140, 0.3);
+        }
+
+        /* Mobile menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background: var(--ink-white);
+            transition: 0.3s;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Hero / Balance Section */
+        .rewards-hero {
+            text-align: center;
+            padding: 60px 0 40px;
+        }
+
+        .rewards-hero h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3.5rem;
+            letter-spacing: 4px;
+            background: linear-gradient(135deg, #00d4ff 0%, #e91e8c 50%, #ffd400 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+        }
+
+        .rewards-hero p {
+            color: var(--ink-gray);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .balance-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 30px auto;
+            max-width: 500px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .balance-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--ink-cyan), var(--ink-magenta), var(--ink-yellow));
+        }
+
+        .balance-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            color: var(--ink-gray);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .balance-amount {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 5rem;
+            color: var(--ink-cyan);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .balance-subtitle {
+            color: var(--ink-gray);
+            font-size: 0.85rem;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin: 40px 0 60px;
+        }
+
+        .how-step {
+            text-align: center;
+            padding: 24px;
+        }
+
+        .how-step-icon {
+            font-size: 2rem;
+            margin-bottom: 12px;
+        }
+
+        .how-step h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            color: var(--ink-white);
+            margin-bottom: 6px;
+        }
+
+        .how-step p {
+            color: var(--ink-gray);
+            font-size: 0.85rem;
+        }
+
+        /* Reward Tier Sections */
+        .tier-section {
+            margin-bottom: 60px;
+        }
+
+        .tier-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .tier-badge {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .tier-badge.small {
+            background: rgba(0, 212, 255, 0.15);
+            color: var(--ink-cyan);
+        }
+
+        .tier-badge.medium {
+            background: rgba(233, 30, 140, 0.15);
+            color: var(--ink-magenta);
+        }
+
+        .tier-badge.large {
+            background: rgba(255, 212, 0, 0.15);
+            color: var(--ink-yellow);
+        }
+
+        .tier-header h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            letter-spacing: 3px;
+            color: var(--ink-white);
+        }
+
+        /* Reward Cards Grid */
+        .rewards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .reward-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            padding: 28px;
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .reward-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(0, 212, 255, 0.3);
+            box-shadow: 0 12px 30px rgba(0, 212, 255, 0.1);
+        }
+
+        .reward-card.locked {
+            opacity: 0.6;
+        }
+
+        .reward-card.locked:hover {
+            transform: none;
+            border-color: rgba(255, 255, 255, 0.06);
+            box-shadow: none;
+        }
+
+        .reward-icon {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+        }
+
+        .reward-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--ink-white);
+            margin-bottom: 8px;
+        }
+
+        .reward-description {
+            color: var(--ink-gray);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            flex: 1;
+        }
+
+        .reward-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .reward-cost {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--ink-cyan);
+        }
+
+        .reward-cost span {
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: var(--ink-gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-redeem {
+            background: linear-gradient(135deg, #e91e8c, #6c2bd9);
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-redeem:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(233, 30, 140, 0.35);
+        }
+
+        .btn-redeem:disabled {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--ink-gray);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .need-more {
+            font-size: 0.75rem;
+            color: var(--ink-orange);
+            margin-top: 6px;
+            text-align: right;
+        }
+
+        .quantity-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            font-size: 0.7rem;
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--ink-gray);
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+
+        /* Activity Feed */
+        .activity-section {
+            margin: 60px 0;
+        }
+
+        .activity-section h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            letter-spacing: 3px;
+            margin-bottom: 24px;
+        }
+
+        .activity-feed {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .activity-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .activity-item:last-child { border-bottom: none; }
+
+        .activity-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .activity-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .activity-dot.earn { background: var(--ink-green); }
+        .activity-dot.spend { background: var(--ink-magenta); }
+
+        .activity-desc {
+            font-size: 0.9rem;
+            color: var(--ink-white);
+        }
+
+        .activity-date {
+            font-size: 0.75rem;
+            color: var(--ink-gray);
+        }
+
+        .activity-points {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .activity-points.earn { color: var(--ink-green); }
+        .activity-points.spend { color: var(--ink-magenta); }
+
+        .activity-empty {
+            text-align: center;
+            padding: 40px;
+            color: var(--ink-gray);
+        }
+
+        /* Confirmation Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.75);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal {
+            background: #141428;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 440px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .modal h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+        }
+
+        .modal p {
+            color: var(--ink-gray);
+            margin-bottom: 24px;
+            font-size: 0.95rem;
+        }
+
+        .modal-cost {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            color: var(--ink-cyan);
+            margin-bottom: 24px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .btn-cancel {
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--ink-gray);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-cancel:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--ink-white);
+        }
+
+        .btn-confirm {
+            background: linear-gradient(135deg, #e91e8c, #6c2bd9);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-confirm:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(233, 30, 140, 0.35);
+        }
+
+        /* Success state */
+        .modal-success {
+            display: none;
+        }
+
+        .modal-success.show {
+            display: block;
+        }
+
+        .modal-success-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+        }
+
+        /* Non-member view */
+        .non-member-view {
+            display: none;
+            text-align: center;
+            padding: 100px 24px;
+        }
+
+        .non-member-view.active {
+            display: block;
+        }
+
+        .non-member-view h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3rem;
+            letter-spacing: 3px;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #00d4ff, #e91e8c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .non-member-view p {
+            color: var(--ink-gray);
+            font-size: 1.1rem;
+            max-width: 500px;
+            margin: 0 auto 30px;
+        }
+
+        .btn-join {
+            display: inline-block;
+            background: linear-gradient(135deg, #e91e8c, #6c2bd9);
+            color: white;
+            padding: 14px 36px;
+            border-radius: 10px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .btn-join:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(233, 30, 140, 0.35);
+        }
+
+        /* Member view */
+        .member-view {
+            display: none;
+        }
+
+        .member-view.active {
+            display: block;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #141428;
+            border: 1px solid rgba(0, 230, 118, 0.3);
+            border-radius: 12px;
+            padding: 16px 24px;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            z-index: 3000;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+            animation: slideUp 0.3s ease;
+        }
+
+        .toast.show {
+            display: flex;
+        }
+
+        .toast.error {
+            border-color: rgba(255, 61, 90, 0.3);
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Loading spinner */
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(10, 10, 10, 0.8);
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 40px 24px;
+            margin-top: 60px;
+            text-align: center;
+        }
+
+        footer p {
+            color: var(--ink-gray);
+            font-size: 0.85rem;
+        }
+
+        footer a {
+            color: var(--ink-cyan);
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+
+            .nav-links.mobile-open {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: rgba(10, 10, 10, 0.98);
+                padding: 20px 24px;
+                gap: 16px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            }
+
+            .rewards-hero h1 { font-size: 2.5rem; }
+            .balance-amount { font-size: 3.5rem; }
+            .how-it-works { grid-template-columns: 1fr; gap: 16px; }
+            .rewards-grid { grid-template-columns: 1fr; }
+            .modal { padding: 28px; }
+        }
+
+        @media (max-width: 480px) {
+            .rewards-hero h1 { font-size: 2rem; }
+            .balance-amount { font-size: 2.5rem; }
+            .reward-footer { flex-direction: column; gap: 12px; align-items: flex-start; }
+            .btn-redeem { width: 100%; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <span class="nav-logo-main">ASPA</span>
+                <span class="nav-logo-sub">Screen Printing</span>
+            </a>
+
+            <div class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('mobile-open')">
+                <span></span><span></span><span></span>
+            </div>
+
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="directory.html">Directory</a></li>
+                <li><a href="resources.html">Resources</a></li>
+                <li><a href="discounts.html" class="nav-aspa-plus">Discounts<sup>+</sup></a></li>
+                <li><a href="rewards.html" class="nav-aspa-plus active">Rewards<sup>+</sup></a></li>
+                <li>
+                    <div class="nav-auth" id="navAuthContainer">
+                        <a href="join.html" class="nav-cta" id="navJoinBtn">Join ASPA</a>
+                        <a href="login.html" style="color:#b0b0b0;font-family:Inter,sans-serif;font-size:0.85rem;cursor:pointer;text-decoration:none;">Log In</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Non-Member View -->
+    <div class="non-member-view" id="nonMemberContent">
+        <div class="container">
+            <div style="font-size:4rem;margin-bottom:20px;">🏆</div>
+            <h2>ASPA+ REWARDS STORE</h2>
+            <p>Earn points by engaging with the community — connect your socials, watch webinars, sign up with suppliers — then redeem for free merch, discounts, and even free ASPA+ membership.</p>
+            <a href="join.html" class="btn-join">Join ASPA+ to Start Earning</a>
+            <p style="margin-top:20px;font-size:0.85rem;color:var(--ink-gray);">Already a member? <a href="login.html" style="color:var(--ink-cyan);text-decoration:none;">Log in</a></p>
+        </div>
+    </div>
+
+    <!-- Member View -->
+    <div class="member-view" id="memberContent">
+        <div class="container">
+
+            <!-- Hero / Balance -->
+            <div class="rewards-hero">
+                <h1>REWARDS STORE</h1>
+                <p>Earn points, claim rewards, and level up your ASPA+ membership.</p>
+
+                <div class="balance-card">
+                    <div class="balance-label">Your Points Balance</div>
+                    <div class="balance-amount" id="pointsBalance">—</div>
+                    <div class="balance-subtitle">
+                        <a href="dashboard.html" style="color:var(--ink-cyan);text-decoration:none;">Earn more points →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- How It Works -->
+            <div class="how-it-works">
+                <div class="how-step">
+                    <div class="how-step-icon">📱</div>
+                    <h3>Connect Socials</h3>
+                    <p>+50 pts per platform</p>
+                </div>
+                <div class="how-step">
+                    <div class="how-step-icon">🎬</div>
+                    <h3>Watch Webinars</h3>
+                    <p>+75 pts per webinar</p>
+                </div>
+                <div class="how-step">
+                    <div class="how-step-icon">🤝</div>
+                    <h3>Sign Up with Suppliers</h3>
+                    <p>+100 pts per signup</p>
+                </div>
+            </div>
+
+            <!-- Reward Tiers -->
+            <div id="rewardTiers">
+                <!-- Dynamically populated -->
+                <div style="text-align:center;padding:60px;">
+                    <div class="spinner" style="width:32px;height:32px;border-width:3px;"></div>
+                    <p style="color:var(--ink-gray);margin-top:16px;">Loading rewards...</p>
+                </div>
+            </div>
+
+            <!-- Activity Feed -->
+            <div class="activity-section">
+                <h2>RECENT ACTIVITY</h2>
+                <div class="activity-feed" id="activityFeed">
+                    <div class="activity-empty">Loading activity...</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div class="modal-overlay" id="redeemModal">
+        <div class="modal">
+            <div id="modalConfirm">
+                <h3>Redeem Reward</h3>
+                <p id="modalRewardName"></p>
+                <div class="modal-cost"><span id="modalCost"></span> pts</div>
+                <p style="font-size:0.85rem;">This will deduct points from your balance. This action cannot be undone.</p>
+                <div class="modal-buttons">
+                    <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+                    <button class="btn-confirm" id="btnConfirmRedeem" onclick="confirmRedeem()">Confirm Redemption</button>
+                </div>
+            </div>
+            <div class="modal-success" id="modalSuccess">
+                <div class="modal-success-icon">🎉</div>
+                <h3>Reward Claimed!</h3>
+                <p id="modalSuccessMsg">Your reward has been claimed. Check your dashboard for details.</p>
+                <button class="btn-confirm" onclick="closeModal()" style="margin-top:16px;">Done</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <span id="toastIcon">✅</span>
+        <span id="toastMsg"></span>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 American Screen Printing Association. <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a></p>
+    </footer>
+
+    <script>
+    (function () {
+        'use strict';
+
+        var currentRewardId = null;
+        var currentBalance = 0;
+
+        // ── Auth Gate ─────────────────────────────────────────
+
+        window.addEventListener('aspa-auth-ready', function (e) {
+            if (e.detail && e.detail.session) {
+                window.updateNavForSupabase(e.detail.profile);
+                document.getElementById('memberContent').classList.add('active');
+                document.getElementById('nonMemberContent').classList.remove('active');
+                loadRewardsPage();
+            } else {
+                document.getElementById('nonMemberContent').classList.add('active');
+                document.getElementById('memberContent').classList.remove('active');
+            }
+        });
+
+        // Fallback if auth already resolved
+        if (window._supabaseSession) {
+            window.updateNavForSupabase(window._memberProfile);
+            document.getElementById('memberContent').classList.add('active');
+            loadRewardsPage();
+        }
+
+        // ── Load Page Data ────────────────────────────────────
+
+        async function loadRewardsPage() {
+            try {
+                await Promise.all([loadBalance(), loadRewards(), loadActivity()]);
+            } catch (err) {
+                console.error('[Rewards] Load error:', err);
+            }
+        }
+
+        async function loadBalance() {
+            try {
+                currentBalance = await PointsSystem.getBalance();
+                animateCounter(document.getElementById('pointsBalance'), currentBalance);
+            } catch (err) {
+                document.getElementById('pointsBalance').textContent = '0';
+            }
+        }
+
+        async function loadRewards() {
+            try {
+                var rewards = await PointsSystem.getRewards();
+                renderRewards(rewards);
+            } catch (err) {
+                document.getElementById('rewardTiers').innerHTML = '<p style="text-align:center;color:var(--ink-gray);padding:40px;">Unable to load rewards.</p>';
+            }
+        }
+
+        async function loadActivity() {
+            try {
+                var history = await PointsSystem.getHistory(10);
+                renderActivity(history);
+            } catch (err) {
+                document.getElementById('activityFeed').innerHTML = '<div class="activity-empty">No activity yet — start earning points!</div>';
+            }
+        }
+
+        // ── Render Rewards ────────────────────────────────────
+
+        var rewardIcons = {
+            'swag': '🎁',
+            'discount_code': '💰',
+            'membership_1mo': '⭐',
+            'membership_6mo': '🌟',
+            'membership_12mo': '🏆'
+        };
+
+        var tierLabels = {
+            'small': 'Starter Rewards',
+            'medium': 'Pro Rewards',
+            'large': 'Elite Rewards'
+        };
+
+        function renderRewards(rewards) {
+            var tiers = { small: [], medium: [], large: [] };
+            for (var i = 0; i < rewards.length; i++) {
+                var cat = rewards[i].category;
+                if (tiers[cat]) tiers[cat].push(rewards[i]);
+            }
+
+            var html = '';
+            var tierOrder = ['small', 'medium', 'large'];
+
+            for (var t = 0; t < tierOrder.length; t++) {
+                var tier = tierOrder[t];
+                var items = tiers[tier];
+                if (items.length === 0) continue;
+
+                html += '<div class="tier-section">';
+                html += '<div class="tier-header">';
+                html += '<span class="tier-badge ' + tier + '">' + tier + '</span>';
+                html += '<h2>' + tierLabels[tier] + '</h2>';
+                html += '</div>';
+                html += '<div class="rewards-grid">';
+
+                for (var j = 0; j < items.length; j++) {
+                    var r = items[j];
+                    var canAfford = currentBalance >= r.points_cost;
+                    var soldOut = r.quantity_available !== null && r.quantity_claimed >= r.quantity_available;
+                    var locked = !canAfford || soldOut;
+                    var icon = rewardIcons[r.reward_type] || '🎁';
+                    var deficit = r.points_cost - currentBalance;
+
+                    html += '<div class="reward-card' + (locked ? ' locked' : '') + '">';
+
+                    if (r.quantity_available !== null) {
+                        var remaining = r.quantity_available - r.quantity_claimed;
+                        html += '<span class="quantity-badge">' + remaining + ' left</span>';
+                    }
+
+                    html += '<div class="reward-icon">' + icon + '</div>';
+                    html += '<div class="reward-title">' + r.title + '</div>';
+                    html += '<div class="reward-description">' + (r.description || '') + '</div>';
+                    html += '<div class="reward-footer">';
+                    html += '<div><div class="reward-cost">' + r.points_cost + ' <span>pts</span></div>';
+
+                    if (!canAfford && !soldOut) {
+                        html += '<div class="need-more">Need ' + deficit + ' more</div>';
+                    }
+
+                    html += '</div>';
+
+                    if (soldOut) {
+                        html += '<button class="btn-redeem" disabled>Sold Out</button>';
+                    } else if (!canAfford) {
+                        html += '<button class="btn-redeem" disabled>Not Enough Pts</button>';
+                    } else {
+                        html += '<button class="btn-redeem" onclick="openRedeemModal(\'' + r.id + '\', \'' + escapeHtml(r.title) + '\', ' + r.points_cost + ')">Redeem</button>';
+                    }
+
+                    html += '</div></div>';
+                }
+
+                html += '</div></div>';
+            }
+
+            if (html === '') {
+                html = '<p style="text-align:center;color:var(--ink-gray);padding:40px;">No rewards available yet. Check back soon!</p>';
+            }
+
+            document.getElementById('rewardTiers').innerHTML = html;
+        }
+
+        // ── Render Activity Feed ──────────────────────────────
+
+        function renderActivity(history) {
+            if (!history || history.length === 0) {
+                document.getElementById('activityFeed').innerHTML = '<div class="activity-empty">No activity yet — start earning points on your <a href="dashboard.html" style="color:var(--ink-cyan);">dashboard</a>!</div>';
+                return;
+            }
+
+            var html = '';
+            for (var i = 0; i < history.length; i++) {
+                var item = history[i];
+                var isEarn = item.transaction_type === 'earn';
+                var desc = item.description || (item.activities ? item.activities.display_name : 'Points transaction');
+                var date = new Date(item.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                var sign = isEarn ? '+' : '-';
+
+                html += '<div class="activity-item">';
+                html += '<div class="activity-left">';
+                html += '<div class="activity-dot ' + item.transaction_type + '"></div>';
+                html += '<div><div class="activity-desc">' + desc + '</div>';
+                html += '<div class="activity-date">' + date + '</div></div>';
+                html += '</div>';
+                html += '<div class="activity-points ' + item.transaction_type + '">' + sign + item.points_amount + ' pts</div>';
+                html += '</div>';
+            }
+
+            document.getElementById('activityFeed').innerHTML = html;
+        }
+
+        // ── Modal Handlers ────────────────────────────────────
+
+        window.openRedeemModal = function (rewardId, title, cost) {
+            currentRewardId = rewardId;
+            document.getElementById('modalRewardName').textContent = title;
+            document.getElementById('modalCost').textContent = cost;
+            document.getElementById('modalConfirm').style.display = 'block';
+            document.getElementById('modalSuccess').classList.remove('show');
+            document.getElementById('redeemModal').classList.add('show');
+        };
+
+        window.closeModal = function () {
+            document.getElementById('redeemModal').classList.remove('show');
+            currentRewardId = null;
+        };
+
+        window.confirmRedeem = async function () {
+            if (!currentRewardId) return;
+
+            var btn = document.getElementById('btnConfirmRedeem');
+            btn.innerHTML = '<span class="spinner"></span>';
+            btn.disabled = true;
+
+            try {
+                var result = await PointsSystem.redeemReward(currentRewardId);
+                currentBalance = result.newBalance;
+
+                // Show success
+                document.getElementById('modalConfirm').style.display = 'none';
+                document.getElementById('modalSuccess').classList.add('show');
+
+                // Update balance display
+                animateCounter(document.getElementById('pointsBalance'), currentBalance);
+
+                // Refresh rewards to update affordability
+                await loadRewards();
+                await loadActivity();
+            } catch (err) {
+                showToast(err.message || 'Failed to redeem reward', true);
+                window.closeModal();
+            } finally {
+                btn.innerHTML = 'Confirm Redemption';
+                btn.disabled = false;
+            }
+        };
+
+        // Close modal on overlay click
+        document.getElementById('redeemModal').addEventListener('click', function (e) {
+            if (e.target === this) window.closeModal();
+        });
+
+        // ── Helpers ───────────────────────────────────────────
+
+        function animateCounter(el, target) {
+            var current = parseInt(el.textContent) || 0;
+            if (current === target) { el.textContent = target; return; }
+
+            var duration = 800;
+            var start = performance.now();
+
+            function step(now) {
+                var progress = Math.min((now - start) / duration, 1);
+                var eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+                el.textContent = Math.round(current + (target - current) * eased);
+                if (progress < 1) requestAnimationFrame(step);
+            }
+
+            requestAnimationFrame(step);
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+        }
+
+        function showToast(msg, isError) {
+            var toast = document.getElementById('toast');
+            document.getElementById('toastIcon').textContent = isError ? '⚠️' : '✅';
+            document.getElementById('toastMsg').textContent = msg;
+            toast.className = 'toast show' + (isError ? ' error' : '');
+            setTimeout(function () { toast.classList.remove('show'); }, 4000);
+        }
+
+        window.showToast = showToast;
+
+    })();
+    </script>
+
+</body>
+</html>

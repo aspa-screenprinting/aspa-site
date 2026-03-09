@@ -6,6 +6,7 @@
     <title>ASPA+ Member Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="supabase-init.js"></script>
+    <script src="points-system.js"></script>
     <style>
         :root {
             --ink-black: #0a0a0a;
@@ -432,6 +433,256 @@
             box-shadow: 0 0 60px rgba(0, 230, 118, 0.3), 0 8px 32px rgba(0, 230, 118, 0.15);
         }
 
+        /* POINTS & REWARDS SECTION */
+        .points-section {
+            margin-bottom: 3rem;
+        }
+
+        .points-hero {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .points-balance-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 16px;
+            padding: 32px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .points-balance-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--ink-cyan), var(--ink-magenta), var(--ink-yellow));
+        }
+
+        .points-balance-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.8rem;
+            color: var(--ink-gray);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 6px;
+        }
+
+        .points-balance-value {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3.5rem;
+            color: var(--ink-cyan);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .points-balance-link {
+            color: var(--ink-cyan);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .points-balance-link:hover { text-decoration: underline; }
+
+        .earn-actions {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .earn-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 14px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .earn-card:hover {
+            border-color: rgba(0, 212, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .earn-card-icon { font-size: 1.8rem; margin-bottom: 8px; }
+
+        .earn-card-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--ink-white);
+            margin-bottom: 4px;
+        }
+
+        .earn-card-pts {
+            font-size: 0.8rem;
+            color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        .earn-card-desc {
+            font-size: 0.8rem;
+            color: var(--ink-gray);
+            margin-top: 4px;
+        }
+
+        /* Earn Modal / Expandable Panel */
+        .earn-panel {
+            display: none;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 24px;
+            margin-top: 16px;
+        }
+
+        .earn-panel.show { display: block; }
+
+        .earn-panel h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+        }
+
+        .earn-panel .form-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 12px;
+            align-items: center;
+        }
+
+        .earn-panel input[type="url"],
+        .earn-panel input[type="text"] {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 10px 14px;
+            color: var(--ink-white);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+        }
+
+        .earn-panel input:focus {
+            outline: none;
+            border-color: var(--ink-cyan);
+            box-shadow: 0 0 12px rgba(0, 212, 255, 0.15);
+        }
+
+        .earn-panel .platform-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem;
+            color: var(--ink-gray);
+            min-width: 90px;
+        }
+
+        .btn-earn {
+            background: linear-gradient(135deg, #e91e8c, #6c2bd9);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-earn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(233, 30, 140, 0.3);
+        }
+
+        .btn-earn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .claim-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+
+        .claim-status {
+            font-size: 0.75rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 3px 10px;
+            border-radius: 12px;
+        }
+
+        .claim-status.pending { background: rgba(255, 212, 0, 0.15); color: var(--ink-yellow); }
+        .claim-status.approved { background: rgba(0, 230, 118, 0.15); color: var(--ink-green); }
+        .claim-status.denied { background: rgba(255, 61, 90, 0.15); color: var(--ink-red); }
+
+        /* Points activity mini feed */
+        .points-activity-mini {
+            margin-top: 16px;
+        }
+
+        .points-activity-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            font-size: 0.85rem;
+        }
+
+        .points-activity-item:last-child { border-bottom: none; }
+
+        .pts-earned { color: var(--ink-green); font-weight: 600; }
+        .pts-spent { color: var(--ink-magenta); font-weight: 600; }
+
+        /* Points toast */
+        .points-toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #141428;
+            border: 1px solid rgba(0, 230, 118, 0.3);
+            border-radius: 12px;
+            padding: 16px 24px;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            z-index: 3000;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+            animation: ptsFadeIn 0.3s ease;
+        }
+
+        .points-toast.show { display: flex; }
+        .points-toast.error { border-color: rgba(255, 61, 90, 0.3); }
+
+        @keyframes ptsFadeIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .points-hero { grid-template-columns: 1fr; }
+            .earn-actions { grid-template-columns: 1fr; }
+            .points-balance-value { font-size: 2.5rem; }
+        }
+
         /* QUICK LINKS */
         .quick-links {
             display: grid;
@@ -819,6 +1070,97 @@
             </div>
         </section>
 
+        <!-- POINTS & REWARDS SECTION -->
+        <section class="points-section">
+            <h2 class="section-header">POINTS & REWARDS</h2>
+            <p class="section-subtitle">Earn points by engaging with the ASPA community. Redeem for merch, discounts, and free membership.</p>
+
+            <div class="points-hero">
+                <!-- Balance Card -->
+                <div class="points-balance-card">
+                    <div class="points-balance-label">Your Points</div>
+                    <div class="points-balance-value" id="dashPointsBalance">—</div>
+                    <a href="rewards.html" class="points-balance-link">Browse Rewards →</a>
+                </div>
+
+                <!-- Earn Action Cards -->
+                <div class="earn-actions">
+                    <div class="earn-card" onclick="toggleEarnPanel('socials')">
+                        <div class="earn-card-icon">📱</div>
+                        <div class="earn-card-title">Connect Socials</div>
+                        <div class="earn-card-pts">+50 pts each</div>
+                        <div class="earn-card-desc">Link your Instagram, TikTok, Facebook, or YouTube</div>
+                    </div>
+                    <div class="earn-card" onclick="toggleEarnPanel('webinar')">
+                        <div class="earn-card-icon">🎬</div>
+                        <div class="earn-card-title">Watch Webinar</div>
+                        <div class="earn-card-pts">+75 pts</div>
+                        <div class="earn-card-desc">Watch a STCH supplier webinar and claim credit</div>
+                    </div>
+                    <div class="earn-card" onclick="toggleEarnPanel('supplier')">
+                        <div class="earn-card-icon">🤝</div>
+                        <div class="earn-card-title">Supplier Signup</div>
+                        <div class="earn-card-pts">+100 pts</div>
+                        <div class="earn-card-desc">Register with an official STCH supplier</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Connect Socials Panel -->
+            <div class="earn-panel" id="earnPanelSocials">
+                <h3>📱 Connect Your Social Accounts</h3>
+                <p style="color:var(--ink-gray);font-size:0.85rem;margin-bottom:16px;">Paste your profile URL for each platform. +50 points per platform, awarded instantly.</p>
+                <div class="form-row">
+                    <span class="platform-label">Instagram</span>
+                    <input type="url" id="socialInstagram" placeholder="https://instagram.com/yourhandle">
+                    <button class="btn-earn" onclick="connectSocial('instagram')">Connect</button>
+                </div>
+                <div class="form-row">
+                    <span class="platform-label">TikTok</span>
+                    <input type="url" id="socialTiktok" placeholder="https://tiktok.com/@yourhandle">
+                    <button class="btn-earn" onclick="connectSocial('tiktok')">Connect</button>
+                </div>
+                <div class="form-row">
+                    <span class="platform-label">Facebook</span>
+                    <input type="url" id="socialFacebook" placeholder="https://facebook.com/yourpage">
+                    <button class="btn-earn" onclick="connectSocial('facebook')">Connect</button>
+                </div>
+                <div class="form-row">
+                    <span class="platform-label">YouTube</span>
+                    <input type="url" id="socialYoutube" placeholder="https://youtube.com/@yourchannel">
+                    <button class="btn-earn" onclick="connectSocial('youtube')">Connect</button>
+                </div>
+                <div id="socialLinksStatus" style="margin-top:12px;"></div>
+            </div>
+
+            <!-- Watch Webinar Panel -->
+            <div class="earn-panel" id="earnPanelWebinar">
+                <h3>🎬 Claim a Webinar</h3>
+                <p style="color:var(--ink-gray);font-size:0.85rem;margin-bottom:16px;">Submit the webinar you watched. Points are awarded after admin review.</p>
+                <div class="form-row">
+                    <input type="text" id="webinarEvidence" placeholder="Webinar title or URL" style="flex:2;">
+                    <button class="btn-earn" onclick="submitWebinarClaim()">Submit Claim</button>
+                </div>
+                <div id="webinarClaimsStatus" style="margin-top:12px;"></div>
+            </div>
+
+            <!-- Supplier Signup Panel -->
+            <div class="earn-panel" id="earnPanelSupplier">
+                <h3>🤝 Claim a Supplier Signup</h3>
+                <p style="color:var(--ink-gray);font-size:0.85rem;margin-bottom:16px;">Tell us which supplier you signed up with. Points are awarded after admin review.</p>
+                <div class="form-row">
+                    <input type="text" id="supplierEvidence" placeholder="Supplier name or confirmation URL" style="flex:2;">
+                    <button class="btn-earn" onclick="submitSupplierClaim()">Submit Claim</button>
+                </div>
+                <div id="supplierClaimsStatus" style="margin-top:12px;"></div>
+            </div>
+
+            <!-- Recent Activity Mini Feed -->
+            <div class="points-activity-mini" id="dashActivityFeed">
+                <!-- Populated by JS -->
+            </div>
+        </section>
+
         <!-- BENEFITS SECTION -->
         <section class="benefits-section">
             <h2 class="section-header">YOUR ASPA+ BENEFITS</h2>
@@ -894,6 +1236,7 @@
         <section>
             <h2 class="section-header" style="margin-bottom: 2rem; font-size: 1.8rem;">QUICK ACTIONS</h2>
             <div class="quick-links">
+                <a href="rewards.html" class="quick-link-btn" style="border-color:var(--ink-cyan);color:var(--ink-cyan);">🏆 Rewards Store</a>
                 <a href="exam.html" class="quick-link-btn">Take CSP Exam</a>
                 <a href="resources.html" class="quick-link-btn">Browse Resources</a>
                 <a href="directory.html" class="quick-link-btn">View Directory</a>
@@ -994,6 +1337,180 @@
             <p>&copy; 2026 American Screen Printing Association (ASPA). All rights reserved.</p>
         </div>
     </footer>
+
+    <!-- Points Toast -->
+    <div class="points-toast" id="pointsToast">
+        <span id="ptsToastIcon">✅</span>
+        <span id="ptsToastMsg"></span>
+    </div>
+
+    <script>
+        // ── POINTS & REWARDS FUNCTIONALITY ────────────────────
+        var _dashBalance = 0;
+
+        async function loadDashboardPoints() {
+            try {
+                _dashBalance = await PointsSystem.getBalance();
+                animatePtsCounter(document.getElementById('dashPointsBalance'), _dashBalance);
+
+                // Load existing social links to disable already-connected platforms
+                var links = await PointsSystem.getSocialLinks();
+                for (var i = 0; i < links.length; i++) {
+                    var inputId = 'social' + links[i].platform.charAt(0).toUpperCase() + links[i].platform.slice(1);
+                    var input = document.getElementById(inputId);
+                    if (input) {
+                        input.value = links[i].url;
+                        input.disabled = true;
+                        input.style.opacity = '0.5';
+                        var btn = input.nextElementSibling;
+                        if (btn) { btn.textContent = '✓ Connected'; btn.disabled = true; }
+                    }
+                }
+
+                // Load recent activity
+                var history = await PointsSystem.getHistory(5);
+                renderDashActivity(history);
+
+                // Load pending claims
+                var claims = await PointsSystem.getMyClaims();
+                renderPendingClaims(claims);
+            } catch (err) {
+                console.error('[Dashboard Points]', err);
+                document.getElementById('dashPointsBalance').textContent = '0';
+            }
+        }
+
+        function renderDashActivity(history) {
+            var container = document.getElementById('dashActivityFeed');
+            if (!history || history.length === 0) {
+                container.innerHTML = '<p style="color:var(--ink-gray);font-size:0.85rem;padding:8px 0;">No points activity yet. Start earning above!</p>';
+                return;
+            }
+            var html = '<h3 style="font-family:Space Grotesk,sans-serif;font-size:0.95rem;margin-bottom:8px;color:var(--ink-gray);text-transform:uppercase;letter-spacing:1px;">Recent Activity</h3>';
+            for (var i = 0; i < history.length; i++) {
+                var item = history[i];
+                var isEarn = item.transaction_type === 'earn';
+                var desc = item.description || (item.activities ? item.activities.display_name : 'Points');
+                var date = new Date(item.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                html += '<div class="points-activity-item">';
+                html += '<span style="color:var(--ink-white);">' + desc + ' <span style="color:var(--ink-gray);font-size:0.75rem;">' + date + '</span></span>';
+                html += '<span class="' + (isEarn ? 'pts-earned' : 'pts-spent') + '">' + (isEarn ? '+' : '-') + item.points_amount + ' pts</span>';
+                html += '</div>';
+            }
+            container.innerHTML = html;
+        }
+
+        function renderPendingClaims(claims) {
+            // Show pending claims in the webinar/supplier panels
+            var webinarHtml = '', supplierHtml = '';
+            for (var i = 0; i < claims.length; i++) {
+                var c = claims[i];
+                var type = c.activities ? c.activities.type : '';
+                var statusClass = c.status;
+                var statusLabel = c.status.charAt(0).toUpperCase() + c.status.slice(1);
+                var html = '<div class="claim-item"><span style="font-size:0.85rem;">' + (c.evidence || 'Claim submitted') + '</span><span class="claim-status ' + statusClass + '">' + statusLabel + '</span></div>';
+
+                if (type === 'webinar_watched') webinarHtml += html;
+                else if (type === 'supplier_signup') supplierHtml += html;
+            }
+            if (webinarHtml) document.getElementById('webinarClaimsStatus').innerHTML = '<h4 style="font-size:0.85rem;color:var(--ink-gray);margin:8px 0;">Your Claims</h4>' + webinarHtml;
+            if (supplierHtml) document.getElementById('supplierClaimsStatus').innerHTML = '<h4 style="font-size:0.85rem;color:var(--ink-gray);margin:8px 0;">Your Claims</h4>' + supplierHtml;
+        }
+
+        function toggleEarnPanel(type) {
+            var panels = ['Socials', 'Webinar', 'Supplier'];
+            for (var i = 0; i < panels.length; i++) {
+                var panel = document.getElementById('earnPanel' + panels[i]);
+                if (panels[i].toLowerCase() === type) {
+                    panel.classList.toggle('show');
+                } else {
+                    panel.classList.remove('show');
+                }
+            }
+        }
+
+        async function connectSocial(platform) {
+            var inputId = 'social' + platform.charAt(0).toUpperCase() + platform.slice(1);
+            var input = document.getElementById(inputId);
+            var url = input.value.trim();
+            if (!url) { showPtsToast('Please enter a URL', true); return; }
+
+            var btn = input.nextElementSibling;
+            btn.disabled = true;
+            btn.textContent = '...';
+
+            try {
+                await PointsSystem.submitSocialLink(platform, url);
+                _dashBalance += 50;
+                animatePtsCounter(document.getElementById('dashPointsBalance'), _dashBalance);
+                input.disabled = true;
+                input.style.opacity = '0.5';
+                btn.textContent = '✓ Connected';
+                showPtsToast('+50 pts! Connected ' + platform, false);
+                // Refresh activity
+                var history = await PointsSystem.getHistory(5);
+                renderDashActivity(history);
+            } catch (err) {
+                btn.disabled = false;
+                btn.textContent = 'Connect';
+                showPtsToast(err.message || 'Failed to connect', true);
+            }
+        }
+
+        async function submitWebinarClaim() {
+            var input = document.getElementById('webinarEvidence');
+            var evidence = input.value.trim();
+            if (!evidence) { showPtsToast('Please enter the webinar name or URL', true); return; }
+
+            try {
+                await PointsSystem.submitClaim('webinar_watched', evidence);
+                input.value = '';
+                showPtsToast('Webinar claim submitted — pending admin review', false);
+                var claims = await PointsSystem.getMyClaims();
+                renderPendingClaims(claims);
+            } catch (err) {
+                showPtsToast(err.message || 'Failed to submit claim', true);
+            }
+        }
+
+        async function submitSupplierClaim() {
+            var input = document.getElementById('supplierEvidence');
+            var evidence = input.value.trim();
+            if (!evidence) { showPtsToast('Please enter the supplier name or confirmation', true); return; }
+
+            try {
+                await PointsSystem.submitClaim('supplier_signup', evidence);
+                input.value = '';
+                showPtsToast('Supplier signup claim submitted — pending admin review', false);
+                var claims = await PointsSystem.getMyClaims();
+                renderPendingClaims(claims);
+            } catch (err) {
+                showPtsToast(err.message || 'Failed to submit claim', true);
+            }
+        }
+
+        function animatePtsCounter(el, target) {
+            var current = parseInt(el.textContent) || 0;
+            if (current === target) { el.textContent = target; return; }
+            var duration = 600;
+            var start = performance.now();
+            function step(now) {
+                var progress = Math.min((now - start) / duration, 1);
+                var eased = 1 - Math.pow(1 - progress, 3);
+                el.textContent = Math.round(current + (target - current) * eased);
+                if (progress < 1) requestAnimationFrame(step);
+            }
+            requestAnimationFrame(step);
+        }
+
+        function showPtsToast(msg, isError) {
+            var toast = document.getElementById('pointsToast');
+            document.getElementById('ptsToastIcon').textContent = isError ? '⚠️' : '✅';
+            document.getElementById('ptsToastMsg').textContent = msg;
+            toast.className = 'points-toast show' + (isError ? ' error' : '');
+            setTimeout(function () { toast.classList.remove('show'); }, 4000);
+        }
+    </script>
 
     <script>
         // AUTH GATE AND INITIALIZATION
@@ -1140,6 +1657,7 @@
             if (profile) {
                 initDashboard(profile);
                 window.updateNavForSupabase(profile);
+                loadDashboardPoints();
             }
         });
 
