@@ -1126,19 +1126,34 @@
             }
         }
 
+        function showMemberView() {
+            var nonMemberContent = document.getElementById('nonMemberContent');
+            var memberContent = document.getElementById('memberContent');
+            nonMemberContent.classList.remove('active');
+            memberContent.classList.add('active');
+        }
+
+        function showNonMemberView() {
+            var nonMemberContent = document.getElementById('nonMemberContent');
+            var memberContent = document.getElementById('memberContent');
+            nonMemberContent.classList.add('active');
+            memberContent.classList.remove('active');
+        }
+
         function initPage() {
             // Listen for auth state
             window.addEventListener('aspa-auth-ready', function(e) {
-                var nonMemberContent = document.getElementById('nonMemberContent');
-                var memberContent = document.getElementById('memberContent');
                 if (e.detail && e.detail.session) {
-                    nonMemberContent.classList.remove('active');
-                    memberContent.classList.add('active');
+                    showMemberView();
                 } else {
-                    nonMemberContent.classList.add('active');
-                    memberContent.classList.remove('active');
+                    showNonMemberView();
                 }
             });
+
+            // Also check if auth already resolved (event may have fired before listener attached)
+            if (window._supabaseSession) {
+                showMemberView();
+            }
         }
 
         // Direct init — script is at page bottom, DOM is ready
