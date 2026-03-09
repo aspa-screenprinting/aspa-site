@@ -42,32 +42,6 @@
             overflow-x: hidden;
         }
 
-        /* Ink splatter effects */
-        body::before,
-        body::after {
-            content: '';
-            position: fixed;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.15;
-            z-index: 0;
-        }
-
-        body::before {
-            width: 500px;
-            height: 500px;
-            background: linear-gradient(135deg, var(--ink-cyan) 0%, var(--ink-purple) 100%);
-            top: -200px;
-            left: -150px;
-        }
-
-        body::after {
-            width: 600px;
-            height: 600px;
-            background: linear-gradient(45deg, var(--ink-magenta) 0%, var(--ink-orange) 100%);
-            bottom: -250px;
-            right: -200px;
-        }
 
         /* Navigation */
         nav {
