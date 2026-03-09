@@ -2,8 +2,8 @@
 
 **Project:** screen-printing.us redesign
 **Client:** Dustin Cochran (cochran.dustin@gmail.com)
-**Date:** March 3–8, 2026 (last updated: Session 12)
-**Status:** In Progress — Core Pages Built, Resource Hub COMPLETE (All 18 Articles), **SITE LIVE on GitHub Pages**, Nav Standardized, **Supabase Backend Live** (Auth + Database), ASPA+ Gated Content Live, Admin Dashboard Built
+**Date:** March 3–9, 2026 (last updated: Session 14)
+**Status:** In Progress — Core Pages Built, Resource Hub COMPLETE (All 18 Articles), **SITE LIVE on GitHub Pages**, Nav Standardized, **Supabase Backend Live** (Auth + Database + Google OAuth), ASPA+ Gated Content Live, Admin Dashboard Built, **UI Polish Pass Complete**
 
 ---
 
@@ -489,6 +489,43 @@ screen-printing.us/contact                   → local SEO signal
 - Added "Log In" link to the static nav HTML on all pages so it's visible even without JS
 - All commits pushed and verified on live GitHub Pages site
 
+### Session 12 — Supabase Backend Migration (March 8)
+- Migrated from localStorage mock auth to **Supabase Auth + PostgreSQL**
+- Created Supabase project (ASPA Website Backend) on free tier
+- Set up `profiles` table with member data (tier, company, join date, etc.)
+- Created `supabase-init.js` shared auth loader — loads Supabase CDN, calls `getSession()`, fetches profile, dispatches `aspa-auth-ready` custom event
+- Updated all 35 HTML pages to use Supabase auth
+- Built admin dashboard (`admin.html`) for member management
+- Added `handleLogout()` and `updateNavForSupabase()` helpers
+
+### Session 13 — Google OAuth + Dashboard Nav Fix (March 9, early)
+- **Google OAuth:** Added "Sign in with Google" to `login.html` and `join.html`
+- Configured Google Cloud Console OAuth credentials
+- Added `https://wstonlslhlvdtbdyteeo.supabase.co` as authorized redirect URI in Supabase dashboard
+- Fixed dashboard nav bar misalignment and discounts page auth timing
+- Fixed login button CSS selector mismatch (`.login-btn` → `.login-button`)
+
+### Session 14 — UI Polish + Bug Fixes (March 9, later)
+- **Discounts page critical fix:** Removed duplicate CSS block (broken `</style>` tag rendered as `>`) and corrupted JS fragment between `toggleMobileMenu()` and `showMemberView()` that caused a syntax error preventing `initPage()` from running — this was why the discounts page kept forcing the unlock screen even for logged-in members
+- **Login page logo fix:** Font-size 24px→28px, "Screen Printing"→"SCREEN PRINTING"
+- **Broken link cleanup:** Fixed all `certification.html` → `exam.html` and `certified.html` → `certified-roster.html` references across dashboard footer, article-ghosting-staining.html, article-home-based-business.html
+- **Login page visual consistency:** Removed decorative gradient blobs (`body::before`/`body::after`) and fixed nav opacity (0.7→0.95) to match rest of site
+- **Dashboard nav purple tint fix:** Changed nav background from `rgba(26, 26, 46, 0.85)` (purple-tinted) to `rgba(10, 10, 10, 0.95)` (site-standard near-black), and border-bottom from purple to white/subtle
+
+### Commit History (Session 12–14)
+```
+25b7baa Fix dashboard nav background to match site-wide style (remove purple tint)
+e98eea0 Fix login page nav opacity to match rest of site (0.7 -> 0.95)
+58cbbe0 Remove decorative gradient blobs from login page for visual consistency
+5168e3b Fix discounts page: remove duplicate CSS and corrupted JS fragment
+bd2acee Fix login logo size and remove broken certification.html links
+7fd6c00 Fix dashboard nav and discounts page auth timing
+3fbf680 Add Google OAuth sign-in and social profile features
+3655882 Update handoff docs with Supabase backend details
+4aeff79 Fix login button selector: .login-btn → .login-button
+7479d7b Add Supabase backend: auth, database, admin dashboard
+```
+
 ### Commit History (Session 7–11)
 ```
 944c061 Add inline auth script to all 28 pages for instant login state display
@@ -729,6 +766,9 @@ Both pillar articles use a reusable template pattern:
 14. **Blog content to migrate on-site** — stop building equity for Blogger subdomains; all new content on screen-printing.us
 15. **Article template standardized** — sticky TOC, callout boxes, related articles, dual-CTA; reusable for all future articles
 16. **Supabase backend live** — Migrated from localStorage mock auth to Supabase Auth + PostgreSQL in Session 12. All 35 pages updated.
+20. **Google OAuth live** — "Sign in with Google" added to login.html and join.html (Session 13). Configured in Google Cloud Console + Supabase dashboard.
+21. **Nav background standard: `rgba(10, 10, 10, 0.95)`** — ALL pages must use this for the nav bar. Dashboard was using purple-tinted `rgba(26, 26, 46, 0.85)`, login page had `0.7` opacity. Both fixed in Session 14.
+22. **Discounts page auth pattern** — Uses `aspa-auth-ready` custom event + `window._supabaseSession` fallback. The `initPage()` function must be defined and called at the bottom of the page script. Corrupted code fragment caused a syntax error that silently broke this in Session 14 (fixed).
 17. **Nav baseline: certified-roster.html** — chosen as the canonical nav CSS reference, all pages standardized to match
 18. **Inline auth script pattern** — inline `<script>` immediately after navAuthContainer for instant auth state; bottom-of-page scripts proved unreliable
 19. **ASPA+ gated content = dual-view** — non-members see teaser + CTA; members see full content (discounts.html, education.html)
