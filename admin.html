@@ -808,6 +808,7 @@
             <button class="tab-btn" onclick="switchTab('ceCredits')">CE Credits</button>
             <button class="tab-btn" onclick="switchTab('auditLog')">Audit Log</button>
             <button class="tab-btn" onclick="switchTab('pointsRewards')" style="color:var(--ink-cyan);">Points & Rewards</button>
+            <button class="tab-btn" onclick="switchTab('jobBoard')" style="color:var(--ink-orange);">Job Board</button>
         </div>
 
         <!-- Members Tab -->
@@ -1108,6 +1109,110 @@
                     <tbody id="rewardsAdminBody">
                     </tbody>
                 </table>
+            </div>
+        </div>
+
+        <!-- Job Board Tab -->
+        <div id="jobBoardTab" class="tab-content">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Active Listings</div>
+                    <div class="stat-value" id="jobActiveCount" style="color:var(--ink-orange);">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Pending Review</div>
+                    <div class="stat-value" id="jobPendingCount" style="color:var(--ink-yellow);">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">External Jobs</div>
+                    <div class="stat-value" id="jobExternalCount">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Last Feed Refresh</div>
+                    <div class="stat-value" id="jobLastRefresh" style="font-size:0.9rem;">Never</div>
+                </div>
+            </div>
+
+            <!-- External Jobs Feed -->
+            <div class="content-header" style="margin-top:2rem;">
+                <h3 style="font-family:'Space Grotesk',sans-serif;font-size:1.2rem;">External Jobs Feed</h3>
+                <div style="display:flex;gap:0.75rem;align-items:center;">
+                    <input type="text" id="joobleApiKey" placeholder="Jooble API Key" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:8px 12px;color:var(--ink-white);font-size:0.85rem;width:280px;">
+                    <button onclick="refreshExternalJobs()" style="background:linear-gradient(135deg, var(--ink-orange), var(--ink-magenta));color:var(--ink-black);font-family:'Space Grotesk',sans-serif;font-size:0.85rem;font-weight:600;padding:8px 20px;border:none;border-radius:6px;cursor:pointer;">Refresh Now</button>
+                </div>
+            </div>
+            <p style="color:var(--ink-gray);font-size:0.85rem;margin:0.5rem 0 1rem;">Enter your Jooble API key to pull screen printing jobs. Get one free at <a href="https://jooble.org/api/about" target="_blank" style="color:var(--ink-cyan);">jooble.org/api/about</a>. Feed auto-refreshes twice daily once the key is saved.</p>
+            <div style="display:flex;gap:0.75rem;margin-bottom:1.5rem;">
+                <button onclick="saveJoobleKey()" style="background:rgba(0,230,118,0.15);color:var(--ink-white);border:1px solid rgba(0,230,118,0.3);border-radius:6px;padding:8px 16px;font-size:0.85rem;cursor:pointer;">Save Key</button>
+                <span id="joobleKeyStatus" style="color:var(--ink-gray);font-size:0.85rem;line-height:36px;"></span>
+            </div>
+
+            <!-- Pending Job Listings -->
+            <div class="content-header" style="margin-top:2rem;">
+                <h3 style="font-family:'Space Grotesk',sans-serif;font-size:1.2rem;">Pending Job Listings</h3>
+            </div>
+            <div class="table-container">
+                <table id="pendingJobsTable" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th>Company</th>
+                            <th>Title</th>
+                            <th>Category</th>
+                            <th>Location</th>
+                            <th>Tier</th>
+                            <th>Submitted</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pendingJobsBody">
+                    </tbody>
+                </table>
+                <div id="pendingJobsEmpty" style="text-align:center;padding:2rem;color:var(--ink-gray);display:none;">No pending listings</div>
+            </div>
+
+            <!-- Active Job Listings -->
+            <div class="content-header" style="margin-top:2rem;">
+                <h3 style="font-family:'Space Grotesk',sans-serif;font-size:1.2rem;">Active Job Listings</h3>
+            </div>
+            <div class="table-container">
+                <table id="activeJobsTable" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th>Company</th>
+                            <th>Title</th>
+                            <th>Category</th>
+                            <th>Location</th>
+                            <th>Tier</th>
+                            <th>Expires</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="activeJobsBody">
+                    </tbody>
+                </table>
+                <div id="activeJobsEmpty" style="text-align:center;padding:2rem;color:var(--ink-gray);display:none;">No active listings</div>
+            </div>
+
+            <!-- External Jobs Preview -->
+            <div class="content-header" style="margin-top:2rem;">
+                <h3 style="font-family:'Space Grotesk',sans-serif;font-size:1.2rem;">Cached External Jobs (<span id="externalJobsCount">0</span>)</h3>
+                <button onclick="clearExternalJobs()" style="background:rgba(255,61,90,0.15);color:#ff3d5a;border:1px solid rgba(255,61,90,0.3);border-radius:6px;padding:6px 14px;font-size:0.8rem;cursor:pointer;">Clear All</button>
+            </div>
+            <div class="table-container">
+                <table id="externalJobsTable" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th>Source</th>
+                            <th>Title</th>
+                            <th>Company</th>
+                            <th>Location</th>
+                            <th>Fetched</th>
+                        </tr>
+                    </thead>
+                    <tbody id="externalJobsBody">
+                    </tbody>
+                </table>
+                <div id="externalJobsEmpty" style="text-align:center;padding:2rem;color:var(--ink-gray);display:none;">No external jobs cached. Click "Refresh Now" to pull from Jooble.</div>
             </div>
         </div>
 
@@ -2187,6 +2292,7 @@
 
         // Load points admin data when the tab is first opened
         var _pointsAdminLoaded = false;
+        var _jobBoardLoaded = false;
         var _origSwitchTab = switchTab;
         switchTab = function(tabName) {
             _origSwitchTab.call(null, tabName);
@@ -2194,7 +2300,315 @@
                 _pointsAdminLoaded = true;
                 loadPointsAdmin();
             }
+            if (tabName === 'jobBoard' && !_jobBoardLoaded) {
+                _jobBoardLoaded = true;
+                loadJobBoardAdmin();
+            }
         };
+
+        // ==========================================
+        // JOB BOARD ADMIN FUNCTIONS
+        // ==========================================
+
+        async function loadJobBoardAdmin() {
+            var sb = window._supabase;
+            if (!sb) return;
+
+            try {
+                // Count active listings
+                var { count: activeCount } = await sb
+                    .from('job_listings').select('*', { count: 'exact', head: true })
+                    .eq('status', 'active');
+                document.getElementById('jobActiveCount').textContent = activeCount || 0;
+
+                // Count pending listings
+                var { count: pendingCount } = await sb
+                    .from('job_listings').select('*', { count: 'exact', head: true })
+                    .eq('status', 'pending');
+                document.getElementById('jobPendingCount').textContent = pendingCount || 0;
+
+                // Count external jobs
+                var { count: extCount } = await sb
+                    .from('external_jobs').select('*', { count: 'exact', head: true })
+                    .eq('is_active', true);
+                document.getElementById('jobExternalCount').textContent = extCount || 0;
+                document.getElementById('externalJobsCount').textContent = extCount || 0;
+
+                // Load saved Jooble key from site_config (if exists)
+                var { data: config } = await sb
+                    .from('site_config').select('value')
+                    .eq('key', 'jooble_api_key').single();
+                if (config && config.value) {
+                    document.getElementById('joobleApiKey').value = config.value;
+                    document.getElementById('joobleKeyStatus').textContent = 'Key saved';
+                    document.getElementById('joobleKeyStatus').style.color = '#00e676';
+                }
+
+                // Load last refresh time
+                var { data: lastRefresh } = await sb
+                    .from('site_config').select('value')
+                    .eq('key', 'jooble_last_refresh').single();
+                if (lastRefresh && lastRefresh.value) {
+                    var d = new Date(lastRefresh.value);
+                    document.getElementById('jobLastRefresh').textContent = d.toLocaleDateString() + ' ' + d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+                }
+
+                // Load pending jobs table
+                await loadPendingJobs();
+                await loadActiveJobsAdmin();
+                await loadExternalJobsAdmin();
+
+            } catch (err) {
+                console.error('Error loading job board admin:', err);
+            }
+        }
+
+        async function loadPendingJobs() {
+            var sb = window._supabase;
+            var { data: jobs, error } = await sb
+                .from('job_listings').select('*')
+                .eq('status', 'pending')
+                .order('created_at', { ascending: false });
+
+            var table = document.getElementById('pendingJobsTable');
+            var empty = document.getElementById('pendingJobsEmpty');
+            var body = document.getElementById('pendingJobsBody');
+
+            if (!jobs || jobs.length === 0) {
+                table.style.display = 'none';
+                empty.style.display = 'block';
+                return;
+            }
+
+            table.style.display = 'table';
+            empty.style.display = 'none';
+            body.innerHTML = jobs.map(function(j) {
+                var loc = j.location_remote ? 'Remote' : [j.location_city, j.location_state].filter(Boolean).join(', ') || 'N/A';
+                return '<tr>' +
+                    '<td>' + esc(j.company_name) + '</td>' +
+                    '<td>' + esc(j.title) + '</td>' +
+                    '<td><span style="background:rgba(0,212,255,0.1);padding:2px 8px;border-radius:4px;font-size:0.8rem;">' + esc(j.category) + '</span></td>' +
+                    '<td>' + esc(loc) + '</td>' +
+                    '<td><span style="color:var(--ink-yellow);font-size:0.85rem;">' + esc(j.listing_tier) + '</span></td>' +
+                    '<td>' + new Date(j.created_at).toLocaleDateString() + '</td>' +
+                    '<td style="display:flex;gap:6px;">' +
+                        '<button onclick="approveJob(\'' + j.id + '\')" style="background:rgba(0,230,118,0.2);color:#00e676;border:1px solid rgba(0,230,118,0.3);border-radius:4px;padding:4px 10px;font-size:0.8rem;cursor:pointer;">Approve</button>' +
+                        '<button onclick="rejectJob(\'' + j.id + '\')" style="background:rgba(255,61,90,0.15);color:#ff3d5a;border:1px solid rgba(255,61,90,0.3);border-radius:4px;padding:4px 10px;font-size:0.8rem;cursor:pointer;">Reject</button>' +
+                    '</td></tr>';
+            }).join('');
+        }
+
+        async function loadActiveJobsAdmin() {
+            var sb = window._supabase;
+            var { data: jobs } = await sb
+                .from('job_listings').select('*')
+                .eq('status', 'active')
+                .order('is_featured', { ascending: false })
+                .order('created_at', { ascending: false });
+
+            var table = document.getElementById('activeJobsTable');
+            var empty = document.getElementById('activeJobsEmpty');
+            var body = document.getElementById('activeJobsBody');
+
+            if (!jobs || jobs.length === 0) {
+                table.style.display = 'none';
+                empty.style.display = 'block';
+                return;
+            }
+
+            table.style.display = 'table';
+            empty.style.display = 'none';
+            body.innerHTML = jobs.map(function(j) {
+                var loc = j.location_remote ? 'Remote' : [j.location_city, j.location_state].filter(Boolean).join(', ') || 'N/A';
+                var exp = j.expires_at ? new Date(j.expires_at).toLocaleDateString() : 'N/A';
+                return '<tr>' +
+                    '<td>' + esc(j.company_name) + '</td>' +
+                    '<td>' + esc(j.title) + (j.is_featured ? ' <span style="color:var(--ink-yellow);">&#9733;</span>' : '') + '</td>' +
+                    '<td><span style="background:rgba(0,212,255,0.1);padding:2px 8px;border-radius:4px;font-size:0.8rem;">' + esc(j.category) + '</span></td>' +
+                    '<td>' + esc(loc) + '</td>' +
+                    '<td><span style="color:var(--ink-orange);font-size:0.85rem;">' + esc(j.listing_tier) + '</span></td>' +
+                    '<td>' + exp + '</td>' +
+                    '<td><button onclick="expireJob(\'' + j.id + '\')" style="background:rgba(255,61,90,0.15);color:#ff3d5a;border:1px solid rgba(255,61,90,0.3);border-radius:4px;padding:4px 10px;font-size:0.8rem;cursor:pointer;">Expire</button></td>' +
+                    '</tr>';
+            }).join('');
+        }
+
+        async function loadExternalJobsAdmin() {
+            var sb = window._supabase;
+            var { data: jobs } = await sb
+                .from('external_jobs').select('*')
+                .eq('is_active', true)
+                .order('fetched_at', { ascending: false })
+                .limit(50);
+
+            var table = document.getElementById('externalJobsTable');
+            var empty = document.getElementById('externalJobsEmpty');
+            var body = document.getElementById('externalJobsBody');
+
+            if (!jobs || jobs.length === 0) {
+                table.style.display = 'none';
+                empty.style.display = 'block';
+                return;
+            }
+
+            table.style.display = 'table';
+            empty.style.display = 'none';
+            body.innerHTML = jobs.map(function(j) {
+                var badge = j.source === 'indeed' ? '<span style="background:#2164f3;color:white;padding:2px 8px;border-radius:4px;font-size:0.75rem;">Indeed</span>' :
+                            j.source === 'ziprecruiter' ? '<span style="background:#23a455;color:white;padding:2px 8px;border-radius:4px;font-size:0.75rem;">ZipRecruiter</span>' :
+                            '<span style="background:var(--ink-cyan);color:var(--ink-black);padding:2px 8px;border-radius:4px;font-size:0.75rem;">Jooble</span>';
+                return '<tr>' +
+                    '<td>' + badge + '</td>' +
+                    '<td><a href="' + esc(j.url) + '" target="_blank" style="color:var(--ink-cyan);">' + esc(j.title) + '</a></td>' +
+                    '<td>' + esc(j.company_name) + '</td>' +
+                    '<td>' + esc(j.location || 'N/A') + '</td>' +
+                    '<td>' + new Date(j.fetched_at).toLocaleDateString() + '</td>' +
+                    '</tr>';
+            }).join('');
+        }
+
+        function esc(str) {
+            if (!str) return '';
+            var div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        async function approveJob(id) {
+            if (!confirm('Approve this listing and make it live?')) return;
+            var sb = window._supabase;
+            await sb.from('job_listings').update({ status: 'active' }).eq('id', id);
+            _jobBoardLoaded = false;
+            loadJobBoardAdmin();
+        }
+
+        async function rejectJob(id) {
+            if (!confirm('Reject this listing?')) return;
+            var sb = window._supabase;
+            await sb.from('job_listings').update({ status: 'cancelled' }).eq('id', id);
+            _jobBoardLoaded = false;
+            loadJobBoardAdmin();
+        }
+
+        async function expireJob(id) {
+            if (!confirm('Expire this listing?')) return;
+            var sb = window._supabase;
+            await sb.from('job_listings').update({ status: 'expired' }).eq('id', id);
+            _jobBoardLoaded = false;
+            loadJobBoardAdmin();
+        }
+
+        async function saveJoobleKey() {
+            var key = document.getElementById('joobleApiKey').value.trim();
+            if (!key) { alert('Enter a Jooble API key first'); return; }
+            var sb = window._supabase;
+            // Upsert into site_config table
+            var { error } = await sb.from('site_config').upsert({ key: 'jooble_api_key', value: key }, { onConflict: 'key' });
+            if (error) {
+                alert('Error saving key: ' + error.message);
+                return;
+            }
+            document.getElementById('joobleKeyStatus').textContent = 'Key saved!';
+            document.getElementById('joobleKeyStatus').style.color = '#00e676';
+        }
+
+        async function refreshExternalJobs() {
+            var apiKey = document.getElementById('joobleApiKey').value.trim();
+            if (!apiKey) { alert('Enter your Jooble API key first'); return; }
+
+            var btn = event.target;
+            btn.textContent = 'Refreshing...';
+            btn.disabled = true;
+
+            try {
+                // Search for screen printing jobs across multiple keywords
+                var keywords = ['screen printing', 'screen printer', 'press operator screen print', 'DTG printing'];
+                var allJobs = [];
+
+                for (var k = 0; k < keywords.length; k++) {
+                    var resp = await fetch('https://jooble.org/api/' + apiKey, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ keywords: keywords[k], location: 'United States', page: '1' })
+                    });
+
+                    if (!resp.ok) {
+                        console.warn('Jooble fetch failed for keyword: ' + keywords[k]);
+                        continue;
+                    }
+
+                    var data = await resp.json();
+                    if (data.jobs && data.jobs.length > 0) {
+                        allJobs = allJobs.concat(data.jobs);
+                    }
+                }
+
+                if (allJobs.length === 0) {
+                    alert('No jobs returned from Jooble. Check your API key.');
+                    btn.textContent = 'Refresh Now';
+                    btn.disabled = false;
+                    return;
+                }
+
+                // Deduplicate by title + company
+                var seen = {};
+                var unique = [];
+                for (var i = 0; i < allJobs.length; i++) {
+                    var dedupKey = allJobs[i].title + '|' + allJobs[i].company;
+                    if (!seen[dedupKey]) {
+                        seen[dedupKey] = true;
+                        unique.push(allJobs[i]);
+                    }
+                }
+
+                // Clear old jooble jobs
+                var sb = window._supabase;
+                await sb.from('external_jobs').delete().eq('source', 'jooble');
+
+                // Insert new ones
+                var rows = unique.map(function(j) {
+                    return {
+                        source: 'jooble',
+                        external_id: j.id || (j.title + '-' + j.company).replace(/\s/g, '-').substring(0, 100),
+                        title: j.title,
+                        company_name: j.company || 'Unknown',
+                        location: j.location || '',
+                        description_snippet: j.snippet ? j.snippet.substring(0, 300) : '',
+                        url: j.link,
+                        posted_date: j.updated || new Date().toISOString(),
+                        is_active: true
+                    };
+                });
+
+                // Insert in batches of 50
+                for (var b = 0; b < rows.length; b += 50) {
+                    var batch = rows.slice(b, b + 50);
+                    await sb.from('external_jobs').insert(batch);
+                }
+
+                // Update last refresh timestamp
+                await sb.from('site_config').upsert({ key: 'jooble_last_refresh', value: new Date().toISOString() }, { onConflict: 'key' });
+
+                alert('Pulled ' + unique.length + ' jobs from Jooble!');
+                _jobBoardLoaded = false;
+                loadJobBoardAdmin();
+
+            } catch (err) {
+                console.error('Jooble refresh error:', err);
+                alert('Error: ' + err.message);
+            }
+
+            btn.textContent = 'Refresh Now';
+            btn.disabled = false;
+        }
+
+        async function clearExternalJobs() {
+            if (!confirm('Clear all cached external jobs?')) return;
+            var sb = window._supabase;
+            await sb.from('external_jobs').delete().neq('id', '00000000-0000-0000-0000-000000000000');
+            _jobBoardLoaded = false;
+            loadJobBoardAdmin();
+        }
     </script>
 </body>
 </html>
