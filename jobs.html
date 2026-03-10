@@ -498,6 +498,21 @@
             color: #23a455;
         }
 
+        .badge-source-linkedin {
+            background: rgba(10, 102, 194, 0.15);
+            color: #0a66c2;
+        }
+
+        .badge-source-glassdoor {
+            background: rgba(12, 170, 65, 0.15);
+            color: #0caa41;
+        }
+
+        .badge-source-default {
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+        }
+
         .job-title {
             font-family: 'Space Grotesk', sans-serif;
             font-size: 1.3rem;
@@ -965,8 +980,19 @@
             </div>
 
             <div class="filter-group">
-                <label class="filter-label">Location</label>
-                <input type="text" class="filter-input" id="locationFilter" placeholder="City, State">
+                <label class="filter-label">ZIP Code</label>
+                <input type="text" class="filter-input" id="zipCodeFilter" placeholder="e.g. 30301" maxlength="5" inputmode="numeric" pattern="[0-9]*" style="max-width: 120px;">
+            </div>
+
+            <div class="filter-group">
+                <label class="filter-label">Radius</label>
+                <select class="filter-select" id="radiusFilter">
+                    <option value="">Any distance</option>
+                    <option value="10">10 miles</option>
+                    <option value="25" selected>25 miles</option>
+                    <option value="50">50 miles</option>
+                    <option value="100">100 miles</option>
+                </select>
             </div>
 
             <label class="filter-checkbox-group">
@@ -980,27 +1006,11 @@
             <span class="stats-text">Showing <span class="stats-count" id="jobCount">0</span> jobs</span>
         </div>
 
-        <!-- Native Jobs Section -->
-        <div class="section-header">
-            <h2>ASPA JOB BOARD</h2>
-            <span class="section-header-badge">Featured</span>
-        </div>
-        <div class="jobs-grid" id="nativeJobsGrid">
+        <!-- Unified Jobs Grid -->
+        <div class="jobs-grid" id="jobsGrid">
             <div class="empty-state">
                 <div class="empty-state-icon">🔍</div>
                 <h3>Loading jobs...</h3>
-            </div>
-        </div>
-
-        <!-- External Jobs Section -->
-        <div class="section-header">
-            <h2>MORE OPPORTUNITIES</h2>
-            <span class="section-header-badge">From Indeed & ZipRecruiter</span>
-        </div>
-        <div class="jobs-grid" id="externalJobsGrid">
-            <div class="empty-state">
-                <div class="empty-state-icon">🌐</div>
-                <h3>Loading external jobs...</h3>
             </div>
         </div>
 
@@ -1074,8 +1084,76 @@
             document.getElementById('searchInput').addEventListener('input', debounceFilter);
             document.getElementById('categoryFilter').addEventListener('change', filterJobs);
             document.getElementById('jobTypeFilter').addEventListener('change', filterJobs);
-            document.getElementById('locationFilter').addEventListener('input', debounceFilter);
+            document.getElementById('zipCodeFilter').addEventListener('input', debounceFilter);
+            document.getElementById('radiusFilter').addEventListener('change', filterJobs);
             document.getElementById('remoteFilter').addEventListener('change', filterJobs);
+        }
+
+        // Zip code lookup cache
+        const zipCache = {};
+
+        // Look up zip code coordinates via free API
+        async function lookupZip(zip) {
+            if (zipCache[zip]) return zipCache[zip];
+            try {
+                const resp = await fetch('https://api.zippopotam.us/us/' + zip);
+                if (!resp.ok) return null;
+                const data = await resp.json();
+                const coords = [parseFloat(data.places[0].latitude), parseFloat(data.places[0].longitude)];
+                zipCache[zip] = coords;
+                return coords;
+            } catch (e) {
+                return null;
+            }
+        }
+
+        // US state center coordinates for approximate job location matching
+        const stateCoords = {
+            'AL':[32.8,-86.8],'AK':[64.2,-152.5],'AZ':[34.0,-111.1],'AR':[35.2,-91.8],
+            'CA':[36.8,-119.4],'CO':[39.1,-105.4],'CT':[41.6,-72.7],'DE':[38.9,-75.5],
+            'FL':[27.7,-81.7],'GA':[32.2,-83.4],'HI':[19.9,-155.6],'ID':[44.1,-114.7],
+            'IL':[40.6,-89.4],'IN':[40.3,-86.1],'IA':[41.9,-93.1],'KS':[38.5,-98.0],
+            'KY':[37.8,-84.3],'LA':[30.5,-91.2],'ME':[45.3,-69.4],'MD':[39.0,-76.6],
+            'MA':[42.4,-71.4],'MI':[44.3,-85.6],'MN':[46.7,-94.7],'MS':[32.4,-89.7],
+            'MO':[37.9,-91.8],'MT':[46.8,-110.4],'NE':[41.1,-98.3],'NV':[38.8,-116.4],
+            'NH':[43.5,-71.6],'NJ':[40.1,-74.5],'NM':[34.3,-106.0],'NY':[43.3,-74.2],
+            'NC':[35.8,-79.0],'ND':[47.5,-100.5],'OH':[40.4,-82.9],'OK':[35.0,-97.1],
+            'OR':[43.8,-120.6],'PA':[41.2,-77.2],'RI':[41.6,-71.5],'SC':[34.0,-81.0],
+            'SD':[43.9,-99.4],'TN':[35.5,-86.6],'TX':[31.1,-97.6],'UT':[39.3,-111.1],
+            'VT':[44.6,-72.6],'VA':[37.4,-78.7],'WA':[47.8,-120.7],'WV':[38.6,-80.4],
+            'WI':[43.8,-88.8],'WY':[43.1,-107.6],'DC':[38.9,-77.0]
+        };
+
+        // Haversine distance in miles between two lat/lng pairs
+        function haversineDistance(lat1, lng1, lat2, lng2) {
+            const R = 3959; // Earth radius in miles
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLng = (lng2 - lng1) * Math.PI / 180;
+            const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                      Math.sin(dLng / 2) * Math.sin(dLng / 2);
+            return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        }
+
+        // Extract state abbreviation from location string
+        function extractState(location) {
+            if (!location) return null;
+            // Match patterns like "City, ST" or "City, ST 12345"
+            const match = location.match(/,\s*([A-Z]{2})\b/i);
+            return match ? match[1].toUpperCase() : null;
+        }
+
+        // Get approximate coordinates for a job's location using state center
+        function getJobCoordinates(job, isNative) {
+            let state;
+            if (isNative) {
+                if (job.location_remote) return null; // Remote jobs don't need coordinates
+                state = job.location_state;
+            } else {
+                state = extractState(job.location);
+            }
+            if (state && stateCoords[state]) return stateCoords[state];
+            return null;
         }
 
         // Load native jobs from Supabase
@@ -1094,7 +1172,7 @@
                 filterJobs();
             } catch (err) {
                 console.error('Error loading jobs:', err);
-                document.getElementById('nativeJobsGrid').innerHTML = '<div class="empty-state"><div class="empty-state-icon">⚠️</div><h3>Unable to load jobs</h3></div>';
+                document.getElementById('jobsGrid').innerHTML = '<div class="empty-state"><div class="empty-state-icon">⚠️</div><h3>Unable to load jobs</h3></div>';
             }
         }
 
@@ -1114,7 +1192,7 @@
                 filterJobs();
             } catch (err) {
                 console.error('Error loading external jobs:', err);
-                document.getElementById('externalJobsGrid').innerHTML = '<div class="empty-state"><div class="empty-state-icon">⚠️</div><h3>Unable to load external jobs</h3></div>';
+                document.getElementById('jobsGrid').innerHTML = '<div class="empty-state"><div class="empty-state-icon">⚠️</div><h3>Unable to load external jobs</h3></div>';
             }
         }
 
@@ -1125,12 +1203,29 @@
         }
 
         // Filter jobs based on criteria
-        function filterJobs() {
+        async function filterJobs() {
             const searchText = document.getElementById('searchInput').value.toLowerCase();
             const category = document.getElementById('categoryFilter').value;
             const jobType = document.getElementById('jobTypeFilter').value;
-            const location = document.getElementById('locationFilter').value.toLowerCase();
+            const zipCode = document.getElementById('zipCodeFilter').value.trim();
+            const radiusStr = document.getElementById('radiusFilter').value;
+            const radius = radiusStr ? parseInt(radiusStr) : null;
             const remoteOnly = document.getElementById('remoteFilter').checked;
+
+            // Get user coordinates from zip code (async lookup)
+            let userCoords = null;
+            if (zipCode.length === 5) {
+                userCoords = await lookupZip(zipCode);
+            }
+
+            // Location distance check helper
+            function matchesDistance(job, isNative) {
+                if (!userCoords || !radius) return true; // No zip or no radius = show all
+                if (isNative && job.location_remote) return true; // Remote jobs always pass
+                const jobCoords = getJobCoordinates(job, isNative);
+                if (!jobCoords) return true; // Can't determine location = include anyway
+                return haversineDistance(userCoords[0], userCoords[1], jobCoords[0], jobCoords[1]) <= radius;
+            }
 
             // Filter native jobs
             const filteredNative = allNativeJobs.filter(job => {
@@ -1140,9 +1235,7 @@
 
                 const matchesCategory = !category || job.category === category;
                 const matchesJobType = !jobType || job.job_type === jobType;
-                const matchesLocation = !location ||
-                    (job.location_city && job.location_city.toLowerCase().includes(location)) ||
-                    (job.location_state && job.location_state.toLowerCase().includes(location));
+                const matchesLocation = matchesDistance(job, true);
                 const matchesRemote = !remoteOnly || job.location_remote === true;
 
                 return matchesSearch && matchesCategory && matchesJobType && matchesLocation && matchesRemote;
@@ -1154,42 +1247,31 @@
                     job.title.toLowerCase().includes(searchText) ||
                     job.company_name.toLowerCase().includes(searchText);
 
-                const matchesLocation = !location ||
-                    job.location.toLowerCase().includes(location);
+                const matchesLocation = matchesDistance(job, false);
 
                 return matchesSearch && matchesLocation;
             });
 
-            // Render
-            renderNativeJobs(filteredNative);
-            renderExternalJobs(filteredExternal);
+            // Render unified list (native first, then external)
+            renderAllJobs(filteredNative, filteredExternal);
 
             // Update stats
             updateStats(filteredNative.length, filteredExternal.length);
         }
 
-        // Render native jobs
-        function renderNativeJobs(jobs) {
-            const grid = document.getElementById('nativeJobsGrid');
+        // Render unified job list (native first, then external)
+        function renderAllJobs(nativeJobs, externalJobs) {
+            const grid = document.getElementById('jobsGrid');
+            const total = nativeJobs.length + externalJobs.length;
 
-            if (jobs.length === 0) {
+            if (total === 0) {
                 grid.innerHTML = '<div class="empty-state"><div class="empty-state-icon">📭</div><h3>No jobs found</h3><p>Try adjusting your filters</p></div>';
                 return;
             }
 
-            grid.innerHTML = jobs.map(job => renderJobCard(job)).join('');
-        }
-
-        // Render external jobs
-        function renderExternalJobs(jobs) {
-            const grid = document.getElementById('externalJobsGrid');
-
-            if (jobs.length === 0) {
-                grid.innerHTML = '<div class="empty-state"><div class="empty-state-icon">🌐</div><h3>No external jobs found</h3></div>';
-                return;
-            }
-
-            grid.innerHTML = jobs.map(job => renderExternalJobCard(job)).join('');
+            const nativeHtml = nativeJobs.map(job => renderJobCard(job)).join('');
+            const externalHtml = externalJobs.map(job => renderExternalJobCard(job)).join('');
+            grid.innerHTML = nativeHtml + externalHtml;
         }
 
         // Render single native job card
@@ -1246,11 +1328,36 @@
             `;
         }
 
+        // Detect source from job URL
+        function detectSource(url) {
+            try {
+                const hostname = new URL(url).hostname.toLowerCase();
+                if (hostname.includes('ziprecruiter')) return { label: 'ZipRecruiter', badgeClass: 'badge-source-ziprecruiter' };
+                if (hostname.includes('indeed')) return { label: 'Indeed', badgeClass: 'badge-source-indeed' };
+                if (hostname.includes('linkedin')) return { label: 'LinkedIn', badgeClass: 'badge-source-linkedin' };
+                if (hostname.includes('glassdoor')) return { label: 'Glassdoor', badgeClass: 'badge-source-glassdoor' };
+                if (hostname.includes('monster')) return { label: 'Monster', badgeClass: 'badge-source-default' };
+                if (hostname.includes('dice')) return { label: 'Dice', badgeClass: 'badge-source-default' };
+                // Fallback: capitalize domain name
+                const domain = hostname.replace('www.', '').split('.')[0];
+                const label = domain.charAt(0).toUpperCase() + domain.slice(1);
+                return { label: label, badgeClass: 'badge-source-default' };
+            } catch (e) {
+                return { label: 'External', badgeClass: 'badge-source-default' };
+            }
+        }
+
+        // Strip HTML tags and entities from text
+        function stripHtml(text) {
+            if (!text) return '';
+            return text.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').trim();
+        }
+
         // Render single external job card
         function renderExternalJobCard(job) {
             const postedDate = getRelativeTime(new Date(job.posted_date));
-            const sourceBadgeClass = job.source === 'indeed' ? 'badge-source-indeed' : 'badge-source-ziprecruiter';
-            const sourceLabel = job.source === 'indeed' ? 'Indeed' : 'ZipRecruiter';
+            const source = detectSource(job.url);
+            const cleanDescription = stripHtml(job.description_snippet);
 
             return `
                 <div class="job-card">
@@ -1260,7 +1367,7 @@
                             <div class="job-company-name">${escapeHtml(job.company_name)}</div>
                         </div>
                         <div class="job-card-badges">
-                            <span class="badge ${sourceBadgeClass}">${escapeHtml(sourceLabel)}</span>
+                            <span class="badge ${source.badgeClass}">${escapeHtml(source.label)}</span>
                         </div>
                     </div>
                     <div class="job-title">${escapeHtml(job.title)}</div>
@@ -1271,8 +1378,8 @@
                             <div class="job-posted">${postedDate}</div>
                         </div>
                     </div>
-                    <div class="job-description">${escapeHtml(job.description_snippet)}</div>
-                    <a class="job-apply-btn" href="${job.url}" target="_blank" rel="noopener noreferrer">View on ${escapeHtml(sourceLabel)}</a>
+                    <div class="job-description">${escapeHtml(cleanDescription)}</div>
+                    <a class="job-apply-btn" href="${job.url}" target="_blank" rel="noopener noreferrer">View on ${escapeHtml(source.label)}</a>
                 </div>
             `;
         }
