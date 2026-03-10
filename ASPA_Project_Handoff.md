@@ -2,8 +2,8 @@
 
 **Project:** screen-printing.us redesign
 **Client:** Dustin Cochran (cochran.dustin@gmail.com)
-**Date:** March 3–10, 2026 (last updated: Session 15)
-**Status:** In Progress — Core Pages Built, Resource Hub COMPLETE (All 18 Articles), **SITE LIVE on GitHub Pages**, Nav Standardized, **Supabase Backend Live** (Auth + Database + Google OAuth), ASPA+ Gated Content Live, Admin Dashboard Built, **UI Polish Pass Complete**, **Gamification & Loyalty Points System Live**
+**Date:** March 3–10, 2026 (last updated: Session 16)
+**Status:** In Progress — Core Pages Built, Resource Hub COMPLETE (All 18 Articles), **SITE LIVE on GitHub Pages**, Nav Standardized, **Supabase Backend Live** (Auth + Database + Google OAuth), ASPA+ Gated Content Live, Admin Dashboard Built, **UI Polish Pass Complete**, **Gamification & Loyalty Points System Live**, **Job Board Live**
 
 ---
 
@@ -899,6 +899,49 @@ Complete ASPA+ loyalty points system — earn points for engagement, redeem for 
 
 ---
 
+## Session 16: Job Board & External Job Aggregation (March 10, 2026)
+
+### What Was Built
+Full ASPA Job Board — native paid job postings + external job aggregation from Jooble (with infrastructure ready for ZipRecruiter and Adzuna). Admin management panel for listings and API integration. Automated twice-daily refresh via GitHub Actions.
+
+### New Files
+- **`jobs.html`** (~1360 lines) — Full job board page. Hero section with gradient heading, search bar with debounce, category/type/location filters, remote toggle. Two sections: Native ASPA Listings (from `job_listings` table, status='active') and External Jobs (from `external_jobs` table) with color-coded source badges (Indeed blue #2164f3, ZipRecruiter green #23a455, Jooble cyan). "Hire Screen Printers" CTA with 3 pricing tiers. Matches dark theme with glass-morphism.
+- **`post-job.html`** (~650 lines) — Employer job posting form. Auth-gated (login prompt if not authenticated). 3 pricing tier cards: Standard $49, Featured $99, Premium $149 (all 30-day listings). Full form: company name, logo URL, title, category (11 screen-printing-specific options), job type, experience level, city/state (all US states), remote toggle, salary range, description, application URL/email. Submits to `job_listings` with status='pending', payment_status='unpaid'.
+- **`.github/workflows/jooble-refresh.yml`** — GitHub Actions workflow for automated Jooble refresh. Runs at 8 AM and 6 PM UTC daily (cron). Searches 4 keyword variations ('screen printing', 'screen printer', 'press operator screen print', 'DTG printing'), deduplicates by title+company, clears old jooble entries, inserts fresh results into `external_jobs`. Also supports manual trigger via `workflow_dispatch`. Requires 3 repo secrets: `JOOBLE_API_KEY`, `SUPABASE_URL`, `SUPABASE_SERVICE_KEY`.
+
+### Modified Files
+- **`admin.html`** — Added "Job Board" tab (~414 lines) with: stats grid (active/pending/external counts, last refresh timestamp), Jooble API key input + save (stores in `site_config`), manual "Refresh Now" button, pending jobs approval queue (approve/reject), active jobs management (expire), external jobs preview table (clear all).
+- **30+ HTML pages** — Added "Jobs" nav link between Resources and Discounts+ across all pages including mobile menus.
+
+### Supabase Tables (3 new + 1 config)
+- `job_listings` — Native job posts (UUID PK, posted_by FK to auth.users, company_name, title, description, job_type CHECK, experience_level CHECK, location fields, salary range, category CHECK with 11 options, is_featured, status CHECK pending/active/expired/cancelled, payment_status, listing_tier standard/featured/premium, expires_at). RLS: public read for active, user-owned insert/update, admin update.
+- `job_applications` — Application tracking (job_id FK, applicant_id FK, resume_url, cover_letter, status pending/reviewed/shortlisted/rejected). RLS: applicant insert own, poster can read their job's apps.
+- `external_jobs` — Cached external listings (source CHECK indeed/ziprecruiter/other, external_id, title, company_name, location, description_snippet, url, posted_date, is_active, UNIQUE on source+external_id). RLS: public read, admin manage.
+- `site_config` — Key-value store for API keys and settings (key TEXT PK, value TEXT, updated_at). RLS: admin-only. Currently stores `jooble_api_key` and `jooble_last_refresh`.
+
+### External API Integration Priority
+1. **Native listings** — Built and live (pending Stripe for payments)
+2. **ZipRecruiter Partner Program** — Best fit: open partner program, no traffic minimums, ~$0.80-$1.00 CPC revenue share, ~50/50 split. Apply at partners.ziprecruiter.com.
+3. **Adzuna** — Free API + affiliate/CPA revenue model. Good secondary source.
+4. **Jooble** — Free API, no revenue sharing, good for content volume. **Integrated and automated.**
+5. **Indeed Publisher** — Requires 10k+ daily pageviews site-wide. Not viable yet.
+
+### Architecture Notes
+- Job posting flow: Employer submits → status='pending' → Admin approves in admin panel → status='active' → visible on jobs.html
+- External jobs are cached server-side (GitHub Actions → Supabase) not fetched client-side, keeping API keys secure
+- Admin panel has both manual refresh and the automated cron handles twice-daily updates
+- GitHub Actions secrets needed: `JOOBLE_API_KEY`, `SUPABASE_URL`, `SUPABASE_SERVICE_KEY` (service role key bypasses RLS)
+- 11 job categories: press-operator, screen-maker, artist-designer, production-manager, sales, shipping-fulfillment, equipment-tech, embroidery, dtg-dtf, general, other
+
+### Setup Steps Still Needed
+1. Sign up for Jooble API key at jooble.org/api/about
+2. Add 3 GitHub repo secrets (Settings → Secrets → Actions): `JOOBLE_API_KEY`, `SUPABASE_URL`, `SUPABASE_SERVICE_KEY`
+3. Apply for ZipRecruiter Partner Program at partners.ziprecruiter.com
+4. Apply for Adzuna API access
+5. Integrate Stripe for paid native listings (payment_status flow)
+
+---
+
 ## Content Migration Gap Analysis (March 10, 2026)
 
 Compared original site (screen-printing.us, built on Google Sites + Blogger) against new GitHub Pages site. The following content still needs to be migrated or built. Items are prioritized and should be tackled in order.
@@ -921,7 +964,7 @@ Compared original site (screen-printing.us, built on Google Sites + Blogger) aga
 ### Priority 3 — Community & Engagement
 
 - [ ] **News / Blog Section** — Original has an ASPA News page with dated posts. We don't have a news/blog section.
-- [ ] **Jobs Board** — Original links out to external job boards and has listings for screen printing jobs, used equipment for sale, and businesses for sale. Not self-hosted — aggregates/links to other sources. Could build a simple link aggregation page.
+- [x] **Jobs Board** — **COMPLETE (Session 16).** Full native job board with paid listings ($49/$99/$149 tiers) + external job aggregation from Jooble (automated twice-daily via GitHub Actions). Admin management panel built. ZipRecruiter and Adzuna integration planned as next external sources. See Session 16 notes.
 - [ ] **"Ask ASPA" Q&A Section** — Community Q&A. Could be a simple page or future forum feature.
 - [ ] **"Screen Printer Stories"** — Featured member case studies / success stories. Great for engagement and SEO.
 - [ ] **"The Artist's Corner"** — Design-focused content for screen printers.
@@ -937,7 +980,7 @@ Compared original site (screen-printing.us, built on Google Sites + Blogger) aga
 ### Notes on Original Site Architecture
 - Built on Google Sites with content spread across multiple Blogger-hosted blogs (americanscreenprintingassocblog.blogspot.com, screenprintingadvice.blogspot.com, etc.)
 - aspamembers.com redirects to screen-printing.us
-- Jobs section is NOT self-hosted — links out to external job boards and classified-style listings
+- Jobs section was NOT self-hosted on original — our new version IS self-hosted with native listings + Jooble aggregation
 - Much of the blog content is cross-posted across multiple Blogspot blogs by topic category
 
 ---

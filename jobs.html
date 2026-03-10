@@ -1065,10 +1065,10 @@
                 if (e.detail && e.detail.profile) {
                     window.updateNavForSupabase(e.detail.profile);
                 }
+                // Load jobs once Supabase client is ready
+                loadJobs();
+                loadExternalJobs();
             });
-
-            loadJobs();
-            loadExternalJobs();
 
             // Attach event listeners
             document.getElementById('searchInput').addEventListener('input', debounceFilter);
@@ -1081,7 +1081,7 @@
         // Load native jobs from Supabase
         async function loadJobs() {
             try {
-                const { data, error } = await window.supabase
+                const { data, error } = await window._supabase
                     .from('job_listings')
                     .select('*')
                     .eq('status', 'active')
@@ -1101,7 +1101,7 @@
         // Load external jobs from Supabase
         async function loadExternalJobs() {
             try {
-                const { data, error } = await window.supabase
+                const { data, error } = await window._supabase
                     .from('external_jobs')
                     .select('*')
                     .eq('is_active', true)

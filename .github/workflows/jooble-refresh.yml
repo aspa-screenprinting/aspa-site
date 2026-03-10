@@ -1,10 +1,10 @@
 name: Refresh Jooble Jobs
 
 on:
-  schedule:
-    # Run twice daily: 8 AM and 6 PM UTC (3 AM and 1 PM EST)
-    - cron: '0 8 * * *'
-    - cron: '0 18 * * *'
+  # PAUSED until site fully launches — uncomment schedule to re-enable
+  # schedule:
+  #   # Run once daily: 12 PM UTC (7 AM EST)
+  #   - cron: '0 12 * * *'
   workflow_dispatch: # Allow manual trigger from GitHub UI
 
 jobs:
