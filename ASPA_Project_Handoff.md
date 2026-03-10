@@ -2,8 +2,8 @@
 
 **Project:** screen-printing.us redesign
 **Client:** Dustin Cochran (cochran.dustin@gmail.com)
-**Date:** March 3–9, 2026 (last updated: Session 14)
-**Status:** In Progress — Core Pages Built, Resource Hub COMPLETE (All 18 Articles), **SITE LIVE on GitHub Pages**, Nav Standardized, **Supabase Backend Live** (Auth + Database + Google OAuth), ASPA+ Gated Content Live, Admin Dashboard Built, **UI Polish Pass Complete**
+**Date:** March 3–10, 2026 (last updated: Session 15)
+**Status:** In Progress — Core Pages Built, Resource Hub COMPLETE (All 18 Articles), **SITE LIVE on GitHub Pages**, Nav Standardized, **Supabase Backend Live** (Auth + Database + Google OAuth), ASPA+ Gated Content Live, Admin Dashboard Built, **UI Polish Pass Complete**, **Gamification & Loyalty Points System Live**
 
 ---
 
@@ -866,6 +866,79 @@ When ready to go live on screen-printing.us:
 - Google OAuth / social login (free to add, recommended for friction reduction)
 - Email templates customization in Supabase dashboard
 - Rate limiting / abuse prevention
+
+---
+
+## Session 15: Gamification & Loyalty Points System (March 10, 2026)
+
+### What Was Built
+Complete ASPA+ loyalty points system — earn points for engagement, redeem for merch, discounts, and free membership.
+
+### New Files
+- **`points-system.js`** — Core data layer (IIFE module, `window.PointsSystem`). Member functions: getBalance, getHistory, getSocialLinks, submitSocialLink, removeSocialLink, submitClaim, getMyClaims, getRewards, redeemReward, getRedemptions, getActivities. Admin functions: getPendingClaims, approveClaim, denyClaim, awardBonusPoints, getAllClaims, createReward, updateReward, deactivateReward, getSystemStats.
+- **`rewards.html`** — Dedicated storefront page. Auth-gated with member/non-member views. Points balance with animated counter, how-it-works section, three reward tiers (Starter/Pro/Elite), confirmation modal, activity feed, toast notifications. Fully responsive.
+
+### Modified Files
+- **`dashboard.html`** — Added Points & Rewards section with balance card + 3 earn action cards (Connect Socials with 6 platforms: Instagram, TikTok, Facebook, YouTube, X, LinkedIn; Watch Webinar claim form; Supplier Signup claim form). Removed old "Edit Social Profiles" section (redundant with new Connect Socials panel).
+- **`admin.html`** — Added Points & Rewards tab with: stats grid (circulation, pending, redemptions, active earners), pending claims approval queue, award bonus points form, rewards catalog management.
+- **28 HTML pages** — Added "Rewards+" nav link after Discounts.
+
+### Supabase Tables (6 new)
+- `activities` — Defines earnable activities (social_connect 50pts, webinar_watched 75pts, supplier_signup 100pts, referral 150pts, custom_admin_award 0pts)
+- `points_ledger` — Immutable ledger (balance = SUM(earn) - SUM(spend), no mutable balance field)
+- `social_links` — Platform + URL per user, auto-awards 50pts on submit
+- `activity_claims` — Self-reported claims pending admin approval (webinars, supplier signups)
+- `rewards` — Catalog: sticker pack 25pts, t-shirt 50pts, $10 discount 150pts, 1mo membership 250pts, 6mo 500pts, 12mo 1000pts
+- `redemptions` — Tracks claimed rewards with status (pending/fulfilled/cancelled)
+
+### Architecture Notes
+- Social links award points instantly; webinar/supplier claims require admin approval before points are granted
+- Immutable ledger pattern — no desync bugs, full audit trail
+- Admin tab lazy-loads on first open to avoid unnecessary Supabase queries
+- Schema is ready for OAuth-based social verification later (has `verified` and `verified_at` columns)
+
+---
+
+## Content Migration Gap Analysis (March 10, 2026)
+
+Compared original site (screen-printing.us, built on Google Sites + Blogger) against new GitHub Pages site. The following content still needs to be migrated or built. Items are prioritized and should be tackled in order.
+
+### Priority 1 — Core Content Gaps
+
+- [ ] **Registered Printers / Member Profiles** — Original homepage features "Recent ASPA Members" with full business profiles (logo, name, address, phone, description, website link). Our directory is Supabase-backed but doesn't display this level of detail. Need to enrich member profiles and surface them on the directory page and/or homepage.
+- [ ] **Category-Based Directory Filtering** — Original has browsable categories: Custom T-Shirt Shops, Sign Shops, Embroidery Shops, Printing Supplies. Our directory is a flat list. Need category filters + possibly dedicated category landing pages.
+- [ ] **Location-Based Directory Filtering** — Original filters by US region (North/South/East/West) and International. Our directory doesn't have location filtering.
+- [ ] **International Members Page** — Dedicated section for international ASPA members. Original had a specific page for this.
+
+### Priority 2 — Educational Content
+
+- [ ] **Training / ASPA Institute Page** — Original has a full "Diploma in Screen Printing" online course ($125) with structured modules: Quick Start Guide, Equipment, Glossary, Advanced, Safety, Business, Mesh Chart. We have education articles but not a structured course portal.
+- [ ] **Videos Page** — Original has dedicated video tutorials (coating screens, exposing, flash curing, hot split transfers, cleanup). We have no video section.
+- [ ] **Screen Printing Glossary** — Terminology reference page. Missing from our site entirely.
+- [ ] **Free How-to Book** — "The Secrets of Printing T-Shirts and How to Make Big Money" was offered as a free download. Could be a great lead magnet / ASPA+ perk.
+- [ ] **Lesson Plans for Teachers** — Teaching resources for instructors at schools, rehab facilities, etc. Was sold in their Store section.
+
+### Priority 3 — Community & Engagement
+
+- [ ] **News / Blog Section** — Original has an ASPA News page with dated posts. We don't have a news/blog section.
+- [ ] **Jobs Board** — Original links out to external job boards and has listings for screen printing jobs, used equipment for sale, and businesses for sale. Not self-hosted — aggregates/links to other sources. Could build a simple link aggregation page.
+- [ ] **"Ask ASPA" Q&A Section** — Community Q&A. Could be a simple page or future forum feature.
+- [ ] **"Screen Printer Stories"** — Featured member case studies / success stories. Great for engagement and SEO.
+- [ ] **"The Artist's Corner"** — Design-focused content for screen printers.
+- [ ] **"Strictly Business"** — Business advice articles (separate from how-to technical content).
+- [ ] **ASPA Newsletter Signup** — Newsletter subscription form. Could integrate with an email service.
+
+### Priority 4 — Supplementary Pages
+
+- [ ] **Advertise with Us** — Page for advertising opportunities on the site.
+- [ ] **Advice Notice & Disclaimers** — Legal disclaimers page (separate from Privacy/Terms).
+- [ ] **Store Page** — Original sold lesson plans and possibly other items. Separate from our points-based rewards store.
+
+### Notes on Original Site Architecture
+- Built on Google Sites with content spread across multiple Blogger-hosted blogs (americanscreenprintingassocblog.blogspot.com, screenprintingadvice.blogspot.com, etc.)
+- aspamembers.com redirects to screen-printing.us
+- Jobs section is NOT self-hosted — links out to external job boards and classified-style listings
+- Much of the blog content is cross-posted across multiple Blogspot blogs by topic category
 
 ---
 
