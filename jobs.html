@@ -1,0 +1,1360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASPA Screen Printing Jobs Board</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="supabase-init.js"></script>
+    <style>
+        :root {
+            --ink-black: #0a0a0a;
+            --ink-dark: #1a1a2e;
+            --ink-purple: #6c2bd9;
+            --ink-magenta: #e91e8c;
+            --ink-cyan: #00d4ff;
+            --ink-yellow: #ffd400;
+            --ink-orange: #ff6b35;
+            --ink-white: #f8f8f8;
+            --ink-gray: #b0b0b0;
+            --ink-gray-dark: #2a2a3e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--ink-black);
+            color: var(--ink-white);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 0 24px;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .nav-logo {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            align-items: center;
+        }
+
+        .nav-logo-main {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00d4ff 0%, #e91e8c 50%, #ffd400 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2px;
+        }
+
+        .nav-logo-sub {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--ink-gray);
+            letter-spacing: 1.5px;
+            opacity: 0.7;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--ink-gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--ink-cyan);
+        }
+
+        .nav-links a.active {
+            color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            color: var(--ink-black);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background-color: var(--ink-white);
+            border-radius: 2px;
+            transition: 0.3s ease;
+        }
+
+        .nav-aspa-plus {
+            background: linear-gradient(135deg, #00d4ff 0%, #e91e8c 50%, #ffd400 100%) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
+            font-weight: 600 !important;
+        }
+
+        .nav-aspa-plus:hover {
+            filter: brightness(1.3);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            color: var(--ink-white);
+            text-decoration: none;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            padding: 0.5rem 0;
+        }
+
+        /* Responsive Navigation */
+        @media (max-width: 768px) {
+            #navAuthContainer {
+                flex-direction: column;
+                gap: 0.5rem;
+                display: none !important;
+            }
+
+            #navAuthContainer.mobile-auth {
+                display: flex !important;
+                flex-direction: column;
+            }
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .hero h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3.5rem;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, #00d4ff 0%, #e91e8c 50%, #ffd400 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--ink-gray);
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Search Bar */
+        .search-bar {
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 14px 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 8px;
+            color: var(--ink-white);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: rgba(0, 212, 255, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.15);
+        }
+
+        .search-input::placeholder {
+            color: var(--ink-gray);
+        }
+
+        /* Filter Bar */
+        .filter-bar {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .filter-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--ink-gray);
+        }
+
+        .filter-select, .filter-input {
+            padding: 10px 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 8px;
+            color: var(--ink-white);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .filter-select:hover, .filter-input:hover {
+            border-color: rgba(0, 212, 255, 0.3);
+        }
+
+        .filter-select:focus, .filter-input:focus {
+            outline: none;
+            border-color: rgba(0, 212, 255, 0.5);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .filter-checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 10px 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-checkbox-group:hover {
+            border-color: rgba(0, 212, 255, 0.3);
+        }
+
+        .filter-checkbox-group input[type="checkbox"] {
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .stats-text {
+            color: var(--ink-gray);
+            font-size: 0.95rem;
+        }
+
+        .stats-count {
+            color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        /* Section Headers */
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 3rem 0 2rem 0;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .section-header h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            letter-spacing: 2px;
+            margin: 0;
+        }
+
+        .section-header-badge {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: rgba(0, 212, 255, 0.15);
+            color: var(--ink-cyan);
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        /* Job Cards Grid */
+        .jobs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .job-card {
+            background: linear-gradient(135deg, var(--ink-dark), var(--ink-gray-dark));
+            border: 1px solid var(--ink-gray-dark);
+            border-radius: 12px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .job-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--ink-cyan);
+            box-shadow: 0 12px 30px rgba(0, 212, 255, 0.2);
+        }
+
+        .job-card.featured {
+            border: 2px solid var(--ink-yellow);
+            box-shadow: 0 0 20px rgba(255, 212, 0, 0.15);
+        }
+
+        .job-card.featured:hover {
+            box-shadow: 0 12px 40px rgba(255, 212, 0, 0.25);
+        }
+
+        .job-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+
+        .job-card-company {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex: 1;
+        }
+
+        .job-card-logo {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .job-card-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .job-company-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--ink-white);
+        }
+
+        .job-card-badges {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            text-align: right;
+        }
+
+        .badge {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 4px 10px;
+            border-radius: 12px;
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+        .badge-aspa {
+            background: rgba(0, 212, 255, 0.15);
+            color: var(--ink-cyan);
+        }
+
+        .badge-featured {
+            background: rgba(255, 212, 0, 0.15);
+            color: var(--ink-yellow);
+        }
+
+        .badge-type {
+            background: rgba(108, 43, 217, 0.15);
+            color: var(--ink-purple);
+        }
+
+        .badge-category {
+            background: rgba(233, 30, 140, 0.15);
+            color: var(--ink-magenta);
+        }
+
+        .badge-source-indeed {
+            background: rgba(33, 100, 243, 0.15);
+            color: #2164f3;
+        }
+
+        .badge-source-ziprecruiter {
+            background: rgba(35, 164, 85, 0.15);
+            color: #23a455;
+        }
+
+        .job-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--ink-white);
+        }
+
+        .job-location {
+            color: var(--ink-gray);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .job-location-icon {
+            margin-right: 0.5rem;
+        }
+
+        .job-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .job-salary {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--ink-cyan);
+        }
+
+        .job-posted {
+            color: var(--ink-gray);
+            font-size: 0.85rem;
+        }
+
+        .job-description {
+            color: var(--ink-gray);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+            flex: 1;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .job-card-footer {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .job-type-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+
+        .job-type-label.full-time {
+            background: rgba(0, 230, 118, 0.15);
+            color: #00e676;
+        }
+
+        .job-type-label.part-time {
+            background: rgba(255, 107, 53, 0.15);
+            color: var(--ink-orange);
+        }
+
+        .job-type-label.contract {
+            background: rgba(255, 212, 0, 0.15);
+            color: var(--ink-yellow);
+        }
+
+        .job-type-label.internship {
+            background: rgba(108, 43, 217, 0.15);
+            color: var(--ink-purple);
+        }
+
+        .job-type-label.freelance {
+            background: rgba(233, 30, 140, 0.15);
+            color: var(--ink-magenta);
+        }
+
+        .job-apply-btn {
+            margin-top: auto;
+            background: linear-gradient(135deg, #00d4ff 0%, #e91e8c 50%);
+            color: var(--ink-black);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .job-apply-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.3);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--ink-dark), var(--ink-gray-dark));
+            border: 1px solid var(--ink-gray-dark);
+            border-radius: 12px;
+            padding: 3rem;
+            text-align: center;
+            margin: 4rem 0;
+        }
+
+        .cta-section h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #00d4ff 0%, #e91e8c 50%, #ffd400 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .cta-section p {
+            color: var(--ink-gray);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .pricing-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .pricing-card:hover {
+            border-color: rgba(255, 255, 255, 0.12);
+            transform: translateY(-4px);
+        }
+
+        .pricing-card.featured {
+            border: 2px solid var(--ink-yellow);
+            background: rgba(255, 212, 0, 0.05);
+            transform: scale(1.05);
+        }
+
+        .pricing-card.featured:hover {
+            box-shadow: 0 15px 40px rgba(255, 212, 0, 0.2);
+        }
+
+        .pricing-tier {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--ink-white);
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-price {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            color: var(--ink-cyan);
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-duration {
+            color: var(--ink-gray);
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        .pricing-features {
+            color: var(--ink-gray);
+            font-size: 0.9rem;
+            text-align: left;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .pricing-feature {
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-check {
+            color: var(--ink-cyan);
+            margin-right: 0.5rem;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #00d4ff 0%, #e91e8c 50%, #ffd400 100%);
+            color: var(--ink-black);
+            padding: 1rem 2.5rem;
+            font-size: 1rem;
+            font-weight: 700;
+            font-family: 'Space Grotesk', sans-serif;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.4);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--ink-gray);
+        }
+
+        .empty-state-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .empty-state h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3rem;
+            color: var(--ink-white);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(10, 10, 10, 0.8);
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 2rem;
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        footer p {
+            color: var(--ink-gray);
+            font-size: 0.85rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .jobs-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .nav-links.mobile-open {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: rgba(10, 10, 10, 0.98);
+                padding: 20px 24px;
+                gap: 16px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .filter-bar {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .filter-group, .filter-checkbox-group {
+                width: 100%;
+            }
+
+            .filter-select, .filter-input {
+                width: 100%;
+            }
+
+            .jobs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 2rem 1rem;
+            }
+
+            .cta-button {
+                padding: 0.8rem 2rem;
+                font-size: 0.9rem;
+            }
+
+            .cta-section {
+                padding: 2rem 1.5rem;
+            }
+
+            .cta-section h2 {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .search-bar {
+                flex-direction: column;
+            }
+
+            .search-input {
+                width: 100%;
+            }
+
+            .filter-bar {
+                gap: 0.5rem;
+            }
+
+            .job-card-header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .job-card-badges {
+                text-align: left;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="nav-logo-main">ASPA</div>
+                <div class="nav-logo-sub">SCREEN PRINTING</div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="directory.html">Directory</a></li>
+                <li><a href="certified-roster.html">Certified</a></li>
+                <li><a href="index.html#membership">Membership</a></li>
+                <li><a href="resources.html">Resources</a></li>
+                <li><a href="jobs.html" class="active">Jobs</a></li>
+                <li><a href="discounts.html" class="nav-aspa-plus">Discounts<sup>+</sup></a></li>
+                <li><a href="rewards.html" class="nav-aspa-plus">Rewards<sup>+</sup></a></li>
+                <li><a href="education.html" class="nav-aspa-plus">Education<sup>+</sup></a></li>
+            </ul>
+            <div id="navAuthContainer" style="display: flex; align-items: center; gap: 16px;">
+                <a href="join.html" class="nav-cta" id="navJoinBtn">Join ASPA</a>
+                <a href="login.html" style="color: #b0b0b0; font-family: 'Inter', sans-serif; font-size: 0.85rem; cursor: pointer; text-decoration: none;">Log In</a>
+            </div>
+            <script>
+            window.addEventListener('aspa-auth-ready', function(e) {
+                if (e.detail && e.detail.profile) { window.updateNavForSupabase(e.detail.profile); }
+            });
+            </script>
+            <button class="hamburger" onclick="toggleMobileMenu()">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="index.html">Home</a>
+            <a href="directory.html">Directory</a>
+            <a href="certified-roster.html">Certified</a>
+            <a href="index.html#membership">Membership</a>
+            <a href="resources.html">Resources</a>
+            <a href="jobs.html">Jobs</a>
+            <a href="discounts.html" class="nav-aspa-plus">Discounts<sup>+</sup></a>
+            <a href="education.html" class="nav-aspa-plus">Education<sup>+</sup></a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="hero">
+            <h1><span class="hero-gradient">SCREEN PRINTING JOBS</span></h1>
+            <p>Your gateway to careers in the screen printing industry. Post opportunities or find your next role.</p>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-bar">
+            <input type="text" class="search-input" id="searchInput" placeholder="Search job titles, companies...">
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="filter-bar">
+            <div class="filter-group">
+                <label class="filter-label">Category</label>
+                <select class="filter-select" id="categoryFilter">
+                    <option value="">All Categories</option>
+                    <option value="press-operator">Press Operator</option>
+                    <option value="screen-maker">Screen Maker</option>
+                    <option value="artist-designer">Artist / Designer</option>
+                    <option value="production-manager">Production Manager</option>
+                    <option value="sales">Sales</option>
+                    <option value="shipping-fulfillment">Shipping / Fulfillment</option>
+                    <option value="equipment-tech">Equipment Tech</option>
+                    <option value="embroidery">Embroidery</option>
+                    <option value="dtg-dtf">DTG / DTF</option>
+                    <option value="general">General</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label class="filter-label">Job Type</label>
+                <select class="filter-select" id="jobTypeFilter">
+                    <option value="">All Types</option>
+                    <option value="full-time">Full-Time</option>
+                    <option value="part-time">Part-Time</option>
+                    <option value="contract">Contract</option>
+                    <option value="internship">Internship</option>
+                    <option value="freelance">Freelance</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label class="filter-label">Location</label>
+                <input type="text" class="filter-input" id="locationFilter" placeholder="City, State">
+            </div>
+
+            <label class="filter-checkbox-group">
+                <input type="checkbox" id="remoteFilter">
+                <span class="filter-label" style="margin: 0;">Remote Only</span>
+            </label>
+        </div>
+
+        <!-- Stats Bar -->
+        <div class="stats-bar">
+            <span class="stats-text">Showing <span class="stats-count" id="jobCount">0</span> jobs</span>
+        </div>
+
+        <!-- Native Jobs Section -->
+        <div class="section-header">
+            <h2>ASPA JOB BOARD</h2>
+            <span class="section-header-badge">Featured</span>
+        </div>
+        <div class="jobs-grid" id="nativeJobsGrid">
+            <div class="empty-state">
+                <div class="empty-state-icon">🔍</div>
+                <h3>Loading jobs...</h3>
+            </div>
+        </div>
+
+        <!-- External Jobs Section -->
+        <div class="section-header">
+            <h2>MORE OPPORTUNITIES</h2>
+            <span class="section-header-badge">From Indeed & ZipRecruiter</span>
+        </div>
+        <div class="jobs-grid" id="externalJobsGrid">
+            <div class="empty-state">
+                <div class="empty-state-icon">🌐</div>
+                <h3>Loading external jobs...</h3>
+            </div>
+        </div>
+
+        <!-- Post a Job CTA Section -->
+        <div class="cta-section">
+            <h2>HIRE SCREEN PRINTERS</h2>
+            <p>Post your job opening to reach thousands of screen printing professionals across the ASPA community.</p>
+
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-tier">Standard</div>
+                    <div class="pricing-price">$49</div>
+                    <div class="pricing-duration">30 days</div>
+                    <div class="pricing-features">
+                        <div class="pricing-feature"><span class="pricing-check">✓</span>One job listing</div>
+                        <div class="pricing-feature"><span class="pricing-check">✓</span>Community visibility</div>
+                        <div class="pricing-feature"><span class="pricing-check">✓</span>Applicant dashboard</div>
+                    </div>
+                </div>
+
+                <div class="pricing-card featured">
+                    <div class="pricing-tier">Featured</div>
+                    <div class="pricing-price">$99</div>
+                    <div class="pricing-duration">30 days</div>
+                    <div class="pricing-features">
+                        <div class="pricing-feature"><span class="pricing-check">✓</span>Featured placement</div>
+                        <div class="pricing-feature"><span class="pricing-check">✓</span>Golden badge</div>
+                        <div class="pricing-feature"><span class="pricing-check">✓</span>Priority support</div>
+                    </div>
+                </div>
+
+                <div class="pricing-card">
+                    <div class="pricing-tier">Premium</div>
+                    <div class="pricing-price">$149</div>
+                    <div class="pricing-duration">30 days</div>
+                    <div class="pricing-features">
+                        <div class="pricing-feature"><span class="pricing-check">✓</span>Top placement</div>
+                        <div class="pricing-feature"><span class="pricing-check">✓</span>Social promotion</div>
+                        <div class="pricing-feature"><span class="pricing-check">✓</span>Dedicated support</div>
+                    </div>
+                </div>
+            </div>
+
+            <a href="post-job.html" class="cta-button">Post a Job →</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 American Screen Printing Association. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        let allNativeJobs = [];
+        let allExternalJobs = [];
+        let debounceTimeout = null;
+
+        // Initialize page
+        function initPage() {
+            window.addEventListener('aspa-auth-ready', function(e) {
+                if (e.detail && e.detail.profile) {
+                    window.updateNavForSupabase(e.detail.profile);
+                }
+            });
+
+            loadJobs();
+            loadExternalJobs();
+
+            // Attach event listeners
+            document.getElementById('searchInput').addEventListener('input', debounceFilter);
+            document.getElementById('categoryFilter').addEventListener('change', filterJobs);
+            document.getElementById('jobTypeFilter').addEventListener('change', filterJobs);
+            document.getElementById('locationFilter').addEventListener('input', debounceFilter);
+            document.getElementById('remoteFilter').addEventListener('change', filterJobs);
+        }
+
+        // Load native jobs from Supabase
+        async function loadJobs() {
+            try {
+                const { data, error } = await window.supabase
+                    .from('job_listings')
+                    .select('*')
+                    .eq('status', 'active')
+                    .order('is_featured', { ascending: false })
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+
+                allNativeJobs = data || [];
+                filterJobs();
+            } catch (err) {
+                console.error('Error loading jobs:', err);
+                document.getElementById('nativeJobsGrid').innerHTML = '<div class="empty-state"><div class="empty-state-icon">⚠️</div><h3>Unable to load jobs</h3></div>';
+            }
+        }
+
+        // Load external jobs from Supabase
+        async function loadExternalJobs() {
+            try {
+                const { data, error } = await window.supabase
+                    .from('external_jobs')
+                    .select('*')
+                    .eq('is_active', true)
+                    .order('posted_date', { ascending: false })
+                    .limit(50);
+
+                if (error) throw error;
+
+                allExternalJobs = data || [];
+                filterJobs();
+            } catch (err) {
+                console.error('Error loading external jobs:', err);
+                document.getElementById('externalJobsGrid').innerHTML = '<div class="empty-state"><div class="empty-state-icon">⚠️</div><h3>Unable to load external jobs</h3></div>';
+            }
+        }
+
+        // Debounce filter function
+        function debounceFilter() {
+            clearTimeout(debounceTimeout);
+            debounceTimeout = setTimeout(filterJobs, 300);
+        }
+
+        // Filter jobs based on criteria
+        function filterJobs() {
+            const searchText = document.getElementById('searchInput').value.toLowerCase();
+            const category = document.getElementById('categoryFilter').value;
+            const jobType = document.getElementById('jobTypeFilter').value;
+            const location = document.getElementById('locationFilter').value.toLowerCase();
+            const remoteOnly = document.getElementById('remoteFilter').checked;
+
+            // Filter native jobs
+            const filteredNative = allNativeJobs.filter(job => {
+                const matchesSearch = !searchText ||
+                    job.title.toLowerCase().includes(searchText) ||
+                    job.company_name.toLowerCase().includes(searchText);
+
+                const matchesCategory = !category || job.category === category;
+                const matchesJobType = !jobType || job.job_type === jobType;
+                const matchesLocation = !location ||
+                    (job.location_city && job.location_city.toLowerCase().includes(location)) ||
+                    (job.location_state && job.location_state.toLowerCase().includes(location));
+                const matchesRemote = !remoteOnly || job.location_remote === true;
+
+                return matchesSearch && matchesCategory && matchesJobType && matchesLocation && matchesRemote;
+            });
+
+            // Filter external jobs
+            const filteredExternal = allExternalJobs.filter(job => {
+                const matchesSearch = !searchText ||
+                    job.title.toLowerCase().includes(searchText) ||
+                    job.company_name.toLowerCase().includes(searchText);
+
+                const matchesLocation = !location ||
+                    job.location.toLowerCase().includes(location);
+
+                return matchesSearch && matchesLocation;
+            });
+
+            // Render
+            renderNativeJobs(filteredNative);
+            renderExternalJobs(filteredExternal);
+
+            // Update stats
+            updateStats(filteredNative.length, filteredExternal.length);
+        }
+
+        // Render native jobs
+        function renderNativeJobs(jobs) {
+            const grid = document.getElementById('nativeJobsGrid');
+
+            if (jobs.length === 0) {
+                grid.innerHTML = '<div class="empty-state"><div class="empty-state-icon">📭</div><h3>No jobs found</h3><p>Try adjusting your filters</p></div>';
+                return;
+            }
+
+            grid.innerHTML = jobs.map(job => renderJobCard(job)).join('');
+        }
+
+        // Render external jobs
+        function renderExternalJobs(jobs) {
+            const grid = document.getElementById('externalJobsGrid');
+
+            if (jobs.length === 0) {
+                grid.innerHTML = '<div class="empty-state"><div class="empty-state-icon">🌐</div><h3>No external jobs found</h3></div>';
+                return;
+            }
+
+            grid.innerHTML = jobs.map(job => renderExternalJobCard(job)).join('');
+        }
+
+        // Render single native job card
+        function renderJobCard(job) {
+            const salary = job.salary_min && job.salary_max
+                ? `$${formatNumber(job.salary_min)} - $${formatNumber(job.salary_max)}`
+                : (job.salary_min ? `$${formatNumber(job.salary_min)}+` : 'Salary TBD');
+
+            const postedDate = getRelativeTime(new Date(job.created_at));
+            const location = job.location_remote ? 'Remote' : `${job.location_city}, ${job.location_state}`;
+            const categoryDisplay = formatCategory(job.category);
+            const jobTypeDisplay = formatJobType(job.job_type);
+
+            const logoHtml = job.company_logo_url
+                ? `<img src="${job.company_logo_url}" alt="${job.company_name}">`
+                : '🏢';
+
+            const featuredClass = job.is_featured ? 'featured' : '';
+            const featuredBadge = job.is_featured ? '<span class="badge badge-featured">Featured</span>' : '';
+
+            const applicationUrl = job.application_url
+                ? `href="${job.application_url}" target="_blank" rel="noopener noreferrer"`
+                : `href="mailto:${job.application_email}"`;
+
+            return `
+                <div class="job-card ${featuredClass}">
+                    <div class="job-card-header">
+                        <div class="job-card-company">
+                            <div class="job-card-logo">${logoHtml}</div>
+                            <div class="job-company-name">${escapeHtml(job.company_name)}</div>
+                        </div>
+                        <div class="job-card-badges">
+                            <span class="badge badge-aspa">ASPA</span>
+                            ${featuredBadge}
+                        </div>
+                    </div>
+                    <div class="job-title">${escapeHtml(job.title)}</div>
+                    <div class="job-location">📍 ${escapeHtml(location)}</div>
+                    <div class="job-meta">
+                        <div>
+                            <span class="badge badge-category">${escapeHtml(categoryDisplay)}</span>
+                        </div>
+                        <div style="text-align: right;">
+                            <div class="job-salary">${salary}</div>
+                            <div class="job-posted">${postedDate}</div>
+                        </div>
+                    </div>
+                    <div class="job-description">${escapeHtml(job.description)}</div>
+                    <div class="job-card-footer">
+                        <span class="job-type-label ${job.job_type}">${escapeHtml(jobTypeDisplay)}</span>
+                    </div>
+                    <a class="job-apply-btn" ${applicationUrl}>Apply Now</a>
+                </div>
+            `;
+        }
+
+        // Render single external job card
+        function renderExternalJobCard(job) {
+            const postedDate = getRelativeTime(new Date(job.posted_date));
+            const sourceBadgeClass = job.source === 'indeed' ? 'badge-source-indeed' : 'badge-source-ziprecruiter';
+            const sourceLabel = job.source === 'indeed' ? 'Indeed' : 'ZipRecruiter';
+
+            return `
+                <div class="job-card">
+                    <div class="job-card-header">
+                        <div class="job-card-company">
+                            <div class="job-card-logo">🔗</div>
+                            <div class="job-company-name">${escapeHtml(job.company_name)}</div>
+                        </div>
+                        <div class="job-card-badges">
+                            <span class="badge ${sourceBadgeClass}">${escapeHtml(sourceLabel)}</span>
+                        </div>
+                    </div>
+                    <div class="job-title">${escapeHtml(job.title)}</div>
+                    <div class="job-location">📍 ${escapeHtml(job.location)}</div>
+                    <div class="job-meta">
+                        <div></div>
+                        <div style="text-align: right;">
+                            <div class="job-posted">${postedDate}</div>
+                        </div>
+                    </div>
+                    <div class="job-description">${escapeHtml(job.description_snippet)}</div>
+                    <a class="job-apply-btn" href="${job.url}" target="_blank" rel="noopener noreferrer">View on ${escapeHtml(sourceLabel)}</a>
+                </div>
+            `;
+        }
+
+        // Update statistics
+        function updateStats(nativeCount, externalCount) {
+            const totalCount = nativeCount + externalCount;
+            document.getElementById('jobCount').textContent = totalCount;
+        }
+
+        // Helper: Format category
+        function formatCategory(category) {
+            const map = {
+                'press-operator': 'Press Operator',
+                'screen-maker': 'Screen Maker',
+                'artist-designer': 'Artist / Designer',
+                'production-manager': 'Production Manager',
+                'sales': 'Sales',
+                'shipping-fulfillment': 'Shipping',
+                'equipment-tech': 'Equipment Tech',
+                'embroidery': 'Embroidery',
+                'dtg-dtf': 'DTG / DTF',
+                'general': 'General',
+                'other': 'Other'
+            };
+            return map[category] || category;
+        }
+
+        // Helper: Format job type
+        function formatJobType(jobType) {
+            const map = {
+                'full-time': 'Full-Time',
+                'part-time': 'Part-Time',
+                'contract': 'Contract',
+                'internship': 'Internship',
+                'freelance': 'Freelance'
+            };
+            return map[jobType] || jobType;
+        }
+
+        // Helper: Get relative time
+        function getRelativeTime(date) {
+            const now = new Date();
+            const diffMs = now - date;
+            const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+            if (diffDays === 0) return 'Posted today';
+            if (diffDays === 1) return 'Posted yesterday';
+            if (diffDays < 7) return `Posted ${diffDays} days ago`;
+            if (diffDays < 30) return `Posted ${Math.floor(diffDays / 7)} weeks ago`;
+            return `Posted ${Math.floor(diffDays / 30)} months ago`;
+        }
+
+        // Helper: Format number with commas
+        function formatNumber(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        // Helper: Escape HTML
+        function escapeHtml(text) {
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return text.replace(/[&<>"']/g, m => map[m]);
+        }
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+        }
+
+        // Initialize on page load
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initPage);
+        } else {
+            initPage();
+        }
+    </script>
+</body>
+</html>
