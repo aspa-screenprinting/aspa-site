@@ -1,0 +1,154 @@
+name: Refresh Jooble Jobs
+
+on:
+  schedule:
+    # Run twice daily: 8 AM and 6 PM UTC (3 AM and 1 PM EST)
+    - cron: '0 8 * * *'
+    - cron: '0 18 * * *'
+  workflow_dispatch: # Allow manual trigger from GitHub UI
+
+jobs:
+  refresh-jobs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch Jooble jobs and update Supabase
+        env:
+          JOOBLE_API_KEY: ${{ secrets.JOOBLE_API_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: |
+          cat << 'SCRIPT' > refresh.js
+          const JOOBLE_API_KEY = process.env.JOOBLE_API_KEY;
+          const SUPABASE_URL = process.env.SUPABASE_URL;
+          const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_KEY;
+
+          if (!JOOBLE_API_KEY || !SUPABASE_URL || !SUPABASE_SERVICE_KEY) {
+            console.error('Missing required environment variables');
+            process.exit(1);
+          }
+
+          const keywords = [
+            'screen printing',
+            'screen printer',
+            'press operator screen print',
+            'DTG printing'
+          ];
+
+          async function fetchJoobleJobs(keyword) {
+            const url = 'https://jooble.org/api/' + JOOBLE_API_KEY;
+            const body = JSON.stringify({
+              keywords: keyword,
+              location: 'United States',
+              page: 1
+            });
+
+            try {
+              const resp = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: body
+              });
+
+              if (!resp.ok) {
+                console.error('Jooble API error for "' + keyword + '":', resp.status);
+                return [];
+              }
+
+              const data = await resp.json();
+              return data.jobs || [];
+            } catch (err) {
+              console.error('Fetch error for "' + keyword + '":', err.message);
+              return [];
+            }
+          }
+
+          async function supabaseRequest(method, endpoint, body) {
+            const url = SUPABASE_URL + '/rest/v1/' + endpoint;
+            const headers = {
+              'apikey': SUPABASE_SERVICE_KEY,
+              'Authorization': 'Bearer ' + SUPABASE_SERVICE_KEY,
+              'Content-Type': 'application/json',
+              'Prefer': method === 'POST' ? 'resolution=merge-duplicates' : ''
+            };
+
+            const opts = { method, headers };
+            if (body) opts.body = JSON.stringify(body);
+
+            const resp = await fetch(url, opts);
+            if (!resp.ok) {
+              const text = await resp.text();
+              console.error('Supabase error:', resp.status, text);
+            }
+            return resp;
+          }
+
+          async function main() {
+            console.log('Starting Jooble job refresh...');
+
+            // Fetch jobs from all keyword variations
+            const allJobs = [];
+            const seen = new Set();
+
+            for (const kw of keywords) {
+              console.log('Fetching: "' + kw + '"...');
+              const jobs = await fetchJoobleJobs(kw);
+              console.log('  Found ' + jobs.length + ' jobs');
+
+              for (const job of jobs) {
+                const key = (job.title || '').toLowerCase() + '|' + (job.company || '').toLowerCase();
+                if (!seen.has(key)) {
+                  seen.add(key);
+                  allJobs.push(job);
+                }
+              }
+            }
+
+            console.log('Total unique jobs: ' + allJobs.length);
+
+            if (allJobs.length === 0) {
+              console.log('No jobs found, skipping update');
+              return;
+            }
+
+            // Clear old jooble entries
+            await supabaseRequest('DELETE', 'external_jobs?source=eq.jooble');
+            console.log('Cleared old jooble entries');
+
+            // Prepare rows for insert
+            const rows = allJobs.map(function(job) {
+              return {
+                source: 'jooble',
+                external_id: job.id || (job.title + '-' + job.company).substring(0, 100),
+                title: (job.title || 'Untitled').substring(0, 500),
+                company_name: (job.company || 'Unknown').substring(0, 300),
+                location: (job.location || '').substring(0, 300),
+                description_snippet: (job.snippet || '').substring(0, 1000),
+                url: job.link || '',
+                posted_date: job.updated || null,
+                is_active: true
+              };
+            });
+
+            // Insert in batches of 50
+            for (let i = 0; i < rows.length; i += 50) {
+              const batch = rows.slice(i, i + 50);
+              await supabaseRequest('POST', 'external_jobs', batch);
+              console.log('Inserted batch ' + (Math.floor(i/50) + 1) + ' (' + batch.length + ' jobs)');
+            }
+
+            // Update last refresh timestamp in site_config
+            await supabaseRequest('POST', 'site_config', {
+              key: 'jooble_last_refresh',
+              value: new Date().toISOString()
+            });
+
+            console.log('Done! Refreshed ' + allJobs.length + ' jobs.');
+          }
+
+          main().catch(function(err) {
+            console.error('Fatal error:', err);
+            process.exit(1);
+          });
+          SCRIPT
+
+          node refresh.js
