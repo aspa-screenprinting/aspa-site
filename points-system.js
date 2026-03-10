@@ -138,16 +138,17 @@
   }
 
   /**
-   * Submit a social media link. Auto-awards points immediately.
-   * @param {string} platform — instagram, tiktok, facebook, youtube
+   * Submit a social media link. Creates a pending claim for admin approval.
+   * Points are awarded when the admin approves the claim.
+   * @param {string} platform — instagram, tiktok, facebook, youtube, x, linkedin
    * @param {string} url
-   * @returns {Promise<{link: object, pointsEntry: object}>}
+   * @returns {Promise<{link: object, claim: object}>}
    */
   async function submitSocialLink(platform, url) {
     var uid = _uid();
     var sb = _sb();
 
-    // Insert social link
+    // Insert social link (unverified)
     var { data: link, error: linkErr } = await sb
       .from('social_links')
       .insert({
@@ -168,22 +169,27 @@
     // Look up the social_connect activity
     var { data: activity } = await sb
       .from('activities')
-      .select('id, points_value')
+      .select('id')
       .eq('type', 'social_connect')
       .single();
 
     if (!activity) throw new Error('Activity type not found');
 
-    // Auto-award points
-    var pointsEntry = await _earnPoints(
-      uid,
-      activity.id,
-      activity.points_value,
-      'Connected ' + platform + ' account',
-      { social_link_id: link.id, platform: platform }
-    );
+    // Create a pending claim for admin review (no auto-award)
+    var { data: claim, error: claimErr } = await sb
+      .from('activity_claims')
+      .insert({
+        user_id: uid,
+        activity_id: activity.id,
+        evidence: platform + ': ' + url,
+        status: 'pending'
+      })
+      .select()
+      .single();
 
-    return { link: link, pointsEntry: pointsEntry };
+    if (claimErr) throw claimErr;
+
+    return { link: link, claim: claim };
   }
 
   /**

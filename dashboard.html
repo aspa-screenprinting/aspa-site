@@ -940,7 +940,7 @@
                         <div class="earn-card-icon">📱</div>
                         <div class="earn-card-title">Connect Socials</div>
                         <div class="earn-card-pts">+50 pts each</div>
-                        <div class="earn-card-desc">Link your Instagram, TikTok, Facebook, YouTube, X, or LinkedIn</div>
+                        <div class="earn-card-desc">Just enter your handle — we'll do the rest</div>
                     </div>
                     <div class="earn-card" onclick="toggleEarnPanel('webinar')">
                         <div class="earn-card-icon">🎬</div>
@@ -960,35 +960,35 @@
             <!-- Connect Socials Panel -->
             <div class="earn-panel" id="earnPanelSocials">
                 <h3>📱 Connect Your Social Accounts</h3>
-                <p style="color:var(--ink-gray);font-size:0.85rem;margin-bottom:16px;">Paste your profile URL for each platform. +50 points per platform, awarded instantly.</p>
+                <p style="color:var(--ink-gray);font-size:0.85rem;margin-bottom:16px;">Enter your handle or username for each platform. +50 points per platform after admin verification.</p>
                 <div class="form-row">
                     <span class="platform-label">Instagram</span>
-                    <input type="url" id="socialInstagram" placeholder="https://instagram.com/yourhandle">
+                    <input type="text" id="socialInstagram" placeholder="@yourhandle">
                     <button class="btn-earn" onclick="connectSocial('instagram')">Connect</button>
                 </div>
                 <div class="form-row">
                     <span class="platform-label">TikTok</span>
-                    <input type="url" id="socialTiktok" placeholder="https://tiktok.com/@yourhandle">
+                    <input type="text" id="socialTiktok" placeholder="@yourhandle">
                     <button class="btn-earn" onclick="connectSocial('tiktok')">Connect</button>
                 </div>
                 <div class="form-row">
                     <span class="platform-label">Facebook</span>
-                    <input type="url" id="socialFacebook" placeholder="https://facebook.com/yourpage">
+                    <input type="text" id="socialFacebook" placeholder="yourpage">
                     <button class="btn-earn" onclick="connectSocial('facebook')">Connect</button>
                 </div>
                 <div class="form-row">
                     <span class="platform-label">YouTube</span>
-                    <input type="url" id="socialYoutube" placeholder="https://youtube.com/@yourchannel">
+                    <input type="text" id="socialYoutube" placeholder="@yourchannel">
                     <button class="btn-earn" onclick="connectSocial('youtube')">Connect</button>
                 </div>
                 <div class="form-row">
                     <span class="platform-label">X (Twitter)</span>
-                    <input type="url" id="socialX" placeholder="https://x.com/yourhandle">
+                    <input type="text" id="socialX" placeholder="@yourhandle">
                     <button class="btn-earn" onclick="connectSocial('x')">Connect</button>
                 </div>
                 <div class="form-row">
                     <span class="platform-label">LinkedIn</span>
-                    <input type="url" id="socialLinkedin" placeholder="https://linkedin.com/in/yourprofile">
+                    <input type="text" id="socialLinkedin" placeholder="yourprofile or full URL">
                     <button class="btn-earn" onclick="connectSocial('linkedin')">Connect</button>
                 </div>
                 <div id="socialLinksStatus" style="margin-top:12px;"></div>
@@ -1242,8 +1242,25 @@
         async function connectSocial(platform) {
             var inputId = 'social' + platform.charAt(0).toUpperCase() + platform.slice(1);
             var input = document.getElementById(inputId);
-            var url = input.value.trim();
-            if (!url) { showPtsToast('Please enter a URL', true); return; }
+            var raw = input.value.trim();
+            if (!raw) { showPtsToast('Please enter your handle or username', true); return; }
+
+            // Auto-build full URL from handle/username
+            var prefixes = {
+                instagram: 'https://instagram.com/',
+                tiktok: 'https://tiktok.com/@',
+                facebook: 'https://facebook.com/',
+                youtube: 'https://youtube.com/@',
+                x: 'https://x.com/',
+                linkedin: 'https://linkedin.com/in/'
+            };
+            var url = raw;
+            // If they already pasted a full URL, use it as-is
+            if (!raw.startsWith('http')) {
+                // Strip leading @ if present
+                var handle = raw.replace(/^@/, '');
+                url = prefixes[platform] + handle;
+            }
 
             var btn = input.nextElementSibling;
             btn.disabled = true;
@@ -1251,15 +1268,16 @@
 
             try {
                 await PointsSystem.submitSocialLink(platform, url);
-                _dashBalance += 50;
-                animatePtsCounter(document.getElementById('dashPointsBalance'), _dashBalance);
                 input.disabled = true;
                 input.style.opacity = '0.5';
-                btn.textContent = '✓ Connected';
-                showPtsToast('+50 pts! Connected ' + platform, false);
-                // Refresh activity
-                var history = await PointsSystem.getHistory(5);
-                renderDashActivity(history);
+                btn.textContent = '⏳ Pending';
+                btn.style.background = 'rgba(255,193,7,0.2)';
+                btn.style.borderColor = '#ffc107';
+                btn.style.color = '#ffc107';
+                showPtsToast('Submitted ' + platform + ' — pending admin review', false);
+                // Refresh pending claims
+                var claims = await PointsSystem.getMyClaims('pending');
+                renderPendingClaims(claims);
             } catch (err) {
                 btn.disabled = false;
                 btn.textContent = 'Connect';
