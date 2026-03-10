@@ -1135,23 +1135,95 @@
             return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         }
 
-        // Extract state abbreviation from location string
-        function extractState(location) {
+        // Extract city and state from location string
+        function parseLocation(location) {
             if (!location) return null;
             // Match patterns like "City, ST" or "City, ST 12345"
-            const match = location.match(/,\s*([A-Z]{2})\b/i);
-            return match ? match[1].toUpperCase() : null;
+            const match = location.match(/^(.+?),\s*([A-Z]{2})\b/i);
+            if (match) return { city: match[1].trim(), state: match[2].toUpperCase() };
+            return null;
         }
 
-        // Get approximate coordinates for a job's location using state center
+        // City coordinate cache: "city|state" -> [lat, lng]
+        const cityCoordCache = {};
+
+        // Look up city coordinates via zippopotam.us API
+        async function lookupCity(city, state) {
+            const key = (city + '|' + state).toLowerCase();
+            if (cityCoordCache[key] !== undefined) return cityCoordCache[key];
+            try {
+                const encodedCity = encodeURIComponent(city.replace(/\s+/g, '%20'));
+                const resp = await fetch('https://api.zippopotam.us/us/' + state + '/' + city);
+                if (!resp.ok) {
+                    cityCoordCache[key] = null;
+                    return null;
+                }
+                const data = await resp.json();
+                if (data.places && data.places.length > 0) {
+                    const coords = [parseFloat(data.places[0].latitude), parseFloat(data.places[0].longitude)];
+                    cityCoordCache[key] = coords;
+                    return coords;
+                }
+                cityCoordCache[key] = null;
+                return null;
+            } catch (e) {
+                cityCoordCache[key] = null;
+                return null;
+            }
+        }
+
+        // Pre-cache coordinates for all job locations (called before filtering)
+        async function preCacheJobCoordinates(nativeJobs, externalJobs) {
+            const lookups = [];
+            const seen = new Set();
+
+            for (const job of nativeJobs) {
+                if (job.location_remote) continue;
+                const city = job.location_city;
+                const state = job.location_state;
+                if (city && state) {
+                    const key = (city + '|' + state).toLowerCase();
+                    if (!seen.has(key) && cityCoordCache[key] === undefined) {
+                        seen.add(key);
+                        lookups.push(lookupCity(city, state));
+                    }
+                }
+            }
+
+            for (const job of externalJobs) {
+                const parsed = parseLocation(job.location);
+                if (parsed) {
+                    const key = (parsed.city + '|' + parsed.state).toLowerCase();
+                    if (!seen.has(key) && cityCoordCache[key] === undefined) {
+                        seen.add(key);
+                        lookups.push(lookupCity(parsed.city, parsed.state));
+                    }
+                }
+            }
+
+            // Run all lookups in parallel (with a reasonable limit)
+            await Promise.allSettled(lookups);
+        }
+
+        // Get coordinates for a job (uses cached city coords, falls back to state center)
         function getJobCoordinates(job, isNative) {
-            let state;
+            let city, state;
             if (isNative) {
-                if (job.location_remote) return null; // Remote jobs don't need coordinates
+                if (job.location_remote) return null;
+                city = job.location_city;
                 state = job.location_state;
             } else {
-                state = extractState(job.location);
+                const parsed = parseLocation(job.location);
+                if (parsed) { city = parsed.city; state = parsed.state; }
             }
+
+            // Try city-level cache first
+            if (city && state) {
+                const key = (city + '|' + state).toLowerCase();
+                if (cityCoordCache[key]) return cityCoordCache[key];
+            }
+
+            // Fall back to state center
             if (state && stateCoords[state]) return stateCoords[state];
             return null;
         }
@@ -1216,6 +1288,11 @@
             let userCoords = null;
             if (zipCode.length === 5) {
                 userCoords = await lookupZip(zipCode);
+            }
+
+            // Pre-cache city coordinates for all jobs if we need distance filtering
+            if (userCoords && radius) {
+                await preCacheJobCoordinates(allNativeJobs, allExternalJobs);
             }
 
             // Location distance check helper
