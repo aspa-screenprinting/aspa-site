@@ -960,7 +960,7 @@
             <!-- Connect Socials Panel -->
             <div class="earn-panel" id="earnPanelSocials">
                 <h3>📱 Connect Your Social Accounts</h3>
-                <p style="color:var(--ink-gray);font-size:0.85rem;margin-bottom:16px;">Enter your handle or username for each platform. +50 points per platform after admin verification.</p>
+                <p style="color:var(--ink-gray);font-size:0.85rem;margin-bottom:16px;">Enter your handle or username for each platform. +50 points per platform, one time only.</p>
                 <div class="form-row">
                     <span class="platform-label">Instagram</span>
                     <input type="text" id="socialInstagram" placeholder="@yourhandle">
@@ -1169,11 +1169,20 @@
                     var inputId = 'social' + links[i].platform.charAt(0).toUpperCase() + links[i].platform.slice(1);
                     var input = document.getElementById(inputId);
                     if (input) {
-                        input.value = links[i].url;
+                        // Show the handle portion of the URL instead of the full URL
+                        var storedUrl = links[i].url || '';
+                        var displayVal = storedUrl.replace(/^https?:\/\/(www\.)?(instagram|tiktok|facebook|youtube|x|linkedin)\.com\/(in\/|@)?/i, '@');
+                        input.value = displayVal || storedUrl;
                         input.disabled = true;
                         input.style.opacity = '0.5';
                         var btn = input.nextElementSibling;
-                        if (btn) { btn.textContent = '✓ Connected'; btn.disabled = true; }
+                        if (btn) {
+                            btn.textContent = '✓ +50 pts';
+                            btn.disabled = true;
+                            btn.style.background = 'rgba(0,230,118,0.2)';
+                            btn.style.borderColor = '#00e676';
+                            btn.style.color = '#00e676';
+                        }
                     }
                 }
 
@@ -1245,6 +1254,16 @@
             var raw = input.value.trim();
             if (!raw) { showPtsToast('Please enter your handle or username', true); return; }
 
+            // Basic format validation (if not a full URL)
+            if (!raw.startsWith('http')) {
+                var handle = raw.replace(/^@/, '');
+                if (handle.length < 2) { showPtsToast('Handle must be at least 2 characters', true); return; }
+                if (/\s/.test(handle)) { showPtsToast('Handle cannot contain spaces', true); return; }
+                if (platform !== 'linkedin' && !/^[a-zA-Z0-9._-]+$/.test(handle)) {
+                    showPtsToast('Handle can only contain letters, numbers, dots, and underscores', true); return;
+                }
+            }
+
             // Auto-build full URL from handle/username
             var prefixes = {
                 instagram: 'https://instagram.com/',
@@ -1268,16 +1287,18 @@
 
             try {
                 await PointsSystem.submitSocialLink(platform, url);
+                _dashBalance += 50;
+                animatePtsCounter(document.getElementById('dashPointsBalance'), _dashBalance);
                 input.disabled = true;
                 input.style.opacity = '0.5';
-                btn.textContent = '⏳ Pending';
-                btn.style.background = 'rgba(255,193,7,0.2)';
-                btn.style.borderColor = '#ffc107';
-                btn.style.color = '#ffc107';
-                showPtsToast('Submitted ' + platform + ' — pending admin review', false);
-                // Refresh pending claims
-                var claims = await PointsSystem.getMyClaims('pending');
-                renderPendingClaims(claims);
+                btn.textContent = '✓ +50 pts';
+                btn.style.background = 'rgba(0,230,118,0.2)';
+                btn.style.borderColor = '#00e676';
+                btn.style.color = '#00e676';
+                showPtsToast('+50 pts! Connected ' + platform, false);
+                // Refresh activity
+                var history = await PointsSystem.getHistory(5);
+                renderDashActivity(history);
             } catch (err) {
                 btn.disabled = false;
                 btn.textContent = 'Connect';

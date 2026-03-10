@@ -138,17 +138,17 @@
   }
 
   /**
-   * Submit a social media link. Creates a pending claim for admin approval.
-   * Points are awarded when the admin approves the claim.
+   * Submit a social media link. Auto-awards points after basic validation.
+   * Each platform can only be connected once per user (enforced by DB unique constraint).
    * @param {string} platform — instagram, tiktok, facebook, youtube, x, linkedin
-   * @param {string} url
-   * @returns {Promise<{link: object, claim: object}>}
+   * @param {string} url — full profile URL (auto-built from handle by caller)
+   * @returns {Promise<{link: object, pointsEntry: object}>}
    */
   async function submitSocialLink(platform, url) {
     var uid = _uid();
     var sb = _sb();
 
-    // Insert social link (unverified)
+    // Insert social link (unique constraint on user_id + platform prevents duplicates)
     var { data: link, error: linkErr } = await sb
       .from('social_links')
       .insert({
@@ -161,7 +161,7 @@
 
     if (linkErr) {
       if (linkErr.code === '23505') {
-        throw new Error('You have already connected ' + platform);
+        throw new Error('You already earned points for ' + platform);
       }
       throw linkErr;
     }
@@ -169,27 +169,22 @@
     // Look up the social_connect activity
     var { data: activity } = await sb
       .from('activities')
-      .select('id')
+      .select('id, points_value')
       .eq('type', 'social_connect')
       .single();
 
     if (!activity) throw new Error('Activity type not found');
 
-    // Create a pending claim for admin review (no auto-award)
-    var { data: claim, error: claimErr } = await sb
-      .from('activity_claims')
-      .insert({
-        user_id: uid,
-        activity_id: activity.id,
-        evidence: platform + ': ' + url,
-        status: 'pending'
-      })
-      .select()
-      .single();
+    // Award points
+    var pointsEntry = await _earnPoints(
+      uid,
+      activity.id,
+      activity.points_value,
+      'Connected ' + platform + ' account',
+      { social_link_id: link.id, platform: platform }
+    );
 
-    if (claimErr) throw claimErr;
-
-    return { link: link, claim: claim };
+    return { link: link, pointsEntry: pointsEntry };
   }
 
   /**
