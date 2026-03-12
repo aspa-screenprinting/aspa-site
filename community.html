@@ -1069,7 +1069,6 @@
 
         function populateUserCard() {
             var initials = getInitials(state.profile.full_name);
-            var avatar = getAvatarElement(initials);
 
             document.getElementById('userAvatar').textContent = initials;
             document.getElementById('userAvatar').style.background = getAvatarColor(state.profile.full_name);
