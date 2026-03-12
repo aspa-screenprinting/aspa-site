@@ -3,7 +3,7 @@
 **Project:** screen-printing.us redesign
 **Client:** Dustin Cochran (cochran.dustin@gmail.com)
 **Date:** March 3–12, 2026 (last updated: Session 18)
-**Status:** In Progress — Core Pages Built, Resource Hub COMPLETE (All 18 Articles), **SITE LIVE on GitHub Pages**, Nav Widened (1440px), **Supabase Backend Live** (Auth + Database + Google OAuth + Storage), ASPA+ Gated Content Live, Admin Dashboard Built, **UI Polish Pass Complete**, **Gamification & Loyalty Points System Live**, **Job Board Live**, **Community Chat Live** (Real-time, Edit/Delete, Search, Profile Edit, Avatar Upload, Admin Moderation)
+**Status:** In Progress — Core Pages Built, Resource Hub COMPLETE (All 18 Articles), **SITE LIVE on GitHub Pages**, Nav Full-Width, **Supabase Backend Live** (Auth + Database + Google OAuth + Storage), ASPA+ Gated Content Live, Admin Dashboard Built, **UI Polish Pass Complete**, **Gamification & Loyalty Points System Live**, **Job Board Live**, **Community Chat Live** (Real-time, Edit/Delete, Search, Profile Edit, Avatar Upload, Admin Moderation)
 
 ---
 
@@ -418,7 +418,7 @@ Real-time Slack-style chat with Supabase Realtime. Three-column layout: left sid
 
 All pages now have consistent navigation (standardized in Sessions 10–11, widened in Session 18):
 - **Nav bar:** Home, Directory, Certified, Membership, Resources, Jobs, Discounts⁺, Rewards⁺, Education⁺, Community⁺, Join ASPA (CTA) / Log In
-- **Nav container:** max-width 1440px (widened from 1200px in Session 18), link gap 20px, font-size 12.5px
+- **Nav container:** max-width 100% / full-width (widened from 1200px→1440px→100% in Session 18), link gap 20px, font-size 12.5px
 - **ASPA+ gradient links:** Discounts, Rewards, Education, and Community use `.nav-aspa-plus` class with gradient text (`linear-gradient(135deg, #00d4ff, #e91e8c, #ffd400)`) and a gold "⁺" superscript
 - **Auth state:** Nav displays "Join ASPA | Log In" for guests, or "Hi, [FirstName] | My ASPA+ | Log Out" for logged-in members
 - **Footer:** Directory section (links to directory.html categories), Certification section (CSP Roster, CSP Exam links), Association section (About, Contact, Privacy, Terms)
@@ -648,7 +648,7 @@ The localStorage approach is a client-side prototype. When ready for production:
 - [x] ~~Nav bar standardization~~ → All 32 HTML pages use consistent nav from certified-roster.html baseline ✅
 - [x] ~~Auth state in nav~~ → Inline script pattern shows logged-in/logged-out state instantly ✅
 - [x] ~~ASPA+ gradient nav links~~ → Discounts⁺ and Education⁺ with gradient text styling ✅
-- [x] ~~Nav bar widened~~ → 1440px max-width, 20px gap, 12.5px font across 34 files ✅ (Session 18)
+- [x] ~~Nav bar widened~~ → Full-width (100%), 20px gap, 12.5px font across 34 files ✅ (Session 18)
 - [ ] Mobile responsive polish (hamburger menu functional but needs responsive design pass)
 
 ---
@@ -992,7 +992,7 @@ Full Slack-style community chat page with real-time messaging via Supabase Realt
 Widened the navigation bar across all pages to fix cramped layout caused by 10+ nav items. Also completed the avatar upload feature from Session 17.
 
 ### Nav CSS Changes (34 files updated)
-- **`.nav-container` max-width:** 1200px → **1440px** (middle-ground approach — wide enough for all items, still centered on ultra-wide monitors)
+- **`.nav-container` max-width:** 1200px → 1440px → **100% full-width** (1440px still cramped on some laptops, so went full-width)
 - **`.nav-links` gap:** 32px → **20px** (tighter spacing between links)
 - **`.nav-links a` font-size:** 14px → **12.5px** (slightly smaller text to fit comfortably)
 
@@ -1009,6 +1009,7 @@ Widened the navigation bar across all pages to fix cramped layout caused by 10+ 
 - `98ba9e2` Add admin moderation: admins can delete any message
 - `1d8c146` Add profile avatar upload with Supabase Storage
 - `afcca84` Widen nav bar: 1440px max-width, tighter link spacing
+- `5150f18` Make nav full-width across all pages
 
 ---
 
@@ -1067,7 +1068,7 @@ Compared original site (screen-printing.us, built on Google Sites + Blogger) aga
 - Debounced search (300ms) with AND logic for combined filters
 - Files designed to sit in the same directory
 - `.nav-aspa-plus` CSS class provides gradient text for premium nav links
-- `certified-roster.html` is the canonical nav CSS reference — all other pages were standardized to match it. Nav widened to 1440px max-width in Session 18.
+- `certified-roster.html` is the canonical nav CSS reference — all other pages were standardized to match it. Nav set to full-width (max-width: 100%) in Session 18.
 - Directory and roster pages fall back to hardcoded sample data when Supabase data isn't available
 - Exam results are persisted to Supabase; CSP certification auto-created on pass
 
