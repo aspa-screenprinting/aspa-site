@@ -1956,11 +1956,16 @@
             document.getElementById('userName').textContent = name || 'Member';
             document.getElementById('userCompany').textContent = state.profile.company || 'No company';
 
-            // Right sidebar current user
+            // Right sidebar current user (may not exist if presence is managing it)
             var curAv = document.getElementById('currentUserAvatar');
-            curAv.innerHTML = avatarInnerHtml(url, name);
-            curAv.style.cssText = avatarBgStyle(url, name);
-            document.getElementById('currentUserName').textContent = name || 'You';
+            if (curAv) {
+                curAv.innerHTML = avatarInnerHtml(url, name);
+                curAv.style.cssText = avatarBgStyle(url, name);
+            }
+            var curName = document.getElementById('currentUserName');
+            if (curName) {
+                curName.textContent = name || 'You';
+            }
         }
 
         // ────────────────────────────────────────────────────────
