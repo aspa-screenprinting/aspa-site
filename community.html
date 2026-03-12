@@ -1756,7 +1756,9 @@
             allUsers: [],
             mentionQuery: null,
             mentionStartPos: null,
-            mentionSelectedIndex: 0
+            mentionSelectedIndex: 0,
+            presenceChannel: null,
+            onlineUsers: {}
         };
 
         var SUPABASE_STORAGE_URL = 'https://wstonlslhlvdtbdyteeo.supabase.co/storage/v1/object/public/avatars/';
@@ -2041,6 +2043,10 @@
             if (state.messageSubscription) {
                 state.messageSubscription.unsubscribe();
             }
+            if (state.presenceChannel) {
+                try { state.presenceChannel.unsubscribe(); } catch (e) {}
+                state.presenceChannel = null;
+            }
 
             // Clear reply state
             state.replyToMessage = null;
@@ -2061,6 +2067,7 @@
                 await loadMessages(channelId);
                 await loadPinnedMessages();
                 subscribeToMessages(channelId);
+                setupPresence(channelId);
 
                 // Mark as read
                 var now = new Date().toISOString();
@@ -2614,6 +2621,113 @@
             }
         }
 
+        // ────────────────────────────────────────────────────────
+        // Presence: Online Members + Typing
+        // ────────────────────────────────────────────────────────
+
+        function setupPresence(channelId) {
+            // Clean up previous presence channel
+            if (state.presenceChannel) {
+                try { state.presenceChannel.unsubscribe(); } catch (e) {}
+                state.presenceChannel = null;
+            }
+            state.onlineUsers = {};
+            state.typingUsers = {};
+
+            try {
+                var supabase = window._supabase;
+                var channel = supabase.channel('online-' + channelId, {
+                    config: { presence: { key: state.session.user.id } }
+                });
+
+                channel
+                    .on('presence', { event: 'sync' }, function () {
+                        var presenceState = channel.presenceState();
+                        state.onlineUsers = {};
+                        state.typingUsers = {};
+
+                        Object.keys(presenceState).forEach(function (userId) {
+                            var presences = presenceState[userId];
+                            if (presences && presences.length > 0) {
+                                var p = presences[0];
+                                state.onlineUsers[userId] = {
+                                    user_id: userId,
+                                    user_name: p.user_name || 'Member',
+                                    avatar_url: p.avatar_url || null,
+                                    company: p.company || ''
+                                };
+                                if (p.typing) {
+                                    state.typingUsers[userId] = p.user_name || 'Someone';
+                                }
+                            }
+                        });
+
+                        renderOnlineMembers();
+                        updateTypingIndicator();
+                    })
+                    .subscribe(function (status) {
+                        if (status === 'SUBSCRIBED') {
+                            channel.track({
+                                user_id: state.session.user.id,
+                                user_name: state.profile.full_name || 'Member',
+                                avatar_url: state.profile.avatar_url || null,
+                                company: state.profile.company || '',
+                                typing: false
+                            });
+                        }
+                    });
+
+                state.presenceChannel = channel;
+            } catch (err) {
+                console.error('[Community] Presence setup error:', err);
+            }
+        }
+
+        function renderOnlineMembers() {
+            var container = document.getElementById('onlineMembers');
+            var users = Object.values(state.onlineUsers);
+            var count = users.length;
+
+            document.getElementById('onlineCount').textContent = count + ' online';
+
+            var html = '';
+            users.forEach(function (user) {
+                var name = user.user_name || 'Member';
+                var isCurrentUser = user.user_id === state.session.user.id;
+                var displayName = isCurrentUser ? name + ' (you)' : name;
+
+                var av;
+                if (user.avatar_url) {
+                    av = '<img src="' + user.avatar_url + '" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentNode.textContent=\'' + getInitials(name) + '\'">';
+                } else {
+                    av = getInitials(name);
+                }
+                var bg = user.avatar_url ? 'background:transparent;' : avatarBgStyle(null, name);
+
+                html += '<div class="member-item">'
+                    + '<div class="member-avatar" style="' + bg + '">' + av + '</div>'
+                    + '<div class="member-info">'
+                    + '<div class="member-name">' + escapeHtml(displayName) + '</div>'
+                    + '<div class="member-status">Online</div>'
+                    + '</div>'
+                    + '<div class="member-online"></div>'
+                    + '</div>';
+            });
+
+            if (html === '') {
+                html = '<div class="member-item">'
+                    + '<div class="member-avatar" id="currentUserAvatar">?</div>'
+                    + '<div class="member-info">'
+                    + '<div class="member-name" id="currentUserName">You</div>'
+                    + '<div class="member-status">Online</div>'
+                    + '</div>'
+                    + '<div class="member-online"></div>'
+                    + '</div>';
+            }
+
+            container.innerHTML = html;
+        }
+
         async function handleNewMessage(msg) {
             try {
                 var supabase = window._supabase;
@@ -3017,31 +3131,35 @@
         // ────────────────────────────────────────────────────────
 
         function broadcastTyping() {
-            if (!state.currentChannelId) return;
+            if (!state.currentChannelId || !state.presenceChannel) return;
 
             try {
-                var supabase = window._supabase;
-                var channel = supabase.channel('presence-' + state.currentChannelId);
+                // Clear existing typing timeout
+                if (state.typingTimeout) clearTimeout(state.typingTimeout);
 
-                channel.subscribe(function (status) {
-                    if (status === 'SUBSCRIBED') {
-                        channel.track({
-                            user_id: state.session.user.id,
-                            user_name: state.profile.full_name,
-                            typing: true
-                        });
-
-                        setTimeout(function () {
-                            channel.track({
-                                user_id: state.session.user.id,
-                                user_name: state.profile.full_name,
-                                typing: false
-                            });
-                        }, 3000);
-                    }
+                // Track as typing
+                state.presenceChannel.track({
+                    user_id: state.session.user.id,
+                    user_name: state.profile.full_name || 'Member',
+                    avatar_url: state.profile.avatar_url || null,
+                    company: state.profile.company || '',
+                    typing: true
                 });
+
+                // Stop typing after 3 seconds of inactivity
+                state.typingTimeout = setTimeout(function () {
+                    if (state.presenceChannel) {
+                        state.presenceChannel.track({
+                            user_id: state.session.user.id,
+                            user_name: state.profile.full_name || 'Member',
+                            avatar_url: state.profile.avatar_url || null,
+                            company: state.profile.company || '',
+                            typing: false
+                        });
+                    }
+                }, 3000);
             } catch (err) {
-                // Presence may not be available in all Supabase setups
+                // Presence may not be available
             }
         }
 
