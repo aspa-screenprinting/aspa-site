@@ -463,6 +463,125 @@
             font-style: italic;
         }
 
+        /* Message actions (edit/delete) */
+        .message-actions {
+            display: none;
+            position: absolute;
+            top: -8px;
+            right: 0;
+            gap: 2px;
+            background: var(--chat-sidebar);
+            border: 1px solid var(--chat-border);
+            border-radius: 6px;
+            padding: 2px 4px;
+            z-index: 5;
+        }
+        .message-row { position: relative; }
+        .message-row:hover .message-actions { display: flex; }
+        .message-actions button {
+            background: none;
+            border: none;
+            color: var(--chat-text-muted);
+            cursor: pointer;
+            padding: 4px 6px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            line-height: 1;
+        }
+        .message-actions button:hover {
+            background: rgba(255,255,255,0.08);
+            color: var(--chat-text);
+        }
+        .message-actions .action-delete:hover { color: #e55; }
+
+        /* Inline edit mode */
+        .edit-container {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .edit-input {
+            background: var(--chat-bg);
+            border: 1px solid var(--chat-accent);
+            color: var(--chat-text);
+            font-family: inherit;
+            font-size: 0.95rem;
+            padding: 6px 10px;
+            border-radius: 6px;
+            resize: none;
+            width: 100%;
+        }
+        .edit-input:focus { outline: none; border-color: var(--chat-accent); }
+        .edit-buttons {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .edit-buttons button {
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            border: none;
+        }
+        .edit-save {
+            background: var(--chat-accent);
+            color: white;
+        }
+        .edit-cancel {
+            background: none;
+            color: var(--chat-text-muted);
+        }
+        .edit-hint {
+            color: var(--chat-text-muted);
+            font-size: 0.75rem;
+        }
+        .message-edited {
+            color: var(--chat-text-muted);
+            font-size: 0.75rem;
+            margin-left: 4px;
+        }
+
+        /* Search bar */
+        .search-toggle {
+            background: none;
+            border: 1px solid var(--chat-border);
+            color: var(--chat-text-muted);
+            cursor: pointer;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+        .search-toggle:hover { color: var(--chat-text); background: rgba(255,255,255,0.05); }
+        .search-bar {
+            padding: 8px 24px;
+            border-bottom: 1px solid var(--chat-border);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--chat-sidebar);
+        }
+        .search-bar input {
+            flex: 1;
+            background: var(--chat-bg);
+            border: 1px solid var(--chat-border);
+            color: var(--chat-text);
+            font-family: inherit;
+            font-size: 0.9rem;
+            padding: 8px 12px;
+            border-radius: 6px;
+        }
+        .search-bar input:focus { outline: none; border-color: var(--chat-accent); }
+        .search-bar input::placeholder { color: var(--chat-text-muted); }
+        .search-results-count { color: var(--chat-text-muted); font-size: 0.8rem; white-space: nowrap; }
+        .search-clear {
+            background: none; border: none; color: var(--chat-text-muted); cursor: pointer;
+            font-size: 1rem; padding: 4px 8px; border-radius: 4px;
+        }
+        .search-clear:hover { color: var(--chat-text); background: rgba(255,255,255,0.05); }
+        .message-row.search-hidden { display: none; }
+        .message-row .search-highlight { background: rgba(139, 26, 26, 0.5); color: white; border-radius: 2px; padding: 0 2px; }
+
         /* ════════════════════════════ Message Input ════════════════════════════ */
         .input-area {
             padding: 16px 24px;
@@ -925,10 +1044,11 @@
                     <div class="sidebar-branding">
                         <span class="sidebar-branding-text">ASPA+</span>
                     </div>
-                    <div class="user-card">
+                    <div class="user-card" onclick="openProfileEdit()" style="cursor:pointer;" title="Click to edit profile">
                         <div class="user-card-avatar" id="userAvatar">?</div>
                         <div class="user-card-name" id="userName">Loading...</div>
                         <div class="user-card-company" id="userCompany">-</div>
+                        <div style="color:var(--chat-text-muted);font-size:0.7rem;margin-top:4px;">&#9998; Edit profile</div>
                     </div>
                 </div>
 
@@ -952,11 +1072,18 @@
                         <p id="channelDescription">-</p>
                     </div>
                     <div class="chat-header-right">
+                        <button class="search-toggle" onclick="toggleSearch()" title="Search messages">&#128269;</button>
                         <div class="online-count">
                             <div class="online-dot"></div>
                             <span id="onlineCount">1 online</span>
                         </div>
                     </div>
+                </div>
+
+                <div class="search-bar" id="searchBar" style="display:none;">
+                    <input type="text" id="searchInput" placeholder="Search messages in this channel..." autocomplete="off">
+                    <span class="search-results-count" id="searchResultsCount"></span>
+                    <button class="search-clear" onclick="clearSearch()">&#10005;</button>
                 </div>
 
                 <div class="messages-area" id="messagesArea">
@@ -991,6 +1118,25 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Edit Modal -->
+    <div id="profileModal" style="display:none; position:fixed; inset:0; z-index:100; background:rgba(0,0,0,0.6); display:none; align-items:center; justify-content:center;">
+        <div style="background:var(--chat-sidebar); border:1px solid var(--chat-border); border-radius:12px; padding:24px; width:360px; max-width:90vw;">
+            <h3 style="font-family:'Space Grotesk',sans-serif; color:var(--chat-text); margin-bottom:16px; font-size:1.1rem;">Edit Profile</h3>
+            <label style="color:var(--chat-text-secondary); font-size:0.8rem; display:block; margin-bottom:4px;">Display Name</label>
+            <input id="profileEditName" type="text" style="width:100%; background:var(--chat-bg); border:1px solid var(--chat-border); color:var(--chat-text); padding:8px 12px; border-radius:6px; font-family:inherit; font-size:0.95rem; margin-bottom:12px; box-sizing:border-box;">
+            <label style="color:var(--chat-text-secondary); font-size:0.8rem; display:block; margin-bottom:4px;">Company</label>
+            <input id="profileEditCompany" type="text" style="width:100%; background:var(--chat-bg); border:1px solid var(--chat-border); color:var(--chat-text); padding:8px 12px; border-radius:6px; font-family:inherit; font-size:0.95rem; margin-bottom:12px; box-sizing:border-box;">
+            <label style="color:var(--chat-text-secondary); font-size:0.8rem; display:block; margin-bottom:4px;">City</label>
+            <input id="profileEditCity" type="text" style="width:100%; background:var(--chat-bg); border:1px solid var(--chat-border); color:var(--chat-text); padding:8px 12px; border-radius:6px; font-family:inherit; font-size:0.95rem; margin-bottom:12px; box-sizing:border-box;">
+            <label style="color:var(--chat-text-secondary); font-size:0.8rem; display:block; margin-bottom:4px;">State</label>
+            <input id="profileEditState" type="text" maxlength="2" placeholder="e.g. GA" style="width:100%; background:var(--chat-bg); border:1px solid var(--chat-border); color:var(--chat-text); padding:8px 12px; border-radius:6px; font-family:inherit; font-size:0.95rem; margin-bottom:16px; box-sizing:border-box;">
+            <div style="display:flex; gap:8px; justify-content:flex-end;">
+                <button onclick="closeProfileEdit()" style="background:none; border:1px solid var(--chat-border); color:var(--chat-text-muted); padding:8px 16px; border-radius:6px; cursor:pointer; font-family:inherit;">Cancel</button>
+                <button onclick="saveProfileEdit()" style="background:var(--chat-accent); border:none; color:white; padding:8px 16px; border-radius:6px; cursor:pointer; font-family:inherit; font-weight:500;">Save</button>
             </div>
         </div>
     </div>
@@ -1230,10 +1376,21 @@
                     html += '</div></div>';
                     prevUserId = null;
                 } else {
+                    var isOwn = msg.user_id === state.session.user.id;
                     var showHeader = prevUserId !== msg.user_id;
+                    var editedTag = msg.edited_at ? '<span class="message-edited">(edited)</span>' : '';
+
+                    // Action buttons (only for own messages)
+                    var actionsHtml = '';
+                    if (isOwn) {
+                        actionsHtml = '<div class="message-actions">'
+                            + '<button onclick="startEditMessage(\'' + msg.id + '\')" title="Edit">&#9998;</button>'
+                            + '<button class="action-delete" onclick="deleteMessage(\'' + msg.id + '\')" title="Delete">&#128465;</button>'
+                            + '</div>';
+                    }
 
                     if (showHeader) {
-                        html += '<div class="message">';
+                        html += '<div class="message message-row" data-msg-id="' + msg.id + '">';
                         var initials = getInitials(profile.full_name);
                         html += '<div class="message-avatar" style="background:' + getAvatarColor(profile.full_name) + ';">' + initials + '</div>';
                         html += '<div class="message-content">';
@@ -1247,13 +1404,15 @@
                         }
                         html += '<span class="message-timestamp">' + formatTime(msg.created_at) + '</span>';
                         html += '</div>';
-                        html += '<div class="message-text">' + escapeHtml(msg.content) + '</div>';
+                        html += '<div class="message-text" id="msg-text-' + msg.id + '">' + escapeHtml(msg.content) + editedTag + '</div>';
+                        html += actionsHtml;
                         html += '</div></div>';
                     } else {
                         // Grouped message (no header)
-                        html += '<div class="message" style="margin-left:52px;">';
+                        html += '<div class="message message-row" style="margin-left:52px;" data-msg-id="' + msg.id + '">';
                         html += '<div class="message-content">';
-                        html += '<div class="message-text">' + escapeHtml(msg.content) + '</div>';
+                        html += '<div class="message-text" id="msg-text-' + msg.id + '">' + escapeHtml(msg.content) + editedTag + '</div>';
+                        html += actionsHtml;
                         html += '</div></div>';
                     }
 
@@ -1264,6 +1423,230 @@
             document.getElementById('messagesArea').innerHTML = html;
             scrollToBottom();
         }
+
+        // ────────────────────────────────────────────────────────
+        // Edit / Delete Messages
+        // ────────────────────────────────────────────────────────
+
+        window.startEditMessage = function (msgId) {
+            var msg = state.messages.find(function (m) { return m.id === msgId; });
+            if (!msg) return;
+
+            var textEl = document.getElementById('msg-text-' + msgId);
+            if (!textEl) return;
+
+            var originalContent = msg.content;
+            textEl.innerHTML = '<div class="edit-container">'
+                + '<textarea class="edit-input" id="edit-input-' + msgId + '" rows="2">' + escapeHtml(originalContent) + '</textarea>'
+                + '<div class="edit-buttons">'
+                + '<button class="edit-save" onclick="saveEditMessage(\'' + msgId + '\')">Save</button>'
+                + '<button class="edit-cancel" onclick="cancelEditMessage(\'' + msgId + '\', ' + JSON.stringify(originalContent).replace(/'/g, "\\'") + ')">Cancel</button>'
+                + '<span class="edit-hint">Esc to cancel &middot; Enter to save</span>'
+                + '</div></div>';
+
+            var input = document.getElementById('edit-input-' + msgId);
+            input.focus();
+            input.setSelectionRange(input.value.length, input.value.length);
+
+            input.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    window.saveEditMessage(msgId);
+                } else if (e.key === 'Escape') {
+                    window.cancelEditMessage(msgId, originalContent);
+                }
+            });
+        };
+
+        window.saveEditMessage = async function (msgId) {
+            var input = document.getElementById('edit-input-' + msgId);
+            if (!input) return;
+
+            var newContent = input.value.trim();
+            if (!newContent) return;
+
+            var msg = state.messages.find(function (m) { return m.id === msgId; });
+            if (!msg || newContent === msg.content) {
+                cancelEditMessage(msgId, msg.content);
+                return;
+            }
+
+            try {
+                var supabase = window._supabase;
+                var { error } = await supabase
+                    .from('community_messages')
+                    .update({ content: newContent, edited_at: new Date().toISOString() })
+                    .eq('id', msgId)
+                    .eq('user_id', state.session.user.id);
+
+                if (error) throw error;
+
+                msg.content = newContent;
+                msg.edited_at = new Date().toISOString();
+                renderMessages();
+            } catch (err) {
+                console.error('[Community] Edit error:', err);
+                alert('Failed to edit message.');
+            }
+        };
+
+        window.cancelEditMessage = function (msgId, originalContent) {
+            var msg = state.messages.find(function (m) { return m.id === msgId; });
+            var editedTag = (msg && msg.edited_at) ? '<span class="message-edited">(edited)</span>' : '';
+            var textEl = document.getElementById('msg-text-' + msgId);
+            if (textEl) {
+                textEl.innerHTML = escapeHtml(originalContent) + editedTag;
+            }
+        };
+
+        // ────────────────────────────────────────────────────────
+        // Search Messages
+        // ────────────────────────────────────────────────────────
+
+        window.toggleSearch = function () {
+            var bar = document.getElementById('searchBar');
+            if (bar.style.display === 'none') {
+                bar.style.display = 'flex';
+                document.getElementById('searchInput').focus();
+            } else {
+                clearSearch();
+                bar.style.display = 'none';
+            }
+        };
+
+        window.clearSearch = function () {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('searchResultsCount').textContent = '';
+            // Show all messages
+            var rows = document.querySelectorAll('.message-row');
+            rows.forEach(function (row) { row.classList.remove('search-hidden'); });
+            // Remove highlights
+            renderMessages();
+        };
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                var debounceTimer;
+                searchInput.addEventListener('input', function () {
+                    clearTimeout(debounceTimer);
+                    debounceTimer = setTimeout(function () { performSearch(); }, 200);
+                });
+                searchInput.addEventListener('keydown', function (e) {
+                    if (e.key === 'Escape') { window.toggleSearch(); }
+                });
+            }
+        });
+
+        function performSearch() {
+            var query = document.getElementById('searchInput').value.trim().toLowerCase();
+            if (!query) {
+                window.clearSearch();
+                return;
+            }
+
+            var rows = document.querySelectorAll('.message-row');
+            var matchCount = 0;
+
+            rows.forEach(function (row) {
+                var msgId = row.getAttribute('data-msg-id');
+                var msg = state.messages.find(function (m) { return m.id === msgId; });
+                if (!msg) { row.classList.add('search-hidden'); return; }
+
+                var content = (msg.content || '').toLowerCase();
+                var authorName = (msg.profiles && msg.profiles.full_name || '').toLowerCase();
+
+                if (content.indexOf(query) !== -1 || authorName.indexOf(query) !== -1) {
+                    row.classList.remove('search-hidden');
+                    matchCount++;
+                    // Highlight matching text in message
+                    var textEl = document.getElementById('msg-text-' + msgId);
+                    if (textEl && content.indexOf(query) !== -1) {
+                        var escaped = escapeHtml(msg.content);
+                        var editedTag = msg.edited_at ? '<span class="message-edited">(edited)</span>' : '';
+                        var regex = new RegExp('(' + query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+                        textEl.innerHTML = escaped.replace(regex, '<span class="search-highlight">$1</span>') + editedTag;
+                    }
+                } else {
+                    row.classList.add('search-hidden');
+                }
+            });
+
+            document.getElementById('searchResultsCount').textContent = matchCount + ' result' + (matchCount !== 1 ? 's' : '');
+        }
+
+        window.deleteMessage = async function (msgId) {
+            if (!confirm('Delete this message?')) return;
+
+            try {
+                var supabase = window._supabase;
+                var { error } = await supabase
+                    .from('community_messages')
+                    .delete()
+                    .eq('id', msgId)
+                    .eq('user_id', state.session.user.id);
+
+                if (error) throw error;
+
+                state.messages = state.messages.filter(function (m) { return m.id !== msgId; });
+                renderMessages();
+            } catch (err) {
+                console.error('[Community] Delete error:', err);
+                alert('Failed to delete message.');
+            }
+        };
+
+        // ────────────────────────────────────────────────────────
+        // Profile Edit
+        // ────────────────────────────────────────────────────────
+
+        window.openProfileEdit = function () {
+            var modal = document.getElementById('profileModal');
+            document.getElementById('profileEditName').value = state.profile.full_name || '';
+            document.getElementById('profileEditCompany').value = state.profile.company || '';
+            document.getElementById('profileEditCity').value = state.profile.city || '';
+            document.getElementById('profileEditState').value = state.profile.state || '';
+            modal.style.display = 'flex';
+        };
+
+        window.closeProfileEdit = function () {
+            document.getElementById('profileModal').style.display = 'none';
+        };
+
+        window.saveProfileEdit = async function () {
+            var name = document.getElementById('profileEditName').value.trim();
+            var company = document.getElementById('profileEditCompany').value.trim();
+            var city = document.getElementById('profileEditCity').value.trim();
+            var st = document.getElementById('profileEditState').value.trim().toUpperCase();
+
+            if (!name) { alert('Name is required.'); return; }
+
+            try {
+                var supabase = window._supabase;
+                var { error } = await supabase
+                    .from('profiles')
+                    .update({ full_name: name, company: company, city: city, state: st })
+                    .eq('id', state.session.user.id);
+
+                if (error) throw error;
+
+                state.profile.full_name = name;
+                state.profile.company = company;
+                state.profile.city = city;
+                state.profile.state = st;
+
+                populateUserCard();
+                closeProfileEdit();
+            } catch (err) {
+                console.error('[Community] Profile update error:', err);
+                alert('Failed to update profile: ' + (err.message || 'Unknown error'));
+            }
+        };
+
+        // Close modal on backdrop click
+        document.getElementById('profileModal').addEventListener('click', function (e) {
+            if (e.target === this) closeProfileEdit();
+        });
 
         // ────────────────────────────────────────────────────────
         // Real-time Subscription
@@ -1287,6 +1670,30 @@
                             handleNewMessage(payload.new);
                         }
                     )
+                    .on(
+                        'postgres_changes',
+                        {
+                            event: 'UPDATE',
+                            schema: 'public',
+                            table: 'community_messages',
+                            filter: 'channel_id=eq.' + channelId
+                        },
+                        function (payload) {
+                            handleUpdatedMessage(payload.new);
+                        }
+                    )
+                    .on(
+                        'postgres_changes',
+                        {
+                            event: 'DELETE',
+                            schema: 'public',
+                            table: 'community_messages',
+                            filter: 'channel_id=eq.' + channelId
+                        },
+                        function (payload) {
+                            handleDeletedMessage(payload.old);
+                        }
+                    )
                     .subscribe();
             } catch (err) {
                 console.error('[Community] Subscribe error:', err);
@@ -1308,6 +1715,21 @@
             } catch (err) {
                 console.error('[Community] Handle new message error:', err);
             }
+        }
+
+        function handleUpdatedMessage(updated) {
+            var msg = state.messages.find(function (m) { return m.id === updated.id; });
+            if (msg) {
+                msg.content = updated.content;
+                msg.edited_at = updated.edited_at;
+                renderMessages();
+            }
+        }
+
+        function handleDeletedMessage(old) {
+            if (!old || !old.id) return;
+            state.messages = state.messages.filter(function (m) { return m.id !== old.id; });
+            renderMessages();
         }
 
         // ────────────────────────────────────────────────────────
