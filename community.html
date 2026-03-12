@@ -995,6 +995,463 @@
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
+
+        /* ════════════════════════════ Emoji Reactions ════════════════════════════ */
+        .message-reactions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin-top: 6px;
+        }
+
+        .reaction-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            background: rgba(139, 26, 26, 0.2);
+            border: 1px solid rgba(139, 26, 26, 0.3);
+            padding: 2px 8px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .reaction-badge:hover {
+            background: rgba(139, 26, 26, 0.3);
+            border-color: rgba(139, 26, 26, 0.5);
+        }
+
+        .reaction-badge.user-reacted {
+            background: rgba(139, 26, 26, 0.4);
+            border-color: var(--chat-accent-red);
+        }
+
+        .reaction-count {
+            color: var(--chat-text-muted);
+            font-size: 0.8rem;
+        }
+
+        /* Emoji picker */
+        .emoji-picker {
+            position: absolute;
+            bottom: 40px;
+            right: 0;
+            background: var(--chat-sidebar);
+            border: 1px solid var(--chat-border);
+            border-radius: 8px;
+            padding: 8px;
+            display: flex;
+            gap: 6px;
+            z-index: 10;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .emoji-option {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 6px;
+            font-size: 1.2rem;
+            transition: all 0.2s;
+        }
+
+        .emoji-option:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.1);
+        }
+
+        /* ════════════════════════════ Reply/Quote ════════════════════════════ */
+        .reply-preview {
+            background: rgba(139, 26, 26, 0.15);
+            border-left: 3px solid var(--chat-accent-red);
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .reply-preview-text {
+            flex: 1;
+            font-size: 0.9rem;
+        }
+
+        .reply-preview-label {
+            color: var(--chat-text-secondary);
+            font-size: 0.8rem;
+            margin-bottom: 4px;
+        }
+
+        .reply-preview-content {
+            color: var(--chat-text);
+            word-break: break-word;
+        }
+
+        .reply-preview-close {
+            background: none;
+            border: none;
+            color: var(--chat-text-muted);
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 0 8px;
+            margin-left: 8px;
+        }
+
+        .reply-preview-close:hover {
+            color: var(--chat-text);
+        }
+
+        .quote-block {
+            background: rgba(139, 26, 26, 0.08);
+            border-left: 3px solid rgba(139, 26, 26, 0.3);
+            padding: 8px 12px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+
+        .quote-author {
+            color: var(--chat-text-secondary);
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+
+        .quote-content {
+            color: var(--chat-text-muted);
+        }
+
+        /* ════════════════════════════ Typing Indicator ════════════════════════════ */
+        .typing-indicator {
+            padding: 8px 24px;
+            color: var(--chat-text-secondary);
+            font-size: 0.85rem;
+            font-style: italic;
+        }
+
+        .typing-dots {
+            display: inline-flex;
+            gap: 3px;
+            margin-left: 4px;
+        }
+
+        .typing-dot {
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background: var(--chat-text-secondary);
+            animation: typingBounce 1.4s infinite;
+        }
+
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typingBounce {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-6px); }
+        }
+
+        /* ════════════════════════════ File/Image Sharing ════════════════════════════ */
+        .file-button {
+            background: none;
+            border: none;
+            color: var(--chat-text-muted);
+            cursor: pointer;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            transition: all 0.2s;
+        }
+
+        .file-button:hover {
+            color: var(--chat-text);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        #attachmentInput {
+            display: none;
+        }
+
+        .attachment-preview {
+            background: rgba(139, 26, 26, 0.08);
+            border: 1px solid var(--chat-border);
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .attachment-preview-image {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 6px;
+            flex-shrink: 0;
+        }
+
+        .attachment-preview-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .attachment-preview-name {
+            color: var(--chat-text);
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+            word-break: break-word;
+        }
+
+        .attachment-preview-size {
+            color: var(--chat-text-muted);
+            font-size: 0.8rem;
+        }
+
+        .attachment-preview-remove {
+            background: none;
+            border: none;
+            color: var(--chat-text-muted);
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 4px 8px;
+        }
+
+        .attachment-preview-remove:hover {
+            color: #e55;
+        }
+
+        .message-image {
+            max-width: 400px;
+            border-radius: 8px;
+            margin-top: 8px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .message-image:hover {
+            opacity: 0.8;
+        }
+
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-image {
+            max-width: 90vw;
+            max-height: 90vh;
+            object-fit: contain;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        /* ════════════════════════════ Notification Bell ════════════════════════════ */
+        .notification-bell {
+            position: relative;
+            background: none;
+            border: none;
+            color: var(--chat-text-secondary);
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 4px 8px;
+            transition: color 0.2s;
+        }
+
+        .notification-bell:hover {
+            color: var(--chat-text);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -2px;
+            right: 0;
+            background: var(--chat-accent-red);
+            color: white;
+            font-size: 0.65rem;
+            font-weight: 700;
+            min-width: 16px;
+            height: 16px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 4px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .mentions-panel {
+            background: var(--chat-sidebar);
+            border-bottom: 1px solid var(--chat-border);
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        .mentions-panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 24px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--chat-text);
+            border-bottom: 1px solid var(--chat-border);
+        }
+
+        .mentions-panel-body {
+            padding: 8px 16px;
+        }
+
+        .mention-item {
+            display: flex;
+            gap: 10px;
+            padding: 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .mention-item:hover {
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .mention-item-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .mention-item-author {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--chat-text);
+        }
+
+        .mention-item-text {
+            font-size: 0.8rem;
+            color: var(--chat-text-secondary);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .mention-item-time {
+            font-size: 0.7rem;
+            color: var(--chat-text-muted);
+        }
+
+        .mention-item-channel {
+            font-size: 0.7rem;
+            color: var(--chat-accent-red);
+            font-weight: 500;
+        }
+
+        .mention-all {
+            background: rgba(0, 212, 255, 0.15);
+            color: var(--ink-cyan);
+        }
+
+        @keyframes bellShake {
+            0%, 100% { transform: rotate(0); }
+            15% { transform: rotate(15deg); }
+            30% { transform: rotate(-15deg); }
+            45% { transform: rotate(10deg); }
+            60% { transform: rotate(-10deg); }
+            75% { transform: rotate(5deg); }
+        }
+
+        /* ════════════════════════════ Pinned Messages ════════════════════════════ */
+        .pinned-banner {
+            background: rgba(139, 26, 26, 0.15);
+            border-bottom: 1px solid rgba(139, 26, 26, 0.3);
+            padding: 8px 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .pinned-banner:hover {
+            background: rgba(139, 26, 26, 0.2);
+        }
+
+        .pinned-banner-count {
+            color: var(--chat-text);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .pinned-banner-icon {
+            font-size: 1rem;
+        }
+
+        .pinned-messages-container {
+            display: none;
+            background: rgba(139, 26, 26, 0.08);
+            border-bottom: 1px solid var(--chat-border);
+            padding: 12px 24px;
+            gap: 12px;
+            flex-direction: column;
+        }
+
+        .pinned-messages-container.expanded {
+            display: flex;
+        }
+
+        .pinned-message {
+            background: var(--chat-bg);
+            border-left: 3px solid var(--chat-accent-red);
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        .pinned-message-author {
+            color: var(--chat-text-secondary);
+            font-size: 0.8rem;
+            margin-bottom: 4px;
+        }
+
+        .pinned-message-content {
+            color: var(--chat-text);
+            word-break: break-word;
+        }
+
+        .message-pin-icon {
+            display: inline-block;
+            font-size: 0.85rem;
+            margin-right: 4px;
+            color: var(--chat-accent-red);
+        }
     </style>
 </head>
 <body>
@@ -1077,6 +1534,10 @@
                         <p id="channelDescription">-</p>
                     </div>
                     <div class="chat-header-right">
+                        <button class="notification-bell" id="notificationBell" onclick="showMissedMentions()" title="Missed @mentions">
+                            &#128276;
+                            <span class="notification-badge" id="notificationBadge" style="display:none;">0</span>
+                        </button>
                         <button class="search-toggle" onclick="toggleSearch()" title="Search messages">&#128269;</button>
                         <div class="online-count">
                             <div class="online-dot"></div>
@@ -1091,11 +1552,46 @@
                     <button class="search-clear" onclick="clearSearch()">&#10005;</button>
                 </div>
 
+                <!-- Missed Mentions Panel -->
+                <div class="mentions-panel" id="mentionsPanel" style="display:none;">
+                    <div class="mentions-panel-header">
+                        <span>&#128276; Missed @Mentions</span>
+                        <button onclick="closeMentionsPanel()" style="background:none;border:none;color:var(--chat-text-muted);cursor:pointer;font-size:1.1rem;">&#10005;</button>
+                    </div>
+                    <div class="mentions-panel-body" id="mentionsPanelBody">
+                        <p style="color:var(--chat-text-muted);font-size:0.85rem;">No missed mentions</p>
+                    </div>
+                </div>
+
                 <div class="messages-area" id="messagesArea">
                     <div class="messages-empty">Select a channel to start chatting</div>
                 </div>
 
+                <div id="typingIndicator" class="typing-indicator" style="display: none;"></div>
+
+                <div id="pinnedBanner" class="pinned-banner" style="display: none;" onclick="togglePinnedMessages()">
+                    <span class="pinned-banner-icon">📌</span>
+                    <span class="pinned-banner-count" id="pinnedCount">0 pinned</span>
+                </div>
+
+                <div id="pinnedMessagesContainer" class="pinned-messages-container"></div>
+
                 <div class="input-area" id="inputArea" style="display: none;">
+                    <div id="replyPreview" class="reply-preview" style="display: none;">
+                        <div class="reply-preview-text">
+                            <div class="reply-preview-label">Replying to <span id="replyAuthor"></span></div>
+                            <div class="reply-preview-content" id="replyContent"></div>
+                        </div>
+                        <button class="reply-preview-close" onclick="cancelReply()">✕</button>
+                    </div>
+                    <div id="attachmentPreview" class="attachment-preview" style="display: none;">
+                        <img id="previewImage" class="attachment-preview-image" src="" alt="">
+                        <div class="attachment-preview-info">
+                            <div class="attachment-preview-name" id="previewName"></div>
+                            <div class="attachment-preview-size" id="previewSize"></div>
+                        </div>
+                        <button class="attachment-preview-remove" onclick="removeAttachment()" title="Remove">✕</button>
+                    </div>
                     <div class="input-wrapper">
                         <textarea
                             id="messageInput"
@@ -1103,6 +1599,8 @@
                             placeholder="Type a message... (Enter to send, Shift+Enter for new line)"
                             rows="1"
                         ></textarea>
+                        <button class="file-button" id="fileButton" onclick="triggerFileUpload()" title="Attach image">📎</button>
+                        <input type="file" id="attachmentInput" accept="image/jpeg,image/png,image/gif,image/webp">
                         <button class="btn-send" id="sendBtn" onclick="sendMessage()">Send</button>
                     </div>
                 </div>
@@ -1125,6 +1623,12 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- Image Lightbox -->
+    <div id="lightbox" class="lightbox">
+        <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+        <img id="lightboxImage" class="lightbox-image" src="" alt="">
     </div>
 
     <!-- Profile Edit Modal -->
@@ -1175,7 +1679,15 @@
             currentChannelId: null,
             messages: [],
             channels: [],
-            messageSubscription: null
+            messageSubscription: null,
+            reactions: {},
+            replyToMessage: null,
+            attachmentFile: null,
+            typingUsers: {},
+            pinnedMessages: [],
+            typingTimeout: null,
+            missedMentions: [],
+            mentionLastSeen: null
         };
 
         var SUPABASE_STORAGE_URL = 'https://wstonlslhlvdtbdyteeo.supabase.co/storage/v1/object/public/avatars/';
@@ -1229,6 +1741,7 @@
             try {
                 populateUserCard();
                 await loadChannels();
+                loadMissedMentions();
             } catch (err) {
                 console.error('[Community] Init error:', err);
             }
@@ -1337,6 +1850,10 @@
                 state.messageSubscription.unsubscribe();
             }
 
+            // Clear reply state
+            state.replyToMessage = null;
+            document.getElementById('replyPreview').style.display = 'none';
+
             // Update UI
             renderChannels();
             var channel = state.channels.find(function (c) { return c.id === channelId; });
@@ -1350,6 +1867,7 @@
 
             try {
                 await loadMessages(channelId);
+                await loadPinnedMessages();
                 subscribeToMessages(channelId);
 
                 // Mark as read
@@ -1370,7 +1888,7 @@
                 var supabase = window._supabase;
                 var { data, error } = await supabase
                     .from('community_messages')
-                    .select('*, profiles:user_id(full_name, company, city, state, membership_tier)')
+                    .select('*, profiles:user_id(full_name, company, city, state, membership_tier, avatar_url)')
                     .eq('channel_id', channelId)
                     .order('created_at', { ascending: true })
                     .limit(50);
@@ -1378,6 +1896,10 @@
                 if (error) throw error;
 
                 state.messages = data || [];
+
+                // Load reactions for these messages
+                await loadReactionsForMessages();
+
                 renderMessages();
             } catch (err) {
                 console.error('[Community] Load messages error:', err);
@@ -1409,18 +1931,80 @@
                     var isOwn = msg.user_id === state.session.user.id;
                     var showHeader = prevUserId !== msg.user_id;
                     var editedTag = msg.edited_at ? '<span class="message-edited">(edited)</span>' : '';
+                    var pinnedIcon = msg.is_pinned ? '<span class="message-pin-icon">📌</span>' : '';
 
-                    // Action buttons: own messages get edit+delete, admins get delete on others
+                    // Action buttons: own messages get reply+react+edit+delete, admins get more options
                     var actionsHtml = '';
+                    var reactionBtn = '<button onclick="showEmojiPicker(\'' + msg.id + '\')" title="React">😊</button>';
+                    var replyBtn = '<button onclick="setReplyTo(\'' + msg.id + '\')" title="Reply">↩️</button>';
+
                     if (isOwn) {
                         actionsHtml = '<div class="message-actions">'
+                            + reactionBtn
+                            + replyBtn
                             + '<button onclick="startEditMessage(\'' + msg.id + '\')" title="Edit">&#9998;</button>'
-                            + '<button class="action-delete" onclick="deleteMessage(\'' + msg.id + '\')" title="Delete">&#128465;</button>'
-                            + '</div>';
-                    } else if (state.isAdmin) {
+                            + '<button class="action-delete" onclick="deleteMessage(\'' + msg.id + '\')" title="Delete">&#128465;</button>';
+                        if (state.isAdmin) {
+                            actionsHtml += '<button onclick="togglePinMessage(\'' + msg.id + '\')" title="' + (msg.is_pinned ? 'Unpin' : 'Pin') + '">📌</button>';
+                        }
+                        actionsHtml += '</div>';
+                    } else {
                         actionsHtml = '<div class="message-actions">'
-                            + '<button class="action-delete" onclick="adminDeleteMessage(\'' + msg.id + '\')" title="Remove (admin)">&#128465;</button>'
-                            + '</div>';
+                            + reactionBtn
+                            + replyBtn;
+                        if (state.isAdmin) {
+                            actionsHtml += '<button class="action-delete" onclick="adminDeleteMessage(\'' + msg.id + '\')" title="Remove (admin)">&#128465;</button>'
+                                + '<button onclick="togglePinMessage(\'' + msg.id + '\')" title="' + (msg.is_pinned ? 'Unpin' : 'Pin') + '">📌</button>';
+                        }
+                        actionsHtml += '</div>';
+                    }
+
+                    // Build quote block if this is a reply
+                    var quoteHtml = '';
+                    if (msg.reply_to_message_id) {
+                        var quotedMsg = state.messages.find(function (m) { return m.id === msg.reply_to_message_id; });
+                        if (quotedMsg) {
+                            var quotedProfile = quotedMsg.profiles;
+                            var truncated = (quotedMsg.content || '').substring(0, 100);
+                            quoteHtml = '<div class="quote-block">'
+                                + '<div class="quote-author">' + escapeHtml(quotedProfile.full_name) + '</div>'
+                                + '<div class="quote-content">' + escapeHtml(truncated) + (quotedMsg.content.length > 100 ? '...' : '') + '</div>'
+                                + '</div>';
+                        }
+                    }
+
+                    // Build reactions HTML
+                    var reactionsHtml = '';
+                    var msgReactions = state.reactions[msg.id] || [];
+                    if (msgReactions.length > 0) {
+                        var reactionCounts = {};
+                        var userReactionEmojis = {};
+                        msgReactions.forEach(function (r) {
+                            if (!reactionCounts[r.emoji]) reactionCounts[r.emoji] = 0;
+                            reactionCounts[r.emoji]++;
+                            if (r.user_id === state.session.user.id) {
+                                userReactionEmojis[r.emoji] = true;
+                            }
+                        });
+
+                        reactionsHtml = '<div class="message-reactions">';
+                        var emojis = Object.keys(reactionCounts);
+                        for (var e = 0; e < emojis.length; e++) {
+                            var emoji = emojis[e];
+                            var count = reactionCounts[emoji];
+                            var userClass = userReactionEmojis[emoji] ? ' user-reacted' : '';
+                            reactionsHtml += '<div class="reaction-badge' + userClass + '" onclick="toggleReaction(\'' + msg.id + '\', \'' + emoji + '\')">'
+                                + emoji + '<span class="reaction-count">' + count + '</span></div>';
+                        }
+                        reactionsHtml += '</div>';
+                    }
+
+                    // Build attachment HTML
+                    var attachmentHtml = '';
+                    if (msg.attachment_url) {
+                        if (msg.attachment_type === 'image') {
+                            attachmentHtml = '<img src="' + msg.attachment_url + '" class="message-image" onclick="openLightbox(\'' + msg.attachment_url.replace(/'/g, "\\'") + '\')" alt="Attachment">';
+                        }
                     }
 
                     if (showHeader) {
@@ -1438,14 +2022,20 @@
                         }
                         html += '<span class="message-timestamp">' + formatTime(msg.created_at) + '</span>';
                         html += '</div>';
-                        html += '<div class="message-text" id="msg-text-' + msg.id + '">' + escapeHtml(msg.content) + editedTag + '</div>';
+                        html += quoteHtml;
+                        html += '<div class="message-text" id="msg-text-' + msg.id + '">' + pinnedIcon + parseMessageContent(msg.content) + editedTag + '</div>';
+                        html += attachmentHtml;
+                        html += reactionsHtml;
                         html += actionsHtml;
                         html += '</div></div>';
                     } else {
                         // Grouped message (no header)
                         html += '<div class="message message-row" style="margin-left:52px;" data-msg-id="' + msg.id + '">';
                         html += '<div class="message-content">';
-                        html += '<div class="message-text" id="msg-text-' + msg.id + '">' + escapeHtml(msg.content) + editedTag + '</div>';
+                        html += quoteHtml;
+                        html += '<div class="message-text" id="msg-text-' + msg.id + '">' + pinnedIcon + parseMessageContent(msg.content) + editedTag + '</div>';
+                        html += attachmentHtml;
+                        html += reactionsHtml;
                         html += actionsHtml;
                         html += '</div></div>';
                     }
@@ -1799,7 +2389,34 @@
                             handleDeletedMessage(payload.old);
                         }
                     )
+                    .on(
+                        'postgres_changes',
+                        {
+                            event: 'INSERT',
+                            schema: 'public',
+                            table: 'community_reactions'
+                        },
+                        function (payload) {
+                            loadReactionsForMessages();
+                            renderMessages();
+                        }
+                    )
+                    .on(
+                        'postgres_changes',
+                        {
+                            event: 'DELETE',
+                            schema: 'public',
+                            table: 'community_reactions'
+                        },
+                        function (payload) {
+                            loadReactionsForMessages();
+                            renderMessages();
+                        }
+                    )
                     .subscribe();
+
+                // Also listen for message updates (pinned status changes)
+                loadPinnedMessages();
             } catch (err) {
                 console.error('[Community] Subscribe error:', err);
             }
@@ -1816,7 +2433,10 @@
 
                 var fullMsg = { ...msg, profiles: profiles };
                 state.messages.push(fullMsg);
+                await loadReactionsForMessages();
                 renderMessages();
+                // Check if this message mentions the current user
+                checkNewMessageForMention(fullMsg);
             } catch (err) {
                 console.error('[Community] Handle new message error:', err);
             }
@@ -1827,7 +2447,9 @@
             if (msg) {
                 msg.content = updated.content;
                 msg.edited_at = updated.edited_at;
+                msg.is_pinned = updated.is_pinned;
                 renderMessages();
+                loadPinnedMessages();
             }
         }
 
@@ -1835,6 +2457,7 @@
             if (!old || !old.id) return;
             state.messages = state.messages.filter(function (m) { return m.id !== old.id; });
             renderMessages();
+            loadPinnedMessages();
         }
 
         // ────────────────────────────────────────────────────────
@@ -1957,6 +2580,560 @@
         observer.observe(document.getElementById('messagesArea'), {
             childList: true,
             subtree: true
+        });
+
+        // ────────────────────────────────────────────────────────
+        // Emoji Reactions
+        // ────────────────────────────────────────────────────────
+
+        async function loadReactionsForMessages() {
+            try {
+                if (state.messages.length === 0) return;
+                var msgIds = state.messages.map(function (m) { return m.id; });
+                var supabase = window._supabase;
+                var { data, error } = await supabase
+                    .from('community_reactions')
+                    .select('*')
+                    .in('message_id', msgIds);
+
+                if (error) throw error;
+
+                state.reactions = {};
+                (data || []).forEach(function (r) {
+                    if (!state.reactions[r.message_id]) state.reactions[r.message_id] = [];
+                    state.reactions[r.message_id].push(r);
+                });
+            } catch (err) {
+                console.error('[Community] Load reactions error:', err);
+            }
+        }
+
+        window.showEmojiPicker = function (msgId) {
+            var actionBtn = event.target;
+            var existingPicker = document.getElementById('emoji-picker-' + msgId);
+            if (existingPicker) {
+                existingPicker.remove();
+                return;
+            }
+
+            var picker = document.createElement('div');
+            picker.id = 'emoji-picker-' + msgId;
+            picker.className = 'emoji-picker';
+            var emojis = ['👍', '❤️', '😂', '🔥', '👏', '🎯'];
+            emojis.forEach(function (emoji) {
+                var btn = document.createElement('button');
+                btn.className = 'emoji-option';
+                btn.textContent = emoji;
+                btn.onclick = function (e) {
+                    e.stopPropagation();
+                    addReaction(msgId, emoji);
+                    picker.remove();
+                };
+                picker.appendChild(btn);
+            });
+
+            var messageRow = document.querySelector('[data-msg-id="' + msgId + '"]');
+            if (messageRow) {
+                messageRow.style.position = 'relative';
+                messageRow.appendChild(picker);
+            }
+        };
+
+        window.addReaction = async function (msgId, emoji) {
+            try {
+                var supabase = window._supabase;
+                var { data, error } = await supabase
+                    .from('community_reactions')
+                    .insert([{
+                        message_id: msgId,
+                        user_id: state.session.user.id,
+                        emoji: emoji
+                    }]);
+
+                if (error) {
+                    if (error.code === '23505') {
+                        // Unique constraint violation - user already reacted with this emoji
+                        await removeReaction(msgId, emoji);
+                    } else {
+                        throw error;
+                    }
+                }
+
+                await loadReactionsForMessages();
+                renderMessages();
+            } catch (err) {
+                console.error('[Community] Add reaction error:', err);
+            }
+        };
+
+        window.removeReaction = async function (msgId, emoji) {
+            try {
+                var supabase = window._supabase;
+                var { error } = await supabase
+                    .from('community_reactions')
+                    .delete()
+                    .eq('message_id', msgId)
+                    .eq('user_id', state.session.user.id)
+                    .eq('emoji', emoji);
+
+                if (error) throw error;
+
+                await loadReactionsForMessages();
+                renderMessages();
+            } catch (err) {
+                console.error('[Community] Remove reaction error:', err);
+            }
+        };
+
+        window.toggleReaction = function (msgId, emoji) {
+            var reactions = state.reactions[msgId] || [];
+            var userReacted = reactions.some(function (r) {
+                return r.user_id === state.session.user.id && r.emoji === emoji;
+            });
+
+            if (userReacted) {
+                removeReaction(msgId, emoji);
+            } else {
+                addReaction(msgId, emoji);
+            }
+        };
+
+        // ────────────────────────────────────────────────────────
+        // Reply/Quote
+        // ────────────────────────────────────────────────────────
+
+        window.setReplyTo = function (msgId) {
+            var msg = state.messages.find(function (m) { return m.id === msgId; });
+            if (!msg) return;
+
+            state.replyToMessage = msg;
+            var profile = msg.profiles;
+            var preview = document.getElementById('replyPreview');
+            document.getElementById('replyAuthor').textContent = escapeHtml(profile.full_name);
+            document.getElementById('replyContent').textContent = (msg.content || '').substring(0, 100) + (msg.content.length > 100 ? '...' : '');
+            preview.style.display = 'flex';
+            document.getElementById('messageInput').focus();
+        };
+
+        window.cancelReply = function () {
+            state.replyToMessage = null;
+            document.getElementById('replyPreview').style.display = 'none';
+        };
+
+        function parseMessageContent(content) {
+            // Parse @mentions: @Name and @all become highlighted
+            var escaped = escapeHtml(content);
+            // First handle @all
+            var mentioned = escaped.replace(/@all\b/gi, function (match) {
+                return '<span style="background:rgba(0,212,255,0.2);color:var(--ink-cyan);font-weight:600;padding:0 2px;border-radius:3px;">@all</span>';
+            });
+            // Then handle @Name mentions
+            mentioned = mentioned.replace(/@([A-Za-z][A-Za-z ]{0,30})/g, function (match, name) {
+                if (name.trim().toLowerCase() === 'all') return match; // already handled
+                return '<span style="background:rgba(139,26,26,0.3);color:var(--chat-text);padding:0 2px;border-radius:3px;">' + match.trim() + '</span>';
+            });
+            return mentioned;
+        }
+
+        // Check if a message mentions the current user (by name or @all)
+        function messagesMentionsUser(msg) {
+            if (!msg.content || !state.profile) return false;
+            var content = msg.content.toLowerCase();
+            var userName = (state.profile.full_name || '').toLowerCase();
+            // Check @all
+            if (content.indexOf('@all') !== -1) return true;
+            // Check @FirstName or @FullName
+            if (userName && content.indexOf('@' + userName) !== -1) return true;
+            var firstName = userName.split(' ')[0];
+            if (firstName && content.indexOf('@' + firstName) !== -1) return true;
+            return false;
+        }
+
+        // ────────────────────────────────────────────────────────
+        // Notification Bell — Missed @Mentions
+        // ────────────────────────────────────────────────────────
+
+        async function loadMissedMentions() {
+            try {
+                var supabase = window._supabase;
+                var lastSeen = localStorage.getItem('aspa-mentions-last-seen') || new Date(Date.now() - 7 * 86400000).toISOString();
+                state.mentionLastSeen = lastSeen;
+
+                // Load recent messages across ALL channels that might mention user
+                var { data, error } = await supabase
+                    .from('community_messages')
+                    .select('*, profiles:user_id(full_name, avatar_url), community_channels!inner(name)')
+                    .gt('created_at', lastSeen)
+                    .neq('user_id', state.session.user.id)
+                    .order('created_at', { ascending: false })
+                    .limit(100);
+
+                if (error) throw error;
+
+                var mentions = (data || []).filter(function (msg) {
+                    return messagesMentionsUser(msg);
+                });
+
+                state.missedMentions = mentions;
+                updateNotificationBadge();
+            } catch (err) {
+                console.error('[Community] Load mentions error:', err);
+            }
+        }
+
+        function updateNotificationBadge() {
+            var badge = document.getElementById('notificationBadge');
+            var count = state.missedMentions.length;
+            if (count > 0) {
+                badge.textContent = count > 99 ? '99+' : count;
+                badge.style.display = 'flex';
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+
+        window.showMissedMentions = function () {
+            var panel = document.getElementById('mentionsPanel');
+            if (panel.style.display !== 'none') {
+                panel.style.display = 'none';
+                return;
+            }
+
+            var body = document.getElementById('mentionsPanelBody');
+
+            if (state.missedMentions.length === 0) {
+                body.innerHTML = '<p style="color:var(--chat-text-muted);font-size:0.85rem;padding:8px;">No missed mentions</p>';
+            } else {
+                var html = '';
+                for (var i = 0; i < state.missedMentions.length; i++) {
+                    var m = state.missedMentions[i];
+                    var authorName = m.profiles ? m.profiles.full_name : 'Unknown';
+                    var channelName = m.community_channels ? m.community_channels.name : '';
+                    var isAll = m.content.toLowerCase().indexOf('@all') !== -1;
+                    var truncated = m.content.length > 80 ? m.content.substring(0, 80) + '...' : m.content;
+
+                    html += '<div class="mention-item" onclick="jumpToMention(\'' + m.channel_id + '\', \'' + m.id + '\')">';
+                    html += '<div class="mention-item-content">';
+                    html += '<div class="mention-item-author">' + escapeHtml(authorName);
+                    if (isAll) html += ' <span class="mention-all">@all</span>';
+                    html += '</div>';
+                    html += '<div class="mention-item-text">' + escapeHtml(truncated) + '</div>';
+                    html += '<div style="display:flex;gap:8px;margin-top:2px;">';
+                    html += '<span class="mention-item-channel"># ' + escapeHtml(channelName) + '</span>';
+                    html += '<span class="mention-item-time">' + formatTime(m.created_at) + '</span>';
+                    html += '</div>';
+                    html += '</div></div>';
+                }
+                body.innerHTML = html;
+            }
+
+            panel.style.display = 'block';
+        };
+
+        window.closeMentionsPanel = function () {
+            document.getElementById('mentionsPanel').style.display = 'none';
+            // Mark all as seen
+            localStorage.setItem('aspa-mentions-last-seen', new Date().toISOString());
+            state.missedMentions = [];
+            updateNotificationBadge();
+        };
+
+        window.jumpToMention = function (channelId, msgId) {
+            document.getElementById('mentionsPanel').style.display = 'none';
+            // Switch to the channel containing the mention
+            if (channelId !== state.currentChannelId) {
+                window.selectChannel(channelId);
+            }
+            // After messages load, try to scroll to the specific message
+            setTimeout(function () {
+                var el = document.querySelector('[data-msg-id="' + msgId + '"]');
+                if (el) {
+                    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    el.style.transition = 'background 0.3s';
+                    el.style.background = 'rgba(139, 26, 26, 0.2)';
+                    setTimeout(function () { el.style.background = ''; }, 2000);
+                }
+            }, 500);
+        };
+
+        // Check incoming realtime messages for mentions and update badge
+        function checkNewMessageForMention(msg) {
+            if (msg.user_id === state.session.user.id) return;
+            if (messagesMentionsUser(msg)) {
+                state.missedMentions.unshift(msg);
+                updateNotificationBadge();
+                // Optional: browser notification sound or visual flash
+                document.getElementById('notificationBell').style.animation = 'bellShake 0.5s';
+                setTimeout(function () {
+                    document.getElementById('notificationBell').style.animation = '';
+                }, 500);
+            }
+        }
+
+        // ────────────────────────────────────────────────────────
+        // Typing Indicators
+        // ────────────────────────────────────────────────────────
+
+        function broadcastTyping() {
+            if (!state.currentChannelId) return;
+
+            try {
+                var supabase = window._supabase;
+                var channel = supabase.channel('presence-' + state.currentChannelId);
+
+                channel.subscribe(function (status) {
+                    if (status === 'SUBSCRIBED') {
+                        channel.track({
+                            user_id: state.session.user.id,
+                            user_name: state.profile.full_name,
+                            typing: true
+                        });
+
+                        setTimeout(function () {
+                            channel.track({
+                                user_id: state.session.user.id,
+                                user_name: state.profile.full_name,
+                                typing: false
+                            });
+                        }, 3000);
+                    }
+                });
+            } catch (err) {
+                // Presence may not be available in all Supabase setups
+            }
+        }
+
+        function updateTypingIndicator() {
+            var typing = Object.keys(state.typingUsers).filter(function (userId) {
+                return userId !== state.session.user.id;
+            });
+
+            var indicator = document.getElementById('typingIndicator');
+            if (typing.length === 0) {
+                indicator.style.display = 'none';
+            } else {
+                var names = typing.slice(0, 2).map(function (userId) {
+                    return state.typingUsers[userId] || 'Someone';
+                }).join(', ');
+                indicator.innerHTML = names + ' is typing<span class="typing-dots"><span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span></span>';
+                indicator.style.display = 'block';
+            }
+        }
+
+        // ────────────────────────────────────────────────────────
+        // File/Image Sharing
+        // ────────────────────────────────────────────────────────
+
+        window.triggerFileUpload = function () {
+            document.getElementById('attachmentInput').click();
+        };
+
+        document.getElementById('attachmentInput').addEventListener('change', function (e) {
+            var file = this.files && this.files[0];
+            if (!file) return;
+
+            if (file.size > 5 * 1024 * 1024) {
+                alert('File must be under 5MB.');
+                this.value = '';
+                return;
+            }
+
+            state.attachmentFile = file;
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById('previewImage').src = e.target.result;
+                document.getElementById('previewName').textContent = file.name;
+                document.getElementById('previewSize').textContent = (file.size / 1024).toFixed(1) + ' KB';
+                document.getElementById('attachmentPreview').style.display = 'flex';
+            };
+            reader.readAsDataURL(file);
+        });
+
+        window.removeAttachment = function () {
+            state.attachmentFile = null;
+            document.getElementById('attachmentInput').value = '';
+            document.getElementById('attachmentPreview').style.display = 'none';
+        };
+
+        window.openLightbox = function (url) {
+            document.getElementById('lightboxImage').src = url;
+            document.getElementById('lightbox').classList.add('active');
+        };
+
+        window.closeLightbox = function () {
+            document.getElementById('lightbox').classList.remove('active');
+        };
+
+        document.getElementById('lightbox').addEventListener('click', function (e) {
+            if (e.target === this) closeLightbox();
+        });
+
+        // ────────────────────────────────────────────────────────
+        // Pinned Messages
+        // ────────────────────────────────────────────────────────
+
+        async function loadPinnedMessages() {
+            try {
+                if (!state.currentChannelId) return;
+                var supabase = window._supabase;
+                var { data, error } = await supabase
+                    .from('community_messages')
+                    .select('*, profiles:user_id(full_name)')
+                    .eq('channel_id', state.currentChannelId)
+                    .eq('is_pinned', true)
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+
+                state.pinnedMessages = data || [];
+                renderPinnedBanner();
+            } catch (err) {
+                console.error('[Community] Load pinned messages error:', err);
+            }
+        }
+
+        function renderPinnedBanner() {
+            var banner = document.getElementById('pinnedBanner');
+            var container = document.getElementById('pinnedMessagesContainer');
+
+            if (state.pinnedMessages.length === 0) {
+                banner.style.display = 'none';
+                container.style.display = 'none';
+                return;
+            }
+
+            banner.style.display = 'flex';
+            document.getElementById('pinnedCount').textContent = state.pinnedMessages.length + ' pinned';
+
+            var html = '';
+            for (var i = 0; i < state.pinnedMessages.length; i++) {
+                var msg = state.pinnedMessages[i];
+                var profile = msg.profiles;
+                html += '<div class="pinned-message">'
+                    + '<div class="pinned-message-author">📌 ' + escapeHtml(profile.full_name) + '</div>'
+                    + '<div class="pinned-message-content">' + escapeHtml((msg.content || '').substring(0, 100)) + '</div>'
+                    + '</div>';
+            }
+            container.innerHTML = html;
+        }
+
+        window.togglePinnedMessages = function () {
+            var container = document.getElementById('pinnedMessagesContainer');
+            container.classList.toggle('expanded');
+        };
+
+        window.togglePinMessage = async function (msgId) {
+            if (!state.isAdmin) return;
+
+            var msg = state.messages.find(function (m) { return m.id === msgId; });
+            if (!msg) return;
+
+            try {
+                var supabase = window._supabase;
+                var { error } = await supabase
+                    .from('community_messages')
+                    .update({ is_pinned: !msg.is_pinned })
+                    .eq('id', msgId);
+
+                if (error) throw error;
+
+                msg.is_pinned = !msg.is_pinned;
+                await loadPinnedMessages();
+                renderMessages();
+            } catch (err) {
+                console.error('[Community] Toggle pin error:', err);
+            }
+        };
+
+        // ────────────────────────────────────────────────────────
+        // Updated Send Message with Attachments & Replies
+        // ────────────────────────────────────────────────────────
+
+        window.sendMessage = async function () {
+            var content = document.getElementById('messageInput').value.trim();
+
+            if (!content && !state.attachmentFile) return;
+            if (!state.currentChannelId) return;
+
+            var btn = document.getElementById('sendBtn');
+            var originalHtml = btn.innerHTML;
+            btn.disabled = true;
+
+            try {
+                var supabase = window._supabase;
+                var attachmentUrl = null;
+                var attachmentType = null;
+
+                // Upload attachment if present
+                if (state.attachmentFile) {
+                    var ext = state.attachmentFile.name.split('.').pop().toLowerCase();
+                    var filePath = state.currentChannelId + '/' + Date.now() + '_' + state.attachmentFile.name;
+
+                    var { error: uploadErr } = await supabase.storage
+                        .from('chat-attachments')
+                        .upload(filePath, state.attachmentFile, { cacheControl: '3600', upsert: false });
+
+                    if (uploadErr) throw uploadErr;
+
+                    attachmentUrl = supabase.storage
+                        .from('chat-attachments')
+                        .getPublicUrl(filePath).data.publicUrl;
+                    attachmentType = 'image';
+                }
+
+                var messageData = {
+                    channel_id: state.currentChannelId,
+                    user_id: state.session.user.id,
+                    content: content,
+                    is_system: false,
+                    created_at: new Date().toISOString()
+                };
+
+                if (state.replyToMessage) {
+                    messageData.reply_to_message_id = state.replyToMessage.id;
+                }
+
+                if (attachmentUrl) {
+                    messageData.attachment_url = attachmentUrl;
+                    messageData.attachment_type = attachmentType;
+                }
+
+                var { error } = await supabase
+                    .from('community_messages')
+                    .insert([messageData]);
+
+                if (error) throw error;
+
+                document.getElementById('messageInput').value = '';
+                document.getElementById('messageInput').style.height = 'auto';
+                state.replyToMessage = null;
+                state.attachmentFile = null;
+                document.getElementById('replyPreview').style.display = 'none';
+                document.getElementById('attachmentPreview').style.display = 'none';
+                document.getElementById('attachmentInput').value = '';
+            } catch (err) {
+                console.error('[Community] Send error:', err);
+                alert('Failed to send message: ' + (err.message || 'Unknown error'));
+            } finally {
+                btn.innerHTML = originalHtml;
+                btn.disabled = false;
+            }
+        };
+
+        // Update message input event listeners
+        document.getElementById('messageInput').addEventListener('input', function () {
+            this.style.height = 'auto';
+            this.style.height = Math.min(this.scrollHeight, 100) + 'px';
+
+            // Broadcast typing
+            broadcastTyping();
+        });
+
+        document.getElementById('messageInput').addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                window.sendMessage();
+            }
         });
 
     })();
