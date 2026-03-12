@@ -1152,6 +1152,7 @@
         var state = {
             session: null,
             profile: null,
+            isAdmin: false,
             currentChannelId: null,
             messages: [],
             channels: [],
@@ -1177,6 +1178,7 @@
             if (e.detail && e.detail.session) {
                 state.session = e.detail.session;
                 state.profile = e.detail.profile;
+                state.isAdmin = !!(e.detail.profile && e.detail.profile.is_admin);
                 window.updateNavForSupabase(e.detail.profile);
                 document.getElementById('memberContent').style.display = 'flex';
                 document.getElementById('nonMemberContent').classList.remove('active');
@@ -1191,6 +1193,7 @@
         if (window._supabaseSession && window._memberProfile) {
             state.session = window._supabaseSession;
             state.profile = window._memberProfile;
+            state.isAdmin = !!(window._memberProfile && window._memberProfile.is_admin);
             window.updateNavForSupabase(window._memberProfile);
             document.getElementById('memberContent').style.display = 'flex';
             initializeChat();
@@ -1380,12 +1383,16 @@
                     var showHeader = prevUserId !== msg.user_id;
                     var editedTag = msg.edited_at ? '<span class="message-edited">(edited)</span>' : '';
 
-                    // Action buttons (only for own messages)
+                    // Action buttons: own messages get edit+delete, admins get delete on others
                     var actionsHtml = '';
                     if (isOwn) {
                         actionsHtml = '<div class="message-actions">'
                             + '<button onclick="startEditMessage(\'' + msg.id + '\')" title="Edit">&#9998;</button>'
                             + '<button class="action-delete" onclick="deleteMessage(\'' + msg.id + '\')" title="Delete">&#128465;</button>'
+                            + '</div>';
+                    } else if (state.isAdmin) {
+                        actionsHtml = '<div class="message-actions">'
+                            + '<button class="action-delete" onclick="adminDeleteMessage(\'' + msg.id + '\')" title="Remove (admin)">&#128465;</button>'
                             + '</div>';
                     }
 
@@ -1592,6 +1599,27 @@
                 renderMessages();
             } catch (err) {
                 console.error('[Community] Delete error:', err);
+                alert('Failed to delete message.');
+            }
+        };
+
+        window.adminDeleteMessage = async function (msgId) {
+            if (!confirm('Remove this message? (Admin moderation)')) return;
+            if (!state.isAdmin) return;
+
+            try {
+                var supabase = window._supabase;
+                var { error } = await supabase
+                    .from('community_messages')
+                    .delete()
+                    .eq('id', msgId);
+
+                if (error) throw error;
+
+                state.messages = state.messages.filter(function (m) { return m.id !== msgId; });
+                renderMessages();
+            } catch (err) {
+                console.error('[Community] Admin delete error:', err);
                 alert('Failed to delete message.');
             }
         };
