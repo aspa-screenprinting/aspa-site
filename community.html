@@ -1126,6 +1126,15 @@
     <div id="profileModal" style="display:none; position:fixed; inset:0; z-index:100; background:rgba(0,0,0,0.6); display:none; align-items:center; justify-content:center;">
         <div style="background:var(--chat-sidebar); border:1px solid var(--chat-border); border-radius:12px; padding:24px; width:360px; max-width:90vw;">
             <h3 style="font-family:'Space Grotesk',sans-serif; color:var(--chat-text); margin-bottom:16px; font-size:1.1rem;">Edit Profile</h3>
+            <!-- Avatar upload -->
+            <div style="display:flex; align-items:center; gap:16px; margin-bottom:16px;">
+                <div id="profileEditAvatarPreview" style="width:64px; height:64px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.2rem; font-weight:600; color:white; flex-shrink:0; overflow:hidden; background:linear-gradient(135deg,#667eea,#764ba2);"></div>
+                <div style="flex:1;">
+                    <label for="avatarFileInput" style="display:inline-block; background:rgba(255,255,255,0.08); border:1px solid var(--chat-border); color:var(--chat-text); padding:6px 14px; border-radius:6px; cursor:pointer; font-size:0.85rem; font-family:inherit;">Upload Photo</label>
+                    <input type="file" id="avatarFileInput" accept="image/png,image/jpeg,image/webp" style="display:none;" onchange="previewAvatar(this)">
+                    <div id="avatarUploadStatus" style="color:var(--chat-text-muted); font-size:0.75rem; margin-top:4px;">JPG, PNG, or WebP &middot; Max 2MB</div>
+                </div>
+            </div>
             <label style="color:var(--chat-text-secondary); font-size:0.8rem; display:block; margin-bottom:4px;">Display Name</label>
             <input id="profileEditName" type="text" style="width:100%; background:var(--chat-bg); border:1px solid var(--chat-border); color:var(--chat-text); padding:8px 12px; border-radius:6px; font-family:inherit; font-size:0.95rem; margin-bottom:12px; box-sizing:border-box;">
             <label style="color:var(--chat-text-secondary); font-size:0.8rem; display:block; margin-bottom:4px;">Company</label>
@@ -1158,6 +1167,9 @@
             channels: [],
             messageSubscription: null
         };
+
+        var SUPABASE_STORAGE_URL = 'https://wstonlslhlvdtbdyteeo.supabase.co/storage/v1/object/public/avatars/';
+        var pendingAvatarFile = null;
 
         var AVATAR_COLORS = [
             'linear-gradient(135deg, #FF6B6B, #FF8E72)',
@@ -1217,16 +1229,21 @@
         // ────────────────────────────────────────────────────────
 
         function populateUserCard() {
-            var initials = getInitials(state.profile.full_name);
+            var name = state.profile.full_name;
+            var url = state.profile.avatar_url;
 
-            document.getElementById('userAvatar').textContent = initials;
-            document.getElementById('userAvatar').style.background = getAvatarColor(state.profile.full_name);
-            document.getElementById('userName').textContent = state.profile.full_name || 'Member';
+            // Sidebar user card
+            var userAv = document.getElementById('userAvatar');
+            userAv.innerHTML = avatarInnerHtml(url, name);
+            userAv.style.cssText = avatarBgStyle(url, name);
+            document.getElementById('userName').textContent = name || 'Member';
             document.getElementById('userCompany').textContent = state.profile.company || 'No company';
 
-            document.getElementById('currentUserAvatar').textContent = initials;
-            document.getElementById('currentUserAvatar').style.background = getAvatarColor(state.profile.full_name);
-            document.getElementById('currentUserName').textContent = state.profile.full_name || 'You';
+            // Right sidebar current user
+            var curAv = document.getElementById('currentUserAvatar');
+            curAv.innerHTML = avatarInnerHtml(url, name);
+            curAv.style.cssText = avatarBgStyle(url, name);
+            document.getElementById('currentUserName').textContent = name || 'You';
         }
 
         // ────────────────────────────────────────────────────────
@@ -1399,7 +1416,7 @@
                     if (showHeader) {
                         html += '<div class="message message-row" data-msg-id="' + msg.id + '">';
                         var initials = getInitials(profile.full_name);
-                        html += '<div class="message-avatar" style="background:' + getAvatarColor(profile.full_name) + ';">' + initials + '</div>';
+                        html += '<div class="message-avatar" style="' + avatarBgStyle(profile.avatar_url, profile.full_name) + '">' + avatarInnerHtml(profile.avatar_url, profile.full_name) + '</div>';
                         html += '<div class="message-content">';
                         html += '<div class="message-header">';
                         html += '<span class="message-author">' + escapeHtml(profile.full_name) + '</span>';
@@ -1628,8 +1645,36 @@
         // Profile Edit
         // ────────────────────────────────────────────────────────
 
+        window.previewAvatar = function (input) {
+            var file = input.files && input.files[0];
+            if (!file) return;
+            if (file.size > 2 * 1024 * 1024) {
+                alert('Image must be under 2MB.');
+                input.value = '';
+                return;
+            }
+            pendingAvatarFile = file;
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var preview = document.getElementById('profileEditAvatarPreview');
+                preview.innerHTML = '<img src="' + e.target.result + '" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">';
+                preview.style.background = 'transparent';
+                document.getElementById('avatarUploadStatus').textContent = file.name;
+            };
+            reader.readAsDataURL(file);
+        };
+
         window.openProfileEdit = function () {
             var modal = document.getElementById('profileModal');
+            pendingAvatarFile = null;
+            document.getElementById('avatarFileInput').value = '';
+            document.getElementById('avatarUploadStatus').innerHTML = 'JPG, PNG, or WebP &middot; Max 2MB';
+            // Show current avatar in preview
+            var preview = document.getElementById('profileEditAvatarPreview');
+            var name = state.profile.full_name || '';
+            var url = state.profile.avatar_url;
+            preview.innerHTML = avatarInnerHtml(url, name);
+            preview.style.cssText = 'width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:600;color:white;flex-shrink:0;overflow:hidden;' + avatarBgStyle(url, name);
             document.getElementById('profileEditName').value = state.profile.full_name || '';
             document.getElementById('profileEditCompany').value = state.profile.company || '';
             document.getElementById('profileEditCity').value = state.profile.city || '';
@@ -1651,9 +1696,27 @@
 
             try {
                 var supabase = window._supabase;
+                var updateData = { full_name: name, company: company, city: city, state: st };
+
+                // Upload avatar if a new file was selected
+                if (pendingAvatarFile) {
+                    var ext = pendingAvatarFile.name.split('.').pop().toLowerCase();
+                    var filePath = state.session.user.id + '/avatar.' + ext;
+
+                    var { error: uploadErr } = await supabase.storage
+                        .from('avatars')
+                        .upload(filePath, pendingAvatarFile, { upsert: true, contentType: pendingAvatarFile.type });
+
+                    if (uploadErr) throw uploadErr;
+
+                    // Build public URL with cache-bust
+                    var avatarUrl = SUPABASE_STORAGE_URL + filePath + '?t=' + Date.now();
+                    updateData.avatar_url = avatarUrl;
+                }
+
                 var { error } = await supabase
                     .from('profiles')
-                    .update({ full_name: name, company: company, city: city, state: st })
+                    .update(updateData)
                     .eq('id', state.session.user.id);
 
                 if (error) throw error;
@@ -1662,7 +1725,11 @@
                 state.profile.company = company;
                 state.profile.city = city;
                 state.profile.state = st;
+                if (updateData.avatar_url) {
+                    state.profile.avatar_url = updateData.avatar_url;
+                }
 
+                pendingAvatarFile = null;
                 populateUserCard();
                 closeProfileEdit();
             } catch (err) {
@@ -1820,6 +1887,20 @@
             if (!name) return '?';
             var parts = name.split(' ');
             return (parts[0][0] + (parts[1] ? parts[1][0] : '')).toUpperCase();
+        }
+
+        // Returns HTML for avatar content: <img> if avatar_url exists, initials otherwise
+        function avatarInnerHtml(avatarUrl, name) {
+            if (avatarUrl) {
+                return '<img src="' + avatarUrl + '" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentNode.textContent=\'' + getInitials(name) + '\'">';
+            }
+            return getInitials(name);
+        }
+
+        // Returns inline style for avatar background: none if has image, gradient if initials
+        function avatarBgStyle(avatarUrl, name) {
+            if (avatarUrl) return 'background:transparent;';
+            return 'background:' + getAvatarColor(name) + ';';
         }
 
         function getAvatarColor(name) {
