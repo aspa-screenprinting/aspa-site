@@ -2460,57 +2460,7 @@
             loadPinnedMessages();
         }
 
-        // ────────────────────────────────────────────────────────
-        // Send Message
-        // ────────────────────────────────────────────────────────
-
-        window.sendMessage = async function () {
-            var content = document.getElementById('messageInput').value.trim();
-
-            if (!content || !state.currentChannelId) return;
-
-            var btn = document.getElementById('sendBtn');
-            var originalHtml = btn.innerHTML;
-            btn.disabled = true;
-
-            try {
-                var supabase = window._supabase;
-                var { error } = await supabase
-                    .from('community_messages')
-                    .insert([{
-                        channel_id: state.currentChannelId,
-                        user_id: state.session.user.id,
-                        content: content,
-                        is_system: false,
-                        created_at: new Date().toISOString()
-                    }]);
-
-                if (error) throw error;
-
-                document.getElementById('messageInput').value = '';
-                document.getElementById('messageInput').style.height = 'auto';
-            } catch (err) {
-                console.error('[Community] Send error:', err);
-                alert('Failed to send message: ' + (err.message || 'Unknown error'));
-            } finally {
-                btn.innerHTML = originalHtml;
-                btn.disabled = false;
-            }
-        };
-
-        // Auto-resize textarea
-        document.getElementById('messageInput').addEventListener('input', function () {
-            this.style.height = 'auto';
-            this.style.height = Math.min(this.scrollHeight, 100) + 'px';
-        });
-
-        // Enter to send, Shift+Enter for new line
-        document.getElementById('messageInput').addEventListener('keydown', function (e) {
-            if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault();
-                window.sendMessage();
-            }
-        });
+        // Send Message — see enhanced version below (with attachments & replies)
 
         // ────────────────────────────────────────────────────────
         // Helpers
