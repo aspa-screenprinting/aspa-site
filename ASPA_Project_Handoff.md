@@ -2,8 +2,8 @@
 
 **Project:** screen-printing.us redesign
 **Client:** Dustin Cochran (cochran.dustin@gmail.com)
-**Date:** March 3–10, 2026 (last updated: Session 16)
-**Status:** In Progress — Core Pages Built, Resource Hub COMPLETE (All 18 Articles), **SITE LIVE on GitHub Pages**, Nav Standardized, **Supabase Backend Live** (Auth + Database + Google OAuth), ASPA+ Gated Content Live, Admin Dashboard Built, **UI Polish Pass Complete**, **Gamification & Loyalty Points System Live**, **Job Board Live**
+**Date:** March 3–12, 2026 (last updated: Session 18)
+**Status:** In Progress — Core Pages Built, Resource Hub COMPLETE (All 18 Articles), **SITE LIVE on GitHub Pages**, Nav Widened (1440px), **Supabase Backend Live** (Auth + Database + Google OAuth + Storage), ASPA+ Gated Content Live, Admin Dashboard Built, **UI Polish Pass Complete**, **Gamification & Loyalty Points System Live**, **Job Board Live**, **Community Chat Live** (Real-time, Edit/Delete, Search, Profile Edit, Avatar Upload, Admin Moderation)
 
 ---
 
@@ -409,13 +409,17 @@ Dual-view education hub with auth gating:
 ### `ASPA_CSP_Study_Guide.pdf` — Placeholder
 Auto-generated placeholder. Dustin will provide the real study guide — just swap the file.
 
+### `community.html` — ASPA+ Community Chat *(NEW — Session 17)*
+Real-time Slack-style chat with Supabase Realtime. Three-column layout: left sidebar (user card, channel list), center (messages with inline edit/delete, search), right (online members). 7 channels (5 public, 2 members-only). Avatar upload to Supabase Storage. Admin moderation (is_admin users can delete any message). Profile edit modal (name, company, city, state, photo). Auth-gated for ASPA+ members. ~1870 lines.
+
 ---
 
 ## Cross-Page Navigation
 
-All pages now have consistent navigation (standardized in Sessions 10–11):
-- **Nav bar:** Home, Directory, Certified, Certification, Membership, Resources, Discounts⁺, Education⁺, Join ASPA (CTA) / Log In
-- **ASPA+ gradient links:** Discounts and Education use `.nav-aspa-plus` class with gradient text (`linear-gradient(135deg, #00d4ff, #e91e8c, #ffd400)`) and a gold "⁺" superscript
+All pages now have consistent navigation (standardized in Sessions 10–11, widened in Session 18):
+- **Nav bar:** Home, Directory, Certified, Membership, Resources, Jobs, Discounts⁺, Rewards⁺, Education⁺, Community⁺, Join ASPA (CTA) / Log In
+- **Nav container:** max-width 1440px (widened from 1200px in Session 18), link gap 20px, font-size 12.5px
+- **ASPA+ gradient links:** Discounts, Rewards, Education, and Community use `.nav-aspa-plus` class with gradient text (`linear-gradient(135deg, #00d4ff, #e91e8c, #ffd400)`) and a gold "⁺" superscript
 - **Auth state:** Nav displays "Join ASPA | Log In" for guests, or "Hi, [FirstName] | My ASPA+ | Log Out" for logged-in members
 - **Footer:** Directory section (links to directory.html categories), Certification section (CSP Roster, CSP Exam links), Association section (About, Contact, Privacy, Terms)
 
@@ -615,7 +619,8 @@ The localStorage approach is a client-side prototype. When ready for production:
 - [ ] **Glossary** — Searchable A-Z screen printing terminology (high SEO value)
 - [x] ~~All 18 articles built~~ → Resource Hub COMPLETE ✅
 - [ ] **Videos** page — How-to video library
-- [ ] **Jobs / Marketplace** — Job openings, equipment for sale, businesses for sale
+- [x] ~~Jobs / Marketplace~~ → `jobs.html` + `post-job.html` ✅ (Session 16)
+- [x] ~~Community Forum~~ → `community.html` ✅ (Session 17 — real-time chat with channels, edit/delete, search, profiles, avatars, admin moderation)
 - [ ] **News** page
 - [ ] **Advice Notice & Disclaimers** page
 - [ ] **Advertise with Us** page
@@ -631,7 +636,7 @@ The localStorage approach is a client-side prototype. When ready for production:
 - Trade show perks, group insurance referral
 - Software discounts (DecoNetwork, Printavo, InkSoft, etc.)
 - Monthly "Ink Lab" webinar series
-- Private community forum (Slack/Discord)
+- ~~Private community forum (Slack/Discord)~~ → **DONE (Session 17)** — Built-in real-time chat at community.html
 - Monthly member spotlight
 - Referral directory for overflow work
 
@@ -643,6 +648,7 @@ The localStorage approach is a client-side prototype. When ready for production:
 - [x] ~~Nav bar standardization~~ → All 32 HTML pages use consistent nav from certified-roster.html baseline ✅
 - [x] ~~Auth state in nav~~ → Inline script pattern shows logged-in/logged-out state instantly ✅
 - [x] ~~ASPA+ gradient nav links~~ → Discounts⁺ and Education⁺ with gradient text styling ✅
+- [x] ~~Nav bar widened~~ → 1440px max-width, 20px gap, 12.5px font across 34 files ✅ (Session 18)
 - [ ] Mobile responsive polish (hamburger menu functional but needs responsive design pass)
 
 ---
@@ -860,10 +866,13 @@ When ready to go live on screen-printing.us:
 - Logout clears both Supabase session and legacy localStorage (transition period)
 - Password reset uses `supabase.auth.resetPasswordForEmail()`
 
+### Supabase Storage
+- **`avatars` bucket** — Public read, authenticated upload/update/delete own folder. Path pattern: `{user_id}/avatar.{ext}`. Public URL: `https://wstonlslhlvdtbdyteeo.supabase.co/storage/v1/object/public/avatars/{user_id}/avatar.{ext}`
+
 ### What's NOT Set Up Yet
 - Email confirmation (Supabase sends default confirmation emails — should customize template)
 - Password reset redirect URL (needs to point to a reset-password.html page on the site)
-- Google OAuth / social login (free to add, recommended for friction reduction)
+- ~~Google OAuth / social login~~ → **DONE (Session 13)**
 - Email templates customization in Supabase dashboard
 - Rate limiting / abuse prevention
 
@@ -942,6 +951,67 @@ Full ASPA Job Board — native paid job postings + external job aggregation from
 
 ---
 
+## Session 17: Community Chat — Real-Time Messaging (March 12, 2026)
+
+### What Was Built
+Full Slack-style community chat page with real-time messaging via Supabase Realtime. Three-column layout (sidebar / messages / online members). Auth-gated for ASPA+ members. Channels, message editing/deletion, search, profile editing, admin moderation, and avatar image upload.
+
+### New Files
+- **`community.html`** (~1870 lines) — Complete community chat page. Left sidebar: user card with avatar + "Edit profile" link, channel list (general, ink-chemistry, equipment, business, classifieds + members-only: csp-prep, supplier-deals). Center: channel header with search toggle, scrollable message area with avatars/badges/timestamps, message input with Enter-to-send. Right sidebar: online members list with presence tracking. Dark theme matching site (--chat-bg #0F0D0B, --chat-accent #8B1A1A).
+
+### Features Implemented
+- **Real-time messaging** — Supabase Realtime subscriptions for INSERT, UPDATE, DELETE on `community_messages`. Messages appear instantly for all connected users.
+- **Message edit/delete** — Hover actions on own messages. Edit opens inline textarea (Enter to save, Esc to cancel). Delete with confirmation. `edited_at` timestamp shown as "(edited)" tag.
+- **Channel search** — Toggle search bar, filters messages by text content with highlighted matches, clear button.
+- **Profile editing** — Modal with Display Name, Company, City, State fields. Saves to `profiles` table.
+- **Avatar upload** — Upload JPG/PNG/WebP (max 2MB) to Supabase Storage `avatars` bucket. Preview in modal before saving. Falls back to colored initials if no avatar set. Cache-bust param on URL for instant updates.
+- **Admin moderation** — Users with `is_admin=true` on profiles see delete button on all messages (not just their own). Separate `adminDeleteMessage()` bypasses user_id check.
+- **Online presence** — Supabase Realtime presence channel tracks connected users.
+- **ASPA+ badges** — CSP badge shown next to certified users' names in messages.
+
+### Supabase Changes (Session 17)
+- **`community_channels`** table — id (UUID), name, description, is_members_only, display_order. 7 channels seeded.
+- **`community_messages`** table — id (UUID), channel_id FK, user_id FK to profiles(id), content TEXT, edited_at TIMESTAMPTZ, created_at. RLS: public read, authenticated insert own, update own, delete own, admin delete any.
+- **`profiles.avatar_url`** column — TEXT, stores Supabase Storage public URL.
+- **`avatars` storage bucket** — Public read, authenticated upload/update/delete own folder (`user_id/*` path pattern).
+- **FK fix** — Added `community_messages.user_id → profiles(id)` (public schema) because PostgREST can't follow cross-schema FKs to `auth.users`.
+
+### Bugs Fixed
+- `getAvatarElement is not defined` crash — Dead function call in `populateUserCard()` prevented chat initialization. Removed.
+- PostgREST PGRST200 error — Cross-schema FK from community_messages to auth.users. Fixed by adding public-schema FK to profiles.
+- GitHub Pages cache — Old version served after push. Fixed with hard refresh.
+
+### Modified Files
+- **31 HTML pages** — Added "Community+" nav link with gradient ASPA+ styling after Education+.
+
+---
+
+## Session 18: Nav Bar Width Fix + Avatar Upload Completion (March 12, 2026)
+
+### What Was Built
+Widened the navigation bar across all pages to fix cramped layout caused by 10+ nav items. Also completed the avatar upload feature from Session 17.
+
+### Nav CSS Changes (34 files updated)
+- **`.nav-container` max-width:** 1200px → **1440px** (middle-ground approach — wide enough for all items, still centered on ultra-wide monitors)
+- **`.nav-links` gap:** 32px → **20px** (tighter spacing between links)
+- **`.nav-links a` font-size:** 14px → **12.5px** (slightly smaller text to fit comfortably)
+
+### Avatar Upload Functions Added
+- **`previewAvatar(input)`** — Validates file size (max 2MB), reads as data URL, shows live preview in profile edit modal.
+- **`openProfileEdit()`** — Updated to show current avatar (or initials fallback) in modal preview, resets file input state.
+- **`saveProfileEdit()`** — Updated to upload file to Supabase Storage at `avatars/{user_id}/avatar.{ext}` with upsert, cache-bust URL, saves `avatar_url` to profiles table.
+- **`avatarInnerHtml(url, name)`** / **`avatarBgStyle(url, name)`** — Helper functions for rendering avatar images with initials fallback throughout the UI.
+
+### Commit History (Session 17–18)
+- `787812e` Add ASPA Community real-time chat page
+- `46f8de8` Fix community chat init crash: remove dead getAvatarElement call
+- `4a116be` Add message edit/delete, channel search, and profile editing
+- `98ba9e2` Add admin moderation: admins can delete any message
+- `1d8c146` Add profile avatar upload with Supabase Storage
+- `afcca84` Widen nav bar: 1440px max-width, tighter link spacing
+
+---
+
 ## Content Migration Gap Analysis (March 10, 2026)
 
 Compared original site (screen-printing.us, built on Google Sites + Blogger) against new GitHub Pages site. The following content still needs to be migrated or built. Items are prioritized and should be tackled in order.
@@ -965,7 +1035,8 @@ Compared original site (screen-printing.us, built on Google Sites + Blogger) aga
 
 - [ ] **News / Blog Section** — Original has an ASPA News page with dated posts. We don't have a news/blog section.
 - [x] **Jobs Board** — **COMPLETE (Session 16).** Full native job board with paid listings ($49/$99/$149 tiers) + external job aggregation from Jooble (automated twice-daily via GitHub Actions). Admin management panel built. ZipRecruiter and Adzuna integration planned as next external sources. See Session 16 notes.
-- [ ] **"Ask ASPA" Q&A Section** — Community Q&A. Could be a simple page or future forum feature.
+- [x] **Community Chat** — **COMPLETE (Session 17).** Real-time Slack-style chat with 7 channels, message edit/delete, search, profile editing, avatar upload, admin moderation. See Session 17 notes.
+- [ ] **"Ask ASPA" Q&A Section** — Community Q&A. Could be a dedicated page or integrated into community chat.
 - [ ] **"Screen Printer Stories"** — Featured member case studies / success stories. Great for engagement and SEO.
 - [ ] **"The Artist's Corner"** — Design-focused content for screen printers.
 - [ ] **"Strictly Business"** — Business advice articles (separate from how-to technical content).
@@ -996,7 +1067,7 @@ Compared original site (screen-printing.us, built on Google Sites + Blogger) aga
 - Debounced search (300ms) with AND logic for combined filters
 - Files designed to sit in the same directory
 - `.nav-aspa-plus` CSS class provides gradient text for premium nav links
-- `certified-roster.html` is the canonical nav CSS reference — all other pages were standardized to match it
+- `certified-roster.html` is the canonical nav CSS reference — all other pages were standardized to match it. Nav widened to 1440px max-width in Session 18.
 - Directory and roster pages fall back to hardcoded sample data when Supabase data isn't available
 - Exam results are persisted to Supabase; CSP certification auto-created on pass
 
