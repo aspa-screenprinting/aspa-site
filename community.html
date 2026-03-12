@@ -3051,7 +3051,7 @@
         window.showMissedMentions = function () {
             var panel = document.getElementById('mentionsPanel');
             if (panel.style.display !== 'none') {
-                panel.style.display = 'none';
+                closeMentionsPanel();
                 return;
             }
 
