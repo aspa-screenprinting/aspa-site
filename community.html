@@ -1181,6 +1181,70 @@
             display: none;
         }
 
+        /* @Mention Autocomplete */
+        .mention-autocomplete {
+            display: none;
+            position: absolute;
+            bottom: 100%;
+            left: 0;
+            right: 0;
+            max-height: 200px;
+            overflow-y: auto;
+            background: #1a1a1a;
+            border: 1px solid var(--chat-border);
+            border-radius: 8px;
+            margin-bottom: 4px;
+            z-index: 100;
+            box-shadow: 0 -4px 12px rgba(0,0,0,0.4);
+        }
+        .mention-autocomplete.active {
+            display: block;
+        }
+        .mention-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+        .mention-item:hover, .mention-item.selected {
+            background: rgba(139, 26, 26, 0.25);
+        }
+        .mention-item-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            color: #fff;
+            flex-shrink: 0;
+        }
+        .mention-item-name {
+            font-size: 13px;
+            color: var(--chat-text);
+            font-weight: 500;
+        }
+        .mention-item-company {
+            font-size: 11px;
+            color: var(--chat-text-muted);
+            margin-left: auto;
+        }
+        .mention-all-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
         .attachment-preview {
             background: rgba(139, 26, 26, 0.08);
             border: 1px solid var(--chat-border);
@@ -1592,7 +1656,8 @@
                         </div>
                         <button class="attachment-preview-remove" onclick="removeAttachment()" title="Remove">✕</button>
                     </div>
-                    <div class="input-wrapper">
+                    <div class="input-wrapper" style="position:relative;">
+                        <div class="mention-autocomplete" id="mentionAutocomplete"></div>
                         <textarea
                             id="messageInput"
                             class="input-field"
@@ -1687,7 +1752,11 @@
             pinnedMessages: [],
             typingTimeout: null,
             missedMentions: [],
-            mentionLastSeen: null
+            mentionLastSeen: null,
+            allUsers: [],
+            mentionQuery: null,
+            mentionStartPos: null,
+            mentionSelectedIndex: 0
         };
 
         var SUPABASE_STORAGE_URL = 'https://wstonlslhlvdtbdyteeo.supabase.co/storage/v1/object/public/avatars/';
@@ -1742,8 +1811,131 @@
                 populateUserCard();
                 await loadChannels();
                 loadMissedMentions();
+                loadAllUsers();
             } catch (err) {
                 console.error('[Community] Init error:', err);
+            }
+        }
+
+        // ────────────────────────────────────────────────────────
+        // @Mention Autocomplete — Load All Users
+        // ────────────────────────────────────────────────────────
+
+        async function loadAllUsers() {
+            try {
+                var supabase = window._supabase;
+                var { data, error } = await supabase
+                    .from('profiles')
+                    .select('id, full_name, company, avatar_url')
+                    .order('full_name');
+                if (error) throw error;
+                state.allUsers = (data || []).filter(function (u) {
+                    return u.full_name && u.full_name.trim();
+                });
+            } catch (err) {
+                console.error('[Community] Load users error:', err);
+            }
+        }
+
+        function showMentionAutocomplete(query) {
+            var dropdown = document.getElementById('mentionAutocomplete');
+            var filtered = [];
+
+            // Always include @all option
+            if (!query || 'all'.indexOf(query.toLowerCase()) === 0) {
+                filtered.push({ id: 'all', full_name: 'all', isAll: true });
+            }
+
+            // Filter users by name
+            var lowerQuery = (query || '').toLowerCase();
+            state.allUsers.forEach(function (user) {
+                if (user.id === state.session.user.id) return; // skip self
+                var name = (user.full_name || '').toLowerCase();
+                if (!lowerQuery || name.indexOf(lowerQuery) !== -1) {
+                    filtered.push(user);
+                }
+            });
+
+            if (filtered.length === 0) {
+                dropdown.classList.remove('active');
+                return;
+            }
+
+            // Cap at 8 results
+            filtered = filtered.slice(0, 8);
+            state.mentionSelectedIndex = 0;
+
+            var html = '';
+            filtered.forEach(function (user, idx) {
+                var cls = idx === 0 ? 'mention-item selected' : 'mention-item';
+                if (user.isAll) {
+                    html += '<div class="' + cls + '" data-mention-name="all" data-mention-idx="' + idx + '">'
+                        + '<div class="mention-all-icon">@</div>'
+                        + '<div class="mention-item-name" style="color:var(--ink-cyan);font-weight:600;">@all</div>'
+                        + '<div class="mention-item-company">Notify everyone</div>'
+                        + '</div>';
+                } else {
+                    var av = user.avatar_url
+                        ? '<img src="' + user.avatar_url + '" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">'
+                        : getInitials(user.full_name);
+                    var bg = user.avatar_url ? 'background:transparent;' : avatarBgStyle(null, user.full_name);
+                    html += '<div class="' + cls + '" data-mention-name="' + escapeHtml(user.full_name) + '" data-mention-idx="' + idx + '">'
+                        + '<div class="mention-item-avatar" style="' + bg + '">' + av + '</div>'
+                        + '<div class="mention-item-name">' + escapeHtml(user.full_name) + '</div>'
+                        + (user.company ? '<div class="mention-item-company">' + escapeHtml(user.company) + '</div>' : '')
+                        + '</div>';
+                }
+            });
+
+            dropdown.innerHTML = html;
+            dropdown.classList.add('active');
+
+            // Click handler for items
+            dropdown.querySelectorAll('.mention-item').forEach(function (item) {
+                item.addEventListener('mousedown', function (e) {
+                    e.preventDefault(); // prevent blur
+                    selectMention(item.getAttribute('data-mention-name'));
+                });
+            });
+        }
+
+        function hideMentionAutocomplete() {
+            var dropdown = document.getElementById('mentionAutocomplete');
+            dropdown.classList.remove('active');
+            state.mentionQuery = null;
+            state.mentionStartPos = null;
+        }
+
+        function selectMention(name) {
+            var input = document.getElementById('messageInput');
+            var text = input.value;
+            var before = text.substring(0, state.mentionStartPos);
+            var after = text.substring(input.selectionStart);
+            input.value = before + name + ' ' + after;
+            input.focus();
+            var newPos = before.length + name.length + 1;
+            input.setSelectionRange(newPos, newPos);
+            hideMentionAutocomplete();
+        }
+
+        function navigateMentionAutocomplete(direction) {
+            var dropdown = document.getElementById('mentionAutocomplete');
+            var items = dropdown.querySelectorAll('.mention-item');
+            if (items.length === 0) return;
+
+            items[state.mentionSelectedIndex].classList.remove('selected');
+            state.mentionSelectedIndex += direction;
+            if (state.mentionSelectedIndex < 0) state.mentionSelectedIndex = items.length - 1;
+            if (state.mentionSelectedIndex >= items.length) state.mentionSelectedIndex = 0;
+            items[state.mentionSelectedIndex].classList.add('selected');
+            items[state.mentionSelectedIndex].scrollIntoView({ block: 'nearest' });
+        }
+
+        function confirmMentionAutocomplete() {
+            var dropdown = document.getElementById('mentionAutocomplete');
+            var items = dropdown.querySelectorAll('.mention-item');
+            if (items.length > 0 && items[state.mentionSelectedIndex]) {
+                selectMention(items[state.mentionSelectedIndex].getAttribute('data-mention-name'));
             }
         }
 
@@ -3017,7 +3209,8 @@
                 // Upload attachment if present
                 if (state.attachmentFile) {
                     var ext = state.attachmentFile.name.split('.').pop().toLowerCase();
-                    var filePath = state.currentChannelId + '/' + Date.now() + '_' + state.attachmentFile.name;
+                    var safeName = state.attachmentFile.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+                    var filePath = state.currentChannelId + '/' + Date.now() + '_' + safeName;
 
                     var { error: uploadErr } = await supabase.storage
                         .from('chat-attachments')
@@ -3077,13 +3270,59 @@
 
             // Broadcast typing
             broadcastTyping();
+
+            // @Mention autocomplete detection
+            var text = this.value;
+            var cursorPos = this.selectionStart;
+            var textBeforeCursor = text.substring(0, cursorPos);
+
+            // Find the last @ before cursor that isn't preceded by a word char
+            var atMatch = textBeforeCursor.match(/(^|[^a-zA-Z0-9])@([a-zA-Z0-9 ]*)$/);
+            if (atMatch) {
+                state.mentionStartPos = textBeforeCursor.lastIndexOf('@') + 1; // position after @
+                state.mentionQuery = atMatch[2];
+                showMentionAutocomplete(atMatch[2]);
+            } else {
+                hideMentionAutocomplete();
+            }
         });
 
         document.getElementById('messageInput').addEventListener('keydown', function (e) {
+            var dropdown = document.getElementById('mentionAutocomplete');
+            var isActive = dropdown.classList.contains('active');
+
+            if (isActive) {
+                if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    navigateMentionAutocomplete(1);
+                    return;
+                }
+                if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    navigateMentionAutocomplete(-1);
+                    return;
+                }
+                if (e.key === 'Tab' || e.key === 'Enter') {
+                    e.preventDefault();
+                    confirmMentionAutocomplete();
+                    return;
+                }
+                if (e.key === 'Escape') {
+                    e.preventDefault();
+                    hideMentionAutocomplete();
+                    return;
+                }
+            }
+
             if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();
                 window.sendMessage();
             }
+        });
+
+        // Hide autocomplete on blur (with small delay for click handling)
+        document.getElementById('messageInput').addEventListener('blur', function () {
+            setTimeout(hideMentionAutocomplete, 200);
         });
 
     })();
