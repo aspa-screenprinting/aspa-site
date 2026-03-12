@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASPA+ Community Chat</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="supabase-init.js"></script>
+    <style>
+        :root {
+            --ink-black: #0a0a0a;
+            --ink-dark: #1a1a2e;
+            --ink-purple: #6c2bd9;
+            --ink-magenta: #e91e8c;
+            --ink-cyan: #00d4ff;
+            --ink-yellow: #ffd400;
+            --ink-orange: #ff6b35;
+            --ink-white: #f8f8f8;
+            --ink-gray: #b0b0b0;
+            --ink-gray-dark: #2a2a3e;
+            /* Chat-specific colors */
+            --chat-bg: #0F0D0B;
+            --chat-sidebar: #1A1612;
+            --chat-border: #2A2420;
+            --chat-text: #F5E6C8;
+            --chat-text-secondary: #7A6E64;
+            --chat-text-muted: #5A4E44;
+            --chat-accent-red: #8B1A1A;
+            --chat-online: #4A8C5C;
+            --chat-message: #C8BEB4;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--chat-bg);
+            color: var(--chat-text);
+            line-height: 1.5;
+        }
+
+        /* ════════════════════════════ Navigation ════════════════════════════ */
+        nav {
+            background-color: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 0 24px;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .nav-logo {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            align-items: center;
+        }
+
+        .nav-logo-main {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00d4ff 0%, #e91e8c 50%, #ffd400 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2px;
+        }
+
+        .nav-logo-sub {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 12px;
+            color: var(--ink-gray);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            line-height: 1.2;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--ink-gray);
+            text-decoration: none;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover { color: var(--ink-cyan); }
+        .nav-links a.active { color: var(--ink-cyan); }
+
+        .nav-aspa-plus {
+            background: linear-gradient(135deg, #00d4ff 0%, #e91e8c 50%, #ffd400 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
+        }
+
+        .nav-auth {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, #e91e8c, #6c2bd9);
+            color: white !important;
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-size: 0.85rem !important;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(233, 30, 140, 0.3);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            background: none;
+            border: none;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background: var(--ink-white);
+            transition: 0.3s;
+        }
+
+        /* ════════════════════════════ Layout ════════════════════════════ */
+        #memberContent {
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 70px);
+        }
+
+        .chat-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .chat-sidebar {
+            width: 240px;
+            background-color: var(--chat-sidebar);
+            border-right: 1px solid var(--chat-border);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-header {
+            padding: 16px;
+            border-bottom: 1px solid var(--chat-border);
+        }
+
+        .sidebar-branding {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .sidebar-branding-text {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 14px;
+            background: linear-gradient(135deg, #00d4ff 0%, #e91e8c 50%, #ffd400 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 1px;
+        }
+
+        .user-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--chat-border);
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+
+        .user-card-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #00d4ff, #e91e8c);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            margin: 0 auto 8px;
+            font-size: 0.9rem;
+        }
+
+        .user-card-name {
+            color: var(--chat-text);
+            font-weight: 500;
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+        }
+
+        .user-card-company {
+            color: var(--chat-text-secondary);
+            font-size: 0.75rem;
+        }
+
+        .channel-section {
+            padding: 12px 8px;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .channel-section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--chat-text-secondary);
+            padding: 8px 12px;
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+
+        .channel-item {
+            padding: 10px 12px;
+            margin-bottom: 4px;
+            border-radius: 6px;
+            cursor: pointer;
+            color: var(--chat-text-secondary);
+            transition: all 0.2s;
+            font-size: 0.9rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .channel-item:hover {
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--chat-text);
+        }
+
+        .channel-item.active {
+            background: var(--chat-accent-red);
+            color: var(--chat-text);
+            font-weight: 500;
+        }
+
+        .channel-unread {
+            font-size: 0.7rem;
+            background: var(--chat-accent-red);
+            color: white;
+            padding: 1px 6px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        .sidebar-footer {
+            padding: 12px;
+            border-top: 1px solid var(--chat-border);
+            font-size: 0.85rem;
+        }
+
+        .sidebar-footer a {
+            display: block;
+            color: var(--chat-text-secondary);
+            text-decoration: none;
+            margin-bottom: 6px;
+            transition: color 0.2s;
+        }
+
+        .sidebar-footer a:hover {
+            color: var(--chat-text);
+        }
+
+        /* ════════════════════════════ Main Chat Area ════════════════════════════ */
+        .chat-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: var(--chat-bg);
+        }
+
+        .chat-header {
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--chat-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-header-info h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
+            color: var(--chat-text);
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+
+        .chat-header-info p {
+            color: var(--chat-text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .chat-header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .online-count {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            color: var(--chat-text-secondary);
+        }
+
+        .online-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--chat-online);
+        }
+
+        /* ════════════════════════════ Message List ════════════════════════════ */
+        .messages-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .messages-loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            color: var(--chat-text-secondary);
+        }
+
+        .messages-empty {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            color: var(--chat-text-secondary);
+            text-align: center;
+        }
+
+        .message {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 4px;
+        }
+
+        .message.system {
+            justify-content: center;
+        }
+
+        .message-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .message-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .message-header {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .message-author {
+            font-weight: 500;
+            color: var(--chat-text);
+            font-size: 0.95rem;
+        }
+
+        .message-company {
+            color: var(--chat-text-secondary);
+            font-size: 0.8rem;
+        }
+
+        .message-tier-badge {
+            display: inline-block;
+            background: rgba(139, 26, 26, 0.3);
+            color: #c99999;
+            font-size: 0.7rem;
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .message-timestamp {
+            color: var(--chat-text-muted);
+            font-size: 0.75rem;
+            margin-left: auto;
+        }
+
+        .message-text {
+            color: var(--chat-message);
+            font-size: 0.95rem;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+        }
+
+        .message.system .message-text {
+            background: rgba(139, 26, 26, 0.08);
+            color: var(--chat-text-secondary);
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            text-align: center;
+            font-style: italic;
+        }
+
+        /* ════════════════════════════ Message Input ════════════════════════════ */
+        .input-area {
+            padding: 16px 24px;
+            border-top: 1px solid var(--chat-border);
+            background-color: var(--chat-bg);
+        }
+
+        .input-wrapper {
+            display: flex;
+            gap: 10px;
+            align-items: flex-end;
+        }
+
+        .input-field {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--chat-border);
+            border-radius: 8px;
+            padding: 10px 14px;
+            color: var(--chat-text);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            resize: none;
+            max-height: 100px;
+            transition: border-color 0.2s;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: rgba(139, 26, 26, 0.5);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .input-field::placeholder {
+            color: var(--chat-text-secondary);
+        }
+
+        .btn-send {
+            background: linear-gradient(135deg, #e91e8c, #6c2bd9);
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .btn-send:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(233, 30, 140, 0.3);
+        }
+
+        .btn-send:disabled {
+            background: rgba(255, 255, 255, 0.1);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* ════════════════════════════ Right Sidebar ════════════════════════════ */
+        .chat-right-sidebar {
+            width: 200px;
+            background-color: var(--chat-sidebar);
+            border-left: 1px solid var(--chat-border);
+            overflow-y: auto;
+            padding: 16px;
+        }
+
+        .sidebar-section {
+            margin-bottom: 20px;
+        }
+
+        .sidebar-section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--chat-text-secondary);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .member-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px;
+            margin-bottom: 6px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .member-item:hover {
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .member-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .member-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .member-name {
+            color: var(--chat-text);
+            font-size: 0.85rem;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .member-status {
+            color: var(--chat-text-secondary);
+            font-size: 0.7rem;
+        }
+
+        .member-online {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--chat-online);
+            flex-shrink: 0;
+        }
+
+        /* ════════════════════════════ Non-Member View ════════════════════════════ */
+        .non-member-view {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 13, 11, 0.95);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .non-member-view.active {
+            display: flex;
+        }
+
+        .non-member-content {
+            text-align: center;
+            max-width: 500px;
+            padding: 40px;
+        }
+
+        .non-member-content h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3rem;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #00d4ff, #e91e8c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .non-member-content p {
+            color: var(--ink-gray);
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .btn-join {
+            display: inline-block;
+            background: linear-gradient(135deg, #e91e8c, #6c2bd9);
+            color: white;
+            padding: 14px 36px;
+            border-radius: 10px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .btn-join:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(233, 30, 140, 0.35);
+        }
+
+        /* ════════════════════════════ Responsive ════════════════════════════ */
+        @media (max-width: 1024px) {
+            .chat-right-sidebar {
+                width: 160px;
+            }
+
+            .chat-sidebar {
+                width: 200px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links.mobile-open {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: rgba(10, 10, 10, 0.98);
+                padding: 20px 24px;
+                gap: 16px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            }
+
+            .chat-container {
+                flex-direction: column;
+            }
+
+            .chat-sidebar {
+                width: 100%;
+                max-height: 200px;
+                border-right: none;
+                border-bottom: 1px solid var(--chat-border);
+                flex-direction: row;
+                overflow-x: auto;
+            }
+
+            .sidebar-header {
+                min-width: 120px;
+            }
+
+            .channel-section {
+                display: flex;
+                gap: 8px;
+                overflow-x: auto;
+                flex: 1;
+                padding: 0 12px;
+            }
+
+            .channel-section-title {
+                display: none;
+            }
+
+            .channel-item {
+                white-space: nowrap;
+                margin-bottom: 0;
+                min-width: 120px;
+            }
+
+            .sidebar-footer {
+                display: none;
+            }
+
+            .chat-right-sidebar {
+                width: 100%;
+                max-height: 150px;
+                border-left: none;
+                border-top: 1px solid var(--chat-border);
+                padding: 12px;
+            }
+
+            .sidebar-section {
+                margin-bottom: 12px;
+            }
+
+            .chat-main {
+                min-height: 0;
+            }
+
+            .messages-area {
+                padding: 16px 12px;
+                gap: 8px;
+            }
+
+            .input-area {
+                padding: 12px;
+            }
+
+            .input-wrapper {
+                gap: 8px;
+            }
+
+            .input-field {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+
+            .btn-send {
+                padding: 8px 16px;
+                font-size: 0.8rem;
+            }
+
+            .message {
+                gap: 10px;
+            }
+
+            .message-avatar {
+                width: 32px;
+                height: 32px;
+                font-size: 0.75rem;
+            }
+
+            .chat-header {
+                padding: 12px 16px;
+            }
+
+            .chat-header-info h2 {
+                font-size: 1rem;
+            }
+
+            .chat-header-right {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-logo-main {
+                font-size: 20px;
+            }
+
+            .nav-logo-sub {
+                font-size: 10px;
+            }
+
+            .nav-links a {
+                font-size: 0.8rem;
+                letter-spacing: 1px;
+            }
+
+            .non-member-content h2 {
+                font-size: 2rem;
+            }
+
+            .non-member-content p {
+                font-size: 1rem;
+            }
+
+            .btn-join {
+                font-size: 0.9rem;
+                padding: 12px 28px;
+            }
+
+            .input-wrapper {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .btn-send {
+                width: 100%;
+            }
+        }
+
+        /* ════════════════════════════ Scrollbar ════════════════════════════ */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* ════════════════════════════ Spinner ════════════════════════════ */
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <span class="nav-logo-main">ASPA</span>
+                <span class="nav-logo-sub">SCREEN<br>PRINTING</span>
+            </a>
+
+            <div class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('mobile-open')">
+                <span></span><span></span><span></span>
+            </div>
+
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="directory.html">Directory</a></li>
+                <li><a href="certified-roster.html">Certified</a></li>
+                <li><a href="membership.html">Membership</a></li>
+                <li><a href="resources.html">Resources</a></li>
+                <li><a href="jobs.html">Jobs</a></li>
+                <li><a href="discounts.html" class="nav-aspa-plus">Discounts<sup>+</sup></a></li>
+                <li><a href="rewards.html" class="nav-aspa-plus">Rewards<sup>+</sup></a></li>
+                <li><a href="education.html" class="nav-aspa-plus">Education<sup>+</sup></a></li>
+                <li><a href="community.html" class="nav-aspa-plus active">Community<sup>+</sup></a></li>
+                <li>
+                    <div class="nav-auth" id="navAuthContainer">
+                        <a href="join.html" class="nav-cta" id="navJoinBtn">Join ASPA</a>
+                        <a href="login.html" style="color: #b0b0b0; font-family: Inter, sans-serif; font-size: 0.85rem; cursor: pointer; text-decoration: none;">Log In</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Non-Member View -->
+    <div class="non-member-view" id="nonMemberContent">
+        <div class="non-member-content">
+            <h2>ASPA+ COMMUNITY</h2>
+            <p>Join the real-time chat with fellow screen printing professionals. Share tips, ask questions, and connect with the ASPA+ community.</p>
+            <a href="join.html" class="btn-join">Join ASPA+ to Chat</a>
+            <p style="margin-top: 20px; font-size: 0.85rem; color: var(--ink-gray);">Already a member? <a href="login.html" style="color: var(--ink-cyan); text-decoration: none;">Log in</a></p>
+        </div>
+    </div>
+
+    <!-- Member View -->
+    <div id="memberContent">
+        <div class="chat-container">
+            <!-- Left Sidebar: Channels -->
+            <div class="chat-sidebar">
+                <div class="sidebar-header">
+                    <div class="sidebar-branding">
+                        <span class="sidebar-branding-text">ASPA+</span>
+                    </div>
+                    <div class="user-card">
+                        <div class="user-card-avatar" id="userAvatar">?</div>
+                        <div class="user-card-name" id="userName">Loading...</div>
+                        <div class="user-card-company" id="userCompany">-</div>
+                    </div>
+                </div>
+
+                <div class="channel-section">
+                    <div class="channel-section-title">Channels</div>
+                    <div id="channelList"></div>
+                </div>
+
+                <div class="sidebar-footer">
+                    <a href="index.html">Home</a>
+                    <a href="directory.html">Directory</a>
+                    <a href="rewards.html">Rewards</a>
+                </div>
+            </div>
+
+            <!-- Main Chat Area -->
+            <div class="chat-main">
+                <div class="chat-header">
+                    <div class="chat-header-info">
+                        <h2 id="channelName">Select a Channel</h2>
+                        <p id="channelDescription">-</p>
+                    </div>
+                    <div class="chat-header-right">
+                        <div class="online-count">
+                            <div class="online-dot"></div>
+                            <span id="onlineCount">1 online</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="messages-area" id="messagesArea">
+                    <div class="messages-empty">Select a channel to start chatting</div>
+                </div>
+
+                <div class="input-area" id="inputArea" style="display: none;">
+                    <div class="input-wrapper">
+                        <textarea
+                            id="messageInput"
+                            class="input-field"
+                            placeholder="Type a message... (Enter to send, Shift+Enter for new line)"
+                            rows="1"
+                        ></textarea>
+                        <button class="btn-send" id="sendBtn" onclick="sendMessage()">Send</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Sidebar: Online Members -->
+            <div class="chat-right-sidebar">
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Online Members</div>
+                    <div id="onlineMembers">
+                        <div class="member-item">
+                            <div class="member-avatar" id="currentUserAvatar">?</div>
+                            <div class="member-info">
+                                <div class="member-name" id="currentUserName">You</div>
+                                <div class="member-status">Online</div>
+                            </div>
+                            <div class="member-online"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    (function () {
+        'use strict';
+
+        // ────────────────────────────────────────────────────────
+        // State & Configuration
+        // ────────────────────────────────────────────────────────
+
+        var state = {
+            session: null,
+            profile: null,
+            currentChannelId: null,
+            messages: [],
+            channels: [],
+            messageSubscription: null
+        };
+
+        var AVATAR_COLORS = [
+            'linear-gradient(135deg, #FF6B6B, #FF8E72)',
+            'linear-gradient(135deg, #4ECDC4, #44A08D)',
+            'linear-gradient(135deg, #F7B801, #FFF07A)',
+            'linear-gradient(135deg, #667eea, #764ba2)',
+            'linear-gradient(135deg, #f093fb, #f5576c)',
+            'linear-gradient(135deg, #4facfe, #00f2fe)',
+            'linear-gradient(135deg, #43e97b, #38f9d7)',
+            'linear-gradient(135deg, #fa709a, #fee140)'
+        ];
+
+        // ────────────────────────────────────────────────────────
+        // Auth Gate
+        // ────────────────────────────────────────────────────────
+
+        window.addEventListener('aspa-auth-ready', function (e) {
+            if (e.detail && e.detail.session) {
+                state.session = e.detail.session;
+                state.profile = e.detail.profile;
+                window.updateNavForSupabase(e.detail.profile);
+                document.getElementById('memberContent').style.display = 'flex';
+                document.getElementById('nonMemberContent').classList.remove('active');
+                initializeChat();
+            } else {
+                document.getElementById('nonMemberContent').classList.add('active');
+                document.getElementById('memberContent').style.display = 'none';
+            }
+        });
+
+        // Fallback if auth already resolved
+        if (window._supabaseSession && window._memberProfile) {
+            state.session = window._supabaseSession;
+            state.profile = window._memberProfile;
+            window.updateNavForSupabase(window._memberProfile);
+            document.getElementById('memberContent').style.display = 'flex';
+            initializeChat();
+        }
+
+        // ────────────────────────────────────────────────────────
+        // Initialize Chat
+        // ────────────────────────────────────────────────────────
+
+        async function initializeChat() {
+            try {
+                populateUserCard();
+                await loadChannels();
+            } catch (err) {
+                console.error('[Community] Init error:', err);
+            }
+        }
+
+        // ────────────────────────────────────────────────────────
+        // User Card
+        // ────────────────────────────────────────────────────────
+
+        function populateUserCard() {
+            var initials = getInitials(state.profile.full_name);
+            var avatar = getAvatarElement(initials);
+
+            document.getElementById('userAvatar').textContent = initials;
+            document.getElementById('userAvatar').style.background = getAvatarColor(state.profile.full_name);
+            document.getElementById('userName').textContent = state.profile.full_name || 'Member';
+            document.getElementById('userCompany').textContent = state.profile.company || 'No company';
+
+            document.getElementById('currentUserAvatar').textContent = initials;
+            document.getElementById('currentUserAvatar').style.background = getAvatarColor(state.profile.full_name);
+            document.getElementById('currentUserName').textContent = state.profile.full_name || 'You';
+        }
+
+        // ────────────────────────────────────────────────────────
+        // Load Channels
+        // ────────────────────────────────────────────────────────
+
+        async function loadChannels() {
+            try {
+                var supabase = window._supabase;
+                var { data, error } = await supabase
+                    .from('community_channels')
+                    .select('*')
+                    .order('sort_order', { ascending: true });
+
+                if (error) throw error;
+
+                state.channels = data || [];
+                renderChannels();
+
+                // Auto-select first channel
+                if (state.channels.length > 0) {
+                    selectChannel(state.channels[0].id);
+                }
+            } catch (err) {
+                console.error('[Community] Load channels error:', err);
+                document.getElementById('channelList').innerHTML = '<p style="color:var(--chat-text-secondary);padding:8px;">Unable to load channels</p>';
+            }
+        }
+
+        function renderChannels() {
+            var regularChannels = state.channels.filter(function (c) { return !c.is_premium; });
+            var premiumChannels = state.channels.filter(function (c) { return c.is_premium; });
+
+            var html = '';
+
+            // Regular channels
+            if (regularChannels.length > 0) {
+                for (var i = 0; i < regularChannels.length; i++) {
+                    html += renderChannelItem(regularChannels[i]);
+                }
+            }
+
+            // Premium channels
+            if (premiumChannels.length > 0) {
+                html += '<div class="channel-section-title" style="margin-top:12px;">Members Only</div>';
+                for (var j = 0; j < premiumChannels.length; j++) {
+                    html += renderChannelItem(premiumChannels[j]);
+                }
+            }
+
+            document.getElementById('channelList').innerHTML = html;
+        }
+
+        function renderChannelItem(channel) {
+            var isActive = state.currentChannelId === channel.id ? ' active' : '';
+            var unreadBadge = '';
+
+            // Check for unread messages
+            var lastReadTime = localStorage.getItem('aspa-channel-' + channel.id);
+            if (lastReadTime) {
+                var unreadCount = state.messages.filter(function (m) {
+                    return new Date(m.created_at) > new Date(lastReadTime);
+                }).length;
+                if (unreadCount > 0) {
+                    unreadBadge = '<span class="channel-unread">' + unreadCount + '</span>';
+                }
+            }
+
+            return '<div class="channel-item' + isActive + '" onclick="selectChannel(\'' + channel.id + '\')"># ' + channel.name + unreadBadge + '</div>';
+        }
+
+        // ────────────────────────────────────────────────────────
+        // Select Channel
+        // ────────────────────────────────────────────────────────
+
+        window.selectChannel = async function (channelId) {
+            state.currentChannelId = channelId;
+
+            // Unsubscribe from previous channel
+            if (state.messageSubscription) {
+                state.messageSubscription.unsubscribe();
+            }
+
+            // Update UI
+            renderChannels();
+            var channel = state.channels.find(function (c) { return c.id === channelId; });
+            if (channel) {
+                document.getElementById('channelName').textContent = '# ' + channel.name;
+                document.getElementById('channelDescription').textContent = channel.description || 'No description';
+            }
+
+            document.getElementById('inputArea').style.display = 'block';
+            document.getElementById('messagesArea').innerHTML = '<div class="messages-loading"><div class="spinner"></div></div>';
+
+            try {
+                await loadMessages(channelId);
+                subscribeToMessages(channelId);
+
+                // Mark as read
+                var now = new Date().toISOString();
+                localStorage.setItem('aspa-channel-' + channelId, now);
+            } catch (err) {
+                console.error('[Community] Select channel error:', err);
+                document.getElementById('messagesArea').innerHTML = '<div class="messages-empty">Unable to load messages</div>';
+            }
+        };
+
+        // ────────────────────────────────────────────────────────
+        // Load Messages
+        // ────────────────────────────────────────────────────────
+
+        async function loadMessages(channelId) {
+            try {
+                var supabase = window._supabase;
+                var { data, error } = await supabase
+                    .from('community_messages')
+                    .select('*, profiles:user_id(full_name, company, city, state, membership_tier)')
+                    .eq('channel_id', channelId)
+                    .order('created_at', { ascending: true })
+                    .limit(50);
+
+                if (error) throw error;
+
+                state.messages = data || [];
+                renderMessages();
+            } catch (err) {
+                console.error('[Community] Load messages error:', err);
+                throw err;
+            }
+        }
+
+        function renderMessages() {
+            if (state.messages.length === 0) {
+                document.getElementById('messagesArea').innerHTML = '<div class="messages-empty">No messages yet. Start the conversation!</div>';
+                return;
+            }
+
+            var html = '';
+            var prevUserId = null;
+
+            for (var i = 0; i < state.messages.length; i++) {
+                var msg = state.messages[i];
+                var isSystem = msg.is_system;
+                var profile = msg.profiles;
+
+                if (isSystem) {
+                    html += '<div class="message system">';
+                    html += '<div class="message-content">';
+                    html += '<div class="message-text">' + escapeHtml(msg.content) + '</div>';
+                    html += '</div></div>';
+                    prevUserId = null;
+                } else {
+                    var showHeader = prevUserId !== msg.user_id;
+
+                    if (showHeader) {
+                        html += '<div class="message">';
+                        var initials = getInitials(profile.full_name);
+                        html += '<div class="message-avatar" style="background:' + getAvatarColor(profile.full_name) + ';">' + initials + '</div>';
+                        html += '<div class="message-content">';
+                        html += '<div class="message-header">';
+                        html += '<span class="message-author">' + escapeHtml(profile.full_name) + '</span>';
+                        if (profile.company) {
+                            html += '<span class="message-company">' + escapeHtml(profile.company) + '</span>';
+                        }
+                        if (profile.membership_tier && profile.membership_tier !== 'free') {
+                            html += '<span class="message-tier-badge">✓ CSP</span>';
+                        }
+                        html += '<span class="message-timestamp">' + formatTime(msg.created_at) + '</span>';
+                        html += '</div>';
+                        html += '<div class="message-text">' + escapeHtml(msg.content) + '</div>';
+                        html += '</div></div>';
+                    } else {
+                        // Grouped message (no header)
+                        html += '<div class="message" style="margin-left:52px;">';
+                        html += '<div class="message-content">';
+                        html += '<div class="message-text">' + escapeHtml(msg.content) + '</div>';
+                        html += '</div></div>';
+                    }
+
+                    prevUserId = msg.user_id;
+                }
+            }
+
+            document.getElementById('messagesArea').innerHTML = html;
+            scrollToBottom();
+        }
+
+        // ────────────────────────────────────────────────────────
+        // Real-time Subscription
+        // ────────────────────────────────────────────────────────
+
+        function subscribeToMessages(channelId) {
+            try {
+                var supabase = window._supabase;
+
+                state.messageSubscription = supabase
+                    .channel('community-messages-' + channelId)
+                    .on(
+                        'postgres_changes',
+                        {
+                            event: 'INSERT',
+                            schema: 'public',
+                            table: 'community_messages',
+                            filter: 'channel_id=eq.' + channelId
+                        },
+                        function (payload) {
+                            handleNewMessage(payload.new);
+                        }
+                    )
+                    .subscribe();
+            } catch (err) {
+                console.error('[Community] Subscribe error:', err);
+            }
+        }
+
+        async function handleNewMessage(msg) {
+            try {
+                var supabase = window._supabase;
+                var { data: profiles } = await supabase
+                    .from('profiles')
+                    .select('*')
+                    .eq('id', msg.user_id)
+                    .single();
+
+                var fullMsg = { ...msg, profiles: profiles };
+                state.messages.push(fullMsg);
+                renderMessages();
+            } catch (err) {
+                console.error('[Community] Handle new message error:', err);
+            }
+        }
+
+        // ────────────────────────────────────────────────────────
+        // Send Message
+        // ────────────────────────────────────────────────────────
+
+        window.sendMessage = async function () {
+            var content = document.getElementById('messageInput').value.trim();
+
+            if (!content || !state.currentChannelId) return;
+
+            var btn = document.getElementById('sendBtn');
+            var originalHtml = btn.innerHTML;
+            btn.disabled = true;
+
+            try {
+                var supabase = window._supabase;
+                var { error } = await supabase
+                    .from('community_messages')
+                    .insert([{
+                        channel_id: state.currentChannelId,
+                        user_id: state.session.user.id,
+                        content: content,
+                        is_system: false,
+                        created_at: new Date().toISOString()
+                    }]);
+
+                if (error) throw error;
+
+                document.getElementById('messageInput').value = '';
+                document.getElementById('messageInput').style.height = 'auto';
+            } catch (err) {
+                console.error('[Community] Send error:', err);
+                alert('Failed to send message: ' + (err.message || 'Unknown error'));
+            } finally {
+                btn.innerHTML = originalHtml;
+                btn.disabled = false;
+            }
+        };
+
+        // Auto-resize textarea
+        document.getElementById('messageInput').addEventListener('input', function () {
+            this.style.height = 'auto';
+            this.style.height = Math.min(this.scrollHeight, 100) + 'px';
+        });
+
+        // Enter to send, Shift+Enter for new line
+        document.getElementById('messageInput').addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                window.sendMessage();
+            }
+        });
+
+        // ────────────────────────────────────────────────────────
+        // Helpers
+        // ────────────────────────────────────────────────────────
+
+        function getInitials(name) {
+            if (!name) return '?';
+            var parts = name.split(' ');
+            return (parts[0][0] + (parts[1] ? parts[1][0] : '')).toUpperCase();
+        }
+
+        function getAvatarColor(name) {
+            var hash = 0;
+            for (var i = 0; i < (name || '').length; i++) {
+                hash = ((hash << 5) - hash) + name.charCodeAt(i);
+                hash = hash & hash;
+            }
+            return AVATAR_COLORS[Math.abs(hash) % AVATAR_COLORS.length];
+        }
+
+        function formatTime(timestamp) {
+            var date = new Date(timestamp);
+            var now = new Date();
+            var diff = now - date;
+
+            if (diff < 60000) return 'now';
+            if (diff < 3600000) return Math.floor(diff / 60000) + 'm ago';
+            if (diff < 86400000) return Math.floor(diff / 3600000) + 'h ago';
+
+            return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        }
+
+        function scrollToBottom() {
+            var area = document.getElementById('messagesArea');
+            area.scrollTop = area.scrollHeight;
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        // Scroll to bottom when new messages arrive
+        var observer = new MutationObserver(function () {
+            scrollToBottom();
+        });
+
+        observer.observe(document.getElementById('messagesArea'), {
+            childList: true,
+            subtree: true
+        });
+
+    })();
+    </script>
+
+</body>
+</html>
