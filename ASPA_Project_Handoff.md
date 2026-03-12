@@ -2,7 +2,7 @@
 
 **Project:** screen-printing.us redesign
 **Client:** Dustin Cochran (cochran.dustin@gmail.com)
-**Date:** March 3–12, 2026 (last updated: Session 18)
+**Date:** March 3–12, 2026 (last updated: Session 19)
 **Status:** In Progress — Core Pages Built, Resource Hub COMPLETE (All 18 Articles), **SITE LIVE on GitHub Pages**, Nav Full-Width, **Supabase Backend Live** (Auth + Database + Google OAuth + Storage), ASPA+ Gated Content Live, Admin Dashboard Built, **UI Polish Pass Complete**, **Gamification & Loyalty Points System Live**, **Job Board Live**, **Community Chat Live** (Real-time, Edit/Delete, Search, Profile Edit, Avatar Upload, Admin Moderation)
 
 ---
@@ -416,7 +416,7 @@ Real-time Slack-style chat with Supabase Realtime. Three-column layout: left sid
 
 ## Cross-Page Navigation
 
-All pages now have consistent navigation (standardized in Sessions 10–11, widened in Session 18):
+All pages now have consistent navigation (standardized in Sessions 10–11, widened in Session 18, rewards/community nav aligned in Session 19):
 - **Nav bar:** Home, Directory, Certified, Membership, Resources, Jobs, Discounts⁺, Rewards⁺, Education⁺, Community⁺, Join ASPA (CTA) / Log In
 - **Nav container:** max-width 100% / full-width (widened from 1200px→1440px→100% in Session 18), link gap 20px, font-size 12.5px
 - **ASPA+ gradient links:** Discounts, Rewards, Education, and Community use `.nav-aspa-plus` class with gradient text (`linear-gradient(135deg, #00d4ff, #e91e8c, #ffd400)`) and a gold "⁺" superscript
@@ -645,7 +645,7 @@ The localStorage approach is a client-side prototype. When ready for production:
 - [ ] Analytics integration (GA4)
 - [x] SSL and hosting setup → **GitHub Pages** ✅ (HTTPS enforced)
 - [ ] 301 redirects from old Google Sites URLs
-- [x] ~~Nav bar standardization~~ → All 32 HTML pages use consistent nav from certified-roster.html baseline ✅
+- [x] ~~Nav bar standardization~~ → All HTML pages use consistent nav from certified-roster.html baseline ✅ (rewards + community aligned in Session 19)
 - [x] ~~Auth state in nav~~ → Inline script pattern shows logged-in/logged-out state instantly ✅
 - [x] ~~ASPA+ gradient nav links~~ → Discounts⁺ and Education⁺ with gradient text styling ✅
 - [x] ~~Nav bar widened~~ → Full-width (100%), 20px gap, 12.5px font across 34 files ✅ (Session 18)
@@ -1013,6 +1013,37 @@ Widened the navigation bar across all pages to fix cramped layout caused by 10+ 
 
 ---
 
+## Session 19: Nav Consistency Fix + Join Page Cleanup (March 12, 2026)
+
+### What Was Built
+Fixed nav inconsistency across rewards.html and community.html — both pages had outdated nav CSS and HTML that didn't match the standard pattern used by all other pages. Also fixed broken "Log In" link and updated logo on join.html.
+
+### Nav Fixes (rewards.html + community.html)
+**CSS updates:**
+- `.nav-links` gap: 24px → **20px** (matching standard)
+- `.nav-links a`: removed uppercase/letter-spacing, set to **12.5px / font-weight 500** (was 0.9rem with letter-spacing 1.5px and text-transform uppercase)
+- `.nav-cta`: changed from magenta-purple gradient with white text → **cyan-magenta gradient with dark text** (matching standard)
+- `.nav-logo-sub`: added font-weight 600, opacity 0.7, fixed font-size to 14px
+- `.hamburger`: updated gap to 6px, added border-radius 2px on spans
+- `.nav-aspa-plus`: added `!important` flags to match standard
+
+**HTML updates:**
+- Logo elements: `<span>` → `<div>`, fixed "SCREEN<br>PRINTING" → "SCREEN PRINTING"
+- Auth container: moved outside `<ul class="nav-links">` to standalone `<div>` (matching standard)
+- Hamburger: `<div>` → `<button>` with `toggleMobileMenu()` function
+- Added missing nav links: Certified, Membership, Education, Community (rewards had only 6 items; now all pages have 10)
+
+### Join Page Fixes
+- **Log In link:** Replaced placeholder `alert('Log in feature coming soon')` with actual link to `login.html`
+- **Logo:** Changed "ASPA MEMBERSHIP" to "ASPA SCREEN PRINTING" to match standard site branding
+
+### Commit History (Session 19)
+- `8eaf01a` Fix nav consistency on rewards and community pages
+- `b231d71` Fix Log In link on join page
+- `63a1d2d` Update join page logo to standard ASPA Screen Printing
+
+---
+
 ## Content Migration Gap Analysis (March 10, 2026)
 
 Compared original site (screen-printing.us, built on Google Sites + Blogger) against new GitHub Pages site. The following content still needs to be migrated or built. Items are prioritized and should be tackled in order.
@@ -1068,7 +1099,7 @@ Compared original site (screen-printing.us, built on Google Sites + Blogger) aga
 - Debounced search (300ms) with AND logic for combined filters
 - Files designed to sit in the same directory
 - `.nav-aspa-plus` CSS class provides gradient text for premium nav links
-- `certified-roster.html` is the canonical nav CSS reference — all other pages were standardized to match it. Nav set to full-width (max-width: 100%) in Session 18.
+- `certified-roster.html` is the canonical nav CSS reference — all other pages were standardized to match it. Nav set to full-width (max-width: 100%) in Session 18. Rewards and community pages had outdated nav CSS/HTML that was aligned in Session 19.
 - Directory and roster pages fall back to hardcoded sample data when Supabase data isn't available
 - Exam results are persisted to Supabase; CSP certification auto-created on pass
 
