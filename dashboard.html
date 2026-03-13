@@ -882,7 +882,378 @@
             font-weight: 700;
         }
 
-        /* PROFILE SETTINGS SECTION */
+        /* ── DIGITAL MEMBERSHIP CARD ── */
+        .membership-card {
+            position: relative;
+            max-width: 420px;
+            margin: 3rem auto;
+            padding: 2rem;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(26, 26, 46, 0.6) 0%, rgba(42, 42, 62, 0.4) 100%);
+            border: 1px solid;
+            border-image: linear-gradient(135deg, rgba(0, 212, 255, 0.4), rgba(233, 30, 140, 0.3)) 1;
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.1);
+        }
+
+        .card-header {
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .card-logo {
+            text-align: left;
+        }
+
+        .card-logo-main {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--ink-cyan);
+        }
+
+        .card-logo-sub {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 10px;
+            letter-spacing: 1px;
+            color: var(--ink-gray);
+            margin-top: 2px;
+        }
+
+        .card-body {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .card-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            letter-spacing: 1px;
+            color: var(--ink-white);
+            margin-bottom: 0.5rem;
+        }
+
+        .card-tier {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: var(--ink-magenta);
+            text-transform: uppercase;
+        }
+
+        .card-footer {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        .card-info {
+            text-align: center;
+        }
+
+        .card-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.65rem;
+            letter-spacing: 0.5px;
+            color: var(--ink-gray);
+            text-transform: uppercase;
+            margin-bottom: 0.3rem;
+        }
+
+        .card-number,
+        .card-date {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            color: var(--ink-cyan);
+            font-weight: 600;
+        }
+
+        .card-watermark {
+            position: absolute;
+            top: 50%;
+            right: 10%;
+            transform: translateY(-50%);
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 4rem;
+            opacity: 0.03;
+            letter-spacing: 2px;
+            pointer-events: none;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateX(100%); opacity: 0; }
+        }
+
+        .shimmer-effect {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shimmer 3s infinite;
+            pointer-events: none;
+            border-radius: 20px;
+        }
+
+        /* ── CE PROGRESS RING ── */
+        .ce-progress-ring {
+            transform-origin: 50% 50%;
+        }
+
+        /* ── DIRECTORY PREVIEW ── */
+        .directory-preview {
+            margin-bottom: 3rem;
+        }
+
+        .listing-card {
+            border-radius: 16px;
+            padding: 2rem;
+            background: rgba(42, 42, 62, 0.5);
+            border: 1px solid rgba(108, 43, 217, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .listing-card:hover {
+            background: rgba(42, 42, 62, 0.8);
+            border-color: rgba(0, 212, 255, 0.4);
+        }
+
+        .listing-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .listing-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+            color: var(--ink-white);
+            margin-bottom: 0.5rem;
+        }
+
+        .listing-location {
+            color: var(--ink-gray);
+            font-size: 0.95rem;
+        }
+
+        .listing-stats {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        .stat-mini {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .stat-mini-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.75rem;
+            color: var(--ink-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-mini-value {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            color: var(--ink-cyan);
+        }
+
+        .listing-specialties {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .specialty-tag {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.8rem;
+            color: var(--ink-cyan);
+            font-weight: 500;
+        }
+
+        .listing-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            justify-content: space-between;
+        }
+
+        .listing-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            border: none;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .listing-btn.primary {
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            color: var(--ink-black);
+        }
+
+        .listing-btn.primary:hover {
+            opacity: 0.9;
+        }
+
+        .boost-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            background: rgba(233, 30, 140, 0.1);
+            border: 1px solid rgba(233, 30, 140, 0.3);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--ink-magenta);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* ── NEXT STEPS / RECOMMENDED ── */
+        .next-steps-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.75rem;
+            margin-bottom: 4rem;
+        }
+
+        .nudge-card {
+            border-radius: 16px;
+            padding: 1.5rem;
+            background: rgba(42, 42, 62, 0.5);
+            border: 1px solid rgba(108, 43, 217, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .nudge-card:hover {
+            background: rgba(42, 42, 62, 0.8);
+            border-color: rgba(0, 212, 255, 0.4);
+            transform: translateY(-4px);
+        }
+
+        .nudge-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .nudge-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+            color: var(--ink-white);
+            margin-bottom: 0.5rem;
+        }
+
+        .nudge-desc {
+            font-size: 0.85rem;
+            color: var(--ink-gray);
+            margin-bottom: 1.25rem;
+            flex-grow: 1;
+        }
+
+        .nudge-cta {
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            color: var(--ink-cyan);
+            text-decoration: none;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .nudge-cta:hover {
+            background: var(--ink-cyan);
+            color: var(--ink-black);
+        }
+
+        /* ── CERT MICRO BUTTON ── */
+        .cert-micro-btn {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            color: var(--ink-cyan);
+            border-radius: 6px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cert-micro-btn:hover {
+            background: var(--ink-cyan);
+            color: var(--ink-black);
+        }
+
+        /* ── RESPONSIVE ADJUSTMENTS ── */
+        @media (max-width: 1024px) {
+            .next-steps-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .membership-card {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .next-steps-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card-footer {
+                grid-template-columns: 1fr;
+            }
+
+            .listing-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .listing-btn {
+                width: 100%;
+            }
+
+            .membership-card {
+                margin: 2rem auto;
+                padding: 1.5rem;
+            }
+
+            .card-name {
+                font-size: 1.5rem;
+            }
+        }
 
     </style>
 </head>
@@ -929,9 +1300,13 @@
             <p class="membership-status" id="membershipStatus">Member since March 5, 2026 · Renews March 5, 2027</p>
 
             <div class="stats-row">
-                <div class="stat-card">
+                <div class="stat-card" style="min-height: 200px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
                     <div class="stat-label">CE Credits Earned</div>
-                    <div class="stat-value" id="ceCredits">0</div>
+                    <svg class="ce-progress-ring" viewBox="0 0 100 100" style="width: 80px; height: 80px; margin: 1rem 0;">
+                        <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(0, 212, 255, 0.1)" stroke-width="6"/>
+                        <circle cx="50" cy="50" r="45" fill="none" stroke="var(--ink-cyan)" stroke-width="6" stroke-dasharray="283" stroke-dashoffset="283" id="ceRing" style="transition: stroke-dashoffset 0.6s ease; transform: rotate(-90deg); transform-origin: 50% 50%;"/>
+                    </svg>
+                    <div style="font-size: 1rem; color: var(--ink-cyan); font-weight: 600;" id="ceCreditsText">0 / 12</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-label">Directory Views</div>
@@ -945,6 +1320,36 @@
                     <div class="stat-label">Certification Status</div>
                     <div class="stat-value" id="certStatus" style="color: var(--ink-green);">ACTIVE</div>
                 </div>
+            </div>
+
+            <!-- DIGITAL MEMBERSHIP CARD -->
+            <div class="membership-card">
+                <div class="card-header">
+                    <div class="card-logo">
+                        <div class="card-logo-main">ASPA</div>
+                        <div class="card-logo-sub">SCREEN PRINTING</div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="card-name" id="cardMemberName">Your Name</div>
+                    <div class="card-tier" id="cardTier">MEMBER</div>
+                </div>
+                <div class="card-footer">
+                    <div class="card-info">
+                        <div class="card-label">Member ID</div>
+                        <div class="card-number" id="cardMemberNumber">ASPA-2026-00000</div>
+                    </div>
+                    <div class="card-info">
+                        <div class="card-label">Member Since</div>
+                        <div class="card-date" id="cardJoinDate">Mar 2026</div>
+                    </div>
+                    <div class="card-info">
+                        <div class="card-label">Expires</div>
+                        <div class="card-date" id="cardExpDate">Mar 2027</div>
+                    </div>
+                </div>
+                <div class="card-watermark">ASPA+</div>
+                <div class="shimmer-effect"></div>
             </div>
         </section>
 
@@ -1064,8 +1469,7 @@
                 </div>
 
                 <!-- CE Credits & Tracking -->
-                <div class="bubble-card bubble-ce coming-soon">
-                    <span class="coming-soon-badge">Coming Soon</span>
+                <div class="bubble-card bubble-ce" onclick="document.getElementById('ceRing').parentElement.scrollIntoView({behavior: 'smooth'});">
                     <div class="bubble-icon">🎓</div>
                     <h3 class="bubble-title">CE Credits & Tracking</h3>
                     <p class="bubble-desc">Track your continuing education credits, complete courses, and maintain your certification.</p>
@@ -1088,16 +1492,14 @@
                 </div>
 
                 <!-- My Directory Listing -->
-                <div class="bubble-card bubble-directory coming-soon">
-                    <span class="coming-soon-badge">Coming Soon</span>
+                <div class="bubble-card bubble-directory" onclick="window.location.href='directory.html';">
                     <div class="bubble-icon">📍</div>
                     <h3 class="bubble-title">My Directory Listing</h3>
                     <p class="bubble-desc">Manage your ASPA member directory profile, boost visibility, and get priority placement.</p>
                 </div>
 
                 <!-- Exclusive Resources -->
-                <div class="bubble-card bubble-resources coming-soon">
-                    <span class="coming-soon-badge">Coming Soon</span>
+                <div class="bubble-card bubble-resources" onclick="window.location.href='resources.html';">
                     <div class="bubble-icon">📚</div>
                     <h3 class="bubble-title">Exclusive Resources</h3>
                     <p class="bubble-desc">Member-only guides, templates, industry reports, and business tools for screen printers.</p>
@@ -1112,10 +1514,72 @@
                 </div>
 
                 <!-- My Certification -->
-                <div class="bubble-card bubble-cert">
+                <div class="bubble-card bubble-cert" onclick="window.location.href='exam.html'">
                     <div class="bubble-icon">🏆</div>
                     <h3 class="bubble-title">My Certification</h3>
-                    <p class="bubble-desc">View your CSP certification status, recertification timeline, and download your credentials.</p>
+                    <p class="bubble-desc" id="certExpiryLine">View your CSP certification status, recertification timeline, and download your credentials.</p>
+                    <button class="cert-micro-btn" onclick="event.stopPropagation(); downloadCertificate();" style="margin-top: 1rem; font-size: 0.75rem; padding: 0.4rem 0.8rem;">Download Certificate</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- DIRECTORY LISTING PREVIEW -->
+        <section class="benefits-section">
+            <h2 class="section-header">YOUR DIRECTORY LISTING</h2>
+            <p class="section-subtitle">How members see your business in the ASPA directory.</p>
+
+            <div class="directory-preview">
+                <div class="listing-card">
+                    <div class="listing-header">
+                        <div class="listing-name" id="listingBusinessName">Your Business Name</div>
+                        <div class="listing-location" id="listingLocation">City, State</div>
+                    </div>
+                    <div class="listing-stats">
+                        <div class="stat-mini">
+                            <span class="stat-mini-label">Monthly Views</span>
+                            <span class="stat-mini-value" id="listingViews">—</span>
+                        </div>
+                    </div>
+                    <div class="listing-specialties" id="listingSpecialties">
+                        <span class="specialty-tag">Add your specialties</span>
+                    </div>
+                    <div class="listing-actions">
+                        <a href="directory.html" class="listing-btn primary">Edit Listing →</a>
+                        <span class="boost-badge">ASPA+ Boost Visibility</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RECOMMENDED FOR YOU -->
+        <section class="benefits-section">
+            <h2 class="section-header">RECOMMENDED FOR YOU</h2>
+            <p class="section-subtitle">Next steps to maximize your ASPA membership.</p>
+
+            <div class="next-steps-grid">
+                <div class="nudge-card">
+                    <div class="nudge-icon">👤</div>
+                    <h4 class="nudge-title">Complete Your Profile</h4>
+                    <p class="nudge-desc">Add your specialties, logo, and bio to stand out to other members.</p>
+                    <a href="directory.html" class="nudge-cta">Get Started →</a>
+                </div>
+                <div class="nudge-card">
+                    <div class="nudge-icon">🏆</div>
+                    <h4 class="nudge-title">Take the CSP Exam</h4>
+                    <p class="nudge-desc">Join 1,200+ certified screen printers. Prove your expertise.</p>
+                    <a href="exam.html" class="nudge-cta">Learn More →</a>
+                </div>
+                <div class="nudge-card">
+                    <div class="nudge-icon">⚡</div>
+                    <h4 class="nudge-title">Earn Your First 100 Points</h4>
+                    <p class="nudge-desc">Connect socials, watch webinars, and unlock exclusive rewards.</p>
+                    <a href="#points-section" class="nudge-cta">Start Earning →</a>
+                </div>
+                <div class="nudge-card">
+                    <div class="nudge-icon">💬</div>
+                    <h4 class="nudge-title">Join the Community</h4>
+                    <p class="nudge-desc">Chat with other printers in the ASPA+ community forum.</p>
+                    <a href="community.html" class="nudge-cta">Join Now →</a>
                 </div>
             </div>
         </section>
@@ -1411,6 +1875,50 @@
 
             document.getElementById('memberSince').textContent =
                 `${joinDate.toLocaleDateString('en-US', { month: 'short', year: '2-digit' })}`;
+
+            // ── DIGITAL MEMBERSHIP CARD ──
+            document.getElementById('cardMemberName').textContent = nameDisplay;
+            document.getElementById('cardTier').textContent = tierText;
+            const memberId = (profile.id || '').toString().slice(-5).padStart(5, '0');
+            document.getElementById('cardMemberNumber').textContent = `ASPA-2026-${memberId}`;
+            document.getElementById('cardJoinDate').textContent = joinDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+            document.getElementById('cardExpDate').textContent = renewDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+
+            // ── CE CREDITS PROGRESS RING ──
+            const ceCredits = profile.ce_credits || 0;
+            const ceRing = document.getElementById('ceRing');
+            if (ceRing) {
+                const circumference = 2 * Math.PI * 45;
+                const offset = circumference - (Math.min(ceCredits, 12) / 12) * circumference;
+                ceRing.style.strokeDashoffset = offset;
+            }
+            const ceCreditsText = document.getElementById('ceCreditsText');
+            if (ceCreditsText) ceCreditsText.textContent = `${Math.min(ceCredits, 12)} / 12`;
+
+            // ── DIRECTORY LISTING PREVIEW ──
+            const businessName = profile.company || 'Your Business Name';
+            const location = profile.city && profile.state ? `${profile.city}, ${profile.state}` : 'Add your location';
+            const dirViews = profile.directory_views || 0;
+
+            document.getElementById('listingBusinessName').textContent = businessName;
+            document.getElementById('listingLocation').textContent = location;
+            document.getElementById('listingViews').textContent = dirViews > 0 ? dirViews : '—';
+
+            const specialties = profile.specialties ? profile.specialties.split(',').map(s => s.trim()) : [];
+            const specialtiesEl = document.getElementById('listingSpecialties');
+            if (specialtiesEl) {
+                if (specialties.length > 0) {
+                    specialtiesEl.innerHTML = specialties.map(s => `<span class="specialty-tag">${s}</span>`).join('');
+                } else {
+                    specialtiesEl.innerHTML = '<span class="specialty-tag">Add your specialties</span>';
+                }
+            }
+
+            // ── CERTIFICATION EXPIRY ──
+            const certExpiryEl = document.getElementById('certExpiryLine');
+            if (certExpiryEl && profile.is_certified) {
+                certExpiryEl.textContent = `CSP Certified — Expires ${renewDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}`;
+            }
 
         }
 
