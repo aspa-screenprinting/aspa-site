@@ -2,7 +2,7 @@
 
 **Project:** screen-printing.us redesign
 **Client:** Dustin Cochran (cochran.dustin@gmail.com)
-**Date:** March 3–12, 2026 (last updated: Session 19)
+**Date:** March 3–12, 2026 (last updated: Session 20)
 **Status:** In Progress — Core Pages Built, Resource Hub COMPLETE (All 18 Articles), **SITE LIVE on GitHub Pages**, Nav Full-Width, **Supabase Backend Live** (Auth + Database + Google OAuth + Storage), ASPA+ Gated Content Live, Admin Dashboard Built, **UI Polish Pass Complete**, **Gamification & Loyalty Points System Live**, **Job Board Live**, **Community Chat Live** (Real-time, Edit/Delete, Search, Profile Edit, Avatar Upload, Admin Moderation)
 
 ---
@@ -1056,6 +1056,78 @@ Added 8 new features to the community chat system (`community.html`):
 - `b231d71` Fix Log In link on join page
 - `63a1d2d` Update join page logo to standard ASPA Screen Printing
 - `a176d37` Add 8 community chat features: reactions, mentions, typing, images, pins
+
+---
+
+## Session 20: Community Chat Polish + Brand Refresh (March 12, 2026)
+
+### Bug Fixes
+- **Duplicate message sending** — Two `sendMessage` function definitions and two `keydown` event listeners both firing on Enter. Removed the original, kept the enhanced version with attachments and replies.
+- **Image upload filename errors** — Filenames with spaces caused Supabase Storage "Invalid key" errors. Fixed with sanitization: `name.replace(/[^a-zA-Z0-9._-]/g, '_')`
+- **Init crash (populateUserCard)** — `document.getElementById('currentUserAvatar')` returned null because the online members sidebar changed from static HTML to dynamically rendered. Crashed `initializeChat`, blocking ALL features. Fixed with null checks.
+- **Notification bell not dismissing** — Toggle was hiding the panel without clearing mentions/badge. Fixed by calling `closeMentionsPanel()`.
+- **Unread channel badges showing "1" everywhere** — Was filtering current channel's `state.messages` for ALL channels (always wrong). Replaced with per-channel Supabase count queries and a global realtime subscription for live badge updates.
+
+### New Features
+- **@Mention Autocomplete** — Type `@` in the message input to see a filtered dropdown of all users plus @all. Arrow keys navigate, Tab/Enter select, Escape dismisses. Loads all profiles from Supabase on init.
+- **Online/Offline Members Sidebar** — Real-time presence tracking via Supabase Presence channels. Shows "Online — N" section with green dots and "Offline — N" section with greyed-out entries. Auto-populates from `allUsers` list.
+- **Teams-Style Emoji Picker** — Completely redesigned from flat 6-emoji grid to a full picker with: search bar at top with emoji name matching, "Recent" section tracking last 24 used emojis (persisted in localStorage), all 8 categories visible with sticky section headers while scrolling, ~350 emojis across categories (Smileys & People, Gestures & Body, Hearts & Emotions, Animals & Nature, Food & Drink, Activities & Objects, Travel & Places, Symbols & Flags), category icon tabs at bottom (scroll-to-category on click, auto-highlight on scroll), click-outside-to-dismiss.
+- **Presence-Based Typing Indicators** — Refactored from creating new Supabase channels per keystroke to using a shared `state.presenceChannel`, dramatically reducing connection overhead.
+
+### Brand Color Refresh
+Replaced the entire brown/maroon color palette with an on-brand dark navy/indigo theme. See **Brand Guide** section below.
+
+### Commit History (Session 20)
+- `44067c6` Fix duplicate message sending
+- `fb8120f` Add @mention autocomplete + fix image upload filenames
+- `6897405` Add real-time presence tracking for online members sidebar
+- `950fd6a` Fix notification bell dismiss
+- `5fa2e61` Fix init crash: null check for populateUserCard
+- `c643f2f` Add offline members, Slack-style emoji picker, click-outside dismiss
+- `3471d2d` Teams-style emoji picker + fix unread channel badges
+- `cafacd7` Refresh brand colors: dark navy theme with gradient accents
+
+---
+
+## Brand Guide
+
+The ASPA brand uses a bold, vibrant color palette inspired by screen printing ink colors. All UI components should draw from these values.
+
+### Primary Brand Colors
+| Color | Hex | CSS Variable | Usage |
+|-------|-----|-------------|-------|
+| Cyan | `#00d4ff` | `--ink-cyan` | Primary accent, online indicators, @all highlights |
+| Magenta | `#e91e8c` | `--ink-magenta` | Accent, notification badges, focus borders |
+| Yellow | `#ffd400` | `--ink-yellow` | Highlights, ASPA+ branding |
+| Purple | `#6c2bd9` | `--ink-purple` | Secondary accent |
+| Orange | `#ff6b35` | `--ink-orange` | Warnings, attention |
+
+### Brand Gradient
+```css
+background: linear-gradient(135deg, #00d4ff 0%, #e91e8c 50%, #ffd400 100%);
+```
+Used for: ASPA+ logo text, sidebar branding, avatar borders. A two-color variant (cyan→magenta) is used for active channel highlights and unread badges.
+
+### Chat Theme (Dark Mode)
+| Token | Hex | Purpose |
+|-------|-----|---------|
+| `--chat-bg` | `#0C0E1A` | Main background — deep navy |
+| `--chat-sidebar` | `#111528` | Sidebar background — dark indigo |
+| `--chat-border` | `#1E2340` | Borders — slate blue |
+| `--chat-text` | `#E8ECF8` | Primary text — cool white |
+| `--chat-text-secondary` | `#7B82A0` | Muted text — blue-grey |
+| `--chat-text-muted` | `#4A5070` | Very muted text — slate |
+| `--chat-accent-red` | `#e91e8c` | Accent (magenta, NOT maroon) |
+| `--chat-accent-gradient` | `linear-gradient(135deg, #00d4ff, #e91e8c)` | Active states, badges |
+| `--chat-accent-gradient-subtle` | Same with 15% opacity | Hover states |
+| `--chat-online` | `#00d4ff` | Online presence dot (cyan) |
+| `--chat-message` | `#C8D0E8` | Message body text |
+
+### Design Principles
+- **Dark navy, not brown** — Background tones use blue/indigo undertones, never brown or warm grey.
+- **Gradient for emphasis** — Active/selected states use the cyan→magenta gradient. Never use flat maroon (#8B1A1A) — that's the old palette.
+- **Cool neutrals** — Text and border colors lean blue-grey, not warm beige.
+- **Brand gradient sparingly** — The full 3-color gradient (cyan→magenta→yellow) is reserved for branding elements (logo, ASPA+ badge). UI elements use the 2-color variant.
 
 ---
 
