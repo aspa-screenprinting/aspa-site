@@ -2,8 +2,8 @@
 
 **Project:** screen-printing.us redesign
 **Client:** Dustin Cochran (cochran.dustin@gmail.com)
-**Date:** March 3–12, 2026 (last updated: Session 20)
-**Status:** In Progress — Core Pages Built, Resource Hub COMPLETE (All 18 Articles), **SITE LIVE on GitHub Pages**, Nav Full-Width, **Supabase Backend Live** (Auth + Database + Google OAuth + Storage), ASPA+ Gated Content Live, Admin Dashboard Built, **UI Polish Pass Complete**, **Gamification & Loyalty Points System Live**, **Job Board Live**, **Community Chat Live** (Real-time, Edit/Delete, Search, Profile Edit, Avatar Upload, Admin Moderation)
+**Date:** March 3–13, 2026 (last updated: Session 21)
+**Status:** In Progress — Core Pages Built, Resource Hub COMPLETE (All 18 Articles), **SITE LIVE on GitHub Pages**, Nav Full-Width, **Supabase Backend Live** (Auth + Database + Google OAuth + Storage), ASPA+ Gated Content Live, Admin Dashboard Built, **UI Polish Pass Complete**, **Gamification & Loyalty Points System Live**, **Job Board Live**, **Community Chat Live** (Real-time, Edit/Delete, Search, Profile Edit, Avatar Upload, Admin Moderation), **Full Brand Audit Complete**, **Member Dashboard Fleshed Out**
 
 ---
 
@@ -1086,6 +1086,42 @@ Replaced the entire brown/maroon color palette with an on-brand dark navy/indigo
 - `c643f2f` Add offline members, Slack-style emoji picker, click-outside dismiss
 - `3471d2d` Teams-style emoji picker + fix unread channel badges
 - `cafacd7` Refresh brand colors: dark navy theme with gradient accents
+
+---
+
+## Session 21: Brand Audit + Dashboard Overhaul (March 13, 2026)
+
+### Brand Audit & Fixes
+- **Full site audit** across all 37 HTML files for off-brand colors
+- **Fixed hero ink splatter bug** on index.html — `.ink-splatter` divs had no base CSS (`position: absolute`, `border-radius: 50%`, `filter: blur(120px)`), causing hard-edged maroon rectangles instead of soft gradient blobs
+- **Footer background standardization** — all pages now use `var(--ink-dark)` consistently
+- **Nav upgrade** propagated across all 35+ pages — ASPA+ gradient pill, increased font size
+- **Confirmed resources.html is complete** — all 18 articles wired up with `comingSoon: false`
+- **Confirmed ink-splatter class is only used in index.html** — no other pages affected
+
+### Dashboard Overhaul (dashboard.html)
+Transformed the member dashboard from a placeholder landing page into a fully fleshed-out member hub:
+
+1. **Digital Membership Card** — Glass-morphism card with gradient border, ASPA branding, member name, tier badge, member ID (ASPA-2026-XXXXX), join/expiry dates, holographic shimmer animation, ASPA+ watermark
+2. **CE Credits Progress Ring** — SVG circular progress indicator showing X/12 credits toward recertification, replaces static "0" counter
+3. **Directory Listing Preview** — "Your Directory Listing" section showing business name, location, monthly views, specialty tags, Edit Listing button, ASPA+ Boost Visibility badge
+4. **Recommended For You** — 4 contextual nudge cards: Complete Your Profile, Take the CSP Exam, Earn Your First 100 Points, Join the Community — each with icon, description, and gradient CTA button
+5. **Enhanced My Certification Card** — Now clickable with certification expiry line and Download Certificate micro-button
+6. **Activated 3 Benefit Cards** — Removed "Coming Soon" from CE Credits & Tracking, My Directory Listing, and Exclusive Resources (all now link to their respective pages)
+7. **Kept "Coming Soon"** on genuinely unbuilt features: STCH Deals, Advanced Training, Supplier Spotlights, STCH Buying Group
+
+### Content Audit Results
+Pages needing work (prioritized):
+- ~~dashboard.html~~ — **DONE** (this session)
+- education.html — Learning paths, CE credits, course structure (skeleton)
+- rewards.html — Earn/redeem system, point tiers (thin)
+- directory.html — Member search with sample data (skeleton)
+- certified-roster.html — Certified printer profiles (skeleton)
+- jobs.html + post-job.html — Job board with listings (skeleton)
+
+### Commit History (Session 21)
+- `8da88a5` Fix hero ink splatters rendering as hard-edged maroon rectangles
+- `0cd1f6c` Flesh out member dashboard: membership card, CE ring, activity feed, directory preview, next steps
 
 ---
 
