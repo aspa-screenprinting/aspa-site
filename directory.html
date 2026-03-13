@@ -4,108 +4,98 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Member Directory - ASPA | American Screen Printing Association</title>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="supabase-init.js"></script>
     <style>
-        /* ========================================
-           DESIGN SYSTEM & ROOT VARIABLES
-           ======================================== */
-        :root {
-            --ink-black: #0a0a0a;
-            --ink-dark: #1a1a2e;
-            --ink-purple: #6c2bd9;
-            --ink-magenta: #e91e8c;
-            --ink-cyan: #00d4ff;
-            --ink-yellow: #ffd400;
-            --ink-orange: #ff6b35;
-            --ink-white: #f8f8f8;
-            --ink-gray: #b0b0b0;
-            --ink-gray-dark: #2a2a3e;
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        html {
-            scroll-behavior: smooth;
+        :root {
+            --ink-cyan: #00d4ff;
+            --ink-magenta: #e91e8c;
+            --ink-yellow: #ffd400;
+            --ink-purple: #6c2bd9;
+            --ink-black: #0a0a0a;
+            --ink-dark: #1a1a2e;
+            --ink-orange: #ff6b35;
+            --ink-white: #f8f8f8;
+            --ink-gray: #b0b0b0;
+            --ink-gray-dark: #2a2a3e;
+            --brand-gradient: linear-gradient(135deg, #00d4ff 0%, #e91e8c 50%, #ffd400 100%);
         }
 
         body {
+            font-family: 'Inter', sans-serif;
             background-color: var(--ink-black);
             color: var(--ink-white);
-            font-family: 'Inter', sans-serif;
             line-height: 1.6;
-            overflow-x: hidden;
         }
 
-        /* ========================================
-           NAVIGATION BAR
-           ======================================== */
+        /* NAVIGATION */
         nav {
-            background-color: rgba(10, 10, 10, 0.95);
+            background: rgba(10, 10, 10, 0.95);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
             position: sticky;
             top: 0;
-            z-index: 1000;
-            padding: 0 24px;
+            z-index: 100;
         }
 
         .nav-container {
-            max-width: 100%;
+            max-width: 1400px;
             margin: 0 auto;
+            padding: 0 24px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            height: 70px;
+            justify-content: space-between;
+            height: 80px;
         }
 
-        .nav-logo {display: flex;
-            flex-direction: row;
-            gap: 10px;
-            cursor: pointer;
+        .nav-logo {
             text-decoration: none;
-        
-            align-items: center;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 2px;
         }
 
         .nav-logo-main {
-        font-family: 'Bebas Neue', sans-serif;
-            font-size: 28px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 24px;
             font-weight: 700;
-            background: linear-gradient(135deg, #00d4ff 0%, #e91e8c 50%, #ffd400 100%);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                background-clip: text;
-        letter-spacing: 2px;
+            background: var(--brand-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2px;
         }
 
         .nav-logo-sub {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 14px;
+            font-size: 9px;
             font-weight: 600;
-            color: var(--ink-gray);
+            color: var(--ink-cyan);
             letter-spacing: 1.5px;
-        
-            opacity: 0.7;
+            text-transform: uppercase;
         }
 
         .nav-links {
             display: flex;
-            gap: 14px;
-            align-items: center;
             list-style: none;
+            gap: 32px;
+            flex: 1;
+            margin-left: 64px;
         }
 
         .nav-links a {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 14px;
-            font-weight: 500;
             color: var(--ink-gray);
             text-decoration: none;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
             transition: color 0.3s ease;
             position: relative;
         }
@@ -116,1166 +106,275 @@
 
         .nav-links a.active {
             color: var(--ink-cyan);
-            font-weight: 600;
         }
 
         .nav-plus-group {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            border: 1px solid transparent;
-            background: linear-gradient(var(--ink-black), var(--ink-black)) padding-box,
-                        linear-gradient(135deg, #00d4ff, #e91e8c, #ffd400) border-box;
-            border-radius: 20px;
-            padding: 4px 14px 4px 10px;
-            margin-left: 2px;
             position: relative;
         }
 
         .nav-plus-label {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 11px;
-            letter-spacing: 1.5px;
-            background: linear-gradient(135deg, #00d4ff 0%, #e91e8c 50%, #ffd400 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--ink-yellow);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem;
             font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .nav-aspa-plus {
+            color: var(--ink-yellow) !important;
+        }
+
+        #navAuthContainer {
+            display: flex;
+            align-items: center;
+            gap: 16px;
         }
 
         .nav-cta {
-            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            background: var(--brand-gradient);
             color: var(--ink-black);
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 13px;
-            font-weight: 600;
             padding: 10px 20px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            letter-spacing: 0.5px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: transform 0.3s ease;
         }
 
         .nav-cta:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
+            transform: scale(1.05);
         }
 
         .hamburger {
             display: none;
             flex-direction: column;
-            gap: 6px;
-            cursor: pointer;
             background: none;
             border: none;
+            cursor: pointer;
+            gap: 6px;
         }
 
         .hamburger span {
             width: 24px;
             height: 2px;
-            background-color: var(--ink-white);
-            border-radius: 2px;
-            transition: 0.3s ease;
+            background: var(--ink-cyan);
+            transition: all 0.3s ease;
         }
 
-        /* ========================================
-           HERO SECTION
-           ======================================== */
-        .hero {
-            background: linear-gradient(135deg, rgba(108, 43, 217, 0.1) 0%, rgba(233, 30, 140, 0.05) 100%);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        /* HEADER */
+        .directory-header {
             padding: 60px 24px;
-        }
-
-        .hero-container {
-            max-width: 1200px;
-            margin: 0 auto;
             text-align: center;
+            background: linear-gradient(180deg, rgba(26, 26, 46, 0.5) 0%, rgba(10, 10, 10, 0) 100%);
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
         }
 
-        .hero-label {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--ink-cyan);
-            letter-spacing: 2px;
-            margin-bottom: 12px;
-            text-transform: uppercase;
-        }
-
-        .hero-title {
+        .directory-header h1 {
             font-family: 'Bebas Neue', sans-serif;
             font-size: 56px;
-            font-weight: 700;
-            color: var(--ink-white);
+            background: var(--brand-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin-bottom: 16px;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
         }
 
-        .hero-subtitle {
-            font-family: 'Inter', sans-serif;
-            font-size: 18px;
+        .directory-header p {
+            font-size: 1.1rem;
             color: var(--ink-gray);
-            margin-bottom: 32px;
             max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .hero-stats {
-            display: flex;
-            justify-content: center;
-            gap: 32px;
-            flex-wrap: wrap;
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--ink-cyan);
-            letter-spacing: 0.5px;
-        }
-
-        /* ========================================
-           FILTER & SEARCH BAR (STICKY)
-           ======================================== */
-        .filter-bar {
-            background-color: rgba(26, 26, 46, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-            padding: 20px 24px;
-            position: sticky;
-            top: 70px;
-            z-index: 900;
-        }
-
-        .filter-container {
-            max-width: 1200px;
             margin: 0 auto;
         }
 
-        .filter-row {
-            display: grid;
-            grid-template-columns: 2fr 1.5fr 1.5fr auto auto 1fr;
+        /* MAIN CONTAINER */
+        .directory-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        /* FILTER BAR */
+        .filter-bar {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-group {
+            display: flex;
             gap: 12px;
             align-items: center;
-            margin-bottom: 16px;
+            flex-wrap: wrap;
         }
 
-        .filter-input, .filter-select {
-            background-color: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            padding: 10px 14px;
+        .search-box {
+            padding: 12px 16px;
+            background: rgba(26, 26, 46, 0.8);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 4px;
             color: var(--ink-white);
             font-family: 'Inter', sans-serif;
-            font-size: 14px;
-            transition: border-color 0.2s ease, background-color 0.2s ease;
+            flex: 1;
+            min-width: 250px;
+            transition: border-color 0.3s ease;
         }
 
-        .filter-input::placeholder {
-            color: rgba(255, 255, 255, 0.4);
-        }
-
-        .filter-input:focus, .filter-select:focus {
+        .search-box:focus {
             outline: none;
             border-color: var(--ink-cyan);
-            background-color: rgba(255, 255, 255, 0.08);
         }
 
         .filter-select {
+            padding: 10px 16px;
+            background: rgba(26, 26, 46, 0.8);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 4px;
+            color: var(--ink-white);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
             cursor: pointer;
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23f8f8f8' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 10px center;
-            padding-right: 30px;
+            transition: border-color 0.3s ease;
         }
 
-        .filter-button-group {
-            display: flex;
-            gap: 8px;
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--ink-cyan);
         }
 
         .filter-toggle {
-            background-color: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            padding: 8px 12px;
-            color: var(--ink-gray);
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 12px;
-            font-weight: 600;
+            padding: 10px 16px;
+            background: rgba(26, 26, 46, 0.8);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            color: var(--ink-white);
+            border-radius: 4px;
             cursor: pointer;
-            transition: all 0.2s ease;
-            white-space: nowrap;
-        }
-
-        .filter-toggle:hover {
-            border-color: var(--ink-cyan);
-            color: var(--ink-cyan);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
         }
 
         .filter-toggle.active {
-            background-color: rgba(0, 212, 255, 0.2);
-            border-color: var(--ink-cyan);
-            color: var(--ink-cyan);
-        }
-
-        .reset-btn {
-            background-color: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
-            padding: 8px 12px;
-            color: var(--ink-gray);
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .reset-btn:hover {
-            border-color: var(--ink-magenta);
-            color: var(--ink-magenta);
-        }
-
-        .filter-stats {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--ink-cyan);
-            letter-spacing: 0.5px;
-        }
-
-        /* ========================================
-           RESULTS GRID
-           ======================================== */
-        .results-section {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 24px;
-        }
-
-        .results-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 24px;
-            margin-bottom: 40px;
-        }
-
-        .member-card {
-            background-color: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 16px;
-            padding: 24px;
-            position: relative;
-            transition: all 0.3s ease;
-            overflow: hidden;
-        }
-
-        .member-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(233, 30, 140, 0.1) 100%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-        }
-
-        .member-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--ink-cyan);
-            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
-            background-color: rgba(255, 255, 255, 0.05);
-        }
-
-        .member-card:hover::before {
-            opacity: 1;
-        }
-
-        .member-card.featured {
-            border-left: 4px solid;
-            border-image: linear-gradient(180deg, var(--ink-cyan), var(--ink-magenta)) 1;
-        }
-
-        .card-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .card-badges {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 12px;
-            flex-wrap: wrap;
-        }
-
-        .badge {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 11px;
-            font-weight: 600;
-            padding: 4px 10px;
-            border-radius: 20px;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            letter-spacing: 0.5px;
-        }
-
-        .badge-aspa-plus {
-            background-color: rgba(0, 212, 255, 0.2);
-            color: var(--ink-cyan);
-            border: 1px solid rgba(0, 212, 255, 0.4);
-        }
-
-        .badge-certified {
-            background-color: rgba(34, 197, 94, 0.2);
-            color: #22c55e;
-            border: 1px solid rgba(34, 197, 94, 0.4);
-        }
-
-        .badge-category {
-            background-color: rgba(255, 255, 255, 0.1);
-            color: var(--ink-white);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .badge-category.tshirt {
-            background-color: rgba(108, 43, 217, 0.2);
-            color: var(--ink-purple);
-            border-color: rgba(108, 43, 217, 0.4);
-        }
-
-        .badge-category.sign {
-            background-color: rgba(233, 30, 140, 0.2);
-            color: var(--ink-magenta);
-            border-color: rgba(233, 30, 140, 0.4);
-        }
-
-        .badge-category.embroidery {
-            background-color: rgba(255, 107, 53, 0.2);
-            color: var(--ink-orange);
-            border-color: rgba(255, 107, 53, 0.4);
-        }
-
-        .badge-category.equipment {
-            background-color: rgba(255, 212, 0, 0.2);
-            color: var(--ink-yellow);
-            border-color: rgba(255, 212, 0, 0.4);
-        }
-
-        .badge-category.supplier {
-            background-color: rgba(0, 212, 255, 0.2);
-            color: var(--ink-cyan);
-            border-color: rgba(0, 212, 255, 0.4);
-        }
-
-        .badge-category.education {
-            background-color: rgba(168, 85, 247, 0.2);
-            color: #a855f7;
-            border-color: rgba(168, 85, 247, 0.4);
-        }
-
-        .card-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--ink-white);
-            margin-bottom: 8px;
-            line-height: 1.3;
-        }
-
-        .card-location {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 13px;
-            color: var(--ink-gray);
-            margin-bottom: 12px;
-        }
-
-        .location-icon {
-            width: 14px;
-            height: 14px;
-        }
-
-        .card-description {
-            font-size: 14px;
-            color: rgba(248, 248, 248, 0.7);
-            margin-bottom: 16px;
-            line-height: 1.5;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .card-contact {
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
-            padding-top: 16px;
-            margin-bottom: 16px;
-        }
-
-        .card-phone {
-            font-size: 13px;
-            color: var(--ink-gray);
-            margin-bottom: 12px;
-            font-family: 'Space Grotesk', sans-serif;
-        }
-
-        .card-actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .card-link {
-            flex: 1;
-            background-color: rgba(0, 212, 255, 0.1);
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            border-radius: 8px;
-            padding: 8px 12px;
-            color: var(--ink-cyan);
-            text-decoration: none;
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 12px;
-            font-weight: 600;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .card-link:hover {
-            background-color: rgba(0, 212, 255, 0.2);
-            border-color: var(--ink-cyan);
-        }
-
-        .social-links {
-            display: flex;
-            gap: 12px;
-            margin-top: 12px;
-            padding-top: 12px;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
-        }
-
-        .social-link {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 32px;
-            height: 32px;
-            border-radius: 6px;
-            background-color: rgba(0, 212, 255, 0.1);
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            color: var(--ink-cyan);
-            text-decoration: none;
-            font-size: 16px;
-            transition: all 0.2s ease;
-        }
-
-        .social-link:hover {
-            background-color: rgba(0, 212, 255, 0.2);
-            border-color: var(--ink-cyan);
-            transform: translateY(-2px);
-        }
-
-        .social-link.twitter {
-            border-color: rgba(29, 155, 240, 0.3);
-            background-color: rgba(29, 155, 240, 0.1);
-            color: #1d9bf0;
-        }
-
-        .social-link.twitter:hover {
-            background-color: rgba(29, 155, 240, 0.2);
-            border-color: #1d9bf0;
-        }
-
-        .social-link.instagram {
-            border-color: rgba(240, 72, 126, 0.3);
-            background-color: rgba(240, 72, 126, 0.1);
-            color: #f0487e;
-        }
-
-        .social-link.instagram:hover {
-            background-color: rgba(240, 72, 126, 0.2);
-            border-color: #f0487e;
-        }
-
-        .social-link.linkedin {
-            border-color: rgba(0, 119, 181, 0.3);
-            background-color: rgba(0, 119, 181, 0.1);
-            color: #0077b5;
-        }
-
-        .social-link.linkedin:hover {
-            background-color: rgba(0, 119, 181, 0.2);
-            border-color: #0077b5;
-        }
-
-        /* ========================================
-           PAGINATION
-           ======================================== */
-        .pagination {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-bottom: 40px;
-            flex-wrap: wrap;
-        }
-
-        .pagination-btn {
-            background-color: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            padding: 10px 14px;
-            color: var(--ink-gray);
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .pagination-btn:hover:not(:disabled) {
-            border-color: var(--ink-cyan);
-            color: var(--ink-cyan);
-        }
-
-        .pagination-btn.active {
-            background-color: rgba(0, 212, 255, 0.2);
-            border-color: var(--ink-cyan);
-            color: var(--ink-cyan);
-        }
-
-        .pagination-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        /* ========================================
-           EMPTY STATE
-           ======================================== */
-        .empty-state {
-            text-align: center;
-            padding: 60px 24px;
-        }
-
-        .empty-state-icon {
-            font-size: 48px;
-            margin-bottom: 16px;
-        }
-
-        .empty-state-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 24px;
-            font-weight: 600;
-            color: var(--ink-white);
-            margin-bottom: 8px;
-        }
-
-        .empty-state-message {
-            font-size: 16px;
-            color: var(--ink-gray);
-            margin-bottom: 24px;
-        }
-
-        /* ========================================
-           CTA BANNER
-           ======================================== */
-        .cta-banner {
-            background: linear-gradient(135deg, rgba(108, 43, 217, 0.15) 0%, rgba(233, 30, 140, 0.15) 100%);
-            border: 1px solid rgba(0, 212, 255, 0.2);
-            border-radius: 16px;
-            padding: 40px 24px;
-            max-width: 1200px;
-            margin: 0 auto 60px;
-            text-align: center;
-        }
-
-        .cta-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 24px;
-            font-weight: 600;
-            color: var(--ink-white);
-            margin-bottom: 8px;
-        }
-
-        .cta-message {
-            font-size: 16px;
-            color: var(--ink-gray);
-            margin-bottom: 24px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .cta-button {
-            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            background: var(--ink-cyan);
             color: var(--ink-black);
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 14px;
-            font-weight: 600;
-            padding: 12px 28px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            letter-spacing: 0.5px;
-            display: inline-block;
+            border-color: var(--ink-cyan);
         }
 
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 32px rgba(0, 212, 255, 0.3);
-        }
-
-        /* ========================================
-           FOOTER
-           ======================================== */
-        footer {
-            background-color: var(--ink-dark);
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
-            padding: 40px 24px 20px;
-            margin-top: 60px;
-        }
-
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        .footer-section h4 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--ink-cyan);
-            margin-bottom: 16px;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-
-        .footer-section ul {
-            list-style: none;
-        }
-
-        .footer-section a {
-            display: block;
-            color: var(--ink-gray);
-            text-decoration: none;
-            font-size: 14px;
-            margin-bottom: 12px;
-            transition: color 0.2s ease;
-        }
-
-        .footer-section a:hover {
-            color: var(--ink-cyan);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
-            color: var(--ink-gray);
-            font-size: 13px;
-        }
-
-        /* ========================================
-           MOBILE RESPONSIVE
-           ======================================== */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .hamburger {
-                display: flex;
-            }
-
-            .hero-title {
-                font-size: 36px;
-            }
-
-            .hero-subtitle {
-                font-size: 16px;
-            }
-
-            .hero-stats {
-                gap: 16px;
-                font-size: 12px;
-            }
-
-            .filter-row {
-                grid-template-columns: 1fr;
-            }
-
-            .filter-button-group {
-                grid-column: 1 / -1;
-            }
-
-            .results-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .member-card {
-                padding: 16px;
-            }
-
-            .card-title {
-                font-size: 16px;
-            }
-
-            .cta-title {
-                font-size: 20px;
-            }
-
-            .cta-message {
-                font-size: 14px;
-            }
-        }
-
-        /* ========================================
-           FILTER PANEL (Mobile)
-           ======================================== */
-        .filter-panel-toggle {
-            display: none;
-            background-color: rgba(0, 212, 255, 0.1);
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            border-radius: 8px;
-            padding: 10px 16px;
-            color: var(--ink-cyan);
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-bottom: 16px;
-            width: 100%;
-            transition: all 0.2s ease;
-        }
-
-        .filter-panel-toggle:hover {
-            background-color: rgba(0, 212, 255, 0.2);
-        }
-
-        @media (max-width: 768px) {
-            .filter-bar {
-                top: 70px;
-            }
-
-            .filter-panel-toggle {
-                display: block;
-            }
-
-            .filter-row {
-                display: none;
-            }
-
-            .filter-row.open {
-                display: grid;
-            }
-
-            .filter-stats {
-                grid-column: 1 / -1;
-            }
-        }
-
-        /* ========================================
-           UTILITY CLASSES
-           ======================================== */
-        .hidden {
-            display: none !important;
-        }
-
-        .loading {
-            opacity: 0.6;
-            pointer-events: none;
-        }
-            .nav-aspa-plus {
-    background: linear-gradient(135deg, #00d4ff 0%, #e91e8c 50%, #ffd400 100%) !important;
-    -webkit-background-clip: text !important;
-    -webkit-text-fill-color: transparent !important;
-    background-clip: text !important;
-    font-weight: 600 !important;
-
-            font-size: 13px !important;}
-        .nav-aspa-plus:hover {
-    filter: brightness(1.3);
-}
-
-    >
-        /* ========================================
-           DESIGN SYSTEM & ROOT VARIABLES
-           ======================================== */
-        :root {
-            --ink-black: #0a0a0a;
-            --ink-dark: #1a1a2e;
-            --ink-purple: #6c2bd9;
-            --ink-magenta: #e91e8c;
-            --ink-cyan: #00d4ff;
-            --ink-yellow: #ffd400;
-            --ink-orange: #ff6b35;
-            --ink-white: #f8f8f8;
-            --ink-gray: #b0b0b0;
-            --ink-gray-dark: #2a2a3e;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background-color: var(--ink-black);
-            color: var(--ink-white);
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* ========================================
-           NAVIGATION BAR
-           ======================================== */
-        nav {
-            background-color: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            padding: 0 24px;
-        }
-
-        .nav-container {
-            max-width: 100%;
-            margin: 0 auto;
+        /* CONTROLS BAR */
+        .controls-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: 70px;
+            margin-bottom: 32px;
+            gap: 16px;
+            flex-wrap: wrap;
         }
 
-        .nav-logo {display: flex;
-            flex-direction: row;
-            gap: 10px;
-            cursor: pointer;
-            text-decoration: none;
-        
-            align-items: center;
-        }
-
-        .nav-logo-main {
-        font-family: 'Bebas Neue', sans-serif;
-            font-size: 28px;
-            font-weight: 700;
-            background: linear-gradient(135deg, #00d4ff 0%, #e91e8c 50%, #ffd400 100%);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                background-clip: text;
-        letter-spacing: 2px;
-        }
-
-        .nav-logo-sub {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--ink-gray);
-            letter-spacing: 1.5px;
-        
-            opacity: 0.7;
-        }
-
-        .nav-links {
+        .sort-view-group {
             display: flex;
-            gap: 14px;
+            gap: 16px;
             align-items: center;
-            list-style: none;
+            flex-wrap: wrap;
         }
 
-        .nav-links a {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 14px;
-            font-weight: 500;
+        .results-count {
             color: var(--ink-gray);
-            text-decoration: none;
-            transition: color 0.3s ease;
-            position: relative;
-        }
-
-        .nav-links a:hover {
-            color: var(--ink-cyan);
-        }
-
-        .nav-links a.active {
-            color: var(--ink-cyan);
-            font-weight: 600;
-        }
-
-        .nav-plus-group {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            border: 1px solid transparent;
-            background: linear-gradient(var(--ink-black), var(--ink-black)) padding-box,
-                        linear-gradient(135deg, #00d4ff, #e91e8c, #ffd400) border-box;
-            border-radius: 20px;
-            padding: 4px 14px 4px 10px;
-            margin-left: 2px;
-            position: relative;
-        }
-
-        .nav-plus-label {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 11px;
-            letter-spacing: 1.5px;
-            background: linear-gradient(135deg, #00d4ff 0%, #e91e8c 50%, #ffd400 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 700;
-        }
-
-        .nav-cta {
-            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
-            color: var(--ink-black);
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 13px;
-            font-weight: 600;
-            padding: 10px 20px;
+            font-size: 0.9rem;
+        }
+
+        .view-toggle {
+            display: flex;
+            gap: 8px;
+            background: rgba(26, 26, 46, 0.8);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 4px;
+            padding: 4px;
+        }
+
+        .view-toggle button {
+            padding: 8px 12px;
+            background: transparent;
             border: none;
-            border-radius: 8px;
+            color: var(--ink-gray);
             cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            letter-spacing: 0.5px;
-        }
-
-        .nav-cta:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
-        }
-
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            gap: 6px;
-            cursor: pointer;
-            background: none;
-            border: none;
-        }
-
-        .hamburger span {
-            width: 24px;
-            height: 2px;
-            background-color: var(--ink-white);
+            font-size: 1rem;
+            transition: all 0.3s ease;
             border-radius: 2px;
-            transition: 0.3s ease;
         }
 
-        /* ========================================
-           HERO SECTION
-           ======================================== */
-        .hero {
-            background: linear-gradient(135deg, rgba(108, 43, 217, 0.1) 0%, rgba(233, 30, 140, 0.05) 100%);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-            padding: 60px 24px;
+        .view-toggle button.active {
+            background: var(--ink-cyan);
+            color: var(--ink-black);
         }
 
-        .hero-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            text-align: center;
+        /* FEATURED SECTION */
+        .featured-section {
+            margin-bottom: 48px;
         }
 
-        .hero-label {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--ink-cyan);
-            letter-spacing: 2px;
-            margin-bottom: 12px;
-            text-transform: uppercase;
-        }
-
-        .hero-title {
+        .featured-title {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 56px;
-            font-weight: 700;
-            color: var(--ink-white);
+            font-size: 32px;
+            color: var(--ink-cyan);
             margin-bottom: 16px;
             letter-spacing: 1px;
         }
 
-        .hero-subtitle {
-            font-family: 'Inter', sans-serif;
-            font-size: 18px;
-            color: var(--ink-gray);
-            margin-bottom: 32px;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .hero-stats {
+        .featured-scroll {
             display: flex;
-            justify-content: center;
-            gap: 32px;
-            flex-wrap: wrap;
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--ink-cyan);
-            letter-spacing: 0.5px;
-        }
-
-        /* ========================================
-           FILTER & SEARCH BAR (STICKY)
-           ======================================== */
-        .filter-bar {
-            background-color: rgba(26, 26, 46, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-            padding: 20px 24px;
-            position: sticky;
-            top: 70px;
-            z-index: 900;
-        }
-
-        .filter-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .filter-row {
-            display: grid;
-            grid-template-columns: 2fr 1.5fr 1.5fr auto auto 1fr;
-            gap: 12px;
-            align-items: center;
-            margin-bottom: 16px;
-        }
-
-        .filter-input, .filter-select {
-            background-color: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            padding: 10px 14px;
-            color: var(--ink-white);
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
-            transition: border-color 0.2s ease, background-color 0.2s ease;
-        }
-
-        .filter-input::placeholder {
-            color: rgba(255, 255, 255, 0.4);
-        }
-
-        .filter-input:focus, .filter-select:focus {
-            outline: none;
-            border-color: var(--ink-cyan);
-            background-color: rgba(255, 255, 255, 0.08);
-        }
-
-        .filter-select {
-            cursor: pointer;
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23f8f8f8' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 10px center;
-            padding-right: 30px;
-        }
-
-        .filter-button-group {
-            display: flex;
-            gap: 8px;
-        }
-
-        .filter-toggle {
-            background-color: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            padding: 8px 12px;
-            color: var(--ink-gray);
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            white-space: nowrap;
-        }
-
-        .filter-toggle:hover {
-            border-color: var(--ink-cyan);
-            color: var(--ink-cyan);
-        }
-
-        .filter-toggle.active {
-            background-color: rgba(0, 212, 255, 0.2);
-            border-color: var(--ink-cyan);
-            color: var(--ink-cyan);
-        }
-
-        .reset-btn {
-            background-color: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
-            padding: 8px 12px;
-            color: var(--ink-gray);
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .reset-btn:hover {
-            border-color: var(--ink-magenta);
-            color: var(--ink-magenta);
-        }
-
-        .filter-stats {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--ink-cyan);
-            letter-spacing: 0.5px;
-        }
-
-        /* ========================================
-           RESULTS GRID
-           ======================================== */
-        .results-section {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 24px;
-        }
-
-        .results-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             gap: 24px;
-            margin-bottom: 40px;
+            overflow-x: auto;
+            padding-bottom: 16px;
+            scroll-behavior: smooth;
         }
 
+        .featured-scroll::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .featured-scroll::-webkit-scrollbar-track {
+            background: rgba(26, 26, 46, 0.8);
+            border-radius: 3px;
+        }
+
+        .featured-scroll::-webkit-scrollbar-thumb {
+            background: var(--ink-cyan);
+            border-radius: 3px;
+        }
+
+        .featured-card {
+            flex: 0 0 320px;
+            min-height: 380px;
+        }
+
+        /* MEMBERS GRID */
+        .members-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        .members-grid.list-view {
+            grid-template-columns: 1fr;
+        }
+
+        /* MEMBER CARD */
         .member-card {
-            background-color: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 16px;
+            background: rgba(26, 26, 46, 0.5);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 8px;
             padding: 24px;
-            position: relative;
             transition: all 0.3s ease;
+            position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
         .member-card::before {
@@ -1285,185 +384,199 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(233, 30, 140, 0.1) 100%);
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05) 0%, rgba(233, 30, 140, 0.05) 100%);
+            pointer-events: none;
             opacity: 0;
             transition: opacity 0.3s ease;
-            pointer-events: none;
         }
 
         .member-card:hover {
+            border-color: rgba(0, 212, 255, 0.5);
+            background: rgba(26, 26, 46, 0.8);
             transform: translateY(-4px);
-            border-color: var(--ink-cyan);
-            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
-            background-color: rgba(255, 255, 255, 0.05);
         }
 
         .member-card:hover::before {
             opacity: 1;
         }
 
-        .member-card.featured {
-            border-left: 4px solid;
-            border-image: linear-gradient(180deg, var(--ink-cyan), var(--ink-magenta)) 1;
-        }
-
-        .card-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .card-badges {
+        .member-header {
             display: flex;
+            gap: 16px;
+            margin-bottom: 16px;
+            align-items: flex-start;
+        }
+
+        .member-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--ink-white);
+            flex-shrink: 0;
+        }
+
+        .member-avatar.category-tshirt {
+            background: linear-gradient(135deg, #00d4ff 0%, #6c2bd9 100%);
+        }
+
+        .member-avatar.category-equipment {
+            background: linear-gradient(135deg, #ff6b35 0%, #e91e8c 100%);
+        }
+
+        .member-avatar.category-embroidery {
+            background: linear-gradient(135deg, #ffd400 0%, #ff6b35 100%);
+        }
+
+        .member-avatar.category-education {
+            background: linear-gradient(135deg, #00d4ff 0%, #ffd400 100%);
+        }
+
+        .member-avatar.category-sign {
+            background: linear-gradient(135deg, #e91e8c 0%, #6c2bd9 100%);
+        }
+
+        .member-avatar.category-supplier {
+            background: linear-gradient(135deg, #6c2bd9 0%, #00d4ff 100%);
+        }
+
+        .member-info {
+            flex: 1;
+        }
+
+        .member-title-row {
+            display: flex;
+            align-items: center;
             gap: 8px;
-            margin-bottom: 12px;
+            margin-bottom: 4px;
+        }
+
+        .member-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--ink-white);
+            letter-spacing: 0.5px;
+        }
+
+        .member-badges {
+            display: flex;
+            gap: 4px;
             flex-wrap: wrap;
         }
 
         .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 2px;
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 11px;
+            font-size: 0.7rem;
             font-weight: 600;
-            padding: 4px 10px;
-            border-radius: 20px;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
+            text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
-        .badge-aspa-plus {
-            background-color: rgba(0, 212, 255, 0.2);
-            color: var(--ink-cyan);
-            border: 1px solid rgba(0, 212, 255, 0.4);
+        .badge-aspa {
+            background: rgba(233, 30, 140, 0.2);
+            color: #e91e8c;
+            border: 1px solid #e91e8c;
         }
 
         .badge-certified {
-            background-color: rgba(34, 197, 94, 0.2);
-            color: #22c55e;
-            border: 1px solid rgba(34, 197, 94, 0.4);
+            background: rgba(0, 212, 255, 0.2);
+            color: #00d4ff;
+            border: 1px solid #00d4ff;
         }
 
-        .badge-category {
-            background-color: rgba(255, 255, 255, 0.1);
-            color: var(--ink-white);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+        .badge-legacy {
+            background: rgba(255, 107, 53, 0.2);
+            color: #ff6b35;
+            border: 1px solid #ff6b35;
         }
 
-        .badge-category.tshirt {
-            background-color: rgba(108, 43, 217, 0.2);
-            color: var(--ink-purple);
-            border-color: rgba(108, 43, 217, 0.4);
-        }
-
-        .badge-category.sign {
-            background-color: rgba(233, 30, 140, 0.2);
-            color: var(--ink-magenta);
-            border-color: rgba(233, 30, 140, 0.4);
-        }
-
-        .badge-category.embroidery {
-            background-color: rgba(255, 107, 53, 0.2);
-            color: var(--ink-orange);
-            border-color: rgba(255, 107, 53, 0.4);
-        }
-
-        .badge-category.equipment {
-            background-color: rgba(255, 212, 0, 0.2);
-            color: var(--ink-yellow);
-            border-color: rgba(255, 212, 0, 0.4);
-        }
-
-        .badge-category.supplier {
-            background-color: rgba(0, 212, 255, 0.2);
-            color: var(--ink-cyan);
-            border-color: rgba(0, 212, 255, 0.4);
-        }
-
-        .badge-category.education {
-            background-color: rgba(168, 85, 247, 0.2);
-            color: #a855f7;
-            border-color: rgba(168, 85, 247, 0.4);
-        }
-
-        .card-title {
+        .member-location {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--ink-white);
+            font-size: 0.85rem;
+            color: var(--ink-gray);
             margin-bottom: 8px;
-            line-height: 1.3;
         }
 
-        .card-location {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 13px;
-            color: var(--ink-gray);
-            margin-bottom: 12px;
-        }
-
-        .location-icon {
-            width: 14px;
-            height: 14px;
-        }
-
-        .card-description {
-            font-size: 14px;
-            color: rgba(248, 248, 248, 0.7);
-            margin-bottom: 16px;
-            line-height: 1.5;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .card-contact {
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
-            padding-top: 16px;
-            margin-bottom: 16px;
-        }
-
-        .card-phone {
-            font-size: 13px;
-            color: var(--ink-gray);
-            margin-bottom: 12px;
+        .member-years {
             font-family: 'Space Grotesk', sans-serif;
-        }
-
-        .card-actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .card-link {
-            flex: 1;
-            background-color: rgba(0, 212, 255, 0.1);
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            border-radius: 8px;
-            padding: 8px 12px;
+            font-size: 0.8rem;
             color: var(--ink-cyan);
-            text-decoration: none;
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 12px;
             font-weight: 600;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
+            margin-bottom: 12px;
         }
 
-        .card-link:hover {
-            background-color: rgba(0, 212, 255, 0.2);
-            border-color: var(--ink-cyan);
+        .member-specialties {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
         }
 
-        .social-links {
+        .specialty-tag {
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--ink-cyan);
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 500;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+
+        .member-category {
+            display: inline-block;
+            background: rgba(108, 43, 217, 0.2);
+            color: var(--ink-purple);
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: capitalize;
+            border: 1px solid var(--ink-purple);
+        }
+
+        .member-description {
+            font-size: 0.9rem;
+            color: var(--ink-gray);
+            margin-bottom: 16px;
+            flex-grow: 1;
+        }
+
+        .member-contact {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        .member-phone,
+        .member-website {
+            font-size: 0.85rem;
+            color: var(--ink-gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .member-phone:hover,
+        .member-website:hover {
+            color: var(--ink-cyan);
+        }
+
+        .member-socials {
             display: flex;
             gap: 12px;
             margin-top: 12px;
-            padding-top: 12px;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
         }
 
         .social-link {
@@ -1472,145 +585,114 @@
             justify-content: center;
             width: 32px;
             height: 32px;
-            border-radius: 6px;
-            background-color: rgba(0, 212, 255, 0.1);
+            background: rgba(0, 212, 255, 0.1);
             border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 4px;
             color: var(--ink-cyan);
             text-decoration: none;
-            font-size: 16px;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
         }
 
         .social-link:hover {
-            background-color: rgba(0, 212, 255, 0.2);
-            border-color: var(--ink-cyan);
-            transform: translateY(-2px);
+            background: var(--ink-cyan);
+            color: var(--ink-black);
         }
 
-        .social-link.twitter {
-            border-color: rgba(29, 155, 240, 0.3);
-            background-color: rgba(29, 155, 240, 0.1);
-            color: #1d9bf0;
+        /* LIST VIEW */
+        .members-grid.list-view .member-card {
+            flex-direction: row;
+            align-items: center;
+            min-height: 120px;
+            padding: 16px 24px;
         }
 
-        .social-link.twitter:hover {
-            background-color: rgba(29, 155, 240, 0.2);
-            border-color: #1d9bf0;
+        .members-grid.list-view .member-header {
+            flex: 0 0 auto;
+            gap: 12px;
+            margin-bottom: 0;
         }
 
-        .social-link.instagram {
-            border-color: rgba(240, 72, 126, 0.3);
-            background-color: rgba(240, 72, 126, 0.1);
-            color: #f0487e;
+        .members-grid.list-view .member-info {
+            flex: 1;
+            margin-left: 16px;
         }
 
-        .social-link.instagram:hover {
-            background-color: rgba(240, 72, 126, 0.2);
-            border-color: #f0487e;
+        .members-grid.list-view .member-description {
+            margin-bottom: 0;
         }
 
-        .social-link.linkedin {
-            border-color: rgba(0, 119, 181, 0.3);
-            background-color: rgba(0, 119, 181, 0.1);
-            color: #0077b5;
+        .members-grid.list-view .member-contact {
+            flex: 0 0 auto;
+            display: flex;
+            flex-direction: row;
+            gap: 16px;
+            border-top: none;
+            border-left: 1px solid rgba(0, 212, 255, 0.1);
+            padding-left: 16px;
+            padding-top: 0;
+            min-width: 200px;
         }
 
-        .social-link.linkedin:hover {
-            background-color: rgba(0, 119, 181, 0.2);
-            border-color: #0077b5;
-        }
-
-        /* ========================================
-           PAGINATION
-           ======================================== */
+        /* PAGINATION */
         .pagination {
             display: flex;
             justify-content: center;
+            align-items: center;
             gap: 8px;
-            margin-bottom: 40px;
-            flex-wrap: wrap;
+            margin-top: 40px;
         }
 
-        .pagination-btn {
-            background-color: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            padding: 10px 14px;
+        .pagination button,
+        .pagination a {
+            padding: 8px 12px;
+            background: rgba(26, 26, 46, 0.8);
+            border: 1px solid rgba(0, 212, 255, 0.3);
             color: var(--ink-gray);
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 13px;
-            font-weight: 600;
+            border-radius: 4px;
             cursor: pointer;
-            transition: all 0.2s ease;
+            text-decoration: none;
+            font-family: 'Space Grotesk', sans-serif;
+            transition: all 0.3s ease;
         }
 
-        .pagination-btn:hover:not(:disabled) {
+        .pagination button:hover,
+        .pagination a:hover {
             border-color: var(--ink-cyan);
             color: var(--ink-cyan);
         }
 
-        .pagination-btn.active {
-            background-color: rgba(0, 212, 255, 0.2);
+        .pagination .active {
+            background: var(--ink-cyan);
+            color: var(--ink-black);
             border-color: var(--ink-cyan);
-            color: var(--ink-cyan);
         }
 
-        .pagination-btn:disabled {
+        .pagination button:disabled {
             opacity: 0.5;
             cursor: not-allowed;
         }
 
-        /* ========================================
-           EMPTY STATE
-           ======================================== */
-        .empty-state {
-            text-align: center;
-            padding: 60px 24px;
-        }
-
-        .empty-state-icon {
-            font-size: 48px;
-            margin-bottom: 16px;
-        }
-
-        .empty-state-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 24px;
-            font-weight: 600;
-            color: var(--ink-white);
-            margin-bottom: 8px;
-        }
-
-        .empty-state-message {
-            font-size: 16px;
-            color: var(--ink-gray);
-            margin-bottom: 24px;
-        }
-
-        /* ========================================
-           CTA BANNER
-           ======================================== */
+        /* CTA BANNER */
         .cta-banner {
-            background: linear-gradient(135deg, rgba(108, 43, 217, 0.15) 0%, rgba(233, 30, 140, 0.15) 100%);
-            border: 1px solid rgba(0, 212, 255, 0.2);
-            border-radius: 16px;
-            padding: 40px 24px;
-            max-width: 1200px;
-            margin: 0 auto 60px;
+            background: var(--brand-gradient);
+            padding: 48px 24px;
             text-align: center;
+            margin: 48px 0;
+            border-radius: 8px;
         }
 
-        .cta-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 24px;
-            font-weight: 600;
-            color: var(--ink-white);
-            margin-bottom: 8px;
+        .cta-banner h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 40px;
+            color: var(--ink-black);
+            margin-bottom: 16px;
+            letter-spacing: 1px;
         }
 
-        .cta-message {
-            font-size: 16px;
-            color: var(--ink-gray);
+        .cta-banner p {
+            color: var(--ink-black);
+            font-size: 1.1rem;
             margin-bottom: 24px;
             max-width: 600px;
             margin-left: auto;
@@ -1618,68 +700,66 @@
         }
 
         .cta-button {
-            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
-            color: var(--ink-black);
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 14px;
-            font-weight: 600;
-            padding: 12px 28px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            letter-spacing: 0.5px;
             display: inline-block;
+            background: var(--ink-black);
+            color: var(--ink-white);
+            padding: 14px 40px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
         }
 
         .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 32px rgba(0, 212, 255, 0.3);
+            transform: scale(1.05);
         }
 
-        /* ========================================
-           FOOTER
-           ======================================== */
+        /* FOOTER */
         footer {
-            background-color: var(--ink-dark);
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
-            padding: 40px 24px 20px;
+            background: rgba(10, 10, 10, 0.95);
+            border-top: 1px solid rgba(0, 212, 255, 0.1);
+            padding: 48px 24px 24px;
             margin-top: 60px;
         }
 
         .footer-container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
         .footer-content {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 32px;
+            margin-bottom: 32px;
         }
 
         .footer-section h4 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 14px;
-            font-weight: 600;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 18px;
             color: var(--ink-cyan);
             margin-bottom: 16px;
             letter-spacing: 0.5px;
-            text-transform: uppercase;
         }
 
         .footer-section ul {
             list-style: none;
         }
 
+        .footer-section li {
+            margin-bottom: 8px;
+        }
+
         .footer-section a {
-            display: block;
             color: var(--ink-gray);
             text-decoration: none;
-            font-size: 14px;
-            margin-bottom: 12px;
-            transition: color 0.2s ease;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
         }
 
         .footer-section a:hover {
@@ -1688,15 +768,55 @@
 
         .footer-bottom {
             text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding-top: 24px;
+            border-top: 1px solid rgba(0, 212, 255, 0.1);
             color: var(--ink-gray);
-            font-size: 13px;
+            font-size: 0.85rem;
+            font-family: 'Inter', sans-serif;
         }
 
-        /* ========================================
-           MOBILE RESPONSIVE
-           ======================================== */
+        /* EMPTY STATE */
+        .empty-state {
+            text-align: center;
+            padding: 60px 24px;
+        }
+
+        .empty-state h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 28px;
+            color: var(--ink-cyan);
+            margin-bottom: 16px;
+        }
+
+        .empty-state p {
+            color: var(--ink-gray);
+            font-size: 1rem;
+        }
+
+        /* LOADING */
+        .loading {
+            text-align: center;
+            padding: 60px 24px;
+            color: var(--ink-gray);
+        }
+
+        .loading::after {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--ink-cyan);
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-left: 8px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* RESPONSIVE */
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
@@ -1706,123 +826,99 @@
                 display: flex;
             }
 
-            .hero-title {
+            .directory-header h1 {
                 font-size: 36px;
             }
 
-            .hero-subtitle {
-                font-size: 16px;
+            .filter-bar {
+                flex-direction: column;
             }
 
-            .hero-stats {
+            .search-box {
+                width: 100%;
+            }
+
+            .members-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .members-grid.list-view .member-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .members-grid.list-view .member-contact {
+                border-left: none;
+                border-top: 1px solid rgba(0, 212, 255, 0.1);
+                padding-left: 0;
+                padding-top: 16px;
+                width: 100%;
+            }
+
+            .featured-scroll {
                 gap: 16px;
-                font-size: 12px;
             }
 
-            .filter-row {
-                grid-template-columns: 1fr;
+            .featured-card {
+                flex: 0 0 280px;
             }
 
-            .filter-button-group {
-                grid-column: 1 / -1;
+            .cta-banner h2 {
+                font-size: 28px;
             }
 
-            .results-grid {
-                grid-template-columns: 1fr;
+            .controls-bar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .sort-view-group {
+                width: 100%;
+            }
+
+            .filter-select {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                height: auto;
+                padding: 12px 16px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .directory-header h1 {
+                font-size: 28px;
+            }
+
+            .members-grid {
+                gap: 16px;
             }
 
             .member-card {
                 padding: 16px;
             }
 
-            .card-title {
-                font-size: 16px;
+            .featured-card {
+                flex: 0 0 240px;
             }
 
-            .cta-title {
-                font-size: 20px;
+            .cta-banner {
+                padding: 32px 16px;
             }
 
-            .cta-message {
-                font-size: 14px;
-            }
-        }
-
-        /* ========================================
-           FILTER PANEL (Mobile)
-           ======================================== */
-        .filter-panel-toggle {
-            display: none;
-            background-color: rgba(0, 212, 255, 0.1);
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            border-radius: 8px;
-            padding: 10px 16px;
-            color: var(--ink-cyan);
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-bottom: 16px;
-            width: 100%;
-            transition: all 0.2s ease;
-        }
-
-        .filter-panel-toggle:hover {
-            background-color: rgba(0, 212, 255, 0.2);
-        }
-
-        @media (max-width: 768px) {
-            .filter-bar {
-                top: 70px;
-            }
-
-            .filter-panel-toggle {
-                display: block;
-            }
-
-            .filter-row {
-                display: none;
-            }
-
-            .filter-row.open {
-                display: grid;
-            }
-
-            .filter-stats {
-                grid-column: 1 / -1;
+            .cta-banner h2 {
+                font-size: 24px;
             }
         }
-
-        /* ========================================
-           UTILITY CLASSES
-           ======================================== */
-        .hidden {
-            display: none !important;
-        }
-
-        .loading {
-            opacity: 0.6;
-            pointer-events: none;
-        }
-            .nav-aspa-plus {
-    background: linear-gradient(135deg, #00d4ff 0%, #e91e8c 50%, #ffd400 100%) !important;
-    -webkit-background-clip: text !important;
-    -webkit-text-fill-color: transparent !important;
-    background-clip: text !important;
-    font-weight: 600 !important;
-
-            font-size: 13px !important;}
-        .nav-aspa-plus:hover {
-    filter: brightness(1.3);
-}
-
     </style>
 </head>
 <body>
-    <!-- ========================================
-         NAVIGATION
-         ======================================== -->
-        <nav>
+    <nav>
         <div class="nav-container">
             <a href="index.html" class="nav-logo">
                 <div class="nav-logo-main">ASPA</div>
@@ -1853,99 +949,83 @@
             });
             </script>
             <button class="hamburger" onclick="toggleMobileMenu()">
-                <span></span>
-                <span></span>
-                <span></span>
+                <span></span><span></span><span></span>
             </button>
         </div>
     </nav>
 
-    <!-- ========================================
-         HERO SECTION
-         ======================================== -->
-    <section class="hero">
-        <div class="hero-container">
-            <div class="hero-label">Find a Printer</div>
-            <h1 class="hero-title">MEMBER DIRECTORY</h1>
-            <p class="hero-subtitle">Find an ASPA member printer or supplier by name, category, or location.</p>
-            <div class="hero-stats">
-                <span>500+ Members</span>
-                <span>100+ Countries</span>
-                <span>6 Categories</span>
+    <div class="directory-header">
+        <h1>MEMBER DIRECTORY</h1>
+        <p>Connect with screen printing businesses, suppliers, and educators worldwide. Find certified professionals and trusted partners in the industry.</p>
+    </div>
+
+    <div class="directory-container">
+        <!-- FILTER BAR -->
+        <div class="filter-bar">
+            <div class="filter-group">
+                <input type="text" id="searchInput" class="search-box" placeholder="Search by company name or location...">
+            </div>
+            <div class="filter-group">
+                <select id="categoryFilter" class="filter-select">
+                    <option value="">All Categories</option>
+                    <option value="tshirt">T-Shirt Printers</option>
+                    <option value="equipment">Equipment</option>
+                    <option value="embroidery">Embroidery</option>
+                    <option value="sign">Signs & Graphics</option>
+                    <option value="supplier">Suppliers</option>
+                    <option value="education">Education</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <select id="locationFilter" class="filter-select">
+                    <option value="">All Locations</option>
+                    <option value="US">United States</option>
+                    <option value="International">International</option>
+                </select>
+            </div>
+            <button id="aspaToggle" class="filter-toggle">ASPA+</button>
+            <button id="certToggle" class="filter-toggle">CSP</button>
+        </div>
+
+        <!-- CONTROLS BAR -->
+        <div class="controls-bar">
+            <div class="sort-view-group">
+                <select id="sortSelect" class="filter-select">
+                    <option value="a-z">Sort: A-Z</option>
+                    <option value="z-a">Sort: Z-A</option>
+                    <option value="newest">Sort: Newest First</option>
+                    <option value="established">Sort: Most Established</option>
+                </select>
+                <div class="view-toggle">
+                    <button class="active" onclick="setViewMode('grid')">⊞</button>
+                    <button onclick="setViewMode('list')">≡</button>
+                </div>
+            </div>
+            <div class="results-count">
+                Showing <span id="resultCount">0</span> members
             </div>
         </div>
-    </section>
 
-    <!-- ========================================
-         FILTER & SEARCH BAR
-         ======================================== -->
-    <div class="filter-bar" id="filterBar">
-        <div class="filter-container">
-            <button class="filter-panel-toggle" onclick="toggleFilterPanel()">
-                <span>⚙️ Show Filters</span>
-            </button>
-            <div class="filter-row" id="filterRow">
-                <input
-                    type="text"
-                    id="searchInput"
-                    class="filter-input"
-                    placeholder="Search by name, city, or state..."
-                    onkeyup="debounceSearch()"
-                >
-                <select id="categoryFilter" class="filter-select" onchange="applyFilters()">
-                    <option value="">All Categories</option>
-                    <option value="tshirt">Custom T-Shirt Shops</option>
-                    <option value="sign">Sign Shops</option>
-                    <option value="embroidery">Embroidery Shops</option>
-                    <option value="equipment">Equipment Manufacturers</option>
-                    <option value="supplier">Suppliers & Vendors</option>
-                    <option value="education">Educational Facilities</option>
-                </select>
-                <input
-                    type="text"
-                    id="locationFilter"
-                    class="filter-input"
-                    placeholder="Filter by state or country..."
-                    onkeyup="applyFilters()"
-                >
-                <div class="filter-button-group">
-                    <button class="filter-toggle" id="aspaToggle" onclick="toggleFilter('aspaToggle')">ASPA+ Only</button>
-                    <button class="filter-toggle" id="certToggle" onclick="toggleFilter('certToggle')">CSP Certified Only</button>
-                </div>
-                <button class="reset-btn" onclick="resetFilters()">Reset</button>
-                <div class="filter-stats" id="filterStats">Showing 0 of 0 members</div>
-            </div>
+        <!-- FEATURED MEMBERS -->
+        <div id="featuredSection" class="featured-section" style="display: none;">
+            <h2 class="featured-title">FEATURED MEMBERS</h2>
+            <div id="featuredScroll" class="featured-scroll"></div>
+        </div>
+
+        <!-- MEMBERS GRID -->
+        <div id="membersGrid" class="members-grid"></div>
+
+        <!-- PAGINATION -->
+        <div id="pagination" class="pagination"></div>
+
+        <!-- CTA BANNER -->
+        <div class="cta-banner">
+            <h2>Join the Directory</h2>
+            <p>Become part of a thriving community of screen printing professionals. List your business, connect with partners, and grow your network.</p>
+            <a href="join.html" class="cta-button">Become a Member</a>
         </div>
     </div>
 
-    <!-- ========================================
-         RESULTS SECTION
-         ======================================== -->
-    <section class="results-section">
-        <div id="emptyState" class="empty-state hidden">
-            <div class="empty-state-icon">🔍</div>
-            <h2 class="empty-state-title">No members found</h2>
-            <p class="empty-state-message">No members found matching your search. Try adjusting your filters.</p>
-            <button class="cta-button" onclick="resetFilters()">Reset Filters</button>
-        </div>
-
-        <div id="resultsGrid" class="results-grid"></div>
-
-        <div class="pagination" id="pagination"></div>
-    </section>
-
-    <!-- ========================================
-         CTA BANNER
-         ======================================== -->
-    <section class="cta-banner">
-        <h2 class="cta-title">Want your business in the ASPA directory?</h2>
-        <p class="cta-message">Join ASPA+ to get listed, earn your CSP certification, and unlock member-only perks.</p>
-        <button class="cta-button" onclick="window.location.href='join.html'">Join ASPA+ →</button>
-    </section>
-
-    <!-- ========================================
-         FOOTER
-         ======================================== -->
     <footer>
         <div class="footer-container">
             <div class="footer-content">
@@ -1982,581 +1062,656 @@
         </div>
     </footer>
 
-    <!-- ========================================
-         MEMBER DATA & JAVASCRIPT
-         ======================================== -->
     <script>
-        // ========================================
-        // MEMBER DATA — Hardcoded fallback for when Supabase is unavailable
-        // ========================================
-
-        const memberData = [
+        // HARDCODED MEMBER DATA
+        const hardcodedMembers = [
             {
                 id: 1,
-                name: 'Blue Ridge Screen Products',
-                city: 'Charlotte',
-                state: 'NC',
-                country: 'USA',
-                category: 'supplier',
-                phone: '(704) 815-6401',
-                website: 'www.blueridgescreenproducts.com',
-                description: 'One of the fastest growing screen and digital print suppliers in the country. Over 1200 DTF and screen print customers.',
-                certified: true,
-                memberTier: 'aspa_plus',
-                featured: true
+                name: "Blue Ridge Screen Products",
+                category: "supplier",
+                location: "Charlotte, NC",
+                description: "Premium screen printing supplies and equipment distributor.",
+                phone: "+1 (704) 555-0123",
+                website: "https://blueridgescreen.com",
+                social: { linkedin: "https://linkedin.com", twitter: "https://twitter.com" },
+                badges: ["ASPA+", "certified", "featured"],
+                specialties: ["Screens", "Inks", "Emulsions"],
+                founded: 1998,
+                initials: "BR"
             },
             {
                 id: 2,
-                name: 'Enemy Ink Ltd.',
-                city: 'Bulkington',
-                state: 'Warwickshire',
-                country: 'United Kingdom',
-                category: 'tshirt',
-                phone: '(02477) 983059',
-                website: 'www.enemyink.co.uk',
-                description: 'Premium custom apparel decorating with expertise in screen printing and digital transfer techniques.',
-                certified: true,
-                memberTier: 'legacy'
+                name: "Enemy Ink Ltd.",
+                category: "tshirt",
+                location: "Bulkington, UK",
+                description: "Specialist in custom t-shirt screen printing with heritage craftsmanship.",
+                phone: "+44 (0)1203 555 0456",
+                website: "https://enemyink.co.uk",
+                social: { linkedin: "https://linkedin.com" },
+                badges: ["legacy", "certified"],
+                specialties: ["Screen Print", "Custom Design"],
+                founded: 1995,
+                initials: "EI"
             },
             {
                 id: 3,
-                name: 'Garden City High School',
-                city: 'Garden City',
-                state: 'MI',
-                country: 'USA',
-                category: 'education',
-                description: 'Educational institution teaching screen printing and apparel decoration to students.',
-                certified: true,
-                memberTier: 'legacy'
+                name: "Garden City High School",
+                category: "education",
+                location: "Garden City, MI",
+                description: "Educational program teaching screen printing techniques to students.",
+                phone: "+1 (734) 555-0789",
+                website: "https://gardencityschools.edu",
+                social: {},
+                badges: ["legacy", "certified"],
+                specialties: ["Training", "Education", "Certification"],
+                founded: 1985,
+                initials: "GC"
             },
             {
                 id: 4,
-                name: 'Bay-Arenac ISD Career Center',
-                city: 'Bay City',
-                state: 'MI',
-                country: 'USA',
-                category: 'education',
-                description: 'Career training center specializing in screen printing and graphic design education.',
-                certified: true,
-                memberTier: 'legacy'
+                name: "Bay-Arenac ISD Career Center",
+                category: "education",
+                location: "Bay City, MI",
+                description: "Vocational training center offering comprehensive screen printing courses.",
+                phone: "+1 (989) 555-0321",
+                website: "https://bayarenacareercenter.edu",
+                social: {},
+                badges: ["legacy", "certified"],
+                specialties: ["Vocational Training", "Career Development"],
+                founded: 1990,
+                initials: "BA"
             },
             {
                 id: 5,
-                name: 'Precision Graphics Co.',
-                city: 'Atlanta',
-                state: 'GA',
-                country: 'USA',
-                category: 'tshirt',
-                phone: '(404) 555-0123',
-                website: 'www.precisiongraphics.com',
-                description: 'Full-service screen printing and embroidery shop serving corporate and retail clients.',
-                certified: true,
-                memberTier: 'aspa_plus',
-                featured: false
+                name: "Ink Factory Co.",
+                category: "tshirt",
+                location: "Miami, FL",
+                description: "Full-service custom apparel printing with advanced DTF and sublimation capabilities.",
+                phone: "+1 (305) 555-0147",
+                website: "https://inkfactory.com",
+                social: { linkedin: "https://linkedin.com", instagram: "https://instagram.com" },
+                badges: ["ASPA+", "certified", "featured"],
+                specialties: ["DTF", "Screen Print", "Sublimation"],
+                founded: 2012,
+                initials: "IF"
             },
             {
                 id: 6,
-                name: 'SignCraft Solutions',
-                city: 'Portland',
-                state: 'OR',
-                country: 'USA',
-                category: 'sign',
-                phone: '(503) 555-0145',
-                website: 'www.signcraftsolutions.com',
-                description: 'Specializing in custom signage, vehicle wraps, and large-format printing for businesses.',
-                certified: false,
-                memberTier: 'aspa_plus'
+                name: "Pacific Coast Prints",
+                category: "tshirt",
+                location: "San Diego, CA",
+                description: "Established t-shirt printing studio specializing in direct-to-garment technology.",
+                phone: "+1 (619) 555-0258",
+                website: "https://pacificcoastprints.com",
+                social: { facebook: "https://facebook.com" },
+                badges: ["legacy"],
+                specialties: ["Screen Print", "Direct-to-Garment"],
+                founded: 2018,
+                initials: "PC"
             },
             {
                 id: 7,
-                name: 'Elite Embroidery Designs',
-                city: 'Dallas',
-                state: 'TX',
-                country: 'USA',
-                category: 'embroidery',
-                phone: '(214) 555-0167',
-                website: 'www.eliteembroiderydesigns.com',
-                description: 'Custom embroidery and monogramming services for corporate uniforms and apparel.',
-                certified: true,
-                memberTier: 'legacy'
+                name: "TexPrint Solutions",
+                category: "equipment",
+                location: "Houston, TX",
+                description: "Manufacturer of industrial screen printing presses and automation equipment.",
+                phone: "+1 (713) 555-0369",
+                website: "https://texprintsolutions.com",
+                social: { linkedin: "https://linkedin.com" },
+                badges: ["ASPA+"],
+                specialties: ["Press Manufacturing", "Auto Printing", "Custom Equipment"],
+                founded: 1998,
+                initials: "TS"
             },
             {
                 id: 8,
-                name: 'PrintTech Industries',
-                city: 'Los Angeles',
-                state: 'CA',
-                country: 'USA',
-                category: 'equipment',
-                phone: '(323) 555-0189',
-                website: 'www.printechindustries.com',
-                description: 'Manufacturing and distribution of professional screen printing equipment and supplies.',
-                certified: false,
-                memberTier: 'legacy'
+                name: "Nordic Screen AB",
+                category: "supplier",
+                location: "Stockholm, Sweden",
+                description: "European supplier of premium screen printing materials and chemicals.",
+                phone: "+46 (8) 555-0741",
+                website: "https://nordicscreen.se",
+                social: { linkedin: "https://linkedin.com" },
+                badges: ["legacy", "certified"],
+                specialties: ["Inks", "Emulsions", "Mesh"],
+                founded: 2001,
+                initials: "NS"
             },
             {
                 id: 9,
-                name: 'Apparel Masters',
-                city: 'New York',
-                state: 'NY',
-                country: 'USA',
-                category: 'tshirt',
-                phone: '(212) 555-0123',
-                website: 'www.apparelmasters.com',
-                description: 'High-volume screen printing facility serving major apparel brands and retailers.',
-                certified: true,
-                memberTier: 'aspa_plus',
-                featured: true
+                name: "Stitch & Print Collective",
+                category: "embroidery",
+                location: "Brooklyn, NY",
+                description: "Creative studio combining embroidery and screen printing services.",
+                phone: "+1 (718) 555-0852",
+                website: "https://stitchprintcollective.com",
+                social: { instagram: "https://instagram.com", twitter: "https://twitter.com" },
+                badges: ["ASPA+", "certified"],
+                specialties: ["Embroidery", "Screen Print", "Patches"],
+                founded: 2015,
+                initials: "SP"
             },
             {
                 id: 10,
-                name: 'Urban Print Studio',
-                city: 'Seattle',
-                state: 'WA',
-                country: 'USA',
-                category: 'tshirt',
-                phone: '(206) 555-0145',
-                description: 'Boutique screen printing studio specializing in limited edition apparel and custom designs.',
-                certified: false,
-                memberTier: 'legacy'
+                name: "Metro Signs & Graphics",
+                category: "sign",
+                location: "Phoenix, AZ",
+                description: "Full-service signs and graphics company with vehicle wrap capabilities.",
+                phone: "+1 (602) 555-0963",
+                website: "https://metrosignsgraphics.com",
+                social: { facebook: "https://facebook.com" },
+                badges: ["ASPA+"],
+                specialties: ["Vehicle Wraps", "Banners", "Signs"],
+                founded: 2009,
+                initials: "MS"
             },
             {
                 id: 11,
-                name: 'Global Suppliers Ltd.',
-                city: 'Toronto',
-                state: 'Ontario',
-                country: 'Canada',
-                category: 'supplier',
-                phone: '(416) 555-0167',
-                website: 'www.globalsuppliers.ca',
-                description: 'International supplier of inks, emulsions, and screen printing materials to professional shops.',
-                certified: true,
-                memberTier: 'aspa_plus'
+                name: "Outback Print Works",
+                category: "tshirt",
+                location: "Melbourne, Australia",
+                description: "Sustainable screen printing using water-based inks and eco-friendly practices.",
+                phone: "+61 (3) 9555 0147",
+                website: "https://outbackprintworks.com.au",
+                social: { linkedin: "https://linkedin.com", instagram: "https://instagram.com" },
+                badges: ["legacy", "certified"],
+                specialties: ["Screen Print", "Water-Based Inks", "Sustainable Printing"],
+                founded: 2007,
+                initials: "OP"
             },
             {
                 id: 12,
-                name: 'Heritage Sign Company',
-                city: 'Boston',
-                state: 'MA',
-                country: 'USA',
-                category: 'sign',
-                phone: '(617) 555-0189',
-                website: 'www.heritagesignco.com',
-                description: 'Historic signage company with expertise in traditional and digital sign production.',
-                certified: true,
-                memberTier: 'legacy'
+                name: "Prairie Screen Co.",
+                category: "tshirt",
+                location: "Kansas City, MO",
+                description: "Custom screen printing and heat transfer services for apparel and promotional items.",
+                phone: "+1 (816) 555-0258",
+                website: "https://prairiescreenco.com",
+                social: { facebook: "https://facebook.com" },
+                badges: ["legacy"],
+                specialties: ["Screen Print", "Heat Transfer"],
+                founded: 2020,
+                initials: "PR"
             },
             {
                 id: 13,
-                name: 'TechWear Printing',
-                city: 'Austin',
-                state: 'TX',
-                country: 'USA',
-                category: 'tshirt',
-                phone: '(512) 555-0123',
-                website: 'www.techwearprintng.com',
-                description: 'Modern printing facility with DTF, screen printing, and direct-to-garment capabilities.',
-                certified: false,
-                memberTier: 'aspa_plus',
-                featured: true
+                name: "Great Lakes Equipment",
+                category: "equipment",
+                location: "Detroit, MI",
+                description: "Manufacturer and supplier of dryer systems and exposure units for screen printing.",
+                phone: "+1 (313) 555-0369",
+                website: "https://greatlakesequipment.com",
+                social: { linkedin: "https://linkedin.com" },
+                badges: ["legacy", "certified"],
+                specialties: ["Dryer Systems", "Exposure Units", "Equipment Repair"],
+                founded: 1985,
+                initials: "GL"
             },
             {
                 id: 14,
-                name: 'Midwest Equipment Group',
-                city: 'Chicago',
-                state: 'IL',
-                country: 'USA',
-                category: 'equipment',
-                phone: '(312) 555-0145',
-                website: 'www.midwestequipment.com',
-                description: 'Equipment sales and technical support for screen printing operations across North America.',
-                certified: true,
-                memberTier: 'legacy'
+                name: "Coastal Embroidery House",
+                category: "embroidery",
+                location: "Savannah, GA",
+                description: "Specialized embroidery services with custom monogramming and design expertise.",
+                phone: "+1 (912) 555-0741",
+                website: "https://coastalembroidery.com",
+                social: { instagram: "https://instagram.com" },
+                badges: ["legacy"],
+                specialties: ["Custom Embroidery", "Monogramming", "Design Services"],
+                founded: 2011,
+                initials: "CE"
             },
             {
                 id: 15,
-                name: 'Artisan Embroidery Studio',
-                city: 'Denver',
-                state: 'CO',
-                country: 'USA',
-                category: 'embroidery',
-                phone: '(720) 555-0167',
-                website: 'www.artisanembroidery.com',
-                description: 'Premium custom embroidery services specializing in intricate designs and luxury fabrics.',
-                certified: true,
-                memberTier: 'aspa_plus'
+                name: "Summit Signworks",
+                category: "sign",
+                location: "Salt Lake City, UT",
+                description: "Full-service signage company offering dimensional signs, LED displays, and screen printing.",
+                phone: "+1 (801) 555-0852",
+                website: "https://summitsignworks.com",
+                social: { facebook: "https://facebook.com" },
+                badges: ["legacy", "certified"],
+                specialties: ["Dimensional Signs", "LED Signage", "Screen Print"],
+                founded: 2003,
+                initials: "SS"
+            },
+            {
+                id: 16,
+                name: "Tokyo Ink Masters",
+                category: "supplier",
+                location: "Tokyo, Japan",
+                description: "Premier supplier of specialty inks and printing materials for Asian market.",
+                phone: "+81 (3) 5555-0147",
+                website: "https://tokyoinks.jp",
+                social: { linkedin: "https://linkedin.com" },
+                badges: ["ASPA+", "certified"],
+                specialties: ["Plastisol Inks", "Water-Based Inks", "Specialty Inks"],
+                founded: 1992,
+                initials: "TI"
+            },
+            {
+                id: 17,
+                name: "Southern Screen Supply",
+                category: "supplier",
+                location: "Nashville, TN",
+                description: "Regional distributor of screens, squeegees, and chemical supplies.",
+                phone: "+1 (615) 555-0963",
+                website: "https://southernscreensupply.com",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screens", "Squeegees", "Chemicals"],
+                founded: 2016,
+                initials: "SS"
+            },
+            {
+                id: 18,
+                name: "Maple Leaf Graphics",
+                category: "tshirt",
+                location: "Vancouver, Canada",
+                description: "Canadian screen printing leader specializing in DTF and large format printing.",
+                phone: "+1 (604) 555-0258",
+                website: "https://mapleleafgraphics.ca",
+                social: { linkedin: "https://linkedin.com", instagram: "https://instagram.com" },
+                badges: ["ASPA+", "certified", "featured"],
+                specialties: ["Screen Print", "DTF", "Large Format Print"],
+                founded: 2008,
+                initials: "ML"
+            },
+            {
+                id: 19,
+                name: "TradeSchool Print Lab",
+                category: "education",
+                location: "Columbus, OH",
+                description: "Hands-on training facility offering certification prep and advanced technique workshops.",
+                phone: "+1 (614) 555-0369",
+                website: "https://tradesschoolprintlab.edu",
+                social: {},
+                badges: ["ASPA+", "certified"],
+                specialties: ["Hands-on Training", "Certification Prep", "Advanced Workshops"],
+                founded: 2019,
+                initials: "TL"
+            },
+            {
+                id: 20,
+                name: "Berlin Druck Werkstatt",
+                category: "tshirt",
+                location: "Berlin, Germany",
+                description: "European screen printing studio with heritage in artistic poster printing.",
+                phone: "+49 (30) 555-0741",
+                website: "https://berlindruck.de",
+                social: { instagram: "https://instagram.com" },
+                badges: ["legacy", "certified"],
+                specialties: ["Screen Print", "Poster Printing", "Art Direction"],
+                founded: 1999,
+                initials: "BD"
+            },
+            {
+                id: 21,
+                name: "Desert Ink Studio",
+                category: "tshirt",
+                location: "Albuquerque, NM",
+                description: "Specialized in all-over print designs with vibrant color application.",
+                phone: "+1 (505) 555-0852",
+                website: "https://desertinkstudio.com",
+                social: { instagram: "https://instagram.com" },
+                badges: ["legacy"],
+                specialties: ["Screen Print", "All-Over Print", "Custom Design"],
+                founded: 2021,
+                initials: "DI"
             }
         ];
 
-        // State variables
-        let filteredMembers = [...memberData];
+        // STATE
+        let allMembers = [];
+        let filteredMembers = [];
         let currentPage = 1;
-        const membersPerPage = 24;
-        let searchTimeout;
-        let filterPanelOpen = false;
+        let itemsPerPage = 12;
+        let viewMode = 'grid';
+        let sortMode = 'a-z';
 
-        // Category display names
-        const categoryLabels = {
-            tshirt: 'Custom T-Shirt Shops',
-            sign: 'Sign Shops',
-            embroidery: 'Embroidery Shops',
-            equipment: 'Equipment Manufacturers',
-            supplier: 'Suppliers & Vendors',
-            education: 'Educational Facilities'
+        // FILTERS STATE
+        let filters = {
+            search: '',
+            category: '',
+            location: '',
+            aspaPlus: false,
+            certified: false
         };
 
-        // ========================================
-        // SUPABASE DATA LOADING
-        // ========================================
-        async function loadMembersFromSupabase() {
-            if (!window._supabase) return false;
+        // CATEGORY MAPPING
+        const categoryMap = {
+            'ASPA+': 'aspa',
+            'CSP': 'certified',
+            'Legacy': 'legacy'
+        };
 
+        function mapTierToCategory(tier) {
+            if (!tier) return 'tshirt';
+            const lowerTier = tier.toLowerCase();
+            if (lowerTier.includes('aspa')) return 'aspa';
+            if (lowerTier.includes('certified')) return 'certified';
+            if (lowerTier.includes('legacy')) return 'legacy';
+            return 'tshirt';
+        }
+
+        // INITIALIZE
+        async function initDirectory() {
             try {
-                const { data: profilesData, error: profilesError } = await window._supabase
-                    .from('profiles')
-                    .select('*, twitter_handle, instagram_handle, linkedin_url')
-                    .eq('membership_status', 'active')
-                    .order('full_name');
+                if (window.loadMembersFromSupabase) {
+                    const supabaseMembers = await window.loadMembersFromSupabase();
+                    if (supabaseMembers && supabaseMembers.length > 0) {
+                        allMembers = supabaseMembers;
+                    } else {
+                        allMembers = hardcodedMembers;
+                    }
+                } else {
+                    allMembers = hardcodedMembers;
+                }
+            } catch (error) {
+                console.warn('Supabase not available, using hardcoded data');
+                allMembers = hardcodedMembers;
+            }
 
-                if (profilesError || !profilesData || profilesData.length === 0) {
+            restoreStateFromHash();
+            applyFilters();
+            render();
+        }
+
+        // FILTER LOGIC
+        function applyFilters() {
+            filteredMembers = allMembers.filter(member => {
+                if (filters.search) {
+                    const search = filters.search.toLowerCase();
+                    if (!member.name.toLowerCase().includes(search) &&
+                        !member.location.toLowerCase().includes(search) &&
+                        !(member.description && member.description.toLowerCase().includes(search))) {
+                        return false;
+                    }
+                }
+
+                if (filters.category && member.category !== filters.category) {
                     return false;
                 }
 
-                // Fetch CSP certifications to determine who is certified
-                const { data: cspsData, error: cspsError } = await window._supabase
-                    .from('csp_certifications')
-                    .select('user_id')
-                    .eq('status', 'active');
-
-                const certifiedUserIds = new Set(cspsData ? cspsData.map(c => c.user_id) : []);
-
-                // Map Supabase profiles to the format the existing filter/render code expects
-                const mappedMembers = profilesData.map(p => ({
-                    id: p.id,
-                    name: p.full_name || '',
-                    city: p.city || '',
-                    state: p.state || '',
-                    country: p.country || 'USA',
-                    category: mapTierToCategory(p.membership_tier),
-                    phone: '',
-                    website: p.website || '',
-                    description: p.company || '',
-                    certified: certifiedUserIds.has(p.id),
-                    memberTier: p.membership_tier === 'business' ? 'aspa_plus' : 'legacy',
-                    featured: false,
-                    twitterHandle: p.twitter_handle || '',
-                    instagramHandle: p.instagram_handle || '',
-                    linkedinUrl: p.linkedin_url || ''
-                }));
-
-                // Replace the hardcoded data with live data
-                memberData.length = 0;
-                memberData.push(...mappedMembers);
-                filteredMembers = [...memberData];
-
-                return true;
-            } catch (err) {
-                console.error('Failed to load members from Supabase:', err);
-                return false;
-            }
-        }
-
-        function mapTierToCategory(tier) {
-            switch (tier) {
-                case 'business': return 'tshirt';
-                case 'supplier': return 'supplier';
-                case 'training': return 'education';
-                default: return 'tshirt';
-            }
-        }
-
-        // ========================================
-        // INITIALIZATION
-        // ========================================
-        document.addEventListener('DOMContentLoaded', function() {
-            loadFiltersFromHash();
-            renderMembers();
-        });
-
-        // Try to load Supabase data when auth is ready
-        window.addEventListener('aspa-auth-ready', async function() {
-            const loaded = await loadMembersFromSupabase();
-            if (loaded) {
-                // Re-render with live data
-                loadFiltersFromHash();
-                applyFilters();
-            }
-        });
-
-        // ========================================
-        // SEARCH & FILTER FUNCTIONS
-        // ========================================
-        function debounceSearch() {
-            clearTimeout(searchTimeout);
-            searchTimeout = setTimeout(() => {
-                applyFilters();
-            }, 300);
-        }
-
-        function applyFilters() {
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            const category = document.getElementById('categoryFilter').value;
-            const location = document.getElementById('locationFilter').value.toLowerCase();
-            const aspaOnly = document.getElementById('aspaToggle').classList.contains('active');
-            const certOnly = document.getElementById('certToggle').classList.contains('active');
-
-            filteredMembers = memberData.filter(member => {
-                // Search filter
-                if (searchTerm) {
-                    const searchableText = `${member.name} ${member.city} ${member.state} ${member.country} ${member.description}`.toLowerCase();
-                    if (!searchableText.includes(searchTerm)) return false;
+                if (filters.location) {
+                    const isUS = ['US', 'USA', 'United States'].some(s => member.location.includes(s));
+                    const isInternational = !isUS;
+                    if (filters.location === 'US' && !isUS) return false;
+                    if (filters.location === 'International' && !isInternational) return false;
                 }
 
-                // Category filter
-                if (category && member.category !== category) return false;
-
-                // Location filter
-                if (location) {
-                    const locationText = `${member.city} ${member.state} ${member.country}`.toLowerCase();
-                    if (!locationText.includes(location)) return false;
+                if (filters.aspaPlus && !member.badges.includes('ASPA+')) {
+                    return false;
                 }
 
-                // ASPA+ filter
-                if (aspaOnly && member.memberTier !== 'aspa_plus') return false;
-
-                // CSP Certified filter
-                if (certOnly && !member.certified) return false;
+                if (filters.certified && !member.badges.includes('certified')) {
+                    return false;
+                }
 
                 return true;
             });
 
-            // Sort: ASPA+ first, then alphabetical
-            filteredMembers.sort((a, b) => {
-                if (a.memberTier === 'aspa_plus' && b.memberTier !== 'aspa_plus') return -1;
-                if (a.memberTier !== 'aspa_plus' && b.memberTier === 'aspa_plus') return 1;
-                return a.name.localeCompare(b.name);
-            });
-
+            sortMembers();
             currentPage = 1;
-            updateFilterStats();
+            updateResultCount();
+        }
+
+        function sortMembers() {
+            switch (sortMode) {
+                case 'a-z':
+                    filteredMembers.sort((a, b) => a.name.localeCompare(b.name));
+                    break;
+                case 'z-a':
+                    filteredMembers.sort((a, b) => b.name.localeCompare(a.name));
+                    break;
+                case 'newest':
+                    filteredMembers.sort((a, b) => (b.founded || 0) - (a.founded || 0));
+                    break;
+                case 'established':
+                    filteredMembers.sort((a, b) => (a.founded || 9999) - (b.founded || 9999));
+                    break;
+            }
+        }
+
+        // RENDER
+        function render() {
+            renderFeaturedMembers();
             renderMembers();
-            saveFiltersToHash();
+            renderPagination();
+            saveStateToHash();
         }
 
-        function toggleFilter(filterId) {
-            const btn = document.getElementById(filterId);
-            btn.classList.toggle('active');
-            applyFilters();
+        function renderFeaturedMembers() {
+            const featured = allMembers.filter(m => m.badges.includes('featured'));
+            const section = document.getElementById('featuredSection');
+            const scroll = document.getElementById('featuredScroll');
+
+            if (featured.length === 0) {
+                section.style.display = 'none';
+                return;
+            }
+
+            section.style.display = 'block';
+            scroll.innerHTML = featured.map(m => createMemberCard(m, true)).join('');
         }
 
-        function resetFilters() {
-            document.getElementById('searchInput').value = '';
-            document.getElementById('categoryFilter').value = '';
-            document.getElementById('locationFilter').value = '';
-            document.getElementById('aspaToggle').classList.remove('active');
-            document.getElementById('certToggle').classList.remove('active');
-            applyFilters();
-        }
-
-        function updateFilterStats() {
-            const total = memberData.length;
-            const showing = filteredMembers.length;
-            document.getElementById('filterStats').textContent = `Showing ${showing} of ${total} members`;
-        }
-
-        // ========================================
-        // PAGINATION & RENDERING
-        // ========================================
         function renderMembers() {
-            const start = (currentPage - 1) * membersPerPage;
-            const end = start + membersPerPage;
+            const grid = document.getElementById('membersGrid');
+            const start = (currentPage - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
             const pageMembers = filteredMembers.slice(start, end);
 
-            const grid = document.getElementById('resultsGrid');
-            const emptyState = document.getElementById('emptyState');
-
-            if (filteredMembers.length === 0) {
-                grid.classList.add('hidden');
-                emptyState.classList.remove('hidden');
-            } else {
-                grid.classList.remove('hidden');
-                emptyState.classList.add('hidden');
-                grid.innerHTML = pageMembers.map(member => createMemberCard(member)).join('');
+            if (pageMembers.length === 0) {
+                grid.innerHTML = '<div class="empty-state"><h3>No Members Found</h3><p>Try adjusting your filters or search criteria.</p></div>';
+                return;
             }
 
-            renderPagination();
-
-            // Scroll to results
-            window.scrollTo({
-                top: document.getElementById('resultsGrid').offsetTop - 100,
-                behavior: 'smooth'
-            });
+            grid.innerHTML = pageMembers.map(m => createMemberCard(m, false)).join('');
+            grid.className = `members-grid ${viewMode === 'list' ? 'list-view' : ''}`;
         }
 
-        function createMemberCard(member) {
-            const hasContact = member.phone || member.website;
-            const hasSocial = member.twitterHandle || member.instagramHandle || member.linkedinUrl;
+        function createMemberCard(member, isFeatured) {
+            const yearsInBusiness = new Date().getFullYear() - (member.founded || 2020);
+            const initials = member.initials || (member.name.split(' ').slice(0, 2).map(w => w[0]).join(''));
 
-            let socialLinksHtml = '';
-            if (hasSocial) {
-                socialLinksHtml = '<div class="social-links">';
-                if (member.twitterHandle) {
-                    socialLinksHtml += `<a href="https://twitter.com/${member.twitterHandle}" target="_blank" rel="noopener noreferrer" class="social-link twitter" title="Twitter">𝕏</a>`;
+            const categoryClass = `category-${member.category}`;
+            const badges = (member.badges || [])
+                .map(badge => `<span class="badge badge-${badge.toLowerCase()}">${badge}</span>`)
+                .join('');
+
+            const specialties = (member.specialties || [])
+                .map(spec => `<span class="specialty-tag">${spec}</span>`)
+                .join('');
+
+            let contactLinks = '';
+            if (member.phone) {
+                contactLinks += `<a href="tel:${member.phone}" class="member-phone">📞 ${member.phone}</a>`;
+            }
+            if (member.website) {
+                contactLinks += `<a href="${member.website}" target="_blank" class="member-website">🌐 Website</a>`;
+            }
+
+            let socialLinks = '';
+            if (member.social) {
+                if (member.social.linkedin) {
+                    socialLinks += `<a href="${member.social.linkedin}" target="_blank" class="social-link">in</a>`;
                 }
-                if (member.instagramHandle) {
-                    socialLinksHtml += `<a href="https://instagram.com/${member.instagramHandle}" target="_blank" rel="noopener noreferrer" class="social-link instagram" title="Instagram">📷</a>`;
+                if (member.social.twitter) {
+                    socialLinks += `<a href="${member.social.twitter}" target="_blank" class="social-link">𝕏</a>`;
                 }
-                if (member.linkedinUrl) {
-                    socialLinksHtml += `<a href="${member.linkedinUrl}" target="_blank" rel="noopener noreferrer" class="social-link linkedin" title="LinkedIn">in</a>`;
+                if (member.social.instagram) {
+                    socialLinks += `<a href="${member.social.instagram}" target="_blank" class="social-link">📷</a>`;
                 }
-                socialLinksHtml += '</div>';
+                if (member.social.facebook) {
+                    socialLinks += `<a href="${member.social.facebook}" target="_blank" class="social-link">f</a>`;
+                }
             }
 
             return `
-                <div class="member-card${member.featured ? ' featured' : ''}">
-                    <div class="card-content">
-                        <div class="card-badges">
-                            ${member.memberTier === 'aspa_plus' ? '<span class="badge badge-aspa-plus">ASPA+</span>' : ''}
-                            ${member.certified ? '<span class="badge badge-certified">✓ CSP Certified</span>' : ''}
-                            <span class="badge badge-category ${member.category}">${categoryLabels[member.category]}</span>
-                        </div>
-                        <h3 class="card-title">${member.name}</h3>
-                        <div class="card-location">
-                            <svg class="location-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                            </svg>
-                            <span>${member.city}, ${member.state} • ${member.country}</span>
-                        </div>
-                        <p class="card-description">${member.description}</p>
-                        ${hasContact ? `
-                            <div class="card-contact">
-                                ${member.phone ? `<div class="card-phone">📞 ${member.phone}</div>` : ''}
-                                <div class="card-actions">
-                                    ${member.website ? `<a href="https://${member.website}" target="_blank" class="card-link">Visit Website</a>` : ''}
-                                </div>
+                <div class="member-card">
+                    <div class="member-header">
+                        <div class="member-avatar ${categoryClass}">${initials}</div>
+                        <div class="member-info">
+                            <div class="member-title-row">
+                                <h3 class="member-name">${member.name}</h3>
                             </div>
-                        ` : ''}
-                        ${socialLinksHtml}
+                            <div class="member-badges">${badges}</div>
+                        </div>
+                    </div>
+                    <div class="member-location">📍 ${member.location}</div>
+                    <div class="member-years">Est. ${member.founded} • ${yearsInBusiness} years in business</div>
+                    <span class="member-category">${member.category}</span>
+                    ${specialties ? `<div class="member-specialties">${specialties}</div>` : ''}
+                    <p class="member-description">${member.description}</p>
+                    <div class="member-contact">
+                        ${contactLinks}
+                        ${socialLinks ? `<div class="member-socials">${socialLinks}</div>` : ''}
                     </div>
                 </div>
             `;
         }
 
         function renderPagination() {
-            const totalPages = Math.ceil(filteredMembers.length / membersPerPage);
-            const paginationContainer = document.getElementById('pagination');
+            const container = document.getElementById('pagination');
+            const totalPages = Math.ceil(filteredMembers.length / itemsPerPage);
 
             if (totalPages <= 1) {
-                paginationContainer.innerHTML = '';
+                container.innerHTML = '';
                 return;
             }
 
             let html = '';
-
-            // First & Prev
-            html += `<button class="pagination-btn" onclick="goToPage(1)" ${currentPage === 1 ? 'disabled' : ''}>« First</button>`;
-            html += `<button class="pagination-btn" onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>‹ Prev</button>`;
-
-            // Page numbers
-            const maxVisible = 5;
-            let startPage = Math.max(1, currentPage - Math.floor(maxVisible / 2));
-            let endPage = Math.min(totalPages, startPage + maxVisible - 1);
-            startPage = Math.max(1, endPage - maxVisible + 1);
-
-            if (startPage > 1) {
-                html += `<button class="pagination-btn" onclick="goToPage(1)">1</button>`;
-                if (startPage > 2) html += `<span class="pagination-btn" style="cursor: default; border: none;">...</span>`;
+            if (currentPage > 1) {
+                html += `<button onclick="goToPage(${currentPage - 1})">← Previous</button>`;
             }
 
-            for (let i = startPage; i <= endPage; i++) {
-                html += `<button class="pagination-btn${i === currentPage ? ' active' : ''}" onclick="goToPage(${i})">${i}</button>`;
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === currentPage) {
+                    html += `<span class="active">${i}</span>`;
+                } else {
+                    html += `<a href="#" onclick="goToPage(${i}); return false;">${i}</a>`;
+                }
             }
 
-            if (endPage < totalPages) {
-                if (endPage < totalPages - 1) html += `<span class="pagination-btn" style="cursor: default; border: none;">...</span>`;
-                html += `<button class="pagination-btn" onclick="goToPage(${totalPages})">${totalPages}</button>`;
+            if (currentPage < totalPages) {
+                html += `<button onclick="goToPage(${currentPage + 1})">Next →</button>`;
             }
 
-            // Next & Last
-            html += `<button class="pagination-btn" onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>Next ›</button>`;
-            html += `<button class="pagination-btn" onclick="goToPage(${totalPages})" ${currentPage === totalPages ? 'disabled' : ''}>Last »</button>`;
-
-            paginationContainer.innerHTML = html;
+            container.innerHTML = html;
         }
 
+        function updateResultCount() {
+            document.getElementById('resultCount').textContent = filteredMembers.length;
+        }
+
+        // CONTROLS
         function goToPage(page) {
             currentPage = page;
+            render();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function setViewMode(mode) {
+            viewMode = mode;
+            document.querySelectorAll('.view-toggle button').forEach((btn, idx) => {
+                btn.classList.remove('active');
+                if ((idx === 0 && mode === 'grid') || (idx === 1 && mode === 'list')) {
+                    btn.classList.add('active');
+                }
+            });
             renderMembers();
         }
 
-        // ========================================
-        // URL HASH SUPPORT
-        // ========================================
-        function saveFiltersToHash() {
-            const params = new URLSearchParams();
-            const search = document.getElementById('searchInput').value;
-            const category = document.getElementById('categoryFilter').value;
-            const location = document.getElementById('locationFilter').value;
-            const aspaOnly = document.getElementById('aspaToggle').classList.contains('active');
-            const certOnly = document.getElementById('certToggle').classList.contains('active');
+        // FILTER EVENTS
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            filters.search = e.target.value;
+            applyFilters();
+            render();
+        });
 
-            if (search) params.set('q', search);
-            if (category) params.set('category', category);
-            if (location) params.set('location', location);
-            if (aspaOnly) params.set('aspa', 'true');
-            if (certOnly) params.set('cert', 'true');
+        document.getElementById('categoryFilter').addEventListener('change', (e) => {
+            filters.category = e.target.value;
+            applyFilters();
+            render();
+        });
 
-            const hash = params.toString() ? '#' + params.toString() : '';
-            window.history.replaceState(null, '', window.location.pathname + hash);
+        document.getElementById('locationFilter').addEventListener('change', (e) => {
+            filters.location = e.target.value;
+            applyFilters();
+            render();
+        });
+
+        document.getElementById('sortSelect').addEventListener('change', (e) => {
+            sortMode = e.target.value;
+            applyFilters();
+            render();
+        });
+
+        document.getElementById('aspaToggle').addEventListener('click', function() {
+            filters.aspaPlus = !filters.aspaPlus;
+            this.classList.toggle('active');
+            applyFilters();
+            render();
+        });
+
+        document.getElementById('certToggle').addEventListener('click', function() {
+            filters.certified = !filters.certified;
+            this.classList.toggle('active');
+            applyFilters();
+            render();
+        });
+
+        // URL STATE MANAGEMENT
+        function saveStateToHash() {
+            const state = {
+                page: currentPage,
+                view: viewMode,
+                sort: sortMode,
+                search: filters.search,
+                category: filters.category,
+                location: filters.location,
+                aspa: filters.aspaPlus,
+                cert: filters.certified
+            };
+            window.location.hash = btoa(JSON.stringify(state));
         }
 
-        function loadFiltersFromHash() {
-            const params = new URLSearchParams(window.location.hash.substring(1));
+        function restoreStateFromHash() {
+            try {
+                const hash = window.location.hash.slice(1);
+                if (hash) {
+                    const state = JSON.parse(atob(hash));
+                    currentPage = state.page || 1;
+                    viewMode = state.view || 'grid';
+                    sortMode = state.sort || 'a-z';
+                    filters.search = state.search || '';
+                    filters.category = state.category || '';
+                    filters.location = state.location || '';
+                    filters.aspaPlus = state.aspa || false;
+                    filters.certified = state.cert || false;
 
-            if (params.has('q')) {
-                document.getElementById('searchInput').value = params.get('q');
-            }
-            if (params.has('category')) {
-                document.getElementById('categoryFilter').value = params.get('category');
-            }
-            if (params.has('location')) {
-                document.getElementById('locationFilter').value = params.get('location');
-            }
-            if (params.has('aspa') && params.get('aspa') === 'true') {
-                document.getElementById('aspaToggle').classList.add('active');
-            }
-            if (params.has('cert') && params.get('cert') === 'true') {
-                document.getElementById('certToggle').classList.add('active');
+                    document.getElementById('searchInput').value = filters.search;
+                    document.getElementById('categoryFilter').value = filters.category;
+                    document.getElementById('locationFilter').value = filters.location;
+                    document.getElementById('sortSelect').value = sortMode;
+                    if (filters.aspaPlus) document.getElementById('aspaToggle').classList.add('active');
+                    if (filters.certified) document.getElementById('certToggle').classList.add('active');
+                    setViewMode(viewMode);
+                }
+            } catch (e) {
+                console.warn('Could not restore state from hash');
             }
         }
 
-        // ========================================
-        // MOBILE MENU & FILTER PANEL
-        // ========================================
         function toggleMobileMenu() {
-            // Placeholder for mobile menu toggle
-            console.log('Mobile menu toggled');
-        }
-
-        function toggleFilterPanel() {
-            const filterRow = document.getElementById('filterRow');
-            const toggle = document.querySelector('.filter-panel-toggle');
-
-            filterPanelOpen = !filterPanelOpen;
-
-            if (filterPanelOpen) {
-                filterRow.classList.add('open');
-                toggle.textContent = '✕ Hide Filters';
-            } else {
-                filterRow.classList.remove('open');
-                toggle.textContent = '⚙️ Show Filters';
+            const nav = document.querySelector('.nav-links');
+            if (nav) {
+                nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
             }
         }
 
-        // ========== NAVIGATION AUTH STATE =========
-        // Auth state is now handled by supabase-init.js
-
-                // Direct init — script is at page bottom, DOM is ready
-        </script>
+        // INIT
+        initDirectory();
+    </script>
 </body>
 </html>
