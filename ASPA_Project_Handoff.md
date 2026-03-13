@@ -2,8 +2,8 @@
 
 **Project:** screen-printing.us redesign
 **Client:** Dustin Cochran (cochran.dustin@gmail.com)
-**Date:** March 3–13, 2026 (last updated: Session 21)
-**Status:** In Progress — Core Pages Built, Resource Hub COMPLETE (All 18 Articles), **SITE LIVE on GitHub Pages**, Nav Full-Width, **Supabase Backend Live** (Auth + Database + Google OAuth + Storage), ASPA+ Gated Content Live, Admin Dashboard Built, **UI Polish Pass Complete**, **Gamification & Loyalty Points System Live**, **Job Board Live**, **Community Chat Live** (Real-time, Edit/Delete, Search, Profile Edit, Avatar Upload, Admin Moderation), **Full Brand Audit Complete**, **Member Dashboard Fleshed Out**
+**Date:** March 3–13, 2026 (last updated: Session 22)
+**Status:** In Progress — Core Pages Built, Resource Hub COMPLETE (All 18 Articles), **SITE LIVE on GitHub Pages**, Nav Full-Width, **Supabase Backend Live** (Auth + Database + Google OAuth + Storage), ASPA+ Gated Content Live, Admin Dashboard Built, **UI Polish Pass Complete**, **Gamification & Loyalty Points System Live**, **Job Board Live**, **Community Chat Live** (Real-time, Edit/Delete, Search, Profile Edit, Avatar Upload, Admin Moderation), **Full Brand Audit Complete**, **Member Dashboard Fleshed Out**, **Directory Overhauled (210 Real Members)**, **Membership Certificate PDF**
 
 ---
 
@@ -1125,6 +1125,49 @@ Pages needing work (prioritized):
 
 ---
 
+## Session 22: Directory Overhaul + Certificate Bling (March 13, 2026)
+
+### What Was Done
+1. **Directory page completely overhauled** — Replaced skeleton directory with full-featured member directory
+   - Scraped ALL real member data from live ASPA site (screen-printing.us/find-a-printer)
+   - Scraped 4 US regional pages (North, South, East, West) — 104 members
+   - Scraped 4 category pages (Custom T-Shirts, Screen Printing, Custom Embroidery, Signs & Banners) — 133 members
+   - Equipment & Supplies category page was 404, International page was 404
+   - Merged and deduplicated across both sources → **210 unique members** with proper multi-category assignments
+   - Each member has: name, category, location, description, specialties, badges, initials
+   - Categories: tshirt (152), embroidery (21), sign (18), supplier (13), equipment (4), education (2)
+   - Members appearing in multiple category pages got enriched specialty tags (e.g., "Custom Embroidery" added to screen printers who also do embroidery)
+
+2. **Directory UI features** (carried from initial rewrite):
+   - Glass-morphism cards with gradient borders and category-colored avatars
+   - Featured Members horizontal scroll section
+   - Sort controls: A-Z, Z-A, Newest, Most Established
+   - Grid/list view toggle
+   - Category, location, ASPA+, CSP filters
+   - Search by company name or location
+   - Pagination (12 per page)
+   - URL hash state for shareable filtered views
+   - Falls back to hardcoded data when Supabase unavailable
+
+3. **Membership certificate upgraded from plain text to branded PDF**
+   - Was: ASCII art `.txt` file download
+   - Now: Professional landscape PDF via jsPDF with full ASPA branding
+   - Features: dark background, triple-line decorative border (cyan/magenta/gold), corner ornaments, gradient accent lines, tier-colored badge, golden member name with underline, company name, seal emblem with star, certificate number, validity dates, footer with ASPA branding
+   - Tier badge color adapts to membership level (Starter=cyan, Professional=purple, Premium=magenta, Enterprise=gold)
+
+### Commit History (Session 22)
+- `e96b367` Rewrite directory with enhanced cards, featured section, 21 sample members
+- `36096d4` Expand directory to 210 real ASPA members with proper category data
+- `51399ed` Upgrade membership certificate from plain text to branded PDF
+
+### What's Next
+- Consider adding more member detail fields (phone, website, social links) as data becomes available
+- Category landing pages could be built as separate views or deep-linked filter states
+- Certificate could be further enhanced with custom fonts or embedded ASPA logo image
+- The live site's Equipment & Supplies and International member pages are broken (404) — data from those would need manual collection
+
+---
+
 ## Brand Guide
 
 The ASPA brand uses a bold, vibrant color palette inspired by screen printing ink colors. All UI components should draw from these values.
@@ -1173,10 +1216,10 @@ Compared original site (screen-printing.us, built on Google Sites + Blogger) aga
 
 ### Priority 1 — Core Content Gaps
 
-- [ ] **Registered Printers / Member Profiles** — Original homepage features "Recent ASPA Members" with full business profiles (logo, name, address, phone, description, website link). Our directory is Supabase-backed but doesn't display this level of detail. Need to enrich member profiles and surface them on the directory page and/or homepage.
-- [ ] **Category-Based Directory Filtering** — Original has browsable categories: Custom T-Shirt Shops, Sign Shops, Embroidery Shops, Printing Supplies. Our directory is a flat list. Need category filters + possibly dedicated category landing pages.
-- [ ] **Location-Based Directory Filtering** — Original filters by US region (North/South/East/West) and International. Our directory doesn't have location filtering.
-- [ ] **International Members Page** — Dedicated section for international ASPA members. Original had a specific page for this.
+- [x] **Registered Printers / Member Profiles** — **COMPLETE (Session 22).** Directory overhauled with 210 real members scraped from live site. Each member has name, category, location, description, specialties, badges, and initials. Cards feature glass-morphism design with category-colored avatars. Falls back to hardcoded data when Supabase unavailable.
+- [x] **Category-Based Directory Filtering** — **COMPLETE (Session 22).** Category filter dropdown with: T-Shirt Printers, Equipment, Embroidery, Signs & Graphics, Suppliers, Education. Members properly categorized from scraping all 4 live category pages.
+- [x] **Location-Based Directory Filtering** — **COMPLETE (Session 22).** Location filter with US/International options. Search also matches on location text.
+- [ ] **International Members Page** — Original page is 404 on live site. Data not available for scraping. Would need manual collection.
 
 ### Priority 2 — Educational Content
 
