@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ASPA+ Member Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="supabase-init.js"></script>
     <script src="points-system.js"></script>
     <style>
@@ -1960,56 +1961,209 @@
             }
         }
 
-        // DOWNLOAD CERTIFICATE
+        // DOWNLOAD CERTIFICATE — Premium PDF with ASPA branding
         function downloadCertificate() {
             const profile = window._memberProfile;
+            if (!profile) { alert('Please log in to download your certificate.'); return; }
 
-            if (!profile) {
-                alert('Please log in to download your certificate.');
-                return;
-            }
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+            const w = doc.internal.pageSize.getWidth();   // 297
+            const h = doc.internal.pageSize.getHeight();  // 210
 
-            // Create a simple text-based certificate download
             const joinDate = new Date(profile.join_date);
             const renewDate = new Date(joinDate);
             renewDate.setFullYear(renewDate.getFullYear() + 1);
+            const tierLabel = (profile.membership_tier || 'starter').toUpperCase();
+            const memberName = (profile.full_name || 'Member').toUpperCase();
+            const company = profile.company || '';
 
-            const certificateText = `
-╔════════════════════════════════════════════════════════════════╗
-║          AMERICAN SCREEN PRINTING ASSOCIATION (ASPA)           ║
-║                   MEMBERSHIP CERTIFICATE                        ║
-╚════════════════════════════════════════════════════════════════╝
+            // === BACKGROUND — dark with subtle radial gradient effect ===
+            doc.setFillColor(10, 10, 10);
+            doc.rect(0, 0, w, h, 'F');
 
-This certifies that
+            // Subtle dark overlay panels for depth
+            doc.setFillColor(26, 26, 46);
+            doc.roundedRect(10, 10, w - 20, h - 20, 3, 3, 'F');
 
-    ${profile.full_name}
+            // === DECORATIVE BORDER — triple-line with brand gradient colors ===
+            // Outer border (cyan)
+            doc.setDrawColor(0, 212, 255); doc.setLineWidth(1.2);
+            doc.roundedRect(12, 12, w - 24, h - 24, 2, 2, 'S');
+            // Middle border (magenta)
+            doc.setDrawColor(233, 30, 140); doc.setLineWidth(0.6);
+            doc.roundedRect(15, 15, w - 30, h - 30, 2, 2, 'S');
+            // Inner border (yellow/gold)
+            doc.setDrawColor(255, 212, 0); doc.setLineWidth(0.3);
+            doc.roundedRect(17.5, 17.5, w - 35, h - 35, 1.5, 1.5, 'S');
 
-has been recognized as an ASPA+ Member
+            // === CORNER ORNAMENTS (L-shaped brackets) ===
+            const cl = 12;
+            doc.setDrawColor(0, 212, 255); doc.setLineWidth(1.5);
+            doc.line(20, 22, 20 + cl, 22); doc.line(20, 22, 20, 22 + cl);
+            doc.line(w - 20, 22, w - 20 - cl, 22); doc.line(w - 20, 22, w - 20, 22 + cl);
+            doc.line(20, h - 22, 20 + cl, h - 22); doc.line(20, h - 22, 20, h - 22 - cl);
+            doc.line(w - 20, h - 22, w - 20 - cl, h - 22); doc.line(w - 20, h - 22, w - 20, h - 22 - cl);
 
-Member Since: ${joinDate.toLocaleDateString()}
-Company: ${profile.company}
-Status: ${profile.membership_status}
-Tier: ${profile.membership_tier.toUpperCase()}
+            // === DECORATIVE TOP ACCENT LINE (gradient simulation) ===
+            const accentY = 30;
+            const segments = 40;
+            const segW = (w - 80) / segments;
+            for (let i = 0; i < segments; i++) {
+                const t = i / segments;
+                const r = Math.round(0 + t * 233);
+                const g = Math.round(212 - t * 182);
+                const b = Math.round(255 - t * 115);
+                doc.setDrawColor(r, g, b);
+                doc.setLineWidth(0.8);
+                doc.line(40 + i * segW, accentY, 40 + (i + 1) * segW, accentY);
+            }
 
-═════════════════════════════════════════════════════════════════
+            // === ASPA LOGO TEXT ===
+            doc.setTextColor(0, 212, 255);
+            doc.setFontSize(14);
+            doc.setFont('helvetica', 'bold');
+            doc.text('ASPA', w / 2, 40, { align: 'center' });
 
-Issued on: ${new Date().toLocaleDateString()}
-Valid through: ${renewDate.toLocaleDateString()}
+            doc.setTextColor(176, 176, 176);
+            doc.setFontSize(8);
+            doc.setFont('helvetica', 'normal');
+            doc.text('AMERICAN SCREEN PRINTING ASSOCIATION', w / 2, 46, { align: 'center' });
 
-═════════════════════════════════════════════════════════════════
-ASPA - Supporting the Screen Printing Industry Since 1995
-            `;
+            // === MAIN TITLE ===
+            doc.setTextColor(248, 248, 248);
+            doc.setFontSize(32);
+            doc.setFont('helvetica', 'bold');
+            doc.text('CERTIFICATE OF MEMBERSHIP', w / 2, 62, { align: 'center' });
 
-            // Create and download file
-            const element = document.createElement('a');
-            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(certificateText));
-            element.setAttribute('download', `ASPA_Membership_Certificate_${profile.full_name.replace(/\s+/g, '_')}.txt`);
-            element.style.display = 'none';
-            document.body.appendChild(element);
-            element.click();
-            document.body.removeChild(element);
+            // === TIER BADGE ===
+            const tierColors = {
+                'STARTER': [0, 212, 255],
+                'PROFESSIONAL': [108, 43, 217],
+                'PREMIUM': [233, 30, 140],
+                'ENTERPRISE': [255, 212, 0]
+            };
+            const tc = tierColors[tierLabel] || [0, 212, 255];
+            doc.setFillColor(tc[0], tc[1], tc[2]);
+            const badgeW = doc.getTextWidth(tierLabel + '  MEMBER') * 0.35 + 16;
+            doc.roundedRect(w / 2 - badgeW / 2, 66, badgeW, 8, 2, 2, 'F');
+            doc.setTextColor(10, 10, 10);
+            doc.setFontSize(8);
+            doc.setFont('helvetica', 'bold');
+            doc.text(tierLabel + ' MEMBER', w / 2, 71.5, { align: 'center' });
 
-            alert(`Certificate downloaded for ${profile.full_name}!`);
+            // === DIVIDER ===
+            doc.setDrawColor(108, 43, 217);
+            doc.setLineWidth(0.4);
+            doc.line(w / 2 - 70, 80, w / 2 + 70, 80);
+
+            // === "This is to certify that" ===
+            doc.setTextColor(176, 176, 176);
+            doc.setFontSize(11);
+            doc.setFont('helvetica', 'italic');
+            doc.text('This is to certify that', w / 2, 90, { align: 'center' });
+
+            // === MEMBER NAME (large, golden) ===
+            doc.setTextColor(255, 212, 0);
+            doc.setFontSize(30);
+            doc.setFont('helvetica', 'bold');
+            doc.text(memberName, w / 2, 108, { align: 'center' });
+
+            // Name underline
+            const nameW = doc.getTextWidth(memberName);
+            doc.setDrawColor(255, 212, 0);
+            doc.setLineWidth(0.4);
+            doc.line(w / 2 - nameW / 2, 111, w / 2 + nameW / 2, 111);
+
+            // === COMPANY NAME ===
+            if (company) {
+                doc.setTextColor(0, 212, 255);
+                doc.setFontSize(13);
+                doc.setFont('helvetica', 'normal');
+                doc.text(company, w / 2, 120, { align: 'center' });
+            }
+
+            // === DESCRIPTION TEXT ===
+            doc.setTextColor(176, 176, 176);
+            doc.setFontSize(10);
+            doc.setFont('helvetica', 'normal');
+            doc.text('is hereby recognized as a valued member of the American Screen Printing Association,', w / 2, 132, { align: 'center' });
+            doc.text('demonstrating commitment to excellence in the screen printing industry.', w / 2, 139, { align: 'center' });
+
+            // === DETAILS ROW ===
+            const detailY = 155;
+            doc.setDrawColor(60, 60, 80);
+            doc.setLineWidth(0.3);
+            doc.line(40, detailY - 5, w - 40, detailY - 5);
+
+            // Member Since
+            doc.setTextColor(176, 176, 176);
+            doc.setFontSize(7);
+            doc.setFont('helvetica', 'normal');
+            doc.text('MEMBER SINCE', w / 4, detailY, { align: 'center' });
+            doc.setTextColor(248, 248, 248);
+            doc.setFontSize(11);
+            doc.setFont('helvetica', 'bold');
+            doc.text(joinDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }), w / 4, detailY + 6, { align: 'center' });
+
+            // Certificate Number
+            const certNum = 'ASPA-' + (joinDate.getFullYear()) + '-' + String(profile.id || Math.floor(Math.random() * 9999)).padStart(4, '0');
+            doc.setTextColor(176, 176, 176);
+            doc.setFontSize(7);
+            doc.text('CERTIFICATE NO.', w / 2, detailY, { align: 'center' });
+            doc.setTextColor(248, 248, 248);
+            doc.setFontSize(11);
+            doc.setFont('helvetica', 'bold');
+            doc.text(certNum, w / 2, detailY + 6, { align: 'center' });
+
+            // Valid Through
+            doc.setTextColor(176, 176, 176);
+            doc.setFontSize(7);
+            doc.text('VALID THROUGH', 3 * w / 4, detailY, { align: 'center' });
+            doc.setTextColor(248, 248, 248);
+            doc.setFontSize(11);
+            doc.setFont('helvetica', 'bold');
+            doc.text(renewDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }), 3 * w / 4, detailY + 6, { align: 'center' });
+
+            doc.setDrawColor(60, 60, 80);
+            doc.line(40, detailY + 10, w - 40, detailY + 10);
+
+            // === SEAL / EMBLEM (circle with star) ===
+            const sealX = w / 2;
+            const sealY = 178;
+            const sealR = 8;
+            // Outer ring
+            doc.setDrawColor(255, 212, 0); doc.setLineWidth(1.2);
+            doc.circle(sealX, sealY, sealR, 'S');
+            // Inner ring
+            doc.setDrawColor(233, 30, 140); doc.setLineWidth(0.5);
+            doc.circle(sealX, sealY, sealR - 2, 'S');
+            // Star shape (simplified as text)
+            doc.setTextColor(255, 212, 0);
+            doc.setFontSize(14);
+            doc.text('\u2605', sealX, sealY + 2.5, { align: 'center' });
+
+            // === BOTTOM ACCENT LINE (gradient simulation, reversed) ===
+            const bottomY = h - 30;
+            for (let i = 0; i < segments; i++) {
+                const t = i / segments;
+                const r = Math.round(255 - t * 255);
+                const g = Math.round(212 - t * 212);
+                const b = Math.round(0 + t * 255);
+                doc.setDrawColor(r, g, b);
+                doc.setLineWidth(0.8);
+                doc.line(40 + i * segW, bottomY, 40 + (i + 1) * segW, bottomY);
+            }
+
+            // === FOOTER ===
+            doc.setTextColor(108, 43, 217);
+            doc.setFontSize(7);
+            doc.setFont('helvetica', 'normal');
+            doc.text('ASPA \u2014 American Screen Printing Association | Supporting the Screen Printing Industry Since 2004', w / 2, h - 25, { align: 'center' });
+            doc.text('www.screen-printing.us | This certificate is digitally issued and verifiable.', w / 2, h - 21, { align: 'center' });
+
+            // === DOWNLOAD ===
+            doc.save('ASPA_Membership_Certificate_' + profile.full_name.replace(/\s+/g, '_') + '.pdf');
         }
     </script>
 </body>
