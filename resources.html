@@ -96,14 +96,14 @@
 
         .nav-links {
             display: flex;
-            gap: 20px;
+            gap: 14px;
             align-items: center;
             list-style: none;
         }
 
         .nav-links a {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 12.5px;
+            font-size: 14px;
             font-weight: 500;
             color: var(--ink-gray);
             text-decoration: none;
@@ -118,6 +118,30 @@
         .nav-links a.active {
             color: var(--ink-cyan);
             font-weight: 600;
+        }
+
+        .nav-plus-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid transparent;
+            background: linear-gradient(var(--ink-black), var(--ink-black)) padding-box,
+                        linear-gradient(135deg, #00d4ff, #e91e8c, #ffd400) border-box;
+            border-radius: 20px;
+            padding: 4px 14px 4px 10px;
+            margin-left: 2px;
+            position: relative;
+        }
+
+        .nav-plus-label {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            background: linear-gradient(135deg, #00d4ff 0%, #e91e8c 50%, #ffd400 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
         }
 
         .nav-cta {
@@ -162,7 +186,8 @@
     -webkit-text-fill-color: transparent !important;
     background-clip: text !important;
     font-weight: 600 !important;
-}
+
+            font-size: 13px !important;}
 
         /* ========================================
            HERO SECTION
@@ -963,10 +988,6 @@
                 font-size: 16px;
             }
         }
-        .nav-aspa-plus sup {
-    font-size: 0.6em;
-    -webkit-text-fill-color: #ffd400;
-}
         .nav-aspa-plus:hover {
     filter: brightness(1.3);
 }
@@ -1060,14 +1081,14 @@
 
         .nav-links {
             display: flex;
-            gap: 20px;
+            gap: 14px;
             align-items: center;
             list-style: none;
         }
 
         .nav-links a {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 12.5px;
+            font-size: 14px;
             font-weight: 500;
             color: var(--ink-gray);
             text-decoration: none;
@@ -1082,6 +1103,30 @@
         .nav-links a.active {
             color: var(--ink-cyan);
             font-weight: 600;
+        }
+
+        .nav-plus-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid transparent;
+            background: linear-gradient(var(--ink-black), var(--ink-black)) padding-box,
+                        linear-gradient(135deg, #00d4ff, #e91e8c, #ffd400) border-box;
+            border-radius: 20px;
+            padding: 4px 14px 4px 10px;
+            margin-left: 2px;
+            position: relative;
+        }
+
+        .nav-plus-label {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            background: linear-gradient(135deg, #00d4ff 0%, #e91e8c 50%, #ffd400 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
         }
 
         .nav-cta {
@@ -1126,7 +1171,8 @@
     -webkit-text-fill-color: transparent !important;
     background-clip: text !important;
     font-weight: 600 !important;
-}
+
+            font-size: 13px !important;}
 
         /* ========================================
            HERO SECTION
@@ -1927,10 +1973,6 @@
                 font-size: 16px;
             }
         }
-        .nav-aspa-plus sup {
-    font-size: 0.6em;
-    -webkit-text-fill-color: #ffd400;
-}
         .nav-aspa-plus:hover {
     filter: brightness(1.3);
 }
@@ -1954,10 +1996,13 @@
                 <li><a href="index.html#membership">Membership</a></li>
                 <li><a href="resources.html" class="active">Resources</a></li>
                 <li><a href="jobs.html">Jobs</a></li>
-                <li><a href="discounts.html" class="nav-aspa-plus">Discounts<sup>+</sup></a></li>
-                <li><a href="rewards.html" class="nav-aspa-plus">Rewards<sup>+</sup></a></li>
-                <li><a href="education.html" class="nav-aspa-plus">Education<sup>+</sup></a></li>
-                <li><a href="community.html" class="nav-aspa-plus">Community<sup>+</sup></a></li>
+                <li class="nav-plus-group">
+                    <span class="nav-plus-label">ASPA+</span>
+                    <a href="discounts.html" class="nav-aspa-plus">Discounts</a>
+                    <a href="rewards.html" class="nav-aspa-plus">Rewards</a>
+                    <a href="education.html" class="nav-aspa-plus">Education</a>
+                    <a href="community.html" class="nav-aspa-plus">Community</a>
+                </li>
             </ul>
             <div id="navAuthContainer" style="display: flex; align-items: center; gap: 16px;">
                 <a href="join.html" class="nav-cta" id="navJoinBtn">Join ASPA</a>

@@ -96,14 +96,14 @@
 
         .nav-links {
             display: flex;
-            gap: 20px;
+            gap: 14px;
             align-items: center;
             list-style: none;
         }
 
         .nav-links a {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 12.5px;
+            font-size: 14px;
             font-weight: 500;
             color: var(--ink-gray);
             text-decoration: none;
@@ -117,6 +117,30 @@
         .nav-links a.active {
             color: var(--ink-cyan);
             font-weight: 600;
+        }
+
+        .nav-plus-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid transparent;
+            background: linear-gradient(var(--ink-black), var(--ink-black)) padding-box,
+                        linear-gradient(135deg, #00d4ff, #e91e8c, #ffd400) border-box;
+            border-radius: 20px;
+            padding: 4px 14px 4px 10px;
+            margin-left: 2px;
+            position: relative;
+        }
+
+        .nav-plus-label {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            background: linear-gradient(135deg, #00d4ff 0%, #e91e8c 50%, #ffd400 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
         }
 
         .nav-cta {
@@ -698,7 +722,7 @@
         /* Responsive */
         @media (max-width: 768px) {
             .nav-links {
-                gap: 16px;
+                gap: 14px;
             }
 
             .admin-wrapper {
