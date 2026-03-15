@@ -2,8 +2,8 @@
 
 **Project:** screen-printing.us redesign
 **Client:** Dustin Cochran (cochran.dustin@gmail.com)
-**Date:** March 3–13, 2026 (last updated: Session 22)
-**Status:** In Progress — Core Pages Built, Resource Hub COMPLETE (All 18 Articles), **SITE LIVE on GitHub Pages**, Nav Full-Width, **Supabase Backend Live** (Auth + Database + Google OAuth + Storage), ASPA+ Gated Content Live, Admin Dashboard Built, **UI Polish Pass Complete**, **Gamification & Loyalty Points System Live**, **Job Board Live**, **Community Chat Live** (Real-time, Edit/Delete, Search, Profile Edit, Avatar Upload, Admin Moderation), **Full Brand Audit Complete**, **Member Dashboard Fleshed Out**, **Directory Overhauled (210 Real Members)**, **Membership Certificate PDF**
+**Date:** March 3–15, 2026 (last updated: Session 23)
+**Status:** In Progress — Core Pages Built, Resource Hub COMPLETE (All 18 Articles), **SITE LIVE on GitHub Pages**, Nav Full-Width, **Supabase Backend Live** (Auth + Database + Google OAuth + Storage), ASPA+ Gated Content Live, Admin Dashboard Built, **UI Polish Pass Complete**, **Gamification & Loyalty Points System Live**, **Job Board Live**, **Community Chat Live** (Real-time, Edit/Delete, Search, Profile Edit, Avatar Upload, Admin Moderation), **Full Brand Audit Complete**, **Member Dashboard Fleshed Out**, **Directory Overhauled (210 Real Members)**, **Membership Certificate PDF**, **Directory Location Filter Redesigned**, **Admin Panel Tabs Fixed**
 
 ---
 
@@ -1160,11 +1160,43 @@ Pages needing work (prioritized):
 - `36096d4` Expand directory to 210 real ASPA members with proper category data
 - `51399ed` Upgrade membership certificate from plain text to branded PDF
 
-### What's Next
+### What's Next (Session 22)
 - Consider adding more member detail fields (phone, website, social links) as data becomes available
 - Category landing pages could be built as separate views or deep-linked filter states
 - Certificate could be further enhanced with custom fonts or embedded ASPA logo image
 - The live site's Equipment & Supplies and International member pages are broken (404) — data from those would need manual collection
+
+---
+
+## Session 23: Directory Location Filter + Admin Panel Fixes (March 15, 2026)
+
+### Directory Location Filter Redesign (`directory.html`)
+- **Replaced** free-text location input with 3-way toggle: All / US / International
+- **US toggle** shows dynamic state dropdown populated from member data (only states with members appear)
+- **International toggle** shows dynamic country dropdown populated from member data
+- **Added** `US_STATES` lookup object and helper functions: `getStateFromLocation()`, `isUSMember()`, `getCountryFromLocation()`
+- **Fixed** broken US filter — old code checked for "US"/"USA"/"United States" in location strings, but member locations use "City, ST" format (e.g., "Garden City, ID")
+- **Updated** filter state from single `location` field to `locationScope` + `state` + `country` fields
+- **URL state persistence** updated for new filter fields via `saveStateToHash`/`restoreStateFromHash`
+
+### Category Badge Readability Fix (`directory.html`)
+- **Changed** category badge from purple (`#6c2bd9`) to magenta (`#e91e8c`) — much better contrast on dark backgrounds
+- **Added** `categoryDisplayNames` mapping so "tshirt" displays as "T-Shirt Printer", "sign" as "Signs & Graphics", etc.
+
+### Admin Dashboard Enhancements (`admin.html`)
+- **Added** conditional "Admin" nav link in `supabase-init.js` — only visible to users with `is_admin: true`, styled in yellow
+- **Added** password reset button to Edit Member modal — triggers `resetPasswordForEmail()` via Supabase Auth API, logs to `audit_logs`
+- **Fixed** all 4 broken tab queries (Certifications, Exam Results, CE Credits, Audit Log) — removed Supabase JOIN syntax (`profiles:user_id(full_name, email)`) that required unconfigured foreign key relationships. Replaced with client-side user resolution from `cachedMembers` array.
+
+### Commit History (Session 23)
+- `fb51e7e` Fix category badge readability: purple→magenta + friendly display names
+- `2cb5703` Add Admin nav link for admin users + password reset in admin panel
+- `9058d61` Fix admin panel: remove broken JOIN queries, resolve users from cache
+
+### What's Next
+- Job board enhancements: source-specific badges, unified job list, zip+radius filter, HTML stripping (plan exists)
+- Admin panel: configure Supabase foreign key relationships so JOINs work natively (optional optimization)
+- Directory: add member detail fields (phone, website, social links) as data becomes available
 
 ---
 
@@ -1218,7 +1250,7 @@ Compared original site (screen-printing.us, built on Google Sites + Blogger) aga
 
 - [x] **Registered Printers / Member Profiles** — **COMPLETE (Session 22).** Directory overhauled with 210 real members scraped from live site. Each member has name, category, location, description, specialties, badges, and initials. Cards feature glass-morphism design with category-colored avatars. Falls back to hardcoded data when Supabase unavailable.
 - [x] **Category-Based Directory Filtering** — **COMPLETE (Session 22).** Category filter dropdown with: T-Shirt Printers, Equipment, Embroidery, Signs & Graphics, Suppliers, Education. Members properly categorized from scraping all 4 live category pages.
-- [x] **Location-Based Directory Filtering** — **COMPLETE (Session 22).** Location filter with US/International options. Search also matches on location text.
+- [x] **Location-Based Directory Filtering** — **COMPLETE (Session 23).** Redesigned with 3-way toggle (All/US/International), dynamic state/country dropdowns, proper state abbreviation detection. URL state persistence for all filter fields.
 - [ ] **International Members Page** — Original page is 404 on live site. Data not available for scraping. Would need manual collection.
 
 ### Priority 2 — Educational Content
