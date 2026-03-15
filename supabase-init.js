@@ -98,8 +98,12 @@
 
     if (profile && profile.full_name) {
       var firstName = profile.full_name.split(' ')[0] || 'Member';
+      var adminLink = profile.is_admin
+        ? '<a href="admin.html" style="color:#ffd400;font-family:\'Space Grotesk\',sans-serif;font-size:0.9rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;text-decoration:none;">Admin</a>'
+        : '';
       container.innerHTML =
         '<span style="font-family:Inter,sans-serif;font-size:0.9rem;color:#b0b0b0;">Hi, ' + firstName + '</span>' +
+        adminLink +
         '<a href="dashboard.html" style="color:#00d4ff;font-family:\'Space Grotesk\',sans-serif;font-size:0.9rem;font-weight:500;text-transform:uppercase;letter-spacing:1.5px;text-decoration:none;">My ASPA+</a>' +
         '<a href="#" onclick="handleLogout(event)" style="color:#b0b0b0;font-family:Inter,sans-serif;font-size:0.85rem;cursor:pointer;text-decoration:none;">Log Out</a>';
     } else {

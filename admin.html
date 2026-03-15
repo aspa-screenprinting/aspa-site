@@ -1291,6 +1291,12 @@
                     <span style="margin-left: 8px;">Admin Privileges</span>
                 </label>
             </div>
+            <div style="margin-top:12px; padding-top:12px; border-top:1px solid rgba(255,255,255,0.1);">
+                <button class="modal-btn" id="resetPwBtn" onclick="sendPasswordReset()" style="background:var(--ink-orange);color:#fff;width:100%;font-size:0.85rem;">
+                    Send Password Reset Email
+                </button>
+                <p id="resetPwStatus" style="font-size:0.8rem;color:var(--ink-gray);margin-top:6px;text-align:center;display:none;"></p>
+            </div>
             <div class="modal-actions">
                 <button class="modal-btn cancel" onclick="closeEditMemberModal()">Cancel</button>
                 <button class="modal-btn save" onclick="saveMemberChanges()">Save Changes</button>
@@ -1549,6 +1555,12 @@
             document.getElementById('editMemberStatus').value = member.status || 'active';
             document.getElementById('editMemberAdmin').checked = member.is_admin || false;
 
+            // Reset password reset button state
+            const resetBtn = document.getElementById('resetPwBtn');
+            resetBtn.disabled = false;
+            resetBtn.textContent = 'Send Password Reset Email';
+            document.getElementById('resetPwStatus').style.display = 'none';
+
             document.getElementById('editMemberModal').classList.add('active');
         }
 
@@ -1594,6 +1606,46 @@
             } catch (err) {
                 console.error('Error saving member:', err);
                 alert('Error saving changes');
+            }
+        }
+
+        // Password Reset
+        async function sendPasswordReset() {
+            const email = document.getElementById('editMemberEmail').value;
+            if (!email) return;
+
+            const btn = document.getElementById('resetPwBtn');
+            const status = document.getElementById('resetPwStatus');
+            btn.disabled = true;
+            btn.textContent = 'Sending...';
+            status.style.display = 'none';
+
+            try {
+                const { error } = await window._supabase.auth.resetPasswordForEmail(email, {
+                    redirectTo: window.location.origin + '/aspa-site/login.html'
+                });
+
+                if (error) throw error;
+
+                status.style.display = 'block';
+                status.style.color = 'var(--ink-cyan)';
+                status.textContent = 'Password reset email sent to ' + email;
+                btn.textContent = 'Sent!';
+
+                // Log to audit
+                await window._supabase.from('audit_logs').insert({
+                    admin_id: window._supabaseSession.user.id,
+                    action: 'password_reset',
+                    target_user_id: currentEditingMemberId,
+                    details: { email: email }
+                });
+            } catch (err) {
+                console.error('Password reset error:', err);
+                status.style.display = 'block';
+                status.style.color = 'var(--ink-orange)';
+                status.textContent = 'Error: ' + err.message;
+                btn.textContent = 'Send Password Reset Email';
+                btn.disabled = false;
             }
         }
 
