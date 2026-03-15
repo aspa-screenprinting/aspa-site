@@ -603,15 +603,15 @@
 
         .member-category {
             display: inline-block;
-            background: rgba(108, 43, 217, 0.2);
-            color: var(--ink-purple);
+            background: rgba(233, 30, 140, 0.15);
+            color: var(--ink-magenta);
             padding: 4px 8px;
             border-radius: 3px;
             font-family: 'Space Grotesk', sans-serif;
             font-size: 0.75rem;
             font-weight: 600;
             text-transform: capitalize;
-            border: 1px solid var(--ink-purple);
+            border: 1px solid rgba(233, 30, 140, 0.5);
         }
 
         .member-description {
@@ -4205,6 +4205,15 @@
             'Legacy': 'legacy'
         };
 
+        const categoryDisplayNames = {
+            'tshirt': 'T-Shirt Printer',
+            'embroidery': 'Embroidery',
+            'sign': 'Signs & Graphics',
+            'supplier': 'Supplier',
+            'equipment': 'Equipment',
+            'education': 'Education'
+        };
+
         function mapTierToCategory(tier) {
             if (!tier) return 'tshirt';
             const lowerTier = tier.toLowerCase();
@@ -4384,7 +4393,7 @@
                     </div>
                     <div class="member-location">📍 ${member.location}</div>
                     <div class="member-years">Est. ${member.founded} • ${yearsInBusiness} years in business</div>
-                    <span class="member-category">${member.category}</span>
+                    <span class="member-category">${categoryDisplayNames[member.category] || member.category}</span>
                     ${specialties ? `<div class="member-specialties">${specialties}</div>` : ''}
                     <p class="member-description">${member.description}</p>
                     <div class="member-contact">
