@@ -1662,7 +1662,7 @@
             try {
                 const { data, error } = await window._supabase
                     .from('csp_certifications')
-                    .select('*, profiles:user_id(full_name, email)')
+                    .select('*')
                     .order('certification_date', { ascending: false });
 
                 if (error) throw error;
@@ -1689,7 +1689,7 @@
             certs.forEach(cert => {
                 const row = document.createElement('tr');
                 const statusBadgeClass = `badge-${cert.status || 'active'}`;
-                const profile = cert.profiles;
+                const profile = cachedMembers.find(m => m.id === cert.user_id);
 
                 row.innerHTML = `
                     <td>${profile ? profile.full_name : 'N/A'}</td>
@@ -1718,7 +1718,7 @@
 
             if (search) {
                 filtered = filtered.filter(c => {
-                    const profile = c.profiles;
+                    const profile = cachedMembers.find(m => m.id === c.user_id);
                     return (profile && profile.full_name && profile.full_name.toLowerCase().includes(search)) ||
                            (profile && profile.email && profile.email.toLowerCase().includes(search));
                 });
@@ -1736,7 +1736,8 @@
             if (!cert) return;
 
             currentEditingCertId = certId;
-            document.getElementById('editCertName').value = cert.profiles ? cert.profiles.full_name : '';
+            const certProfile = cachedMembers.find(m => m.id === cert.user_id);
+            document.getElementById('editCertName').value = certProfile ? certProfile.full_name : '';
             document.getElementById('editCertStatus').value = cert.status || 'active';
             document.getElementById('editCertRenewalDate').value = cert.renewal_due_date || '';
 
@@ -1799,7 +1800,7 @@
             try {
                 const { data, error } = await window._supabase
                     .from('exam_results')
-                    .select('*, profiles:user_id(full_name, email)')
+                    .select('*')
                     .order('exam_date', { ascending: false });
 
                 if (error) throw error;
@@ -1828,7 +1829,7 @@
                 const passed = result.score >= 70;
                 const badgeClass = passed ? 'badge-pass' : 'badge-fail';
                 const resultText = passed ? 'PASS' : 'FAIL';
-                const profile = result.profiles;
+                const profile = cachedMembers.find(m => m.id === result.user_id);
 
                 row.innerHTML = `
                     <td>${profile ? profile.full_name : 'N/A'}</td>
@@ -1850,7 +1851,7 @@
 
             if (search) {
                 filtered = filtered.filter(r => {
-                    const profile = r.profiles;
+                    const profile = cachedMembers.find(m => m.id === r.user_id);
                     return (profile && profile.full_name && profile.full_name.toLowerCase().includes(search)) ||
                            (profile && profile.email && profile.email.toLowerCase().includes(search));
                 });
@@ -1877,7 +1878,7 @@
             try {
                 const { data, error } = await window._supabase
                     .from('ce_credits')
-                    .select('*, profiles:user_id(full_name, email)')
+                    .select('*')
                     .order('completion_date', { ascending: false });
 
                 if (error) throw error;
@@ -1904,7 +1905,7 @@
 
             credits.forEach(credit => {
                 const row = document.createElement('tr');
-                const profile = credit.profiles;
+                const profile = cachedMembers.find(m => m.id === credit.user_id);
 
                 row.innerHTML = `
                     <td>${profile ? profile.full_name : 'N/A'}</td>
@@ -2027,7 +2028,7 @@
             try {
                 const { data, error } = await window._supabase
                     .from('audit_logs')
-                    .select('*, profiles:admin_id(full_name), target_profiles:target_user_id(full_name)')
+                    .select('*')
                     .order('created_at', { ascending: false });
 
                 if (error) throw error;
@@ -2053,8 +2054,8 @@
 
             logs.forEach(log => {
                 const row = document.createElement('tr');
-                const adminProfile = log.profiles;
-                const targetProfile = log.target_profiles;
+                const adminProfile = cachedMembers.find(m => m.id === log.admin_id);
+                const targetProfile = cachedMembers.find(m => m.id === log.target_user_id);
 
                 row.innerHTML = `
                     <td>${adminProfile ? adminProfile.full_name : 'Unknown'}</td>
