@@ -4795,10 +4795,77 @@
                 allMembers = hardcodedMembers;
             }
 
-            // Load claim statuses after auth is ready
+            // Merge admin overrides from directory_listings table
+            try {
+                if (window._supabase) {
+                    const { data: overrides, error } = await window._supabase
+                        .from('directory_listings')
+                        .select('listing_id, name, category, location, description, phone, website, email, founded, specialties, social, badges');
+
+                    if (!error && overrides && overrides.length > 0) {
+                        const overrideMap = {};
+                        overrides.forEach(function(o) { overrideMap[o.listing_id] = o; });
+
+                        allMembers.forEach(function(member) {
+                            const o = overrideMap[member.id];
+                            if (o) {
+                                if (o.name) member.name = o.name;
+                                if (o.category) member.category = o.category;
+                                if (o.location) member.location = o.location;
+                                if (o.description) member.description = o.description;
+                                if (o.phone) member.phone = o.phone;
+                                if (o.website) member.website = o.website;
+                                if (o.email) member.email = o.email;
+                                if (o.founded) member.founded = o.founded;
+                                if (o.specialties && o.specialties.length > 0) member.specialties = o.specialties;
+                                if (o.social && Object.keys(o.social).length > 0) member.social = o.social;
+                                if (o.badges && o.badges.length > 0) member.badges = o.badges;
+                            }
+                        });
+                        console.log('Merged ' + overrides.length + ' directory override(s)');
+                    }
+                }
+            } catch (err) {
+                console.warn('Could not load directory overrides:', err);
+            }
+
+            // Load claim statuses and overrides after auth is ready
             window.addEventListener('aspa-auth-ready', async function() {
+                // Load overrides if we haven't already (Supabase wasn't ready during init)
+                try {
+                    if (window._supabase) {
+                        const { data: overrides, error } = await window._supabase
+                            .from('directory_listings')
+                            .select('listing_id, name, category, location, description, phone, website, email, founded, specialties, social, badges');
+
+                        if (!error && overrides && overrides.length > 0) {
+                            const overrideMap = {};
+                            overrides.forEach(function(o) { overrideMap[o.listing_id] = o; });
+
+                            allMembers.forEach(function(member) {
+                                const o = overrideMap[member.id];
+                                if (o) {
+                                    if (o.name) member.name = o.name;
+                                    if (o.category) member.category = o.category;
+                                    if (o.location) member.location = o.location;
+                                    if (o.description) member.description = o.description;
+                                    if (o.phone) member.phone = o.phone;
+                                    if (o.website) member.website = o.website;
+                                    if (o.email) member.email = o.email;
+                                    if (o.founded) member.founded = o.founded;
+                                    if (o.specialties && o.specialties.length > 0) member.specialties = o.specialties;
+                                    if (o.social && Object.keys(o.social).length > 0) member.social = o.social;
+                                    if (o.badges && o.badges.length > 0) member.badges = o.badges;
+                                }
+                            });
+                        }
+                    }
+                } catch (err) {
+                    console.warn('Could not load directory overrides on auth-ready:', err);
+                }
+
                 await loadClaimStatuses();
-                render(); // Re-render to show claim buttons
+                render(); // Re-render with overrides and claim buttons
             });
 
             restoreStateFromHash();

@@ -1840,6 +1840,10 @@
                     <div class="stat-label">Screen Printers</div>
                     <div class="stat-value" id="directoryCategoryScreen">0</div>
                 </div>
+                <div class="stat-card" style="border-left:3px solid var(--ink-cyan);">
+                    <div class="stat-label">Total Purchasing Power</div>
+                    <div class="stat-value" id="directoryTotalRevenue">$0</div>
+                </div>
             </div>
 
             <div class="content-header">
@@ -1911,79 +1915,170 @@
             <div class="crm-content">
                 <!-- Overview Tab -->
                 <div class="crm-tab-content active" id="crmOverviewTab">
-                    <!-- Contact Info -->
-                    <div class="crm-section">
-                        <div class="crm-section-title">Contact Information</div>
-                        <div class="crm-grid">
-                            <div class="crm-field">
-                                <div class="crm-field-label">Email</div>
-                                <div class="crm-field-value"><a href="mailto:" id="crmEmail">—</a></div>
+
+                    <!-- ═══ MEMBER MODE (registered users) ═══ -->
+                    <div id="crmMemberFields">
+                        <div class="crm-section">
+                            <div class="crm-section-title">Contact Information</div>
+                            <div class="crm-grid">
+                                <div class="crm-field">
+                                    <div class="crm-field-label">Email</div>
+                                    <div class="crm-field-value"><a href="mailto:" id="crmEmail">—</a></div>
+                                </div>
+                                <div class="crm-field">
+                                    <div class="crm-field-label">Phone</div>
+                                    <div class="crm-field-value" id="crmPhone">—</div>
+                                </div>
+                                <div class="crm-field">
+                                    <div class="crm-field-label">Secondary Email</div>
+                                    <div class="crm-field-value"><a href="mailto:" id="crmSecondaryEmail">—</a></div>
+                                </div>
+                                <div class="crm-field">
+                                    <div class="crm-field-label">Website</div>
+                                    <div class="crm-field-value"><a href="#" id="crmWebsite" target="_blank">—</a></div>
+                                </div>
+                                <div class="crm-field">
+                                    <div class="crm-field-label">LinkedIn</div>
+                                    <div class="crm-field-value"><a href="#" id="crmLinkedin" target="_blank">—</a></div>
+                                </div>
                             </div>
-                            <div class="crm-field">
-                                <div class="crm-field-label">Phone</div>
-                                <div class="crm-field-value" id="crmPhone">—</div>
+                            <div class="crm-form-group">
+                                <label>Phone</label>
+                                <input type="text" id="crmEditPhone" placeholder="(555) 123-4567">
                             </div>
-                            <div class="crm-field">
-                                <div class="crm-field-label">Secondary Email</div>
-                                <div class="crm-field-value"><a href="mailto:" id="crmSecondaryEmail">—</a></div>
+                            <div class="crm-form-group">
+                                <label>Secondary Email</label>
+                                <input type="email" id="crmEditSecondaryEmail" placeholder="name@company.com">
                             </div>
-                            <div class="crm-field">
-                                <div class="crm-field-label">Website</div>
-                                <div class="crm-field-value"><a href="#" id="crmWebsite" target="_blank">—</a></div>
+                            <div class="crm-form-group">
+                                <label>Website</label>
+                                <input type="url" id="crmEditWebsite" placeholder="https://example.com">
                             </div>
-                            <div class="crm-field">
-                                <div class="crm-field-label">LinkedIn</div>
-                                <div class="crm-field-value"><a href="#" id="crmLinkedin" target="_blank">—</a></div>
+                            <div class="crm-form-group">
+                                <label>LinkedIn</label>
+                                <input type="url" id="crmEditLinkedin" placeholder="https://linkedin.com/in/...">
                             </div>
                         </div>
-                        <div class="crm-form-group">
-                            <label>Phone</label>
-                            <input type="text" id="crmEditPhone" placeholder="(555) 123-4567">
-                        </div>
-                        <div class="crm-form-group">
-                            <label>Secondary Email</label>
-                            <input type="email" id="crmEditSecondaryEmail" placeholder="name@company.com">
-                        </div>
-                        <div class="crm-form-group">
-                            <label>Website</label>
-                            <input type="url" id="crmEditWebsite" placeholder="https://example.com">
-                        </div>
-                        <div class="crm-form-group">
-                            <label>LinkedIn</label>
-                            <input type="url" id="crmEditLinkedin" placeholder="https://linkedin.com/in/...">
+                        <div class="crm-section">
+                            <div class="crm-section-title">Membership Information</div>
+                            <div class="crm-grid">
+                                <div class="crm-field">
+                                    <div class="crm-field-label">Member Since</div>
+                                    <div class="crm-field-value" id="crmMemberSince">—</div>
+                                </div>
+                                <div class="crm-field">
+                                    <div class="crm-field-label">Renewal Date</div>
+                                    <div class="crm-field-value" id="crmRenewalDate">—</div>
+                                </div>
+                            </div>
+                            <div class="crm-form-group">
+                                <label>Renewal Date</label>
+                                <input type="date" id="crmEditRenewalDate">
+                            </div>
+                            <div class="crm-form-group">
+                                <label>Admin Status</label>
+                                <select id="crmEditAdminStatus">
+                                    <option value="active">Active</option>
+                                    <option value="at-risk">At-Risk</option>
+                                    <option value="churned">Churned</option>
+                                    <option value="prospect">Prospect</option>
+                                    <option value="vip">VIP</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Membership Info -->
-                    <div class="crm-section">
-                        <div class="crm-section-title">Membership Information</div>
-                        <div class="crm-grid">
-                            <div class="crm-field">
-                                <div class="crm-field-label">Member Since</div>
-                                <div class="crm-field-value" id="crmMemberSince">—</div>
+                    <!-- ═══ DIRECTORY/LISTING MODE (all editable) ═══ -->
+                    <div id="crmDirectoryFields" style="display:none;">
+                        <div class="crm-section">
+                            <div class="crm-section-title">Business Information</div>
+                            <div class="crm-form-group">
+                                <label>Business Name</label>
+                                <input type="text" id="crmDirName" placeholder="Business name">
                             </div>
-                            <div class="crm-field">
-                                <div class="crm-field-label">Renewal Date</div>
-                                <div class="crm-field-value" id="crmRenewalDate">—</div>
+                            <div class="crm-form-group">
+                                <label>Category</label>
+                                <select id="crmDirCategory">
+                                    <option value="tshirt">T-Shirt Printer</option>
+                                    <option value="supplier">Supplier</option>
+                                    <option value="sign">Signs & Graphics</option>
+                                    <option value="screen">Screen Printer</option>
+                                    <option value="embroidery">Embroidery</option>
+                                    <option value="dtg">DTG Printing</option>
+                                    <option value="promo">Promotional Products</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="crm-form-group">
+                                <label>Location</label>
+                                <input type="text" id="crmDirLocation" placeholder="City, State">
+                            </div>
+                            <div class="crm-form-group">
+                                <label>Description</label>
+                                <textarea id="crmDirDescription" placeholder="Business description..." rows="3"></textarea>
+                            </div>
+                            <div class="crm-form-group">
+                                <label>Year Founded</label>
+                                <input type="number" id="crmDirFounded" placeholder="e.g. 2005" min="1900" max="2030">
                             </div>
                         </div>
-                        <div class="crm-form-group">
-                            <label>Renewal Date</label>
-                            <input type="date" id="crmEditRenewalDate">
+                        <div class="crm-section">
+                            <div class="crm-section-title">Contact Details</div>
+                            <div class="crm-form-group">
+                                <label>Phone</label>
+                                <input type="text" id="crmDirPhone" placeholder="(555) 123-4567">
+                            </div>
+                            <div class="crm-form-group">
+                                <label>Email</label>
+                                <input type="email" id="crmDirEmail" placeholder="info@company.com">
+                            </div>
+                            <div class="crm-form-group">
+                                <label>Website</label>
+                                <input type="text" id="crmDirWebsite" placeholder="www.example.com">
+                            </div>
                         </div>
-                        <div class="crm-form-group">
-                            <label>Admin Status</label>
-                            <select id="crmEditAdminStatus">
-                                <option value="active">Active</option>
-                                <option value="at-risk">At-Risk</option>
-                                <option value="churned">Churned</option>
-                                <option value="prospect">Prospect</option>
-                                <option value="vip">VIP</option>
-                            </select>
+                        <div class="crm-section">
+                            <div class="crm-section-title">Social Media</div>
+                            <div class="crm-form-group">
+                                <label>Facebook</label>
+                                <input type="text" id="crmDirSocialFacebook" placeholder="facebook.com/...">
+                            </div>
+                            <div class="crm-form-group">
+                                <label>Instagram</label>
+                                <input type="text" id="crmDirSocialInstagram" placeholder="@handle">
+                            </div>
+                            <div class="crm-form-group">
+                                <label>LinkedIn</label>
+                                <input type="text" id="crmDirSocialLinkedin" placeholder="linkedin.com/company/...">
+                            </div>
+                            <div class="crm-form-group">
+                                <label>Twitter / X</label>
+                                <input type="text" id="crmDirSocialTwitter" placeholder="@handle">
+                            </div>
+                        </div>
+                        <div class="crm-section">
+                            <div class="crm-section-title">Specialties</div>
+                            <div class="crm-tag-list" id="crmDirSpecialtiesList"></div>
+                            <div style="margin-top:12px;">
+                                <div class="crm-form-group">
+                                    <div style="display:flex;gap:8px;">
+                                        <input type="text" id="crmDirNewSpecialty" placeholder="Add specialty..." style="flex:1;">
+                                        <button class="crm-btn primary" onclick="addDirSpecialty()" style="flex-shrink:0;">Add</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="crm-section">
+                            <div class="crm-section-title">Business Intelligence</div>
+                            <div class="crm-form-group">
+                                <label>Annual Revenue (estimated)</label>
+                                <input type="text" id="crmDirRevenue" placeholder="e.g. 500000" style="font-family:var(--font-mono, monospace);">
+                                <small style="color:var(--ink-cyan);margin-top:4px;display:block;">Enter as number (no $ or commas). Used for purchasing power rollup.</small>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Tags -->
+                    <!-- Tags (shared by both modes) -->
                     <div class="crm-section">
                         <div class="crm-section-title">Tags</div>
                         <div class="crm-tag-list" id="crmTagsList"></div>
@@ -2021,7 +2116,7 @@
 
                     <!-- Save Button -->
                     <div style="margin-top:24px;">
-                        <button class="crm-btn primary" onclick="saveMemberCRMFields()" style="width:100%;">Save Changes</button>
+                        <button class="crm-btn primary" onclick="saveCRMFields()" style="width:100%;">Save Changes</button>
                     </div>
                 </div>
 
@@ -6673,7 +6768,7 @@
             'other': 'Other'
         };
 
-        function loadDirectoryMembers() {
+        async function loadDirectoryMembers() {
             var loadingEl = document.getElementById('directoryLoadingState');
             var tableEl = document.getElementById('directoryTable');
             var emptyEl = document.getElementById('directoryEmptyState');
@@ -6682,19 +6777,47 @@
             tableEl.style.display = 'none';
             emptyEl.style.display = 'none';
 
-            // Simulate loading delay
-            setTimeout(function() {
-                _filteredDirectoryMembers = _directoryMemberData.slice();
-                renderDirectoryMembers(_filteredDirectoryMembers);
-                updateDirectoryStats();
+            // Fetch overrides from Supabase (including revenue data)
+            try {
+                var { data: overrides, error } = await window._supabase
+                    .from('directory_listings')
+                    .select('listing_id, name, category, location, description, phone, website, email, founded, specialties, social, badges, annual_revenue');
 
-                loadingEl.style.display = 'none';
-                if (_filteredDirectoryMembers.length > 0) {
-                    tableEl.style.display = 'table';
-                } else {
-                    emptyEl.style.display = 'block';
+                if (!error && overrides && overrides.length > 0) {
+                    var overrideMap = {};
+                    overrides.forEach(function(o) { overrideMap[o.listing_id] = o; });
+
+                    _directoryMemberData.forEach(function(member) {
+                        var o = overrideMap[member.id];
+                        if (o) {
+                            if (o.name) member.name = o.name;
+                            if (o.category) member.category = o.category;
+                            if (o.location) member.location = o.location;
+                            if (o.description) member.description = o.description;
+                            if (o.phone) member.phone = o.phone;
+                            if (o.website) member.website = o.website;
+                            if (o.email) member.email = o.email;
+                            if (o.founded) member.founded = o.founded;
+                            if (o.specialties && o.specialties.length > 0) member.specialties = o.specialties;
+                            if (o.social && Object.keys(o.social).length > 0) member.social = o.social;
+                            if (o.annual_revenue != null) member.annual_revenue = o.annual_revenue;
+                        }
+                    });
                 }
-            }, 300);
+            } catch (err) {
+                console.error('Error loading directory overrides:', err);
+            }
+
+            _filteredDirectoryMembers = _directoryMemberData.slice();
+            renderDirectoryMembers(_filteredDirectoryMembers);
+            updateDirectoryStats();
+
+            loadingEl.style.display = 'none';
+            if (_filteredDirectoryMembers.length > 0) {
+                tableEl.style.display = 'table';
+            } else {
+                emptyEl.style.display = 'block';
+            }
         }
 
         function updateDirectoryStats() {
@@ -6707,6 +6830,24 @@
                 var el = document.getElementById(catId);
                 if (el) el.textContent = count;
             });
+
+            // Revenue rollup
+            var totalRevenue = 0;
+            _directoryMemberData.forEach(function(m) {
+                if (m.annual_revenue) totalRevenue += parseFloat(m.annual_revenue);
+            });
+            var revenueEl = document.getElementById('directoryTotalRevenue');
+            if (revenueEl) {
+                if (totalRevenue >= 1000000) {
+                    revenueEl.textContent = '$' + (totalRevenue / 1000000).toFixed(1) + 'M';
+                } else if (totalRevenue >= 1000) {
+                    revenueEl.textContent = '$' + (totalRevenue / 1000).toFixed(0) + 'K';
+                } else if (totalRevenue > 0) {
+                    revenueEl.textContent = '$' + totalRevenue.toLocaleString();
+                } else {
+                    revenueEl.textContent = '$0';
+                }
+            }
         }
 
         function renderDirectoryMembers(members) {
@@ -6763,12 +6904,18 @@
         var _crmMemberData = null;
 
         async function openMemberCRM(memberId) {
+            _crmMode = 'user';
             _crmMemberId = memberId;
+            _crmListingId = null;
             var member = cachedMembers.find(m => m.id === memberId);
             if (!member) return;
 
             _crmMemberData = member;
             document.getElementById('crmPanelOverlay').classList.add('active');
+
+            // Show member fields, hide directory fields
+            document.getElementById('crmMemberFields').style.display = 'block';
+            document.getElementById('crmDirectoryFields').style.display = 'none';
 
             // Set header
             document.getElementById('crmMemberName').textContent = member.full_name || 'N/A';
@@ -6801,30 +6948,63 @@
         async function openDirectoryCRM(listingId) {
             _crmMode = 'listing';
             _crmListingId = listingId;
+            _crmMemberId = null;
             var member = _directoryMemberData.find(m => m.id === listingId);
             if (!member) return;
 
-            _crmMemberData = member;
+            // Clone member data so we can merge overrides
+            _crmMemberData = Object.assign({}, member);
             document.getElementById('crmPanelOverlay').classList.add('active');
 
+            // Show directory fields, hide member fields
+            document.getElementById('crmMemberFields').style.display = 'none';
+            document.getElementById('crmDirectoryFields').style.display = 'block';
+
+            // Try to load overrides from Supabase
+            try {
+                var { data: override, error } = await window._supabase
+                    .from('directory_listings')
+                    .select('*')
+                    .eq('listing_id', listingId)
+                    .maybeSingle();
+
+                if (!error && override) {
+                    // Merge overrides — only non-null fields replace hardcoded
+                    if (override.name) _crmMemberData.name = override.name;
+                    if (override.category) _crmMemberData.category = override.category;
+                    if (override.location) _crmMemberData.location = override.location;
+                    if (override.description) _crmMemberData.description = override.description;
+                    if (override.phone) _crmMemberData.phone = override.phone;
+                    if (override.email) _crmMemberData.email = override.email;
+                    if (override.website) _crmMemberData.website = override.website;
+                    if (override.founded) _crmMemberData.founded = override.founded;
+                    if (override.specialties && override.specialties.length > 0) _crmMemberData.specialties = override.specialties;
+                    if (override.social && Object.keys(override.social).length > 0) _crmMemberData.social = override.social;
+                    if (override.badges && override.badges.length > 0) _crmMemberData.badges = override.badges;
+                    if (override.annual_revenue != null) _crmMemberData.annual_revenue = override.annual_revenue;
+                }
+            } catch (err) {
+                console.error('Error loading directory overrides:', err);
+            }
+
             // Set header with directory info
-            document.getElementById('crmMemberName').textContent = member.name || 'N/A';
-            var catDisplay = categoryDisplayNames[member.category] || member.category;
-            document.getElementById('crmMemberCompany').textContent = catDisplay + ' • ' + (member.location || '');
+            document.getElementById('crmMemberName').textContent = _crmMemberData.name || 'N/A';
+            var catDisplay = categoryDisplayNames[_crmMemberData.category] || _crmMemberData.category;
+            document.getElementById('crmMemberCompany').textContent = catDisplay + ' ' + (_crmMemberData.location || '');
 
             // Hide admin status badge for directory listings
             var adminStatusEl = document.getElementById('crmMemberAdminStatus');
             adminStatusEl.style.display = 'none';
 
-            // Load CRM data
+            // Load CRM data (notes, interactions, tags)
             await Promise.all([
                 loadMemberNotes(),
                 loadMemberInteractions(),
                 loadMemberTags()
             ]);
 
-            // Populate overview fields for directory mode
-            populateCRMOverviewDirectory(member);
+            // Populate editable fields for directory mode
+            populateCRMOverviewDirectory(_crmMemberData);
 
             // Switch to Overview tab
             switchCRMTab('overview');
@@ -6862,7 +7042,11 @@
                 document.getElementById(contentId).classList.add('active');
             }
 
-            event.target.classList.add('active');
+            // Highlight the correct tab button
+            var tabBtnMap = { 'overview': 0, 'notes': 1, 'contact-history': 2 };
+            var btns = document.querySelectorAll('.crm-tab-btn');
+            var idx = tabBtnMap[tabName];
+            if (idx !== undefined && btns[idx]) btns[idx].classList.add('active');
         }
 
         function populateCRMOverview(member) {
@@ -6897,40 +7081,57 @@
         }
 
         function populateCRMOverviewDirectory(member) {
-            // For directory mode, show read-only info
-            document.getElementById('crmEmail').textContent = '—';
-            document.getElementById('crmEmail').href = '#';
+            // Populate editable directory fields
+            document.getElementById('crmDirName').value = member.name || '';
+            document.getElementById('crmDirCategory').value = member.category || 'other';
+            document.getElementById('crmDirLocation').value = member.location || '';
+            document.getElementById('crmDirDescription').value = member.description || '';
+            document.getElementById('crmDirFounded').value = member.founded || '';
+            document.getElementById('crmDirPhone').value = member.phone || '';
+            document.getElementById('crmDirEmail').value = member.email || '';
+            document.getElementById('crmDirWebsite').value = member.website || '';
+            document.getElementById('crmDirRevenue').value = member.annual_revenue || '';
 
-            document.getElementById('crmPhone').textContent = member.phone || '—';
-            document.getElementById('crmEditPhone').value = '';
-            document.getElementById('crmEditPhone').disabled = true;
+            // Social media
+            var social = member.social || {};
+            document.getElementById('crmDirSocialFacebook').value = social.facebook || '';
+            document.getElementById('crmDirSocialInstagram').value = social.instagram || '';
+            document.getElementById('crmDirSocialLinkedin').value = social.linkedin || '';
+            document.getElementById('crmDirSocialTwitter').value = social.twitter || '';
 
-            document.getElementById('crmSecondaryEmail').textContent = '—';
-            document.getElementById('crmSecondaryEmail').href = '#';
-            document.getElementById('crmEditSecondaryEmail').value = '';
-            document.getElementById('crmEditSecondaryEmail').disabled = true;
-
-            var website = member.website || '';
-            document.getElementById('crmWebsite').textContent = website ? (new URL('https://' + website).hostname || website) : '—';
-            document.getElementById('crmWebsite').href = website ? ('https://' + website) : '#';
-            document.getElementById('crmEditWebsite').value = '';
-            document.getElementById('crmEditWebsite').disabled = true;
-
-            document.getElementById('crmLinkedin').textContent = '—';
-            document.getElementById('crmLinkedin').href = '#';
-            document.getElementById('crmEditLinkedin').value = '';
-            document.getElementById('crmEditLinkedin').disabled = true;
-
-            document.getElementById('crmMemberSince').textContent = '—';
-            document.getElementById('crmRenewalDate').textContent = '—';
-            document.getElementById('crmEditRenewalDate').value = '';
-            document.getElementById('crmEditRenewalDate').disabled = true;
-
-            document.getElementById('crmEditAdminStatus').value = 'active';
-            document.getElementById('crmEditAdminStatus').disabled = true;
+            // Specialties
+            _crmDirSpecialties = (member.specialties || []).slice();
+            renderDirSpecialties();
 
             // Update stats
             updateCRMStats();
+        }
+
+        var _crmDirSpecialties = [];
+
+        function renderDirSpecialties() {
+            var container = document.getElementById('crmDirSpecialtiesList');
+            container.innerHTML = '';
+            _crmDirSpecialties.forEach(function(spec, idx) {
+                var tag = document.createElement('span');
+                tag.className = 'crm-tag';
+                tag.innerHTML = esc(spec) + ' <span style="cursor:pointer;margin-left:6px;opacity:0.6;" onclick="removeDirSpecialty(' + idx + ')">x</span>';
+                container.appendChild(tag);
+            });
+        }
+
+        function addDirSpecialty() {
+            var input = document.getElementById('crmDirNewSpecialty');
+            var val = input.value.trim();
+            if (!val) return;
+            _crmDirSpecialties.push(val);
+            input.value = '';
+            renderDirSpecialties();
+        }
+
+        function removeDirSpecialty(idx) {
+            _crmDirSpecialties.splice(idx, 1);
+            renderDirSpecialties();
         }
 
         function updateCRMStats() {
@@ -6947,11 +7148,15 @@
 
         // ── OVERVIEW: MEMBER FIELDS ────────────────────────────
 
-        async function saveMemberCRMFields() {
+        async function saveCRMFields() {
             if (_crmMode === 'listing') {
-                alert('Directory business information is read-only');
-                return;
+                await saveDirectoryListingEdits();
+            } else {
+                await saveMemberCRMFields();
             }
+        }
+
+        async function saveMemberCRMFields() {
             if (!_crmMemberId) return;
 
             var updates = {
@@ -6982,6 +7187,77 @@
                 populateCRMOverview(_crmMemberData);
             } catch (err) {
                 console.error('Error saving member fields:', err);
+                alert('Error: ' + err.message);
+            }
+        }
+
+        async function saveDirectoryListingEdits() {
+            if (!_crmListingId) return;
+
+            var social = {};
+            var fb = document.getElementById('crmDirSocialFacebook').value.trim();
+            var ig = document.getElementById('crmDirSocialInstagram').value.trim();
+            var li = document.getElementById('crmDirSocialLinkedin').value.trim();
+            var tw = document.getElementById('crmDirSocialTwitter').value.trim();
+            if (fb) social.facebook = fb;
+            if (ig) social.instagram = ig;
+            if (li) social.linkedin = li;
+            if (tw) social.twitter = tw;
+
+            var revenueVal = document.getElementById('crmDirRevenue').value.trim().replace(/[,$]/g, '');
+            var revenueNum = revenueVal ? parseFloat(revenueVal) : null;
+
+            var upsertData = {
+                listing_id: _crmListingId,
+                name: document.getElementById('crmDirName').value.trim() || null,
+                category: document.getElementById('crmDirCategory').value || null,
+                location: document.getElementById('crmDirLocation').value.trim() || null,
+                description: document.getElementById('crmDirDescription').value.trim() || null,
+                founded: parseInt(document.getElementById('crmDirFounded').value) || null,
+                phone: document.getElementById('crmDirPhone').value.trim() || null,
+                email: document.getElementById('crmDirEmail').value.trim() || null,
+                website: document.getElementById('crmDirWebsite').value.trim() || null,
+                social: social,
+                specialties: _crmDirSpecialties,
+                annual_revenue: revenueNum,
+                updated_at: new Date().toISOString(),
+                updated_by: currentUser ? currentUser.id : null
+            };
+
+            try {
+                var { error } = await window._supabase
+                    .from('directory_listings')
+                    .upsert(upsertData, { onConflict: 'listing_id' });
+
+                if (error) throw error;
+
+                // Update local cache for immediate display
+                var localMember = _directoryMemberData.find(m => m.id === _crmListingId);
+                if (localMember) {
+                    localMember.name = upsertData.name || localMember.name;
+                    localMember.category = upsertData.category || localMember.category;
+                    localMember.location = upsertData.location || localMember.location;
+                    localMember.description = upsertData.description || localMember.description;
+                    localMember.phone = upsertData.phone || localMember.phone;
+                    localMember.website = upsertData.website || localMember.website;
+                    localMember.founded = upsertData.founded || localMember.founded;
+                    localMember.annual_revenue = revenueNum;
+                    if (Object.keys(social).length > 0) localMember.social = social;
+                    if (_crmDirSpecialties.length > 0) localMember.specialties = _crmDirSpecialties.slice();
+                }
+
+                // Re-render directory table and stats
+                renderDirectoryMembers(_filteredDirectoryMembers.length > 0 ? _filteredDirectoryMembers : _directoryMemberData);
+                updateDirectoryStats();
+
+                // Update CRM header
+                document.getElementById('crmMemberName').textContent = upsertData.name || _crmMemberData.name;
+                var catDisplay = categoryDisplayNames[upsertData.category] || upsertData.category;
+                document.getElementById('crmMemberCompany').textContent = catDisplay + ' ' + (upsertData.location || '');
+
+                alert('Directory listing updated successfully');
+            } catch (err) {
+                console.error('Error saving directory listing:', err);
                 alert('Error: ' + err.message);
             }
         }
