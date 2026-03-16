@@ -661,6 +661,516 @@
             box-shadow: 0 6px 16px rgba(0, 212, 255, 0.3);
         }
 
+        /* CRM Panel */
+        .crm-panel-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(2px);
+            z-index: 2500;
+        }
+
+        .crm-panel-overlay.active {
+            display: block;
+        }
+
+        .crm-panel {
+            position: fixed;
+            right: 0;
+            top: 0;
+            height: 100%;
+            width: 800px;
+            background: var(--ink-dark);
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 3000;
+            display: flex;
+            flex-direction: column;
+            box-shadow: -20px 0 60px rgba(0, 0, 0, 0.8);
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .crm-panel-overlay.active .crm-panel {
+            transform: translateX(0);
+        }
+
+        .crm-panel-header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .crm-panel-header-title h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 24px;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .crm-panel-header-title p {
+            font-size: 13px;
+            color: var(--ink-gray);
+            margin-bottom: 12px;
+        }
+
+        .crm-panel-tags {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+
+        .crm-panel-tags .badge {
+            font-size: 11px;
+            padding: 4px 10px;
+        }
+
+        .crm-panel-close {
+            background: transparent;
+            border: none;
+            color: var(--ink-gray);
+            font-size: 24px;
+            cursor: pointer;
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.2s;
+        }
+
+        .crm-panel-close:hover {
+            color: var(--ink-white);
+        }
+
+        .crm-panel-admin-status {
+            margin-top: 12px;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .crm-panel-admin-status.active {
+            background: rgba(0, 212, 255, 0.15);
+            color: var(--ink-cyan);
+        }
+
+        .crm-panel-admin-status.at-risk {
+            background: rgba(255, 107, 53, 0.15);
+            color: var(--ink-orange);
+        }
+
+        .crm-panel-admin-status.churned {
+            background: rgba(233, 30, 140, 0.15);
+            color: var(--ink-magenta);
+        }
+
+        .crm-panel-admin-status.prospect {
+            background: rgba(108, 43, 217, 0.15);
+            color: var(--ink-purple);
+        }
+
+        .crm-panel-admin-status.vip {
+            background: rgba(255, 212, 0, 0.15);
+            color: var(--ink-yellow);
+        }
+
+        .crm-tabs {
+            display: flex;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0 24px;
+            gap: 24px;
+            flex-shrink: 0;
+        }
+
+        .crm-tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--ink-gray);
+            padding: 12px 0;
+            cursor: pointer;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .crm-tab-btn.active {
+            color: var(--ink-cyan);
+            border-bottom-color: var(--ink-cyan);
+        }
+
+        .crm-tab-btn:hover:not(.active) {
+            color: var(--ink-white);
+        }
+
+        .crm-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px;
+        }
+
+        .crm-tab-content {
+            display: none;
+        }
+
+        .crm-tab-content.active {
+            display: block;
+        }
+
+        .crm-section {
+            margin-bottom: 32px;
+        }
+
+        .crm-section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--ink-gray);
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .crm-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .crm-field {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .crm-field-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--ink-gray);
+            margin-bottom: 6px;
+        }
+
+        .crm-field-value {
+            font-size: 14px;
+            color: var(--ink-white);
+            word-break: break-word;
+        }
+
+        .crm-field-value a {
+            color: var(--ink-cyan);
+            text-decoration: none;
+        }
+
+        .crm-field-value a:hover {
+            text-decoration: underline;
+        }
+
+        .crm-form-group {
+            margin-bottom: 16px;
+        }
+
+        .crm-form-group label {
+            display: block;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--ink-gray);
+            margin-bottom: 8px;
+        }
+
+        .crm-form-group input,
+        .crm-form-group select,
+        .crm-form-group textarea {
+            width: 100%;
+            background: rgba(26, 26, 46, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            padding: 10px 12px;
+            font-family: 'Inter', sans-serif;
+            color: var(--ink-white);
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .crm-form-group input::placeholder,
+        .crm-form-group textarea::placeholder {
+            color: var(--ink-gray);
+        }
+
+        .crm-form-group input:focus,
+        .crm-form-group select:focus,
+        .crm-form-group textarea:focus {
+            outline: none;
+            border-color: var(--ink-cyan);
+            box-shadow: 0 0 12px rgba(0, 212, 255, 0.15);
+        }
+
+        .crm-form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .crm-form-inline {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .crm-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--ink-white);
+            padding: 10px 16px;
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .crm-btn:hover {
+            border-color: var(--ink-cyan);
+            color: var(--ink-cyan);
+        }
+
+        .crm-btn.primary {
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-purple));
+            color: var(--ink-black);
+            border: none;
+        }
+
+        .crm-btn.primary:hover {
+            box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3);
+        }
+
+        .crm-btn.small {
+            padding: 6px 10px;
+            font-size: 12px;
+        }
+
+        .crm-note {
+            background: rgba(26, 26, 46, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 12px;
+        }
+
+        .crm-note-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+
+        .crm-note-category {
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 3px;
+            display: inline-block;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .crm-note-category.general {
+            background: rgba(0, 212, 255, 0.15);
+            color: var(--ink-cyan);
+        }
+
+        .crm-note-category.renewal {
+            background: rgba(255, 212, 0, 0.15);
+            color: var(--ink-yellow);
+        }
+
+        .crm-note-category.support {
+            background: rgba(108, 43, 217, 0.15);
+            color: var(--ink-purple);
+        }
+
+        .crm-note-category.opportunity {
+            background: rgba(0, 212, 255, 0.15);
+            color: var(--ink-cyan);
+        }
+
+        .crm-note-category.concern {
+            background: rgba(255, 107, 53, 0.15);
+            color: var(--ink-orange);
+        }
+
+        .crm-note-category.follow-up {
+            background: rgba(233, 30, 140, 0.15);
+            color: var(--ink-magenta);
+        }
+
+        .crm-note-meta {
+            font-size: 11px;
+            color: var(--ink-gray);
+            margin-bottom: 8px;
+        }
+
+        .crm-note-content {
+            font-size: 13px;
+            color: var(--ink-white);
+            line-height: 1.5;
+            margin-bottom: 8px;
+        }
+
+        .crm-note-actions {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+        }
+
+        .crm-interaction {
+            background: rgba(26, 26, 46, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 12px;
+        }
+
+        .crm-interaction-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .crm-interaction-type {
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 3px;
+            display: inline-block;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            background: rgba(0, 212, 255, 0.15);
+            color: var(--ink-cyan);
+        }
+
+        .crm-interaction-direction {
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 3px;
+            background: rgba(108, 43, 217, 0.15);
+            color: var(--ink-purple);
+            font-weight: 600;
+        }
+
+        .crm-interaction-subject {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--ink-white);
+            margin-bottom: 6px;
+        }
+
+        .crm-interaction-details {
+            font-size: 13px;
+            color: var(--ink-gray);
+            line-height: 1.5;
+            margin-bottom: 8px;
+        }
+
+        .crm-interaction-meta {
+            font-size: 11px;
+            color: var(--ink-gray);
+            margin-bottom: 8px;
+        }
+
+        .crm-tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .crm-tag {
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--ink-cyan);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .crm-tag button {
+            background: transparent;
+            border: none;
+            color: var(--ink-cyan);
+            cursor: pointer;
+            font-size: 16px;
+            padding: 0;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s;
+        }
+
+        .crm-tag button:hover {
+            transform: scale(1.2);
+        }
+
+        .crm-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .crm-stat {
+            background: rgba(26, 26, 46, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 12px;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .crm-stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--ink-cyan);
+            margin-bottom: 4px;
+        }
+
+        .crm-stat-label {
+            font-size: 11px;
+            color: var(--ink-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .crm-empty {
+            text-align: center;
+            padding: 24px;
+            color: var(--ink-gray);
+        }
+
         /* Loading State */
         .loading {
             text-align: center;
@@ -1308,6 +1818,229 @@
 
     </div>
 
+    <!-- CRM Panel Overlay -->
+    <div class="crm-panel-overlay" id="crmPanelOverlay" onclick="if(event.target === this) closeMemberCRM()">
+        <div class="crm-panel" id="crmPanel">
+            <!-- CRM Header -->
+            <div class="crm-panel-header">
+                <div class="crm-panel-header-title">
+                    <h2 id="crmMemberName">Loading...</h2>
+                    <p id="crmMemberCompany">—</p>
+                    <div class="crm-panel-tags" id="crmMemberTags"></div>
+                    <div class="crm-panel-admin-status" id="crmMemberAdminStatus" style="display:none;"></div>
+                </div>
+                <button class="crm-panel-close" onclick="closeMemberCRM()">✕</button>
+            </div>
+
+            <!-- CRM Sub-tabs -->
+            <div class="crm-tabs">
+                <button class="crm-tab-btn active" onclick="switchCRMTab('overview')">Overview</button>
+                <button class="crm-tab-btn" onclick="switchCRMTab('notes')">Notes</button>
+                <button class="crm-tab-btn" onclick="switchCRMTab('contact-history')">Contact History</button>
+            </div>
+
+            <!-- CRM Content -->
+            <div class="crm-content">
+                <!-- Overview Tab -->
+                <div class="crm-tab-content active" id="crmOverviewTab">
+                    <!-- Contact Info -->
+                    <div class="crm-section">
+                        <div class="crm-section-title">Contact Information</div>
+                        <div class="crm-grid">
+                            <div class="crm-field">
+                                <div class="crm-field-label">Email</div>
+                                <div class="crm-field-value"><a href="mailto:" id="crmEmail">—</a></div>
+                            </div>
+                            <div class="crm-field">
+                                <div class="crm-field-label">Phone</div>
+                                <div class="crm-field-value" id="crmPhone">—</div>
+                            </div>
+                            <div class="crm-field">
+                                <div class="crm-field-label">Secondary Email</div>
+                                <div class="crm-field-value"><a href="mailto:" id="crmSecondaryEmail">—</a></div>
+                            </div>
+                            <div class="crm-field">
+                                <div class="crm-field-label">Website</div>
+                                <div class="crm-field-value"><a href="#" id="crmWebsite" target="_blank">—</a></div>
+                            </div>
+                            <div class="crm-field">
+                                <div class="crm-field-label">LinkedIn</div>
+                                <div class="crm-field-value"><a href="#" id="crmLinkedin" target="_blank">—</a></div>
+                            </div>
+                        </div>
+                        <div class="crm-form-group">
+                            <label>Phone</label>
+                            <input type="text" id="crmEditPhone" placeholder="(555) 123-4567">
+                        </div>
+                        <div class="crm-form-group">
+                            <label>Secondary Email</label>
+                            <input type="email" id="crmEditSecondaryEmail" placeholder="name@company.com">
+                        </div>
+                        <div class="crm-form-group">
+                            <label>Website</label>
+                            <input type="url" id="crmEditWebsite" placeholder="https://example.com">
+                        </div>
+                        <div class="crm-form-group">
+                            <label>LinkedIn</label>
+                            <input type="url" id="crmEditLinkedin" placeholder="https://linkedin.com/in/...">
+                        </div>
+                    </div>
+
+                    <!-- Membership Info -->
+                    <div class="crm-section">
+                        <div class="crm-section-title">Membership Information</div>
+                        <div class="crm-grid">
+                            <div class="crm-field">
+                                <div class="crm-field-label">Member Since</div>
+                                <div class="crm-field-value" id="crmMemberSince">—</div>
+                            </div>
+                            <div class="crm-field">
+                                <div class="crm-field-label">Renewal Date</div>
+                                <div class="crm-field-value" id="crmRenewalDate">—</div>
+                            </div>
+                        </div>
+                        <div class="crm-form-group">
+                            <label>Renewal Date</label>
+                            <input type="date" id="crmEditRenewalDate">
+                        </div>
+                        <div class="crm-form-group">
+                            <label>Admin Status</label>
+                            <select id="crmEditAdminStatus">
+                                <option value="active">Active</option>
+                                <option value="at-risk">At-Risk</option>
+                                <option value="churned">Churned</option>
+                                <option value="prospect">Prospect</option>
+                                <option value="vip">VIP</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Tags -->
+                    <div class="crm-section">
+                        <div class="crm-section-title">Tags</div>
+                        <div class="crm-tag-list" id="crmTagsList"></div>
+                        <div style="margin-top:16px;">
+                            <div class="crm-form-group">
+                                <label>Add New Tag</label>
+                                <div style="display:flex;gap:8px;">
+                                    <input type="text" id="crmNewTag" placeholder="Enter tag name" style="flex:1;">
+                                    <button class="crm-btn primary" onclick="addMemberTag()" style="flex-shrink:0;">Add</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Stats -->
+                    <div class="crm-section">
+                        <div class="crm-section-title">Quick Stats</div>
+                        <div class="crm-stats">
+                            <div class="crm-stat">
+                                <div class="crm-stat-value" id="crmStatNotes">0</div>
+                                <div class="crm-stat-label">Total Notes</div>
+                            </div>
+                            <div class="crm-stat">
+                                <div class="crm-stat-value" id="crmStatInteractions">0</div>
+                                <div class="crm-stat-label">Interactions</div>
+                            </div>
+                        </div>
+                        <div style="margin-top:12px;">
+                            <div class="crm-field">
+                                <div class="crm-field-label">Last Interaction</div>
+                                <div class="crm-field-value" id="crmLastInteraction">—</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Save Button -->
+                    <div style="margin-top:24px;">
+                        <button class="crm-btn primary" onclick="saveMemberCRMFields()" style="width:100%;">Save Changes</button>
+                    </div>
+                </div>
+
+                <!-- Notes Tab -->
+                <div class="crm-tab-content" id="crmNotesTab">
+                    <!-- Add Note Form -->
+                    <div class="crm-section">
+                        <div class="crm-section-title">Add Note</div>
+                        <div class="crm-form-group">
+                            <label>Note Content</label>
+                            <textarea id="crmNewNoteContent" placeholder="Write a note..."></textarea>
+                        </div>
+                        <div class="crm-form-group">
+                            <label>Category</label>
+                            <select id="crmNewNoteCategory">
+                                <option value="general">General</option>
+                                <option value="renewal">Renewal</option>
+                                <option value="support">Support</option>
+                                <option value="opportunity">Opportunity</option>
+                                <option value="concern">Concern</option>
+                                <option value="follow-up">Follow-up</option>
+                            </select>
+                        </div>
+                        <div class="crm-form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="crmNewNotePinned">
+                                <span>Pin this note</span>
+                            </label>
+                        </div>
+                        <button class="crm-btn primary" onclick="addMemberNote()" style="width:100%;">Save Note</button>
+                    </div>
+
+                    <!-- Notes List -->
+                    <div class="crm-section">
+                        <div class="crm-section-title">Notes</div>
+                        <div id="crmNotesList"></div>
+                    </div>
+                </div>
+
+                <!-- Contact History Tab -->
+                <div class="crm-tab-content" id="crmContactHistoryTab">
+                    <!-- Add Interaction Form -->
+                    <div class="crm-section">
+                        <div class="crm-section-title">Log Interaction</div>
+                        <div class="crm-form-group">
+                            <label>Interaction Type</label>
+                            <select id="crmNewInteractionType">
+                                <option value="email">Email</option>
+                                <option value="phone">Phone</option>
+                                <option value="meeting">Meeting</option>
+                                <option value="chat">Chat</option>
+                                <option value="event">Event</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="crm-form-group">
+                            <label>Direction</label>
+                            <select id="crmNewInteractionDirection">
+                                <option value="inbound">Inbound</option>
+                                <option value="outbound">Outbound</option>
+                            </select>
+                        </div>
+                        <div class="crm-form-group">
+                            <label>Subject</label>
+                            <input type="text" id="crmNewInteractionSubject" placeholder="Subject of interaction">
+                        </div>
+                        <div class="crm-form-group">
+                            <label>Details</label>
+                            <textarea id="crmNewInteractionDetails" placeholder="Interaction details..."></textarea>
+                        </div>
+                        <div class="crm-form-group">
+                            <label>Follow-up Date (optional)</label>
+                            <input type="date" id="crmNewInteractionFollowUpDate">
+                        </div>
+                        <button class="crm-btn primary" onclick="addMemberInteraction()" style="width:100%;">Log Interaction</button>
+                    </div>
+
+                    <!-- Interactions List -->
+                    <div class="crm-section">
+                        <div class="crm-section-title">Contact History</div>
+                        <div id="crmInteractionsList"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Auth Error State -->
     <div id="authErrorContent" style="display: none;">
         <div class="auth-error">
@@ -1580,6 +2313,7 @@
                     <td>${formatDate(member.created_at)}</td>
                     <td>
                         <div class="row-actions">
+                            <button class="row-btn view" onclick="openMemberCRM('${member.id}')">View</button>
                             <button class="row-btn" onclick="openEditMemberModal('${member.id}')">Edit</button>
                             <button class="row-btn delete" onclick="openDeleteConfirm('member', '${member.id}', '${member.full_name}')">Delete</button>
                         </div>
@@ -2904,6 +3638,450 @@
                 console.error('Review claim error:', err);
                 alert('Error: ' + err.message);
             }
+        }
+
+        // ── CRM PANEL ──────────────────────────────────────────
+
+        var _crmMemberId = null;
+        var _crmNotes = [];
+        var _crmInteractions = [];
+        var _crmTags = [];
+        var _crmMemberData = null;
+
+        async function openMemberCRM(memberId) {
+            _crmMemberId = memberId;
+            var member = cachedMembers.find(m => m.id === memberId);
+            if (!member) return;
+
+            _crmMemberData = member;
+            document.getElementById('crmPanelOverlay').classList.add('active');
+
+            // Set header
+            document.getElementById('crmMemberName').textContent = member.full_name || 'N/A';
+            document.getElementById('crmMemberCompany').textContent = member.company || '—';
+
+            // Set admin status badge
+            var adminStatusEl = document.getElementById('crmMemberAdminStatus');
+            if (member.admin_status) {
+                adminStatusEl.textContent = (member.admin_status || '').toUpperCase();
+                adminStatusEl.className = 'crm-panel-admin-status ' + member.admin_status;
+                adminStatusEl.style.display = 'inline-block';
+            } else {
+                adminStatusEl.style.display = 'none';
+            }
+
+            // Load CRM data
+            await Promise.all([
+                loadMemberNotes(),
+                loadMemberInteractions(),
+                loadMemberTags()
+            ]);
+
+            // Populate overview fields
+            populateCRMOverview(member);
+
+            // Switch to Overview tab
+            switchCRMTab('overview');
+        }
+
+        function closeMemberCRM() {
+            document.getElementById('crmPanelOverlay').classList.remove('active');
+            _crmMemberId = null;
+            _crmNotes = [];
+            _crmInteractions = [];
+            _crmTags = [];
+        }
+
+        function switchCRMTab(tabName) {
+            document.querySelectorAll('.crm-tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.crm-tab-content').forEach(content => content.classList.remove('active'));
+
+            var tabMap = {
+                'overview': 'crmOverviewTab',
+                'notes': 'crmNotesTab',
+                'contact-history': 'crmContactHistoryTab'
+            };
+
+            var contentId = tabMap[tabName];
+            if (contentId) {
+                document.getElementById(contentId).classList.add('active');
+            }
+
+            event.target.classList.add('active');
+        }
+
+        function populateCRMOverview(member) {
+            document.getElementById('crmEmail').textContent = member.email || '—';
+            document.getElementById('crmEmail').href = 'mailto:' + (member.email || '');
+
+            document.getElementById('crmPhone').textContent = member.phone || '—';
+            document.getElementById('crmEditPhone').value = member.phone || '';
+
+            document.getElementById('crmSecondaryEmail').textContent = member.secondary_email || '—';
+            document.getElementById('crmSecondaryEmail').href = 'mailto:' + (member.secondary_email || '');
+            document.getElementById('crmEditSecondaryEmail').value = member.secondary_email || '';
+
+            var website = member.website || '';
+            document.getElementById('crmWebsite').textContent = website ? (new URL(website).hostname || website) : '—';
+            document.getElementById('crmWebsite').href = website || '#';
+            document.getElementById('crmEditWebsite').value = website;
+
+            var linkedin = member.linkedin || '';
+            document.getElementById('crmLinkedin').textContent = linkedin ? 'View Profile' : '—';
+            document.getElementById('crmLinkedin').href = linkedin || '#';
+            document.getElementById('crmEditLinkedin').value = linkedin;
+
+            document.getElementById('crmMemberSince').textContent = member.member_since ? formatDate(member.member_since) : '—';
+            document.getElementById('crmRenewalDate').textContent = member.renewal_date ? formatDate(member.renewal_date) : '—';
+            document.getElementById('crmEditRenewalDate').value = member.renewal_date ? member.renewal_date.split('T')[0] : '';
+
+            document.getElementById('crmEditAdminStatus').value = member.admin_status || 'active';
+
+            // Update stats
+            updateCRMStats();
+        }
+
+        function updateCRMStats() {
+            document.getElementById('crmStatNotes').textContent = _crmNotes.length;
+            document.getElementById('crmStatInteractions').textContent = _crmInteractions.length;
+
+            if (_crmInteractions.length > 0) {
+                var lastInteraction = _crmInteractions[0];
+                document.getElementById('crmLastInteraction').textContent = formatDate(lastInteraction.created_at);
+            } else {
+                document.getElementById('crmLastInteraction').textContent = '—';
+            }
+        }
+
+        // ── OVERVIEW: MEMBER FIELDS ────────────────────────────
+
+        async function saveMemberCRMFields() {
+            if (!_crmMemberId) return;
+
+            var updates = {
+                phone: document.getElementById('crmEditPhone').value || null,
+                secondary_email: document.getElementById('crmEditSecondaryEmail').value || null,
+                website: document.getElementById('crmEditWebsite').value || null,
+                linkedin: document.getElementById('crmEditLinkedin').value || null,
+                renewal_date: document.getElementById('crmEditRenewalDate').value || null,
+                admin_status: document.getElementById('crmEditAdminStatus').value
+            };
+
+            try {
+                var { error } = await window._supabase
+                    .from('profiles')
+                    .update(updates)
+                    .eq('id', _crmMemberId);
+
+                if (error) throw error;
+
+                // Update cached member
+                var cachedMember = cachedMembers.find(m => m.id === _crmMemberId);
+                if (cachedMember) {
+                    Object.assign(cachedMember, updates);
+                    _crmMemberData = cachedMember;
+                }
+
+                alert('Member information updated successfully');
+                populateCRMOverview(_crmMemberData);
+            } catch (err) {
+                console.error('Error saving member fields:', err);
+                alert('Error: ' + err.message);
+            }
+        }
+
+        // ── OVERVIEW: TAGS ────────────────────────────────────
+
+        async function loadMemberTags() {
+            try {
+                var { data, error } = await window._supabase
+                    .from('member_tags')
+                    .select('*')
+                    .eq('member_id', _crmMemberId);
+
+                if (error) throw error;
+                _crmTags = data || [];
+                renderMemberTags();
+            } catch (err) {
+                console.error('Error loading tags:', err);
+            }
+        }
+
+        async function addMemberTag() {
+            var tagName = document.getElementById('crmNewTag').value.trim();
+            if (!tagName) {
+                alert('Please enter a tag name');
+                return;
+            }
+
+            try {
+                var { data, error } = await window._supabase
+                    .from('member_tags')
+                    .insert([{
+                        member_id: _crmMemberId,
+                        tag: tagName,
+                        added_by: currentUser.id
+                    }]);
+
+                if (error) throw error;
+
+                document.getElementById('crmNewTag').value = '';
+                await loadMemberTags();
+            } catch (err) {
+                console.error('Error adding tag:', err);
+                alert('Error: ' + err.message);
+            }
+        }
+
+        async function removeMemberTag(tagId) {
+            try {
+                var { error } = await window._supabase
+                    .from('member_tags')
+                    .delete()
+                    .eq('id', tagId);
+
+                if (error) throw error;
+                await loadMemberTags();
+            } catch (err) {
+                console.error('Error removing tag:', err);
+                alert('Error: ' + err.message);
+            }
+        }
+
+        function renderMemberTags() {
+            var container = document.getElementById('crmMemberTags');
+            var listContainer = document.getElementById('crmTagsList');
+
+            // Header tags
+            container.innerHTML = _crmTags.map(t =>
+                '<span class="badge badge-purple">' + esc(t.tag) + '</span>'
+            ).join('');
+
+            // Tag list in overview
+            if (_crmTags.length === 0) {
+                listContainer.innerHTML = '<div class="crm-empty">No tags yet</div>';
+            } else {
+                listContainer.innerHTML = '<div class="crm-tag-list">' + _crmTags.map(t =>
+                    '<div class="crm-tag">' + esc(t.tag) + '<button onclick="removeMemberTag(' + t.id + ')">✕</button></div>'
+                ).join('') + '</div>';
+            }
+        }
+
+        // ── NOTES ──────────────────────────────────────────────
+
+        async function loadMemberNotes() {
+            try {
+                var { data, error } = await window._supabase
+                    .from('member_notes')
+                    .select('*')
+                    .eq('member_id', _crmMemberId)
+                    .order('is_pinned', { ascending: false })
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+                _crmNotes = data || [];
+                renderMemberNotes();
+            } catch (err) {
+                console.error('Error loading notes:', err);
+            }
+        }
+
+        async function addMemberNote() {
+            var content = document.getElementById('crmNewNoteContent').value.trim();
+            var category = document.getElementById('crmNewNoteCategory').value;
+            var isPinned = document.getElementById('crmNewNotePinned').checked;
+
+            if (!content) {
+                alert('Please enter note content');
+                return;
+            }
+
+            try {
+                var { data, error } = await window._supabase
+                    .from('member_notes')
+                    .insert([{
+                        member_id: _crmMemberId,
+                        author_id: currentUser.id,
+                        content: content,
+                        category: category,
+                        is_pinned: isPinned,
+                        created_at: new Date().toISOString(),
+                        updated_at: new Date().toISOString()
+                    }]);
+
+                if (error) throw error;
+
+                document.getElementById('crmNewNoteContent').value = '';
+                document.getElementById('crmNewNoteCategory').value = 'general';
+                document.getElementById('crmNewNotePinned').checked = false;
+
+                await loadMemberNotes();
+                updateCRMStats();
+            } catch (err) {
+                console.error('Error adding note:', err);
+                alert('Error: ' + err.message);
+            }
+        }
+
+        async function toggleNotePin(noteId, currentPin) {
+            try {
+                var { error } = await window._supabase
+                    .from('member_notes')
+                    .update({ is_pinned: !currentPin })
+                    .eq('id', noteId);
+
+                if (error) throw error;
+                await loadMemberNotes();
+            } catch (err) {
+                console.error('Error toggling note pin:', err);
+                alert('Error: ' + err.message);
+            }
+        }
+
+        async function deleteMemberNote(noteId) {
+            if (!confirm('Delete this note?')) return;
+
+            try {
+                var { error } = await window._supabase
+                    .from('member_notes')
+                    .delete()
+                    .eq('id', noteId);
+
+                if (error) throw error;
+                await loadMemberNotes();
+                updateCRMStats();
+            } catch (err) {
+                console.error('Error deleting note:', err);
+                alert('Error: ' + err.message);
+            }
+        }
+
+        function renderMemberNotes() {
+            var container = document.getElementById('crmNotesList');
+
+            if (_crmNotes.length === 0) {
+                container.innerHTML = '<div class="crm-empty">No notes yet</div>';
+                return;
+            }
+
+            container.innerHTML = _crmNotes.map(note => {
+                var author = note.author_id === currentUser.id ? 'You' : 'Team Member';
+                return '<div class="crm-note">' +
+                    '<div class="crm-note-header">' +
+                        '<span class="crm-note-category ' + esc(note.category) + '">' + esc(note.category).toUpperCase() + '</span>' +
+                        '<button class="crm-btn small" onclick="toggleNotePin(' + note.id + ', ' + note.is_pinned + ')" style="background:transparent;border:none;color:' + (note.is_pinned ? 'var(--ink-yellow)' : 'var(--ink-gray)') + ';">📌</button>' +
+                    '</div>' +
+                    '<div class="crm-note-meta">' + author + ' • ' + formatDate(note.created_at) + '</div>' +
+                    '<div class="crm-note-content">' + esc(note.content) + '</div>' +
+                    '<div class="crm-note-actions">' +
+                        '<button class="crm-btn small" onclick="deleteMemberNote(' + note.id + ')">Delete</button>' +
+                    '</div>' +
+                    '</div>';
+            }).join('');
+        }
+
+        // ── CONTACT HISTORY ────────────────────────────────────
+
+        async function loadMemberInteractions() {
+            try {
+                var { data, error } = await window._supabase
+                    .from('member_interactions')
+                    .select('*')
+                    .eq('member_id', _crmMemberId)
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+                _crmInteractions = data || [];
+                renderMemberInteractions();
+            } catch (err) {
+                console.error('Error loading interactions:', err);
+            }
+        }
+
+        async function addMemberInteraction() {
+            var type = document.getElementById('crmNewInteractionType').value;
+            var direction = document.getElementById('crmNewInteractionDirection').value;
+            var subject = document.getElementById('crmNewInteractionSubject').value.trim();
+            var details = document.getElementById('crmNewInteractionDetails').value.trim();
+            var followUpDate = document.getElementById('crmNewInteractionFollowUpDate').value || null;
+
+            if (!subject) {
+                alert('Please enter a subject');
+                return;
+            }
+
+            try {
+                var { data, error } = await window._supabase
+                    .from('member_interactions')
+                    .insert([{
+                        member_id: _crmMemberId,
+                        logged_by: currentUser.id,
+                        interaction_type: type,
+                        direction: direction,
+                        subject: subject,
+                        details: details || null,
+                        follow_up_date: followUpDate,
+                        follow_up_done: false,
+                        created_at: new Date().toISOString(),
+                        updated_at: new Date().toISOString()
+                    }]);
+
+                if (error) throw error;
+
+                document.getElementById('crmNewInteractionType').value = 'email';
+                document.getElementById('crmNewInteractionDirection').value = 'inbound';
+                document.getElementById('crmNewInteractionSubject').value = '';
+                document.getElementById('crmNewInteractionDetails').value = '';
+                document.getElementById('crmNewInteractionFollowUpDate').value = '';
+
+                await loadMemberInteractions();
+                updateCRMStats();
+            } catch (err) {
+                console.error('Error adding interaction:', err);
+                alert('Error: ' + err.message);
+            }
+        }
+
+        async function toggleFollowUpDone(interactionId, currentDone) {
+            try {
+                var { error } = await window._supabase
+                    .from('member_interactions')
+                    .update({ follow_up_done: !currentDone })
+                    .eq('id', interactionId);
+
+                if (error) throw error;
+                await loadMemberInteractions();
+            } catch (err) {
+                console.error('Error toggling follow-up:', err);
+                alert('Error: ' + err.message);
+            }
+        }
+
+        function renderMemberInteractions() {
+            var container = document.getElementById('crmInteractionsList');
+
+            if (_crmInteractions.length === 0) {
+                container.innerHTML = '<div class="crm-empty">No interactions yet</div>';
+                return;
+            }
+
+            container.innerHTML = _crmInteractions.map(interaction => {
+                var followUpSection = interaction.follow_up_date ?
+                    '<div class="crm-interaction-meta">Follow-up: ' + formatDate(interaction.follow_up_date) + ' ' +
+                    '<button class="crm-btn small" onclick="toggleFollowUpDone(' + interaction.id + ', ' + interaction.follow_up_done + ')" style="' +
+                    (interaction.follow_up_done ? 'color:var(--ink-cyan);' : '') + '">✓ ' + (interaction.follow_up_done ? 'Done' : 'Mark Done') + '</button></div>' : '';
+
+                return '<div class="crm-interaction">' +
+                    '<div class="crm-interaction-header">' +
+                        '<span class="crm-interaction-type">' + esc(interaction.interaction_type).toUpperCase() + '</span>' +
+                        '<span class="crm-interaction-direction">' + esc(interaction.direction).toUpperCase() + '</span>' +
+                    '</div>' +
+                    '<div class="crm-interaction-subject">' + esc(interaction.subject) + '</div>' +
+                    (interaction.details ? '<div class="crm-interaction-details">' + esc(interaction.details) + '</div>' : '') +
+                    '<div class="crm-interaction-meta">' + formatDate(interaction.created_at) + '</div>' +
+                    followUpSection +
+                    '</div>';
+            }).join('');
         }
     </script>
 </body>
