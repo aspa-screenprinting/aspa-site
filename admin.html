@@ -1344,6 +1344,7 @@
             <button class="tab-btn" onclick="switchTab('pointsRewards')" style="color:var(--ink-cyan);">Points & Rewards</button>
             <button class="tab-btn" onclick="switchTab('jobBoard')" style="color:var(--ink-orange);">Job Board</button>
             <button class="tab-btn" onclick="switchTab('claims')" style="color:var(--ink-purple);">Directory Claims</button>
+            <button class="tab-btn" onclick="switchTab('directoryMembers')" style="color:var(--ink-magenta);">Directory Members</button>
         </div>
 
         <!-- Members Tab -->
@@ -1813,6 +1814,73 @@
                     <tbody id="allClaimsBody"></tbody>
                 </table>
                 <div id="allClaimsEmpty" style="text-align:center;padding:2rem;color:var(--ink-gray);">No claims yet.</div>
+            </div>
+        </div>
+
+        <!-- Directory Members Tab -->
+        <div id="directoryMembersTab" class="tab-content">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Total Businesses</div>
+                    <div class="stat-value" id="directoryTotalCount">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">T-Shirt Printers</div>
+                    <div class="stat-value" id="directoryCategoryTshirt">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Suppliers</div>
+                    <div class="stat-value" id="directoryCategorySupplier">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Signs & Graphics</div>
+                    <div class="stat-value" id="directoryCategorySign">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Screen Printers</div>
+                    <div class="stat-value" id="directoryCategoryScreen">0</div>
+                </div>
+            </div>
+
+            <div class="content-header">
+                <div class="search-bar">
+                    <input type="text" id="directorySearch" placeholder="Search by name or location..." onkeyup="filterDirectoryMembers()">
+                </div>
+                <select class="filter-dropdown" id="directoryCategoryFilter" onchange="filterDirectoryMembers()">
+                    <option value="">All Categories</option>
+                    <option value="tshirt">T-Shirt Printer</option>
+                    <option value="supplier">Supplier</option>
+                    <option value="sign">Signs & Graphics</option>
+                    <option value="screen">Screen Printer</option>
+                    <option value="embroidery">Embroidery</option>
+                    <option value="dtg">DTG Printing</option>
+                    <option value="promo">Promotional Products</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <div class="table-container">
+                <div id="directoryLoadingState" class="loading" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>Loading directory...</p>
+                </div>
+                <table id="directoryTable" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>Business Name</th>
+                            <th>Category</th>
+                            <th>Location</th>
+                            <th>Phone</th>
+                            <th>Website</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="directoryTableBody">
+                    </tbody>
+                </table>
+                <div id="directoryEmptyState" class="empty-state" style="display: none;">
+                    <p>No businesses found</p>
+                </div>
             </div>
         </div>
 
@@ -3171,6 +3239,7 @@
         var _pointsAdminLoaded = false;
         var _jobBoardLoaded = false;
         var _claimsLoaded = false;
+        var _directoryMembersLoaded = false;
         var _origSwitchTab = switchTab;
         switchTab = function(tabName) {
             _origSwitchTab.call(null, tabName);
@@ -3185,6 +3254,10 @@
             if (tabName === 'claims' && !_claimsLoaded) {
                 _claimsLoaded = true;
                 loadClaims();
+            }
+            if (tabName === 'directoryMembers' && !_directoryMembersLoaded) {
+                _directoryMembersLoaded = true;
+                loadDirectoryMembers();
             }
         };
 
@@ -3640,9 +3713,3050 @@
             }
         }
 
+        // ==========================================
+        // DIRECTORY MEMBERS ADMIN FUNCTIONS
+        // ==========================================
+
+        var _directoryMemberData = [
+            {
+                id: 1,
+                name: "4 Logo Imprintable Apparel",
+                category: "tshirt",
+                location: "Eatonton, GA",
+                description: "ASPA Certified screen printing, graphic design, and promotional products.",
+                phone: "703-727-0741",
+                website: "4logoapparel.com",
+                social: {},
+                badges: ["certified"],
+                specialties: ["Screen Printing", "Graphic Design", "Promotional Products"],
+                founded: 2011,
+                initials: "FL"
+            },
+            {
+                id: 2,
+                name: "6 Tactical",
+                category: "tshirt",
+                location: "Hillsboro, MO",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing"],
+                founded: 2010,
+                initials: "6T"
+            },
+            {
+                id: 3,
+                name: "A Plus Printing & Advertising",
+                category: "tshirt",
+                location: "Wilmington, DE",
+                description: "ASPA Certified screen printing, t-shirt shop, and DTG services.",
+                phone: "302-645-3413",
+                website: "",
+                social: {},
+                badges: ["certified"],
+                specialties: ["Screen Printing", "T-Shirt Shop", "DTG"],
+                founded: 2008,
+                initials: "AP"
+            },
+            {
+                id: 4,
+                name: "ABE Promo",
+                category: "tshirt",
+                location: "Austin, TX",
+                description: "Promotional products services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Promotional Products"],
+                founded: 2011,
+                initials: "AP"
+            },
+            {
+                id: 5,
+                name: "Action Designz",
+                category: "tshirt",
+                location: "Baldwin Park, CA",
+                description: "Screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing", "Custom Embroidery"],
+                founded: 2010,
+                initials: "AD"
+            },
+            {
+                id: 6,
+                name: "Activist Supply",
+                category: "tshirt",
+                location: "O'Fallon, MO",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing"],
+                founded: 2010,
+                initials: "AS"
+            },
+            {
+                id: 7,
+                name: "Actual INK Designs",
+                category: "embroidery",
+                location: "Milwaukee, WI",
+                description: "Specializing in custom embroidery services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom Embroidery"],
+                founded: 2010,
+                initials: "AI"
+            },
+            {
+                id: 8,
+                name: "Affinitee Graphics",
+                category: "tshirt",
+                location: "Lawton, OK",
+                description: "Screen printing and custom t-shirt services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing", "Custom T-Shirts"],
+                founded: 2011,
+                initials: "AG"
+            },
+            {
+                id: 9,
+                name: "Albany Shirt Shop Corp",
+                category: "embroidery",
+                location: "Albany, GA",
+                description: "Specializing in custom embroidery services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom Embroidery"],
+                founded: 2010,
+                initials: "AS"
+            },
+            {
+                id: 10,
+                name: "All-In Marketing",
+                category: "tshirt",
+                location: "St. Clair Shores, MI",
+                description: "Screen printing and promotional products services.",
+                phone: "586.445.3355",
+                website: "aim4promos.com",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing", "Promotional Products"],
+                founded: 2006,
+                initials: "AM"
+            },
+            {
+                id: 11,
+                name: "American Sign & Graphics",
+                category: "sign",
+                location: "Jacksonville, FL",
+                description: "ASPA Certified screen printing, signs, and vehicle wrap services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["certified"],
+                specialties: ["Screen Printing", "Signs", "Vehicle Wraps"],
+                founded: 2010,
+                initials: "AS"
+            },
+            {
+                id: 12,
+                name: "ANK Creative Group",
+                category: "tshirt",
+                location: "Hawthorne, NJ",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing"],
+                founded: 2010,
+                initials: "AC"
+            },
+            {
+                id: 13,
+                name: "Anvil Custom Graphics",
+                category: "tshirt",
+                location: "Fayetteville, AR",
+                description: "ASPA Certified screen printing, sublimation, and sports/team wear services.",
+                phone: "479-283-6112",
+                website: "anvilcustomgraphics.com",
+                social: {},
+                badges: ["certified"],
+                specialties: ["Screen Printing", "Sublimation", "Sports Wear"],
+                founded: 2009,
+                initials: "AC"
+            },
+            {
+                id: 14,
+                name: "Armomika Direct, Inc.",
+                category: "tshirt",
+                location: "Paradise Valley, AZ",
+                description: "Screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing"],
+                founded: 2013,
+                initials: "AD"
+            },
+            {
+                id: 15,
+                name: "Artwurks Unlimited",
+                category: "tshirt",
+                location: "Hartford, CT",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing"],
+                founded: 2010,
+                initials: "AU"
+            },
+            {
+                id: 16,
+                name: "Ashley'S Design",
+                category: "tshirt",
+                location: "Oak Harbor, WA",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing"],
+                founded: 2010,
+                initials: "AS"
+            },
+            {
+                id: 17,
+                name: "Atlas Screen Supply Co.",
+                category: "supplier",
+                location: "Chicago, IL",
+                description: "Screen printing equipment and supplies distributor.",
+                phone: "(773) 588-3600",
+                website: "atlasscreensupply.com",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Equipment", "Supplies", "Distribution"],
+                founded: 1995,
+                initials: "AS"
+            },
+            {
+                id: 18,
+                name: "Authentic Imprints, LLC",
+                category: "tshirt",
+                location: "San Jose, CA",
+                description: "ASPA Certified screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["certified"],
+                specialties: ["Screen Printing"],
+                founded: 2011,
+                initials: "AI"
+            },
+            {
+                id: 19,
+                name: "Awards Plus",
+                category: "tshirt",
+                location: "Grand Island, NE",
+                description: "Awards and screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Awards", "Screen Printing"],
+                founded: 2010,
+                initials: "AP"
+            },
+            {
+                id: 20,
+                name: "Baltimore Screen Print",
+                category: "tshirt",
+                location: "Baltimore, MD",
+                description: "ASPA Certified screen printing and contract printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["certified"],
+                specialties: ["Screen Printing", "Contract Printing"],
+                founded: 2009,
+                initials: "BS"
+            },
+            {
+                id: 21,
+                name: "Barry L.",
+                category: "tshirt",
+                location: "Virginia Beach, VA",
+                description: "ASPA Certified screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["certified"],
+                specialties: ["Screen Printing"],
+                founded: 2010,
+                initials: "BL"
+            },
+            {
+                id: 22,
+                name: "Bay-Arenac ISD Career Center",
+                category: "education",
+                location: "Bay City, MI",
+                description: "ASPA Certified career center offering screen printing education.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["certified"],
+                specialties: ["Education", "Vocational Training", "Career Development"],
+                founded: 1998,
+                initials: "BC"
+            },
+            {
+                id: 23,
+                name: "Bayshore Brands",
+                category: "embroidery",
+                location: "Tampa, FL",
+                description: "Specializing in custom embroidery services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom Embroidery"],
+                founded: 2010,
+                initials: "BB"
+            },
+            {
+                id: 24,
+                name: "Bebop T-Shirts",
+                category: "tshirt",
+                location: "Kerrville, TX",
+                description: "Custom t-shirt services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts"],
+                founded: 2013,
+                initials: "BT"
+            },
+            {
+                id: 25,
+                name: "Becker Screen Print Supply",
+                category: "supplier",
+                location: "Mishawaka, IN",
+                description: "Screen printing supply manufacturer.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing", "Supplies", "Manufacturing"],
+                founded: 2000,
+                initials: "BS"
+            },
+            {
+                id: 26,
+                name: "Bee-Line Promotions",
+                category: "tshirt",
+                location: "Murchison, TX",
+                description: "ASPA Certified screen printing and promotional products services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["certified"],
+                specialties: ["Screen Printing", "Promotional Products", "Signs & Banners"],
+                founded: 2012,
+                initials: "BP"
+            },
+            {
+                id: 27,
+                name: "Benjamin Marc",
+                category: "tshirt",
+                location: "Nesconset, NY",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing"],
+                founded: 2010,
+                initials: "BM"
+            },
+            {
+                id: 28,
+                name: "Best Price Tees",
+                category: "embroidery",
+                location: "Dahlonega, GA",
+                description: "Specializing in custom embroidery services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom Embroidery"],
+                founded: 2010,
+                initials: "BP"
+            },
+            {
+                id: 29,
+                name: "Big Frog Custom T-Shirts",
+                category: "tshirt",
+                location: "Orlando, FL",
+                description: "DTG printing and custom t-shirt services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["DTG Printing", "Custom T-Shirts", "Custom Embroidery"],
+                founded: 2013,
+                initials: "BF"
+            },
+            {
+                id: 30,
+                name: "Blue DOG Graphics",
+                category: "tshirt",
+                location: "Wilson, NC",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing"],
+                founded: 2010,
+                initials: "BD"
+            },
+            {
+                id: 31,
+                name: "Blue Ridge Screen Products",
+                category: "supplier",
+                location: "Charlotte, NC",
+                description: "Screen printing supply manufacturer.",
+                phone: "(704) 815-6401",
+                website: "blueridgescreenproducts.com",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing", "Supplies", "Manufacturing"],
+                founded: 1996,
+                initials: "BR"
+            },
+            {
+                id: 32,
+                name: "Brewster Screen Printing",
+                category: "tshirt",
+                location: "Brewster, NY",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing"],
+                founded: 2010,
+                initials: "BS"
+            },
+            {
+                id: 33,
+                name: "BSN Sports",
+                category: "tshirt",
+                location: "Dallas, TX",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing"],
+                founded: 2010,
+                initials: "BS"
+            },
+            {
+                id: 34,
+                name: "C.A.T. Specialities, Inc.",
+                category: "tshirt",
+                location: "Irwindale, CA",
+                description: "ASPA Certified screen printing and embroidery services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["certified"],
+                specialties: ["Screen Printing", "Embroidery"],
+                founded: 2010,
+                initials: "CS"
+            },
+            {
+                id: 35,
+                name: "Caps and More",
+                category: "tshirt",
+                location: "Tucson, AZ",
+                description: "Custom headwear and embroidery services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom Headwear", "Embroidery"],
+                founded: 2011,
+                initials: "CM"
+            },
+            {
+                id: 36,
+                name: "Cheap Yard Signs",
+                category: "sign",
+                location: "Oviedo, FL",
+                description: "Specializing in signs and banners services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Signs & Banners"],
+                founded: 2010,
+                initials: "CY"
+            },
+            {
+                id: 37,
+                name: "City Screen Print & Embroidery",
+                category: "embroidery",
+                location: "Milwaukee, WI",
+                description: "Specializing in custom embroidery services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom Embroidery"],
+                founded: 2010,
+                initials: "CS"
+            },
+            {
+                id: 38,
+                name: "CleanMark Labels",
+                category: "supplier",
+                location: "Portland, OR",
+                description: "Labels and screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Labels", "Screen Printing"],
+                founded: 2009,
+                initials: "CL"
+            },
+            {
+                id: 39,
+                name: "Compound Screen Printing & Embroidery",
+                category: "tshirt",
+                location: "Portland, OR",
+                description: "ASPA Certified screen printing and embroidery services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["certified"],
+                specialties: ["Screen Printing", "Embroidery"],
+                founded: 2010,
+                initials: "CS"
+            },
+            {
+                id: 40,
+                name: "Corona Print Shop",
+                category: "tshirt",
+                location: "Corona, CA",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing"],
+                founded: 2010,
+                initials: "CP"
+            },
+            {
+                id: 41,
+                name: "CRC Graphics",
+                category: "tshirt",
+                location: "Traverse City, MI",
+                description: "Screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing"],
+                founded: 2004,
+                initials: "CG"
+            },
+            {
+                id: 42,
+                name: "Custom T-SHIRT Printing",
+                category: "tshirt",
+                location: "Glendale, CA",
+                description: "Specializing in screen printing and custom embroidery services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing", "Custom Embroidery"],
+                founded: 2010,
+                initials: "CT"
+            },
+            {
+                id: 43,
+                name: "D&M Graphics",
+                category: "embroidery",
+                location: "Evans, GA",
+                description: "Specializing in custom embroidery services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom Embroidery"],
+                founded: 2010,
+                initials: "DG"
+            },
+            {
+                id: 44,
+                name: "Dalco Athletic",
+                category: "tshirt",
+                location: "Newark, NJ",
+                description: "Heat transfer printing and lettering services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Heat Transfer", "Lettering"],
+                founded: 2009,
+                initials: "DA"
+            },
+            {
+                id: 45,
+                name: "Deadwood Designs and Screen Printing",
+                category: "tshirt",
+                location: "Garden City, ID",
+                description: "Screen printing and custom apparel services including graphic design and t-shirt creation.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing", "T-Shirt Shop", "Graphic Design"],
+                founded: 2005,
+                initials: "DD"
+            },
+            {
+                id: 46,
+                name: "Design DOG Tees",
+                category: "tshirt",
+                location: "Austin, TX",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing"],
+                founded: 2010,
+                initials: "DD"
+            },
+            {
+                id: 47,
+                name: "Designs and More",
+                category: "tshirt",
+                location: "Dumas, TX",
+                description: "Specializing in screen printing and signs and banners services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing", "Signs & Banners"],
+                founded: 2010,
+                initials: "DA"
+            },
+            {
+                id: 48,
+                name: "Designs From the Hart",
+                category: "tshirt",
+                location: "Lampasas, TX",
+                description: "Screen printing and graphic design services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing", "Graphic Design"],
+                founded: 2012,
+                initials: "DF"
+            },
+            {
+                id: 49,
+                name: "DigiTex, Inc.",
+                category: "tshirt",
+                location: "Lehigh Valley, PA",
+                description: "ASPA Certified DTG printing, screen printing, and embroidery services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["certified"],
+                specialties: ["DTG Printing", "Screen Printing", "Embroidery"],
+                founded: 2010,
+                initials: "DT"
+            },
+            {
+                id: 50,
+                name: "DJ's Sport Shoppe",
+                category: "tshirt",
+                location: "Fort Collins, CO",
+                description: "Custom apparel and team sports services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom Apparel", "Team Sports", "Custom Embroidery"],
+                founded: 2008,
+                initials: "DJ"
+            },
+            {
+                id: 51,
+                name: "Dream Ink Screen Printing",
+                category: "tshirt",
+                location: "Billings, MT",
+                description: "ASPA Certified screen printing and embroidery services.",
+                phone: "406-534-7900",
+                website: "",
+                social: {},
+                badges: ["certified"],
+                specialties: ["Screen Printing", "Embroidery"],
+                founded: 2015,
+                initials: "DI"
+            },
+            {
+                id: 52,
+                name: "DTLA Print",
+                category: "tshirt",
+                location: "Los Angeles, CA",
+                description: "Screen printing, DTG, and custom apparel services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing", "DTG", "Custom Apparel"],
+                founded: 2012,
+                initials: "DP"
+            },
+            {
+                id: 53,
+                name: "Eagle Embroidery & Screen Printing",
+                category: "tshirt",
+                location: "Elm, NJ",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing"],
+                founded: 2010,
+                initials: "EE"
+            },
+            {
+                id: 54,
+                name: "East Coast Designs",
+                category: "tshirt",
+                location: "St Pauls, NC",
+                description: "Specializing in screen printing and custom apparel services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts"],
+                founded: 2010,
+                initials: "EC"
+            },
+            {
+                id: 55,
+                name: "Eastcoast AP Marketing",
+                category: "tshirt",
+                location: "Summerville, SC",
+                description: "Screen printing and promotional products services.",
+                phone: "843-849-6001",
+                website: "eastcoastap.com",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing", "Promotional Products"],
+                founded: 2009,
+                initials: "EA"
+            },
+            {
+                id: 56,
+                name: "EBD Design, Embroidery & Screen Printing",
+                category: "tshirt",
+                location: "Petaluma, CA",
+                description: "Embroidery and screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Embroidery", "Screen Printing"],
+                founded: 2009,
+                initials: "EB"
+            },
+            {
+                id: 57,
+                name: "EBD Design, Screen Printing & Embroidery",
+                category: "tshirt",
+                location: "Petaluma, CA",
+                description: "Specializing in screen printing and custom embroidery services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing", "Custom Embroidery"],
+                founded: 2010,
+                initials: "ED"
+            },
+            {
+                id: 58,
+                name: "Emulsion Printhouse",
+                category: "tshirt",
+                location: "Groton, CT",
+                description: "Specializing in screen printing and custom embroidery services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing", "Custom Embroidery"],
+                founded: 2010,
+                initials: "EP"
+            },
+            {
+                id: 59,
+                name: "Enemy Ink Ltd.",
+                category: "tshirt",
+                location: "Bulkington, UK",
+                description: "Screen printing and custom apparel services.",
+                phone: "(02477) 983059",
+                website: "enemyink.co.uk",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing", "Custom Apparel"],
+                founded: 2006,
+                initials: "EI"
+            },
+            {
+                id: 60,
+                name: "Enriques Printing & Signs",
+                category: "tshirt",
+                location: "Dover, NJ",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing"],
+                founded: 2010,
+                initials: "EP"
+            },
+            {
+                id: 61,
+                name: "Envision Tees",
+                category: "tshirt",
+                location: "Delavan, WI",
+                description: "ASPA Certified screen printers, t-shirt shop, and custom garment services.",
+                phone: "(262) 728-3382",
+                website: "envisiontees.com",
+                social: {},
+                badges: ["certified"],
+                specialties: ["Screen Printing", "T-Shirt Shop", "Custom Garments"],
+                founded: 2012,
+                initials: "ET"
+            },
+            {
+                id: 62,
+                name: "Exact Image",
+                category: "tshirt",
+                location: "Missoula, MT",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing"],
+                founded: 2010,
+                initials: "EI"
+            },
+            {
+                id: 63,
+                name: "Express Designs",
+                category: "embroidery",
+                location: "Leesburg, GA",
+                description: "Specializing in custom embroidery services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom Embroidery"],
+                founded: 2010,
+                initials: "ED"
+            },
+            {
+                id: 64,
+                name: "Fast - Trac Designs",
+                category: "sign",
+                location: "Phoenix, AZ",
+                description: "Specializing in signs and banners services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Signs & Banners"],
+                founded: 2010,
+                initials: "FT"
+            },
+            {
+                id: 65,
+                name: "Fast-Trac Designs",
+                category: "tshirt",
+                location: "Phoenix, AZ",
+                description: "Screen printing and custom t-shirt services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing", "Custom T-Shirts"],
+                founded: 2012,
+                initials: "FT"
+            },
+            {
+                id: 66,
+                name: "Firefly Specialty Printing",
+                category: "tshirt",
+                location: "Kingston, MA",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing"],
+                founded: 2010,
+                initials: "FS"
+            },
+            {
+                id: 67,
+                name: "Forty Millimeter Screen Printing",
+                category: "embroidery",
+                location: "Largo, FL",
+                description: "Specializing in custom embroidery services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom Embroidery"],
+                founded: 2010,
+                initials: "FM"
+            },
+            {
+                id: 68,
+                name: "Fresh INK Clothing",
+                category: "tshirt",
+                location: "Costa Mesa, CA",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing"],
+                founded: 2010,
+                initials: "FI"
+            },
+            {
+                id: 69,
+                name: "FunRaising SchoolGear",
+                category: "tshirt",
+                location: "Westlake Village, CA",
+                description: "Custom school apparel services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom School Apparel", "Custom Embroidery"],
+                founded: 2011,
+                initials: "FS"
+            },
+            {
+                id: 70,
+                name: "Garden City High School",
+                category: "education",
+                location: "Garden City, MI",
+                description: "ASPA Certified educational program in screen printing.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["certified"],
+                specialties: ["Education", "Training", "Certification"],
+                founded: 1995,
+                initials: "GC"
+            },
+            {
+                id: 71,
+                name: "Garden Hill Graphics and Embroidery",
+                category: "embroidery",
+                location: "Richland Center, WI",
+                description: "Specializing in custom embroidery services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom Embroidery"],
+                founded: 2010,
+                initials: "GH"
+            },
+            {
+                id: 72,
+                name: "Godfather Promotions",
+                category: "tshirt",
+                location: "New Fairfield, CT",
+                description: "Specializing in screen printing and custom embroidery services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing", "Custom Embroidery"],
+                founded: 2010,
+                initials: "GP"
+            },
+            {
+                id: 73,
+                name: "Goin' Yard LLC",
+                category: "tshirt",
+                location: "Southside, AL",
+                description: "ASPA Certified screen printing, t-shirt shop, embroidery, and sporting goods.",
+                phone: "(256) 442-1500",
+                website: "goinyard.net",
+                social: {},
+                badges: ["certified"],
+                specialties: ["Screen Printing", "T-Shirt Shop", "Embroidery"],
+                founded: 2011,
+                initials: "GY"
+            },
+            {
+                id: 74,
+                name: "Golden Choice Inc.",
+                category: "supplier",
+                location: "Port Huron, MI",
+                description: "Promotional products distributor.",
+                phone: "",
+                website: "goldenchoiceadv.com",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Promotional Products", "Distribution"],
+                founded: 2001,
+                initials: "GC"
+            },
+            {
+                id: 75,
+                name: "Goodtimes Manufacturing",
+                category: "tshirt",
+                location: "Mankato, MN",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing"],
+                founded: 2010,
+                initials: "GM"
+            },
+            {
+                id: 76,
+                name: "Grafik Tease",
+                category: "tshirt",
+                location: "Newmarket, NH",
+                description: "Screen printing and t-shirt shop services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing", "T-Shirt Shop"],
+                founded: 2010,
+                initials: "GT"
+            },
+            {
+                id: 77,
+                name: "Grand Concepts",
+                category: "tshirt",
+                location: "Seymour, CT",
+                description: "Specializing in screen printing and custom embroidery services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing", "Custom Embroidery"],
+                founded: 2010,
+                initials: "GC"
+            },
+            {
+                id: 78,
+                name: "Graphics One",
+                category: "equipment",
+                location: "Indianapolis, IN",
+                description: "ASPA Certified screen printing equipment manufacturer.",
+                phone: "",
+                website: "graphicsone.com",
+                social: {},
+                badges: ["certified"],
+                specialties: ["Equipment Manufacturing", "Screen Printing"],
+                founded: 1994,
+                initials: "GO"
+            },
+            {
+                id: 79,
+                name: "Halo Branded Solutions",
+                category: "tshirt",
+                location: "Sterling, NJ",
+                description: "Promotional products services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Promotional Products"],
+                founded: 2007,
+                initials: "HB"
+            },
+            {
+                id: 80,
+                name: "Hats OFF T-SHIRT",
+                category: "tshirt",
+                location: "Leavenworth, KS",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing"],
+                founded: 2010,
+                initials: "HO"
+            },
+            {
+                id: 81,
+                name: "HTM Concepts",
+                category: "tshirt",
+                location: "Williamston, NC",
+                description: "Specializing in screen printing and custom apparel services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts"],
+                founded: 2010,
+                initials: "HC"
+            },
+            {
+                id: 82,
+                name: "I.D. Promotions, INC",
+                category: "embroidery",
+                location: "Littleton, CO",
+                description: "Specializing in custom embroidery services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom Embroidery"],
+                founded: 2010,
+                initials: "IP"
+            },
+            {
+                id: 83,
+                name: "Ideal Prints",
+                category: "tshirt",
+                location: "Oceanside, CA",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing"],
+                founded: 2010,
+                initials: "IP"
+            },
+            {
+                id: 84,
+                name: "Image Maker Promotions",
+                category: "tshirt",
+                location: "Batavia, NY",
+                description: "Screen printing and promotional products services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing", "Promotional Products"],
+                founded: 2011,
+                initials: "IM"
+            },
+            {
+                id: 85,
+                name: "Image Outfitters",
+                category: "embroidery",
+                location: "Tampa, FL",
+                description: "Specializing in custom embroidery services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom Embroidery"],
+                founded: 2010,
+                initials: "IO"
+            },
+            {
+                id: 86,
+                name: "Impressions of Saratoga",
+                category: "tshirt",
+                location: "Saratoga Springs, NY",
+                description: "Screen printing and embroidery services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing", "Embroidery"],
+                founded: 2009,
+                initials: "IS"
+            },
+            {
+                id: 87,
+                name: "ImpressionZ Printing",
+                category: "tshirt",
+                location: "Orlando, FL",
+                description: "Screen printing, t-shirt shop, DTG, and embroidery services.",
+                phone: "(407) 962-9993",
+                website: "impressionzprinting.com",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing", "DTG", "Embroidery"],
+                founded: 2012,
+                initials: "IP"
+            },
+            {
+                id: 88,
+                name: "Ink City Co.",
+                category: "tshirt",
+                location: "San Jose, CA",
+                description: "ASPA Certified screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["certified"],
+                specialties: ["Screen Printing"],
+                founded: 2013,
+                initials: "IC"
+            },
+            {
+                id: 89,
+                name: "INK Farm",
+                category: "sign",
+                location: "Walterboro, SC",
+                description: "Specializing in signs and banners services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Signs & Banners"],
+                founded: 2010,
+                initials: "IF"
+            },
+            {
+                id: 90,
+                name: "INK IT Printing",
+                category: "tshirt",
+                location: "Crandell, TX",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing"],
+                founded: 2010,
+                initials: "II"
+            },
+            {
+                id: 91,
+                name: "Inkings INC.",
+                category: "tshirt",
+                location: "Pembroke Pines, FL",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing"],
+                founded: 2010,
+                initials: "II"
+            },
+            {
+                id: 92,
+                name: "InkSoft",
+                category: "equipment",
+                location: "West Palm Beach, FL",
+                description: "Screen printing software solutions.",
+                phone: "",
+                website: "inksoft.com",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Software", "Screen Printing Solutions"],
+                founded: 2005,
+                initials: "IS"
+            },
+            {
+                id: 93,
+                name: "Iroquois Print",
+                category: "sign",
+                location: "Onarga, IL",
+                description: "Specializing in signs and banners services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Signs & Banners"],
+                founded: 2010,
+                initials: "IP"
+            },
+            {
+                id: 94,
+                name: "Isignshop",
+                category: "sign",
+                location: "Jacksonville, TX",
+                description: "Specializing in signs and banners services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Signs & Banners"],
+                founded: 2010,
+                initials: "IS"
+            },
+            {
+                id: 95,
+                name: "iSignShop.com",
+                category: "sign",
+                location: "Jacksonville, TX",
+                description: "ASPA Certified signs and screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["certified"],
+                specialties: ["Signs", "Screen Printing"],
+                founded: 2010,
+                initials: "IS"
+            },
+            {
+                id: 96,
+                name: "J & M Custom Dezynes",
+                category: "tshirt",
+                location: "Wayland, NY",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing"],
+                founded: 2010,
+                initials: "J&"
+            },
+            {
+                id: 97,
+                name: "JA Sports Apparel",
+                category: "sign",
+                location: "Jamaica Plain, MA",
+                description: "Specializing in signs and banners services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Signs & Banners"],
+                founded: 2010,
+                initials: "JS"
+            },
+            {
+                id: 98,
+                name: "Jc'S Tees",
+                category: "tshirt",
+                location: "Salisbury, NC",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing"],
+                founded: 2010,
+                initials: "JS"
+            },
+            {
+                id: 99,
+                name: "JET Black Chain Print and Apparel",
+                category: "tshirt",
+                location: "Canyon Country, CA",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing"],
+                founded: 2010,
+                initials: "JB"
+            },
+            {
+                id: 100,
+                name: "JOE Public Press",
+                category: "sign",
+                location: "Huntington, WV",
+                description: "Specializing in signs and banners services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Signs & Banners"],
+                founded: 2010,
+                initials: "JP"
+            },
+            {
+                id: 101,
+                name: "Just JEN",
+                category: "tshirt",
+                location: "Torrance, CA",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing"],
+                founded: 2010,
+                initials: "JJ"
+            },
+            {
+                id: 102,
+                name: "KDF Screen Printing",
+                category: "tshirt",
+                location: "Landover, MD",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing"],
+                founded: 2010,
+                initials: "KS"
+            },
+            {
+                id: 103,
+                name: "Kidd Company",
+                category: "tshirt",
+                location: "Clio, MI",
+                description: "Screen printing and sublimation services for apparel.",
+                phone: "810-547-1420",
+                website: "kidd-co.com",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing", "Sublimation", "T-Shirt"],
+                founded: 2003,
+                initials: "KC"
+            },
+            {
+                id: 104,
+                name: "Klean Kanteen",
+                category: "tshirt",
+                location: "Chico, CA",
+                description: "ASPA Certified custom drinkware services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["certified"],
+                specialties: ["Custom Drinkware"],
+                founded: 2014,
+                initials: "KK"
+            },
+            {
+                id: 105,
+                name: "Laughing Planet Shirts",
+                category: "embroidery",
+                location: "Cape Coral, FL",
+                description: "Specializing in custom embroidery services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom Embroidery"],
+                founded: 2010,
+                initials: "LP"
+            },
+            {
+                id: 106,
+                name: "Leading Edge Trophies",
+                category: "tshirt",
+                location: "Madison, AL",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing"],
+                founded: 2010,
+                initials: "LE"
+            },
+            {
+                id: 107,
+                name: "Left Coast Shirt Company",
+                category: "tshirt",
+                location: "San Luis Obispo, CA",
+                description: "ASPA Certified screen printing and custom t-shirt services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["certified"],
+                specialties: ["Screen Printing", "Custom T-Shirts"],
+                founded: 2009,
+                initials: "LC"
+            },
+            {
+                id: 108,
+                name: "Left Coast T-SHIRT Company",
+                category: "tshirt",
+                location: "San Luis Obispo, CA",
+                description: "Specializing in screen printing and custom embroidery and custom apparel services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Custom Embroidery"],
+                founded: 2010,
+                initials: "LC"
+            },
+            {
+                id: 109,
+                name: "Legacy Monograms",
+                category: "tshirt",
+                location: "Dallas, TX",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing"],
+                founded: 2010,
+                initials: "LM"
+            },
+            {
+                id: 110,
+                name: "Liberty Screen Print Co.",
+                category: "tshirt",
+                location: "Beacon Falls, CT",
+                description: "Contract screen printing services.",
+                phone: "(203) 632-5449",
+                website: "libertyprintco.com",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing", "Contract Printing"],
+                founded: 2006,
+                initials: "LS"
+            },
+            {
+                id: 111,
+                name: "Liberty Titans",
+                category: "tshirt",
+                location: "St. Peters, MO",
+                description: "ASPA Certified screen printing and custom apparel services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["certified"],
+                specialties: ["Screen Printing", "Custom Apparel"],
+                founded: 2011,
+                initials: "LT"
+            },
+            {
+                id: 112,
+                name: "Liquid 13 Clothing",
+                category: "tshirt",
+                location: "Bronx, NY",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing"],
+                founded: 2010,
+                initials: "L1"
+            },
+            {
+                id: 113,
+                name: "Liquid 13 Clothing Company",
+                category: "tshirt",
+                location: "Bronx, NY",
+                description: "Specializing in screen printing and custom apparel services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts"],
+                founded: 2010,
+                initials: "L1"
+            },
+            {
+                id: 114,
+                name: "Luna Prints",
+                category: "tshirt",
+                location: "Colville, WA",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing"],
+                founded: 2010,
+                initials: "LP"
+            },
+            {
+                id: 115,
+                name: "M & M Industries",
+                category: "tshirt",
+                location: "Montevideo, MN",
+                description: "Screen printing and t-shirt shop services.",
+                phone: "(320) 269-7478",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing", "T-Shirt Shop"],
+                founded: 2008,
+                initials: "MM"
+            },
+            {
+                id: 116,
+                name: "M&R Companies",
+                category: "equipment",
+                location: "Glen Ellyn, IL",
+                description: "Screen printing equipment manufacturing.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Equipment", "Manufacturing"],
+                founded: 1995,
+                initials: "MR"
+            },
+            {
+                id: 117,
+                name: "Mato & Hash",
+                category: "tshirt",
+                location: "West Bloomfield, MI",
+                description: "Screen printing, custom t-shirts, and embroidery services.",
+                phone: "(248) 237-6200",
+                website: "matohash.com",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing", "Embroidery", "Custom T-Shirts"],
+                founded: 2011,
+                initials: "MH"
+            },
+            {
+                id: 118,
+                name: "Mountain AIR Screen Printing",
+                category: "tshirt",
+                location: "Blue Jay, CA",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing"],
+                founded: 2010,
+                initials: "MA"
+            },
+            {
+                id: 119,
+                name: "MySeps",
+                category: "supplier",
+                location: "Lake Elsinore, CA",
+                description: "ASPA Certified color separations services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["certified"],
+                specialties: ["Color Separations"],
+                founded: 2011,
+                initials: "MS"
+            },
+            {
+                id: 120,
+                name: "N.C. Screen Printing CO.",
+                category: "tshirt",
+                location: "Nashville, NC",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing"],
+                founded: 2010,
+                initials: "NS"
+            },
+            {
+                id: 121,
+                name: "NyFifth",
+                category: "supplier",
+                location: "Fremont, CA",
+                description: "Blank t-shirt wholesale.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Wholesale", "Blank T-Shirts", "Custom Embroidery"],
+                founded: 2010,
+                initials: "NY"
+            },
+            {
+                id: 122,
+                name: "Oh Boy Print Shop",
+                category: "tshirt",
+                location: "Austin, TX",
+                description: "Screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing"],
+                founded: 2011,
+                initials: "OB"
+            },
+            {
+                id: 123,
+                name: "Omniprint International",
+                category: "equipment",
+                location: "Costa Mesa, CA",
+                description: "DTG printing equipment manufacturing.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Equipment", "DTG", "Manufacturing"],
+                founded: 2008,
+                initials: "OI"
+            },
+            {
+                id: 124,
+                name: "Outback Screen Printing & Embroidery",
+                category: "tshirt",
+                location: "Valentine, NE",
+                description: "Screen printing and embroidery services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing", "Embroidery"],
+                founded: 2012,
+                initials: "OS"
+            },
+            {
+                id: 125,
+                name: "Pandemic Printworks",
+                category: "tshirt",
+                location: "Charlotte, NC",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing"],
+                founded: 2010,
+                initials: "PP"
+            },
+            {
+                id: 126,
+                name: "PDQ Promotions Printing & Embroidery",
+                category: "embroidery",
+                location: "Tracy, CA",
+                description: "Specializing in custom embroidery services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom Embroidery"],
+                founded: 2010,
+                initials: "PP"
+            },
+            {
+                id: 127,
+                name: "Pegasus Products Group",
+                category: "tshirt",
+                location: "Mountain View, CA",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing"],
+                founded: 2010,
+                initials: "PP"
+            },
+            {
+                id: 128,
+                name: "Perfect Print Apparel",
+                category: "tshirt",
+                location: "Rolesville, NC",
+                description: "Specializing in screen printing and custom apparel services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts"],
+                founded: 2010,
+                initials: "PP"
+            },
+            {
+                id: 129,
+                name: "Perfect Printing",
+                category: "sign",
+                location: "Columbia, SC",
+                description: "Specializing in signs and banners services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Signs & Banners"],
+                founded: 2010,
+                initials: "PP"
+            },
+            {
+                id: 130,
+                name: "Philly Tee Shirts",
+                category: "tshirt",
+                location: "Philadelphia, PA",
+                description: "Screen printing and promotional products services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing", "Promotional Products"],
+                founded: 2010,
+                initials: "PT"
+            },
+            {
+                id: 131,
+                name: "Planet Cotton",
+                category: "tshirt",
+                location: "Gaithersburg, MD",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing"],
+                founded: 2010,
+                initials: "PC"
+            },
+            {
+                id: 132,
+                name: "Precision Marketing Group",
+                category: "tshirt",
+                location: "Scarborough, ME",
+                description: "Promotional products and screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing", "Promotional Products"],
+                founded: 2010,
+                initials: "PM"
+            },
+            {
+                id: 133,
+                name: "Premier Apparel & Graphics",
+                category: "tshirt",
+                location: "Conyers, GA",
+                description: "ASPA Certified screen printing and embroidery services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["certified"],
+                specialties: ["Screen Printing", "Embroidery"],
+                founded: 2009,
+                initials: "PA"
+            },
+            {
+                id: 134,
+                name: "Pride Sportswear & Screen Printing",
+                category: "tshirt",
+                location: "Indian Trail, NC",
+                description: "ASPA Certified screen printing, DTG, sublimation, and embroidery.",
+                phone: "(704) 756-2878",
+                website: "",
+                social: {},
+                badges: ["certified"],
+                specialties: ["Screen Printing", "DTG", "Sublimation", "Embroidery"],
+                founded: 2010,
+                initials: "PS"
+            },
+            {
+                id: 135,
+                name: "Print Appeal, Inc.",
+                category: "tshirt",
+                location: "Dallas, TX",
+                description: "Screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing"],
+                founded: 2010,
+                initials: "PA"
+            },
+            {
+                id: 136,
+                name: "Print Magic Specialty Printing",
+                category: "embroidery",
+                location: "Snellville, GA",
+                description: "Specializing in custom embroidery services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom Embroidery"],
+                founded: 2010,
+                initials: "PM"
+            },
+            {
+                id: 137,
+                name: "Print Renegades",
+                category: "tshirt",
+                location: "Los Angeles, CA",
+                description: "Screen printing and custom apparel services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing", "Custom Apparel"],
+                founded: 2013,
+                initials: "PR"
+            },
+            {
+                id: 138,
+                name: "Print Works",
+                category: "tshirt",
+                location: "Paris, TX",
+                description: "Screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing", "Signs & Banners"],
+                founded: 2009,
+                initials: "PW"
+            },
+            {
+                id: 139,
+                name: "Pro-Am Team Sports, LLC",
+                category: "tshirt",
+                location: "Mokena, IL",
+                description: "Full-service screen printing and custom apparel including DTG, sublimation, and embroidery.",
+                phone: "(708) 774-1528",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing", "DTG", "Embroidery", "Sublimation"],
+                founded: 2008,
+                initials: "PA"
+            },
+            {
+                id: 140,
+                name: "Pummill'S Sporting Goods",
+                category: "tshirt",
+                location: "Sedalia, MO",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing"],
+                founded: 2010,
+                initials: "PS"
+            },
+            {
+                id: 141,
+                name: "QCM",
+                category: "supplier",
+                location: "Pineville, NC",
+                description: "Ink manufacturing.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Ink", "Manufacturing"],
+                founded: 2003,
+                initials: "QC"
+            },
+            {
+                id: 142,
+                name: "R & R Printing",
+                category: "tshirt",
+                location: "El Campo, TX",
+                description: "Screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing", "Signs & Banners"],
+                founded: 2010,
+                initials: "RR"
+            },
+            {
+                id: 143,
+                name: "R&R Custom Shirts",
+                category: "tshirt",
+                location: "Graham, NC",
+                description: "ASPA Certified screen printing and custom t-shirt services.",
+                phone: "(336) 214-3164",
+                website: "",
+                social: {},
+                badges: ["certified"],
+                specialties: ["Screen Printing", "Custom T-Shirts"],
+                founded: 2012,
+                initials: "RR"
+            },
+            {
+                id: 144,
+                name: "Ragged Edge Screen Print",
+                category: "tshirt",
+                location: "Brookings, SD",
+                description: "Screen printing and t-shirt shop services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing", "T-Shirt Shop"],
+                founded: 2010,
+                initials: "RE"
+            },
+            {
+                id: 145,
+                name: "Rain City West Printing LLC",
+                category: "tshirt",
+                location: "Seattle, WA",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing"],
+                founded: 2010,
+                initials: "RC"
+            },
+            {
+                id: 146,
+                name: "Rapid Transit",
+                category: "tshirt",
+                location: "St. Petersburg, FL",
+                description: "Screen printing services.",
+                phone: "727-344-0004",
+                website: "rapidtransitinc.com",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing"],
+                founded: 2008,
+                initials: "RT"
+            },
+            {
+                id: 147,
+                name: "Rebel Riot",
+                category: "tshirt",
+                location: "Dallas, TX",
+                description: "Specializing in screen printing and custom apparel services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts"],
+                founded: 2010,
+                initials: "RR"
+            },
+            {
+                id: 148,
+                name: "Reco Branding Solutions",
+                category: "embroidery",
+                location: "Lynden, WA",
+                description: "Specializing in custom embroidery and signs and banners services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom Embroidery", "Signs & Banners"],
+                founded: 2010,
+                initials: "RB"
+            },
+            {
+                id: 149,
+                name: "RMG Apparel Corporation",
+                category: "tshirt",
+                location: "Frisco, TX",
+                description: "Specializing in screen printing and custom apparel services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts"],
+                founded: 2010,
+                initials: "RA"
+            },
+            {
+                id: 150,
+                name: "RockvilleT-shirts.com",
+                category: "tshirt",
+                location: "Rockville, MD",
+                description: "Screen printing and DTG printing services.",
+                phone: "240-888-8060",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing", "DTG"],
+                founded: 2011,
+                initials: "RT"
+            },
+            {
+                id: 151,
+                name: "Rocky Road Printing",
+                category: "tshirt",
+                location: "Elgin, TX",
+                description: "Specializing in screen printing and signs and banners services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing", "Signs & Banners"],
+                founded: 2010,
+                initials: "RR"
+            },
+            {
+                id: 152,
+                name: "Saati",
+                category: "supplier",
+                location: "Fountain Inn, SC",
+                description: "Screen printing supply manufacturer.",
+                phone: "800-431-2200",
+                website: "saati.com",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing", "Supplies", "Manufacturing"],
+                founded: 1993,
+                initials: "SA"
+            },
+            {
+                id: 153,
+                name: "SAN Saba Caps",
+                category: "tshirt",
+                location: "Kerriville, TX",
+                description: "Specializing in screen printing and custom apparel services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts"],
+                founded: 2010,
+                initials: "SS"
+            },
+            {
+                id: 154,
+                name: "Sandbar Industries",
+                category: "tshirt",
+                location: "Brooklyn, NY",
+                description: "Screen printing and apparel services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing", "Apparel"],
+                founded: 2010,
+                initials: "SI"
+            },
+            {
+                id: 155,
+                name: "Schimm BROS. INC.",
+                category: "tshirt",
+                location: "Kissimmee, FL",
+                description: "Specializing in screen printing and custom embroidery services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing", "Custom Embroidery"],
+                founded: 2010,
+                initials: "SB"
+            },
+            {
+                id: 156,
+                name: "Screaming Squeegee",
+                category: "tshirt",
+                location: "Davis, CA",
+                description: "Specializing in screen printing and custom embroidery services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing", "Custom Embroidery"],
+                founded: 2010,
+                initials: "SS"
+            },
+            {
+                id: 157,
+                name: "Screen and Things",
+                category: "tshirt",
+                location: "Callaway, FL",
+                description: "Screen printing and graphic design services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing", "Graphic Design"],
+                founded: 2007,
+                initials: "ST"
+            },
+            {
+                id: 158,
+                name: "Screen Printers Resource",
+                category: "supplier",
+                location: "Fullerton, CA",
+                description: "ASPA Certified screen printing equipment supply.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["certified"],
+                specialties: ["Equipment", "Supplies"],
+                founded: 2004,
+                initials: "SR"
+            },
+            {
+                id: 159,
+                name: "SEW Shore",
+                category: "embroidery",
+                location: "Naples, FL",
+                description: "Specializing in custom embroidery services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom Embroidery"],
+                founded: 2010,
+                initials: "SS"
+            },
+            {
+                id: 160,
+                name: "Shirts Atlanta",
+                category: "tshirt",
+                location: "Sharpsburg, GA",
+                description: "Screen printing and t-shirt shop services.",
+                phone: "770-252-1111",
+                website: "shirtsatlanta.com",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing", "T-Shirt Shop", "Custom Embroidery"],
+                founded: 2008,
+                initials: "SA"
+            },
+            {
+                id: 161,
+                name: "Shoreline Graphix INC",
+                category: "sign",
+                location: "Oviedo, FL",
+                description: "Specializing in signs and banners services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Signs & Banners"],
+                founded: 2010,
+                initials: "SG"
+            },
+            {
+                id: 162,
+                name: "Sidemind Creations",
+                category: "tshirt",
+                location: "New Market, MD",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing"],
+                founded: 2010,
+                initials: "SC"
+            },
+            {
+                id: 163,
+                name: "Signarama Danbury",
+                category: "sign",
+                location: "Danbury, CT",
+                description: "Custom signs, vinyl banners, and vehicle wraps.",
+                phone: "(203) 792-4091",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Signs", "Vinyl Banners", "Vehicle Wraps"],
+                founded: 2008,
+                initials: "SD"
+            },
+            {
+                id: 164,
+                name: "Snore Industries",
+                category: "tshirt",
+                location: "Boyne Falls, MI",
+                description: "Screen printing services.",
+                phone: "(734) 578-2773",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing"],
+                founded: 2009,
+                initials: "SI"
+            },
+            {
+                id: 165,
+                name: "Spectra Colors Corp",
+                category: "supplier",
+                location: "Kearny, NJ",
+                description: "Ink manufacturing.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Ink", "Manufacturing"],
+                founded: 2002,
+                initials: "SC"
+            },
+            {
+                id: 166,
+                name: "Spectrum Designs Foundation",
+                category: "tshirt",
+                location: "Port Washington, NY",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing"],
+                founded: 2010,
+                initials: "SD"
+            },
+            {
+                id: 167,
+                name: "Spectrum Screen Printing",
+                category: "tshirt",
+                location: "Plymouth, MN",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing"],
+                founded: 2010,
+                initials: "SS"
+            },
+            {
+                id: 168,
+                name: "Spent Graphics",
+                category: "tshirt",
+                location: "Cosa Mesa, CA",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing"],
+                founded: 2010,
+                initials: "SG"
+            },
+            {
+                id: 169,
+                name: "Sport Monkey",
+                category: "embroidery",
+                location: "Soap Lake, WA",
+                description: "Specializing in custom embroidery services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom Embroidery"],
+                founded: 2010,
+                initials: "SM"
+            },
+            {
+                id: 170,
+                name: "Sports Emblem & T-Shirt Shop",
+                category: "tshirt",
+                location: "Big Rapids, MI",
+                description: "Screen printing, t-shirt shop, and embroidery services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing", "T-Shirt Shop", "Embroidery"],
+                founded: 2002,
+                initials: "SE"
+            },
+            {
+                id: 171,
+                name: "Stellar Print Studio",
+                category: "tshirt",
+                location: "New Hyde Park, NY",
+                description: "Specializing in screen printing and custom apparel services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts"],
+                founded: 2010,
+                initials: "SP"
+            },
+            {
+                id: 172,
+                name: "Sterlink Prints",
+                category: "tshirt",
+                location: "Puyallup, WA",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing"],
+                founded: 2010,
+                initials: "SP"
+            },
+            {
+                id: 173,
+                name: "Stickers International",
+                category: "supplier",
+                location: "New York, NY",
+                description: "Stickers, labels, and custom printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Stickers", "Labels", "Custom Printing"],
+                founded: 2008,
+                initials: "SI"
+            },
+            {
+                id: 174,
+                name: "STITCH-N-INK",
+                category: "tshirt",
+                location: "San Jose, CA",
+                description: "Specializing in screen printing and custom embroidery and custom apparel services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Custom Embroidery"],
+                founded: 2010,
+                initials: "SN"
+            },
+            {
+                id: 175,
+                name: "Stitches Clothing CO.",
+                category: "tshirt",
+                location: "Sparks, NV",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing"],
+                founded: 2010,
+                initials: "SC"
+            },
+            {
+                id: 176,
+                name: "SUA Sponte Design",
+                category: "embroidery",
+                location: "Visalia, CA",
+                description: "Specializing in custom embroidery services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom Embroidery"],
+                founded: 2010,
+                initials: "SS"
+            },
+            {
+                id: 177,
+                name: "SunPak",
+                category: "supplier",
+                location: "Edgewater, NJ",
+                description: "Screen printing chemical manufacturer.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Chemicals", "Manufacturing"],
+                founded: 2000,
+                initials: "SU"
+            },
+            {
+                id: 178,
+                name: "Sunset Apparel",
+                category: "tshirt",
+                location: "Salt Lake City, UT",
+                description: "Custom apparel services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom Apparel"],
+                founded: 2011,
+                initials: "SA"
+            },
+            {
+                id: 179,
+                name: "Tango Signs",
+                category: "sign",
+                location: "Charleston, SC",
+                description: "Specializing in signs and banners services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Signs & Banners"],
+                founded: 2010,
+                initials: "TS"
+            },
+            {
+                id: 180,
+                name: "Tasco Marketing",
+                category: "tshirt",
+                location: "Framingham, MA",
+                description: "Promotional products services.",
+                phone: "(508) 875-4660",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Promotional Products"],
+                founded: 2008,
+                initials: "TM"
+            },
+            {
+                id: 181,
+                name: "Taylor Athletic Wear",
+                category: "tshirt",
+                location: "Wetumpa, AL",
+                description: "Specializing in screen printing and custom apparel services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts"],
+                founded: 2010,
+                initials: "TA"
+            },
+            {
+                id: 182,
+                name: "Taylor Made T-Shirts",
+                category: "tshirt",
+                location: "Clackamas, OR",
+                description: "Custom t-shirt services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts"],
+                founded: 2012,
+                initials: "TM"
+            },
+            {
+                id: 183,
+                name: "Tee's Plus",
+                category: "tshirt",
+                location: "Centerbrook, CT",
+                description: "Screen printing services.",
+                phone: "1-800-785-3323",
+                website: "teesplus.com",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing"],
+                founded: 2009,
+                initials: "TP"
+            },
+            {
+                id: 184,
+                name: "Testimony Teez Screen Printing",
+                category: "embroidery",
+                location: "Rossville, GA",
+                description: "Specializing in custom embroidery services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom Embroidery"],
+                founded: 2010,
+                initials: "TT"
+            },
+            {
+                id: 185,
+                name: "Texas Correctional Industries",
+                category: "sign",
+                location: "Huntsville, TX",
+                description: "Specializing in signs and banners services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Signs & Banners"],
+                founded: 2010,
+                initials: "TC"
+            },
+            {
+                id: 186,
+                name: "The Best Screen Printing",
+                category: "embroidery",
+                location: "Los Angeles, CA",
+                description: "Specializing in custom embroidery services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom Embroidery"],
+                founded: 2010,
+                initials: "TB"
+            },
+            {
+                id: 187,
+                name: "The Opportunist LLC",
+                category: "tshirt",
+                location: "Rahway, NJ",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing"],
+                founded: 2010,
+                initials: "TO"
+            },
+            {
+                id: 188,
+                name: "The Print Shak",
+                category: "tshirt",
+                location: "Mill Spring, NC",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing"],
+                founded: 2010,
+                initials: "TP"
+            },
+            {
+                id: 189,
+                name: "The Screening Process",
+                category: "tshirt",
+                location: "Westbury, NY",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing"],
+                founded: 2010,
+                initials: "TS"
+            },
+            {
+                id: 190,
+                name: "The Type is Right",
+                category: "sign",
+                location: "Central Village, CT",
+                description: "Signs, t-shirt shop, and digital image printing.",
+                phone: "860-564-0537",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Signs", "T-Shirt Shop", "Digital Printing"],
+                founded: 2007,
+                initials: "TR"
+            },
+            {
+                id: 191,
+                name: "Think IT Then INK It, LLC",
+                category: "embroidery",
+                location: "Verona, WI",
+                description: "Specializing in custom embroidery services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom Embroidery"],
+                founded: 2010,
+                initials: "TI"
+            },
+            {
+                id: 192,
+                name: "Think Patented",
+                category: "tshirt",
+                location: "Miamisburg, OH",
+                description: "Printing services.",
+                phone: "(937) 353-2299",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Printing"],
+                founded: 2008,
+                initials: "TP"
+            },
+            {
+                id: 193,
+                name: "Tiny Fish Printing",
+                category: "tshirt",
+                location: "Rochester, NY",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing"],
+                founded: 2010,
+                initials: "TF"
+            },
+            {
+                id: 194,
+                name: "Trophy Store and More",
+                category: "tshirt",
+                location: "Zumbro Falls, MN",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing"],
+                founded: 2010,
+                initials: "TS"
+            },
+            {
+                id: 195,
+                name: "Turner Graphics",
+                category: "sign",
+                location: "Spartanburg/Greenville, SC",
+                description: "Specializing in signs and banners services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Signs & Banners"],
+                founded: 2010,
+                initials: "TG"
+            },
+            {
+                id: 196,
+                name: "Twin City Tees",
+                category: "tshirt",
+                location: "St Paul, MN",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing"],
+                founded: 2010,
+                initials: "TC"
+            },
+            {
+                id: 197,
+                name: "Vanguard Promotions",
+                category: "tshirt",
+                location: "Conyers, GA",
+                description: "Screen printing and promotional product distribution.",
+                phone: "888-684-5285",
+                website: "vanguardpromotions.net",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing", "Promotional Products", "Custom Embroidery"],
+                founded: 2010,
+                initials: "VP"
+            },
+            {
+                id: 198,
+                name: "Vantage Apparel",
+                category: "tshirt",
+                location: "Anenel, NJ",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing"],
+                founded: 2010,
+                initials: "VA"
+            },
+            {
+                id: 199,
+                name: "Victory Image and Promotions LLC",
+                category: "tshirt",
+                location: "Murfreesboro, TN",
+                description: "ASPA Certified screen printing services.",
+                phone: "(423) 400-3930",
+                website: "victoryimage.ai",
+                social: {},
+                badges: ["certified"],
+                specialties: ["Screen Printing"],
+                founded: 2013,
+                initials: "VI"
+            },
+            {
+                id: 200,
+                name: "Victory Screen Printing",
+                category: "tshirt",
+                location: "Chicago, IL",
+                description: "Contract and custom screen printing with DTG printing and graphic design services.",
+                phone: "(312) 666-8661",
+                website: "shirts-now.com",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing", "DTG Printing", "T-Shirt Shop"],
+                founded: 2010,
+                initials: "VS"
+            },
+            {
+                id: 201,
+                name: "Vinyl Pro's Inc.",
+                category: "sign",
+                location: "Tampa, FL",
+                description: "Vehicle wraps, signs, and banners.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Vehicle Wraps", "Signs", "Banners"],
+                founded: 2011,
+                initials: "VP"
+            },
+            {
+                id: 202,
+                name: "Vision Designs",
+                category: "tshirt",
+                location: "Holland, MI",
+                description: "Screen printing, custom t-shirts, and ad specialties.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Screen Printing", "Custom T-Shirts", "Ad Specialties"],
+                founded: 2007,
+                initials: "VD"
+            },
+            {
+                id: 203,
+                name: "Visions Screen Printing",
+                category: "tshirt",
+                location: "Springfield, MO",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing"],
+                founded: 2010,
+                initials: "VS"
+            },
+            {
+                id: 204,
+                name: "Washington State Correctional Industries",
+                category: "tshirt",
+                location: "Gig Harbor, WA",
+                description: "Specializing in screen printing services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom T-Shirts", "Screen Printing"],
+                founded: 2010,
+                initials: "WS"
+            },
+            {
+                id: 205,
+                name: "Weekn Graphics",
+                category: "tshirt",
+                location: "Northport, AL",
+                description: "ASPA Certified screen printing, t-shirt shop, DTG, and sublimation services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["certified"],
+                specialties: ["Screen Printing", "DTG", "Sublimation", "Signs & Banners"],
+                founded: 2014,
+                initials: "WG"
+            },
+            {
+                id: 206,
+                name: "Wicked Quick Printing",
+                category: "tshirt",
+                location: "Iowa City, IA",
+                description: "ASPA Certified screen printing services.",
+                phone: "(319) 621-4348",
+                website: "",
+                social: {},
+                badges: ["certified"],
+                specialties: ["Screen Printing"],
+                founded: 2013,
+                initials: "WQ"
+            },
+            {
+                id: 207,
+                name: "Worldwide Cyclery",
+                category: "tshirt",
+                location: "Newtown, PA",
+                description: "Custom apparel services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Custom Apparel"],
+                founded: 2011,
+                initials: "WC"
+            },
+            {
+                id: 208,
+                name: "Worldwide Printing Solutions",
+                category: "tshirt",
+                location: "Central Islip, NY",
+                description: "ASPA Certified screen printing services.",
+                phone: "(631) 851-9133",
+                website: "",
+                social: {},
+                badges: ["certified"],
+                specialties: ["Screen Printing"],
+                founded: 2011,
+                initials: "WP"
+            },
+            {
+                id: 209,
+                name: "X-Treme Custom Design",
+                category: "tshirt",
+                location: "Latham, IL",
+                description: "ASPA Certified screen printing and custom clothing line services.",
+                phone: "217-433-2086",
+                website: "",
+                social: {},
+                badges: ["certified"],
+                specialties: ["Screen Printing", "Custom Clothing", "Design"],
+                founded: 2012,
+                initials: "XC"
+            },
+            {
+                id: 210,
+                name: "Xtreme Custom Designs",
+                category: "sign",
+                location: "Latham, IL",
+                description: "Specializing in signs and banners services.",
+                phone: "",
+                website: "",
+                social: {},
+                badges: ["legacy"],
+                specialties: ["Signs & Banners"],
+                founded: 2010,
+                initials: "XC"
+            }
+
+        ];
+        var _filteredDirectoryMembers = [];
+
+        var categoryDisplayNames = {
+            'tshirt': 'T-Shirt Printer',
+            'supplier': 'Supplier',
+            'sign': 'Signs & Graphics',
+            'promo': 'Promotional Products',
+            'embroidery': 'Embroidery',
+            'dtg': 'DTG Printing',
+            'screen': 'Screen Printer',
+            'other': 'Other'
+        };
+
+        function loadDirectoryMembers() {
+            var loadingEl = document.getElementById('directoryLoadingState');
+            var tableEl = document.getElementById('directoryTable');
+            var emptyEl = document.getElementById('directoryEmptyState');
+
+            loadingEl.style.display = 'block';
+            tableEl.style.display = 'none';
+            emptyEl.style.display = 'none';
+
+            // Simulate loading delay
+            setTimeout(function() {
+                _filteredDirectoryMembers = _directoryMemberData.slice();
+                renderDirectoryMembers(_filteredDirectoryMembers);
+                updateDirectoryStats();
+
+                loadingEl.style.display = 'none';
+                if (_filteredDirectoryMembers.length > 0) {
+                    tableEl.style.display = 'table';
+                } else {
+                    emptyEl.style.display = 'block';
+                }
+            }, 300);
+        }
+
+        function updateDirectoryStats() {
+            document.getElementById('directoryTotalCount').textContent = _directoryMemberData.length;
+
+            var categories = ['tshirt', 'supplier', 'sign', 'screen'];
+            categories.forEach(function(cat) {
+                var count = _directoryMemberData.filter(function(m) { return m.category === cat; }).length;
+                var catId = 'directoryCategory' + cat.charAt(0).toUpperCase() + cat.slice(1);
+                var el = document.getElementById(catId);
+                if (el) el.textContent = count;
+            });
+        }
+
+        function renderDirectoryMembers(members) {
+            var tbody = document.getElementById('directoryTableBody');
+            tbody.innerHTML = '';
+
+            members.forEach(function(member) {
+                var row = document.createElement('tr');
+                var catDisplay = categoryDisplayNames[member.category] || member.category;
+
+                row.innerHTML = '<td>' + esc(member.name) + '</td>' +
+                    '<td>' + esc(catDisplay) + '</td>' +
+                    '<td>' + esc(member.location) + '</td>' +
+                    '<td>' + esc(member.phone || '—') + '</td>' +
+                    '<td>' + (member.website ? '<a href="https://' + esc(member.website) + '" target="_blank">' + esc(member.website) + '</a>' : '—') + '</td>' +
+                    '<td><button onclick="openDirectoryCRM(' + member.id + ')" style="background:rgba(233,30,140,0.15);color:var(--ink-magenta);border:1px solid rgba(233,30,140,0.3);border-radius:4px;padding:6px 12px;cursor:pointer;font-size:0.85rem;">View</button></td>';
+
+                tbody.appendChild(row);
+            });
+        }
+
+        function filterDirectoryMembers() {
+            var searchVal = document.getElementById('directorySearch').value.toLowerCase();
+            var categoryVal = document.getElementById('directoryCategoryFilter').value;
+
+            _filteredDirectoryMembers = _directoryMemberData.filter(function(member) {
+                var matchesSearch = member.name.toLowerCase().indexOf(searchVal) >= 0 ||
+                                    member.location.toLowerCase().indexOf(searchVal) >= 0;
+                var matchesCategory = !categoryVal || member.category === categoryVal;
+                return matchesSearch && matchesCategory;
+            });
+
+            var tableEl = document.getElementById('directoryTable');
+            var emptyEl = document.getElementById('directoryEmptyState');
+
+            if (_filteredDirectoryMembers.length > 0) {
+                renderDirectoryMembers(_filteredDirectoryMembers);
+                tableEl.style.display = 'table';
+                emptyEl.style.display = 'none';
+            } else {
+                tableEl.style.display = 'none';
+                emptyEl.style.display = 'block';
+            }
+        }
+
         // ── CRM PANEL ──────────────────────────────────────────
 
         var _crmMemberId = null;
+        var _crmListingId = null;
+        var _crmMode = null;
         var _crmNotes = [];
         var _crmInteractions = [];
         var _crmTags = [];
@@ -3684,9 +6798,50 @@
             switchCRMTab('overview');
         }
 
+        async function openDirectoryCRM(listingId) {
+            _crmMode = 'listing';
+            _crmListingId = listingId;
+            var member = _directoryMemberData.find(m => m.id === listingId);
+            if (!member) return;
+
+            _crmMemberData = member;
+            document.getElementById('crmPanelOverlay').classList.add('active');
+
+            // Set header with directory info
+            document.getElementById('crmMemberName').textContent = member.name || 'N/A';
+            var catDisplay = categoryDisplayNames[member.category] || member.category;
+            document.getElementById('crmMemberCompany').textContent = catDisplay + ' • ' + (member.location || '');
+
+            // Hide admin status badge for directory listings
+            var adminStatusEl = document.getElementById('crmMemberAdminStatus');
+            adminStatusEl.style.display = 'none';
+
+            // Load CRM data
+            await Promise.all([
+                loadMemberNotes(),
+                loadMemberInteractions(),
+                loadMemberTags()
+            ]);
+
+            // Populate overview fields for directory mode
+            populateCRMOverviewDirectory(member);
+
+            // Switch to Overview tab
+            switchCRMTab('overview');
+        }
+
+        function getCRMFilter() {
+            if (_crmMode === 'listing') {
+                return { field: 'listing_id', value: _crmListingId };
+            }
+            return { field: 'member_id', value: _crmMemberId };
+        }
+
         function closeMemberCRM() {
             document.getElementById('crmPanelOverlay').classList.remove('active');
             _crmMemberId = null;
+            _crmListingId = null;
+            _crmMode = null;
             _crmNotes = [];
             _crmInteractions = [];
             _crmTags = [];
@@ -3741,6 +6896,43 @@
             updateCRMStats();
         }
 
+        function populateCRMOverviewDirectory(member) {
+            // For directory mode, show read-only info
+            document.getElementById('crmEmail').textContent = '—';
+            document.getElementById('crmEmail').href = '#';
+
+            document.getElementById('crmPhone').textContent = member.phone || '—';
+            document.getElementById('crmEditPhone').value = '';
+            document.getElementById('crmEditPhone').disabled = true;
+
+            document.getElementById('crmSecondaryEmail').textContent = '—';
+            document.getElementById('crmSecondaryEmail').href = '#';
+            document.getElementById('crmEditSecondaryEmail').value = '';
+            document.getElementById('crmEditSecondaryEmail').disabled = true;
+
+            var website = member.website || '';
+            document.getElementById('crmWebsite').textContent = website ? (new URL('https://' + website).hostname || website) : '—';
+            document.getElementById('crmWebsite').href = website ? ('https://' + website) : '#';
+            document.getElementById('crmEditWebsite').value = '';
+            document.getElementById('crmEditWebsite').disabled = true;
+
+            document.getElementById('crmLinkedin').textContent = '—';
+            document.getElementById('crmLinkedin').href = '#';
+            document.getElementById('crmEditLinkedin').value = '';
+            document.getElementById('crmEditLinkedin').disabled = true;
+
+            document.getElementById('crmMemberSince').textContent = '—';
+            document.getElementById('crmRenewalDate').textContent = '—';
+            document.getElementById('crmEditRenewalDate').value = '';
+            document.getElementById('crmEditRenewalDate').disabled = true;
+
+            document.getElementById('crmEditAdminStatus').value = 'active';
+            document.getElementById('crmEditAdminStatus').disabled = true;
+
+            // Update stats
+            updateCRMStats();
+        }
+
         function updateCRMStats() {
             document.getElementById('crmStatNotes').textContent = _crmNotes.length;
             document.getElementById('crmStatInteractions').textContent = _crmInteractions.length;
@@ -3756,6 +6948,10 @@
         // ── OVERVIEW: MEMBER FIELDS ────────────────────────────
 
         async function saveMemberCRMFields() {
+            if (_crmMode === 'listing') {
+                alert('Directory business information is read-only');
+                return;
+            }
             if (!_crmMemberId) return;
 
             var updates = {
@@ -3794,10 +6990,11 @@
 
         async function loadMemberTags() {
             try {
+                var filter = getCRMFilter();
                 var { data, error } = await window._supabase
                     .from('member_tags')
                     .select('*')
-                    .eq('member_id', _crmMemberId);
+                    .eq(filter.field, filter.value);
 
                 if (error) throw error;
                 _crmTags = data || [];
@@ -3815,13 +7012,16 @@
             }
 
             try {
+                var filter = getCRMFilter();
+                var insertObj = {
+                    tag: tagName,
+                    added_by: currentUser.id
+                };
+                insertObj[filter.field] = filter.value;
+
                 var { data, error } = await window._supabase
                     .from('member_tags')
-                    .insert([{
-                        member_id: _crmMemberId,
-                        tag: tagName,
-                        added_by: currentUser.id
-                    }]);
+                    .insert([insertObj]);
 
                 if (error) throw error;
 
@@ -3871,10 +7071,11 @@
 
         async function loadMemberNotes() {
             try {
+                var filter = getCRMFilter();
                 var { data, error } = await window._supabase
                     .from('member_notes')
                     .select('*')
-                    .eq('member_id', _crmMemberId)
+                    .eq(filter.field, filter.value)
                     .order('is_pinned', { ascending: false })
                     .order('created_at', { ascending: false });
 
@@ -3897,17 +7098,20 @@
             }
 
             try {
+                var filter = getCRMFilter();
+                var insertObj = {
+                    author_id: currentUser.id,
+                    content: content,
+                    category: category,
+                    is_pinned: isPinned,
+                    created_at: new Date().toISOString(),
+                    updated_at: new Date().toISOString()
+                };
+                insertObj[filter.field] = filter.value;
+
                 var { data, error } = await window._supabase
                     .from('member_notes')
-                    .insert([{
-                        member_id: _crmMemberId,
-                        author_id: currentUser.id,
-                        content: content,
-                        category: category,
-                        is_pinned: isPinned,
-                        created_at: new Date().toISOString(),
-                        updated_at: new Date().toISOString()
-                    }]);
+                    .insert([insertObj]);
 
                 if (error) throw error;
 
@@ -3984,10 +7188,11 @@
 
         async function loadMemberInteractions() {
             try {
+                var filter = getCRMFilter();
                 var { data, error } = await window._supabase
                     .from('member_interactions')
                     .select('*')
-                    .eq('member_id', _crmMemberId)
+                    .eq(filter.field, filter.value)
                     .order('created_at', { ascending: false });
 
                 if (error) throw error;
@@ -4011,20 +7216,23 @@
             }
 
             try {
+                var filter = getCRMFilter();
+                var insertObj = {
+                    logged_by: currentUser.id,
+                    interaction_type: type,
+                    direction: direction,
+                    subject: subject,
+                    details: details || null,
+                    follow_up_date: followUpDate,
+                    follow_up_done: false,
+                    created_at: new Date().toISOString(),
+                    updated_at: new Date().toISOString()
+                };
+                insertObj[filter.field] = filter.value;
+
                 var { data, error } = await window._supabase
                     .from('member_interactions')
-                    .insert([{
-                        member_id: _crmMemberId,
-                        logged_by: currentUser.id,
-                        interaction_type: type,
-                        direction: direction,
-                        subject: subject,
-                        details: details || null,
-                        follow_up_date: followUpDate,
-                        follow_up_done: false,
-                        created_at: new Date().toISOString(),
-                        updated_at: new Date().toISOString()
-                    }]);
+                    .insert([insertObj]);
 
                 if (error) throw error;
 
