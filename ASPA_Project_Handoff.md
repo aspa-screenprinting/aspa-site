@@ -2,8 +2,8 @@
 
 **Project:** screen-printing.us redesign
 **Client:** Dustin Cochran (cochran.dustin@gmail.com)
-**Date:** March 3–15, 2026 (last updated: Session 23)
-**Status:** In Progress — Core Pages Built, Resource Hub COMPLETE (All 18 Articles), **SITE LIVE on GitHub Pages**, Nav Full-Width, **Supabase Backend Live** (Auth + Database + Google OAuth + Storage), ASPA+ Gated Content Live, Admin Dashboard Built, **UI Polish Pass Complete**, **Gamification & Loyalty Points System Live**, **Job Board Live**, **Community Chat Live** (Real-time, Edit/Delete, Search, Profile Edit, Avatar Upload, Admin Moderation), **Full Brand Audit Complete**, **Member Dashboard Fleshed Out**, **Directory Overhauled (210 Real Members)**, **Membership Certificate PDF**, **Directory Location Filter Redesigned**, **Admin Panel Tabs Fixed**
+**Date:** March 3–16, 2026 (last updated: Session 24)
+**Status:** In Progress — Core Pages Built, Resource Hub COMPLETE (All 18 Articles), **SITE LIVE on GitHub Pages**, Nav Full-Width, **Supabase Backend Live** (Auth + Database + Google OAuth + Storage), ASPA+ Gated Content Live, Admin Dashboard Built, **UI Polish Pass Complete**, **Gamification & Loyalty Points System Live**, **Job Board Live**, **Community Chat Live** (Real-time, Edit/Delete, Search, Profile Edit, Avatar Upload, Admin Moderation), **Full Brand Audit Complete**, **Member Dashboard Fleshed Out**, **Directory Overhauled (210 Real Members)**, **Membership Certificate PDF**, **Directory Location Filter Redesigned**, **Admin Panel Tabs Fixed**, **Directory Claim System Live** (Email Verification via Resend + pg_net), **CRM Member Detail Panel Built**
 
 ---
 
@@ -595,11 +595,12 @@ The localStorage approach is a client-side prototype. When ready for production:
 ## What's Still Needed
 
 ### Immediate Next Steps
-- [ ] **Admin backend (Supabase)** — Agreed upon but not yet started. Feature set: view/edit/delete members, reset passwords, toggle ASPA+ access, manage certifications, member data storage. Will replace the client-side localStorage auth with real server-side authentication.
+- [x] ~~**Admin backend (Supabase)**~~ — Full admin dashboard with Members, Certifications, Exam Results, CE Credits, Audit Log, Points & Rewards, Job Board, Directory Claims tabs. CRM member detail panel with Notes, Contact History, Tags. ✅
 - [ ] **Mobile-friendly responsive design audit** — Next priority after auth. Preliminary audit completed (audit files in repo directory, not committed). Mobile hamburger menu needs full implementation.
 - [ ] **Real study guide PDF** — Dustin to provide; swap into `ASPA_CSP_Study_Guide.pdf`
 - [ ] **Payment integration** — Wire up Stripe/PayPal for ASPA+ recurring billing + CSP exam one-time payment
-- [ ] **Email delivery** — SendGrid/Mailgun for exam access links
+- [x] ~~**Email delivery**~~ — Resend API integrated for directory claim verification emails (via pg_net + Supabase database functions). API key stored in `site_config` table. Currently using `onboarding@resend.dev` sender. ✅
+- [ ] **Resend custom sending domain** — Once ASPA owns its domain, add DNS records (SPF, DKIM, DMARC) in Resend to send from `noreply@aspa.org` (or similar). Also useful for future exam access links and transactional emails.
 - [ ] **Exam link security** — One-time-use tokens for exam access
 - [ ] **Real ASPA logo** — Currently text-only branding
 - [ ] **About page leadership section** — Update with Dustin's info (currently placeholder)
@@ -1197,6 +1198,52 @@ Pages needing work (prioritized):
 - Job board enhancements: source-specific badges, unified job list, zip+radius filter, HTML stripping (plan exists)
 - Admin panel: configure Supabase foreign key relationships so JOINs work natively (optional optimization)
 - Directory: add member detail fields (phone, website, social links) as data becomes available
+
+---
+
+## Session 24: Directory Claims + CRM Panel (March 16, 2026)
+
+### Directory Listing Claim System (`directory.html`)
+- **Self-service claim flow** for ASPA+ members — two-step email verification
+- **Step 1:** Member enters business email address associated with the listing
+- **Step 2:** 6-digit verification code sent via Resend API (through `pg_net` extension in Supabase)
+- **Auto-approve** if email domain matches the business website domain; otherwise sent to admin review
+- **Claim modal** with branded styling, status messages, resend code option
+- **Edit listing modal** for approved claims — members can update their business info
+- **Supabase tables:** `directory_claims`, `directory_listings`, `directory_edit_history`
+- **RPC functions:** `send_claim_verification()`, `verify_claim_code()` — server-side, no Edge Functions needed
+
+### Email Verification Infrastructure
+- **Resend API** integrated via `pg_net` PostgreSQL extension (HTTP calls from database functions)
+- **API key** stored in `site_config` table (not hardcoded) — function reads it dynamically
+- **Current sender:** `onboarding@resend.dev` (default) — needs custom domain once ASPA domain is owned
+
+### CRM Member Detail Panel (`admin.html`)
+- **Slide-in panel** (800px wide, from right) opens via "View" button on each member row
+- **Three sub-tabs:**
+  - **Overview** — Contact info (phone, secondary email, website, LinkedIn), membership details, admin status (active/at-risk/churned/prospect/VIP), editable fields with save, tags with add/remove, quick stats
+  - **Notes** — Add/view/pin/delete admin notes with categories (general, renewal, support, opportunity, concern, follow-up), sorted pinned-first then newest
+  - **Contact History** — Log interactions (email, phone, meeting, chat, event) with direction (inbound/outbound), subject, details, follow-up date tracking, mark-complete
+- **Supabase tables:** `member_notes`, `member_interactions`, `member_tags`
+- **Profile CRM fields added:** phone, secondary_email, website, linkedin, renewal_date, member_since, admin_status
+- **RLS policies:** admin-only access for all CRM tables
+
+### Directory Claims Admin Tab (`admin.html`)
+- **Stats grid:** Pending, Approved, Denied, Total claims
+- **Pending claims queue** with Approve/Deny buttons
+- **Claims history table** with status, method, dates
+- **Lazy-loaded** on first tab visit
+
+### Commit History (Session 24)
+- `cff44ca` Add self-service directory listing claim system for ASPA+ members
+- `3c79fbb` Add email verification to directory claim flow
+- `f23e35b` Add CRM member detail panel to admin dashboard
+
+### What's Next
+- [ ] **Resend custom sending domain** — Add DNS records once ASPA domain is owned (SPF, DKIM, DMARC) so emails send from `noreply@aspa.org`
+- Mobile responsive polish pass
+- Glossary page (high SEO value)
+- Payment integration (Stripe/PayPal)
 
 ---
 
