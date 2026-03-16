@@ -833,6 +833,7 @@
             <button class="tab-btn" onclick="switchTab('auditLog')">Audit Log</button>
             <button class="tab-btn" onclick="switchTab('pointsRewards')" style="color:var(--ink-cyan);">Points & Rewards</button>
             <button class="tab-btn" onclick="switchTab('jobBoard')" style="color:var(--ink-orange);">Job Board</button>
+            <button class="tab-btn" onclick="switchTab('claims')" style="color:var(--ink-purple);">Directory Claims</button>
         </div>
 
         <!-- Members Tab -->
@@ -1237,6 +1238,71 @@
                     </tbody>
                 </table>
                 <div id="externalJobsEmpty" style="text-align:center;padding:2rem;color:var(--ink-gray);display:none;">No external jobs cached. Click "Refresh Now" to pull from Jooble.</div>
+            </div>
+        </div>
+
+        <!-- Directory Claims Tab -->
+        <div id="claimsTab" class="tab-content">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Pending Claims</div>
+                    <div class="stat-value" id="claimsPendingCount" style="color:var(--ink-yellow);">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Approved Claims</div>
+                    <div class="stat-value" id="claimsApprovedCount" style="color:var(--ink-cyan);">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Denied Claims</div>
+                    <div class="stat-value" id="claimsDeniedCount" style="color:var(--ink-magenta);">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Total Claims</div>
+                    <div class="stat-value" id="claimsTotalCount">0</div>
+                </div>
+            </div>
+
+            <!-- Pending Claims Queue -->
+            <div class="content-header" style="margin-top:2rem;">
+                <h3 style="font-family:'Space Grotesk',sans-serif;font-size:1.2rem;">Pending Claims</h3>
+                <button onclick="loadClaims()" style="background:rgba(108,43,217,0.15);color:var(--ink-purple);border:1px solid rgba(108,43,217,0.3);border-radius:6px;padding:8px 16px;font-size:0.85rem;cursor:pointer;font-family:'Space Grotesk',sans-serif;">Refresh</button>
+            </div>
+            <div class="table-container">
+                <table id="pendingClaimsTable" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th>Business</th>
+                            <th>Claimant Email</th>
+                            <th>Method</th>
+                            <th>Note</th>
+                            <th>Submitted</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pendingClaimsBody"></tbody>
+                </table>
+                <div id="pendingClaimsEmpty" style="text-align:center;padding:2rem;color:var(--ink-gray);">Loading claims...</div>
+            </div>
+
+            <!-- All Claims History -->
+            <div class="content-header" style="margin-top:2rem;">
+                <h3 style="font-family:'Space Grotesk',sans-serif;font-size:1.2rem;">Claims History</h3>
+            </div>
+            <div class="table-container">
+                <table id="allClaimsTable" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th>Business</th>
+                            <th>Claimant</th>
+                            <th>Status</th>
+                            <th>Method</th>
+                            <th>Submitted</th>
+                            <th>Reviewed</th>
+                        </tr>
+                    </thead>
+                    <tbody id="allClaimsBody"></tbody>
+                </table>
+                <div id="allClaimsEmpty" style="text-align:center;padding:2rem;color:var(--ink-gray);">No claims yet.</div>
             </div>
         </div>
 
@@ -2370,6 +2436,7 @@
         // Load points admin data when the tab is first opened
         var _pointsAdminLoaded = false;
         var _jobBoardLoaded = false;
+        var _claimsLoaded = false;
         var _origSwitchTab = switchTab;
         switchTab = function(tabName) {
             _origSwitchTab.call(null, tabName);
@@ -2380,6 +2447,10 @@
             if (tabName === 'jobBoard' && !_jobBoardLoaded) {
                 _jobBoardLoaded = true;
                 loadJobBoardAdmin();
+            }
+            if (tabName === 'claims' && !_claimsLoaded) {
+                _claimsLoaded = true;
+                loadClaims();
             }
         };
 
@@ -2685,6 +2756,154 @@
             await sb.from('external_jobs').delete().neq('id', '00000000-0000-0000-0000-000000000000');
             _jobBoardLoaded = false;
             loadJobBoardAdmin();
+        }
+
+        // ==========================================
+        // DIRECTORY CLAIMS ADMIN FUNCTIONS
+        // ==========================================
+
+        async function loadClaims() {
+            var sb = window._supabase;
+            if (!sb) return;
+
+            try {
+                var { data: claims, error } = await sb
+                    .from('directory_claims')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+
+                var pending = (claims || []).filter(function(c) { return c.status === 'pending'; });
+                var approved = (claims || []).filter(function(c) { return c.status === 'approved'; });
+                var denied = (claims || []).filter(function(c) { return c.status === 'denied'; });
+
+                document.getElementById('claimsPendingCount').textContent = pending.length;
+                document.getElementById('claimsApprovedCount').textContent = approved.length;
+                document.getElementById('claimsDeniedCount').textContent = denied.length;
+                document.getElementById('claimsTotalCount').textContent = (claims || []).length;
+
+                // Render pending claims
+                var pendingTable = document.getElementById('pendingClaimsTable');
+                var pendingBody = document.getElementById('pendingClaimsBody');
+                var pendingEmpty = document.getElementById('pendingClaimsEmpty');
+                pendingBody.innerHTML = '';
+
+                if (pending.length === 0) {
+                    pendingTable.style.display = 'none';
+                    pendingEmpty.style.display = 'block';
+                    pendingEmpty.textContent = 'No pending claims.';
+                } else {
+                    pendingTable.style.display = 'table';
+                    pendingEmpty.style.display = 'none';
+                    pending.forEach(function(claim) {
+                        var tr = document.createElement('tr');
+                        var date = new Date(claim.created_at).toLocaleDateString();
+                        tr.innerHTML =
+                            '<td>' + (claim.listing_name || 'Listing #' + claim.listing_id) + '</td>' +
+                            '<td>' + (claim.user_email || '—') + '</td>' +
+                            '<td><span style="color:' + (claim.verification_method === 'email_match' ? 'var(--ink-cyan)' : 'var(--ink-yellow)') + ';">' + (claim.verification_method || '—') + '</span></td>' +
+                            '<td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + (claim.note || '—') + '</td>' +
+                            '<td>' + date + '</td>' +
+                            '<td style="display:flex;gap:6px;">' +
+                                '<button onclick="reviewClaim(\'' + claim.id + '\', \'approved\')" style="background:rgba(0,212,255,0.15);color:var(--ink-cyan);border:1px solid rgba(0,212,255,0.3);border-radius:4px;padding:4px 12px;font-size:0.8rem;cursor:pointer;">Approve</button>' +
+                                '<button onclick="reviewClaim(\'' + claim.id + '\', \'denied\')" style="background:rgba(233,30,140,0.15);color:var(--ink-magenta);border:1px solid rgba(233,30,140,0.3);border-radius:4px;padding:4px 12px;font-size:0.8rem;cursor:pointer;">Deny</button>' +
+                            '</td>';
+                        pendingBody.appendChild(tr);
+                    });
+                }
+
+                // Render all claims history
+                var allTable = document.getElementById('allClaimsTable');
+                var allBody = document.getElementById('allClaimsBody');
+                var allEmpty = document.getElementById('allClaimsEmpty');
+                allBody.innerHTML = '';
+
+                if (!claims || claims.length === 0) {
+                    allTable.style.display = 'none';
+                    allEmpty.style.display = 'block';
+                } else {
+                    allTable.style.display = 'table';
+                    allEmpty.style.display = 'none';
+                    claims.forEach(function(claim) {
+                        var tr = document.createElement('tr');
+                        var created = new Date(claim.created_at).toLocaleDateString();
+                        var reviewed = claim.reviewed_at ? new Date(claim.reviewed_at).toLocaleDateString() : '—';
+                        var statusColor = claim.status === 'approved' ? 'var(--ink-cyan)' :
+                                          claim.status === 'denied' ? 'var(--ink-magenta)' : 'var(--ink-yellow)';
+                        tr.innerHTML =
+                            '<td>' + (claim.listing_name || 'Listing #' + claim.listing_id) + '</td>' +
+                            '<td>' + (claim.user_email || '—') + '</td>' +
+                            '<td><span style="color:' + statusColor + ';font-weight:600;text-transform:uppercase;">' + claim.status + '</span></td>' +
+                            '<td>' + (claim.verification_method || '—') + '</td>' +
+                            '<td>' + created + '</td>' +
+                            '<td>' + reviewed + '</td>';
+                        allBody.appendChild(tr);
+                    });
+                }
+
+            } catch (err) {
+                console.error('Load claims error:', err);
+                document.getElementById('pendingClaimsEmpty').textContent = 'Error loading claims.';
+            }
+        }
+
+        async function reviewClaim(claimId, decision) {
+            var action = decision === 'approved' ? 'approve' : 'deny';
+            if (!confirm('Are you sure you want to ' + action + ' this claim?')) return;
+
+            var sb = window._supabase;
+            var adminNote = decision === 'denied' ? prompt('Reason for denial (optional):') : null;
+
+            try {
+                // Get the claim details first
+                var { data: claim, error: fetchErr } = await sb
+                    .from('directory_claims')
+                    .select('*')
+                    .eq('id', claimId)
+                    .single();
+
+                if (fetchErr) throw fetchErr;
+
+                // Update claim status
+                var updateData = {
+                    status: decision,
+                    reviewed_by: window._supabaseSession.user.id,
+                    reviewed_at: new Date().toISOString()
+                };
+                if (adminNote) updateData.admin_note = adminNote;
+
+                var { error: updateErr } = await sb
+                    .from('directory_claims')
+                    .update(updateData)
+                    .eq('id', claimId);
+
+                if (updateErr) throw updateErr;
+
+                // If approved, create the editable listing
+                if (decision === 'approved') {
+                    await sb.from('directory_listings').upsert({
+                        listing_id: claim.listing_id,
+                        claimed_by: claim.user_id,
+                        business_name: claim.listing_name,
+                        category: null,
+                        description: null,
+                        phone: null,
+                        website: null,
+                        location: null,
+                        specialties: [],
+                        social_links: {}
+                    }, { onConflict: 'listing_id' });
+                }
+
+                // Reload
+                _claimsLoaded = false;
+                loadClaims();
+
+            } catch (err) {
+                console.error('Review claim error:', err);
+                alert('Error: ' + err.message);
+            }
         }
     </script>
 </body>

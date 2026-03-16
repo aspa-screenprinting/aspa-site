@@ -668,6 +668,190 @@
             color: var(--ink-black);
         }
 
+        /* CLAIM BUTTON */
+        .claim-listing-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 12px;
+            padding: 6px 14px;
+            background: transparent;
+            border: 1px solid rgba(108, 43, 217, 0.4);
+            border-radius: 6px;
+            color: var(--ink-purple);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .claim-listing-btn:hover {
+            background: rgba(108, 43, 217, 0.15);
+            border-color: var(--ink-purple);
+            color: #fff;
+        }
+        .claim-listing-btn.claimed {
+            border-color: rgba(0, 212, 255, 0.3);
+            color: var(--ink-cyan);
+            cursor: default;
+            opacity: 0.7;
+        }
+        .claim-listing-btn.pending {
+            border-color: rgba(255, 212, 0, 0.3);
+            color: var(--ink-yellow);
+            cursor: default;
+            opacity: 0.7;
+        }
+
+        /* CLAIM MODAL */
+        .claim-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+        .claim-modal-overlay.active {
+            display: flex;
+        }
+        .claim-modal {
+            background: var(--ink-dark);
+            border: 1px solid rgba(108, 43, 217, 0.3);
+            border-radius: 16px;
+            padding: 32px;
+            max-width: 520px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        .claim-modal h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+            color: var(--ink-white);
+            margin-bottom: 8px;
+        }
+        .claim-modal .claim-subtitle {
+            font-size: 0.9rem;
+            color: var(--ink-gray);
+            margin-bottom: 24px;
+        }
+        .claim-modal .claim-listing-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--ink-cyan);
+            margin-bottom: 20px;
+            padding: 12px 16px;
+            background: rgba(0, 212, 255, 0.05);
+            border: 1px solid rgba(0, 212, 255, 0.15);
+            border-radius: 8px;
+        }
+        .claim-modal label {
+            display: block;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--ink-gray);
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+        .claim-modal input,
+        .claim-modal textarea {
+            width: 100%;
+            padding: 10px 14px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: var(--ink-white);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+            transition: border-color 0.3s;
+        }
+        .claim-modal input:focus,
+        .claim-modal textarea:focus {
+            outline: none;
+            border-color: var(--ink-purple);
+        }
+        .claim-modal textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        .claim-modal-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 8px;
+        }
+        .claim-modal-actions button {
+            flex: 1;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        .claim-btn-submit {
+            background: var(--ink-purple);
+            color: #fff;
+        }
+        .claim-btn-submit:hover {
+            background: #7c3aed;
+        }
+        .claim-btn-submit:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .claim-btn-cancel {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            color: var(--ink-gray);
+        }
+        .claim-btn-cancel:hover {
+            border-color: rgba(255, 255, 255, 0.3) !important;
+            color: var(--ink-white);
+        }
+        .claim-status-msg {
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            margin-bottom: 16px;
+            display: none;
+        }
+        .claim-status-msg.success {
+            display: block;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            color: var(--ink-cyan);
+        }
+        .claim-status-msg.error {
+            display: block;
+            background: rgba(233, 30, 140, 0.1);
+            border: 1px solid rgba(233, 30, 140, 0.3);
+            color: var(--ink-magenta);
+        }
+        .claim-close-btn {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            color: var(--ink-gray);
+            font-size: 1.5rem;
+            cursor: pointer;
+            line-height: 1;
+        }
+        .claim-close-btn:hover {
+            color: var(--ink-white);
+        }
+
         /* LIST VIEW */
         .members-grid.list-view .member-card {
             flex-direction: row;
@@ -1138,6 +1322,63 @@
             </div>
         </div>
     </footer>
+
+    <!-- CLAIM LISTING MODAL -->
+    <div class="claim-modal-overlay" id="claimModalOverlay" onclick="if(event.target===this)closeClaimModal()">
+        <div class="claim-modal">
+            <button class="claim-close-btn" onclick="closeClaimModal()">&times;</button>
+            <h2>CLAIM THIS LISTING</h2>
+            <p class="claim-subtitle">Verify ownership to manage this business listing</p>
+            <div class="claim-listing-name" id="claimListingName"></div>
+            <div class="claim-status-msg" id="claimStatusMsg"></div>
+            <form id="claimForm" onsubmit="submitClaim(event)">
+                <input type="hidden" id="claimListingId">
+                <label for="claimEmail">Your Business Email</label>
+                <input type="email" id="claimEmail" placeholder="you@yourbusiness.com" required>
+                <label for="claimNote">Why are you claiming this listing? (optional)</label>
+                <textarea id="claimNote" placeholder="e.g. I am the owner / manager of this business"></textarea>
+                <div class="claim-modal-actions">
+                    <button type="button" class="claim-btn-cancel" onclick="closeClaimModal()">Cancel</button>
+                    <button type="submit" class="claim-btn-submit" id="claimSubmitBtn">Submit Claim</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- EDIT LISTING MODAL -->
+    <div class="claim-modal-overlay" id="editListingOverlay" onclick="if(event.target===this)closeEditListing()">
+        <div class="claim-modal" style="max-width:600px">
+            <button class="claim-close-btn" onclick="closeEditListing()">&times;</button>
+            <h2>EDIT YOUR LISTING</h2>
+            <p class="claim-subtitle">Update your business information</p>
+            <div class="claim-status-msg" id="editStatusMsg"></div>
+            <form id="editListingForm" onsubmit="submitEditListing(event)">
+                <input type="hidden" id="editListingId">
+                <label for="editName">Business Name</label>
+                <input type="text" id="editName" required>
+                <label for="editDescription">Description</label>
+                <textarea id="editDescription" rows="3"></textarea>
+                <label for="editPhone">Phone</label>
+                <input type="tel" id="editPhone">
+                <label for="editWebsite">Website</label>
+                <input type="url" id="editWebsite" placeholder="https://">
+                <label for="editLocation">Location</label>
+                <input type="text" id="editLocation" placeholder="City, State">
+                <label for="editSpecialties">Specialties (comma-separated)</label>
+                <input type="text" id="editSpecialties" placeholder="DTG, Screen Printing, Embroidery">
+                <label for="editLinkedin">LinkedIn URL</label>
+                <input type="url" id="editLinkedin" placeholder="https://linkedin.com/company/...">
+                <label for="editInstagram">Instagram URL</label>
+                <input type="url" id="editInstagram" placeholder="https://instagram.com/...">
+                <label for="editFacebook">Facebook URL</label>
+                <input type="url" id="editFacebook" placeholder="https://facebook.com/...">
+                <div class="claim-modal-actions">
+                    <button type="button" class="claim-btn-cancel" onclick="closeEditListing()">Cancel</button>
+                    <button type="submit" class="claim-btn-submit" id="editSubmitBtn">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <script>
         // HARDCODED MEMBER DATA
@@ -4223,6 +4464,258 @@
             return 'tshirt';
         }
 
+        // ========================================
+        // CLAIM SYSTEM
+        // ========================================
+        window._claimStatuses = {};   // { listingId: 'pending'|'approved'|'denied' } for current user
+        window._claimedListings = new Set(); // listing IDs claimed by anyone (approved)
+
+        async function loadClaimStatuses() {
+            if (!window._supabase || !window._supabaseSession) return;
+            try {
+                // Load current user's claims
+                const { data: myClaims } = await window._supabase
+                    .from('directory_claims')
+                    .select('listing_id, status')
+                    .eq('user_id', window._supabaseSession.user.id);
+
+                if (myClaims) {
+                    myClaims.forEach(c => {
+                        window._claimStatuses[c.listing_id] = c.status;
+                    });
+                }
+
+                // Load all approved claims (to hide claim button for already-claimed listings)
+                const { data: approvedClaims } = await window._supabase
+                    .from('directory_claims')
+                    .select('listing_id')
+                    .eq('status', 'approved');
+
+                if (approvedClaims) {
+                    approvedClaims.forEach(c => {
+                        window._claimedListings.add(c.listing_id);
+                    });
+                }
+            } catch (e) {
+                console.warn('Could not load claim statuses:', e);
+            }
+        }
+
+        function openClaimModal(listingId, listingName) {
+            if (!window._memberProfile) {
+                alert('Please log in to your ASPA+ account to claim a listing.');
+                return;
+            }
+            document.getElementById('claimListingId').value = listingId;
+            document.getElementById('claimListingName').textContent = listingName;
+            document.getElementById('claimEmail').value = window._supabaseSession?.user?.email || '';
+            document.getElementById('claimNote').value = '';
+            document.getElementById('claimStatusMsg').className = 'claim-status-msg';
+            document.getElementById('claimStatusMsg').textContent = '';
+            document.getElementById('claimSubmitBtn').disabled = false;
+            document.getElementById('claimModalOverlay').classList.add('active');
+        }
+
+        function closeClaimModal() {
+            document.getElementById('claimModalOverlay').classList.remove('active');
+        }
+
+        async function submitClaim(e) {
+            e.preventDefault();
+            const btn = document.getElementById('claimSubmitBtn');
+            const msg = document.getElementById('claimStatusMsg');
+            btn.disabled = true;
+            btn.textContent = 'Submitting...';
+
+            const listingId = parseInt(document.getElementById('claimListingId').value);
+            const email = document.getElementById('claimEmail').value.trim();
+            const note = document.getElementById('claimNote').value.trim();
+            const listingName = document.getElementById('claimListingName').textContent;
+
+            // Find the member to get their website for domain matching
+            const member = allMembers.find(m => m.id === listingId);
+            let verificationMethod = 'admin_review';
+            let autoApprove = false;
+
+            // Check email domain match against business website
+            if (member && member.website && email) {
+                try {
+                    const websiteDomain = new URL(member.website).hostname.replace(/^www\./, '');
+                    const emailDomain = email.split('@')[1];
+                    if (emailDomain && websiteDomain && emailDomain.toLowerCase() === websiteDomain.toLowerCase()) {
+                        verificationMethod = 'email_match';
+                        autoApprove = true;
+                    }
+                } catch (err) { /* URL parse fail, fallback to admin_review */ }
+            }
+
+            try {
+                const { data, error } = await window._supabase
+                    .from('directory_claims')
+                    .insert({
+                        user_id: window._supabaseSession.user.id,
+                        listing_id: listingId,
+                        listing_name: listingName,
+                        status: autoApprove ? 'approved' : 'pending',
+                        verification_method: verificationMethod,
+                        user_email: email,
+                        business_email: member?.website ? new URL(member.website).hostname.replace(/^www\./, '') : null,
+                        note: note || null
+                    })
+                    .select()
+                    .single();
+
+                if (error) throw error;
+
+                // If auto-approved, also create the editable listing entry
+                if (autoApprove) {
+                    await window._supabase.from('directory_listings').insert({
+                        listing_id: listingId,
+                        claimed_by: window._supabaseSession.user.id,
+                        business_name: member.name,
+                        description: member.description,
+                        phone: member.phone,
+                        website: member.website,
+                        location: member.location,
+                        specialties: member.specialties || [],
+                        social_links: member.social || {},
+                        category: member.category
+                    });
+
+                    window._claimStatuses[listingId] = 'approved';
+                    window._claimedListings.add(listingId);
+                    msg.className = 'claim-status-msg success';
+                    msg.textContent = 'Email domain verified! Your listing has been approved. You can now edit it.';
+                } else {
+                    window._claimStatuses[listingId] = 'pending';
+                    msg.className = 'claim-status-msg success';
+                    msg.textContent = 'Claim submitted! An admin will review your request shortly.';
+                }
+
+                // Re-render to update buttons
+                render();
+
+                // Close modal after a brief delay
+                setTimeout(closeClaimModal, 2500);
+
+            } catch (err) {
+                console.error('Claim submission error:', err);
+                msg.className = 'claim-status-msg error';
+                if (err.message && err.message.includes('duplicate')) {
+                    msg.textContent = 'You already have a claim for this listing.';
+                } else {
+                    msg.textContent = 'Error submitting claim. Please try again.';
+                }
+                btn.disabled = false;
+                btn.textContent = 'Submit Claim';
+            }
+        }
+
+        // EDIT LISTING FUNCTIONS
+        function openEditListing(listingId) {
+            if (!window._supabase || !window._supabaseSession) return;
+
+            // Load the listing data
+            window._supabase
+                .from('directory_listings')
+                .select('*')
+                .eq('listing_id', listingId)
+                .eq('claimed_by', window._supabaseSession.user.id)
+                .single()
+                .then(({ data, error }) => {
+                    if (error || !data) {
+                        // Fallback: use hardcoded data
+                        const member = allMembers.find(m => m.id === listingId);
+                        if (!member) return alert('Listing not found');
+                        populateEditForm(listingId, member);
+                    } else {
+                        populateEditForm(listingId, {
+                            name: data.business_name,
+                            description: data.description,
+                            phone: data.phone,
+                            website: data.website,
+                            location: data.location,
+                            specialties: data.specialties || [],
+                            social: data.social_links || {}
+                        });
+                    }
+                    document.getElementById('editListingOverlay').classList.add('active');
+                });
+        }
+
+        function populateEditForm(listingId, data) {
+            document.getElementById('editListingId').value = listingId;
+            document.getElementById('editName').value = data.name || '';
+            document.getElementById('editDescription').value = data.description || '';
+            document.getElementById('editPhone').value = data.phone || '';
+            document.getElementById('editWebsite').value = data.website || '';
+            document.getElementById('editLocation').value = data.location || '';
+            document.getElementById('editSpecialties').value = (data.specialties || []).join(', ');
+            document.getElementById('editLinkedin').value = data.social?.linkedin || '';
+            document.getElementById('editInstagram').value = data.social?.instagram || '';
+            document.getElementById('editFacebook').value = data.social?.facebook || '';
+            document.getElementById('editStatusMsg').className = 'claim-status-msg';
+        }
+
+        function closeEditListing() {
+            document.getElementById('editListingOverlay').classList.remove('active');
+        }
+
+        async function submitEditListing(e) {
+            e.preventDefault();
+            const btn = document.getElementById('editSubmitBtn');
+            const msg = document.getElementById('editStatusMsg');
+            btn.disabled = true;
+            btn.textContent = 'Saving...';
+
+            const listingId = parseInt(document.getElementById('editListingId').value);
+            const updates = {
+                business_name: document.getElementById('editName').value.trim(),
+                description: document.getElementById('editDescription').value.trim(),
+                phone: document.getElementById('editPhone').value.trim(),
+                website: document.getElementById('editWebsite').value.trim(),
+                location: document.getElementById('editLocation').value.trim(),
+                specialties: document.getElementById('editSpecialties').value.split(',').map(s => s.trim()).filter(Boolean),
+                social_links: {
+                    linkedin: document.getElementById('editLinkedin').value.trim() || null,
+                    instagram: document.getElementById('editInstagram').value.trim() || null,
+                    facebook: document.getElementById('editFacebook').value.trim() || null
+                },
+                updated_at: new Date().toISOString()
+            };
+
+            try {
+                const { error } = await window._supabase
+                    .from('directory_listings')
+                    .update(updates)
+                    .eq('listing_id', listingId)
+                    .eq('claimed_by', window._supabaseSession.user.id);
+
+                if (error) throw error;
+
+                // Log the edit in history
+                await window._supabase.from('directory_edit_history').insert({
+                    listing_id: listingId,
+                    edited_by: window._supabaseSession.user.id,
+                    changes: updates
+                });
+
+                msg.className = 'claim-status-msg success';
+                msg.textContent = 'Listing updated successfully!';
+                btn.textContent = 'Save Changes';
+                btn.disabled = false;
+
+                setTimeout(closeEditListing, 1500);
+
+            } catch (err) {
+                console.error('Edit listing error:', err);
+                msg.className = 'claim-status-msg error';
+                msg.textContent = 'Error saving changes. Please try again.';
+                btn.textContent = 'Save Changes';
+                btn.disabled = false;
+            }
+        }
+
         // INITIALIZE
         async function initDirectory() {
             try {
@@ -4240,6 +4733,12 @@
                 console.warn('Supabase not available, using hardcoded data');
                 allMembers = hardcodedMembers;
             }
+
+            // Load claim statuses after auth is ready
+            window.addEventListener('aspa-auth-ready', async function() {
+                await loadClaimStatuses();
+                render(); // Re-render to show claim buttons
+            });
 
             restoreStateFromHash();
             applyFilters();
@@ -4399,9 +4898,32 @@
                     <div class="member-contact">
                         ${contactLinks}
                         ${socialLinks ? `<div class="member-socials">${socialLinks}</div>` : ''}
+                        ${getClaimButton(member)}
                     </div>
                 </div>
             `;
+        }
+
+        function getClaimButton(member) {
+            // Only show for logged-in ASPA+ members
+            if (!window._memberProfile) return '';
+
+            const listingId = member.id;
+            // Check if this listing is already claimed by current user
+            const claimStatus = window._claimStatuses ? window._claimStatuses[listingId] : null;
+
+            if (claimStatus === 'approved') {
+                return `<button class="claim-listing-btn claimed" onclick="openEditListing(${listingId})">✓ Your Listing — Edit</button>`;
+            }
+            if (claimStatus === 'pending') {
+                return `<button class="claim-listing-btn pending" disabled>⏳ Claim Pending Review</button>`;
+            }
+            // Check if claimed by someone else
+            if (window._claimedListings && window._claimedListings.has(listingId)) {
+                return ''; // Already claimed by another user, don't show button
+            }
+
+            return `<button class="claim-listing-btn" onclick="openClaimModal(${listingId}, '${member.name.replace(/'/g, "\\'")}')">🏢 Claim This Listing</button>`;
         }
 
         function renderPagination() {
