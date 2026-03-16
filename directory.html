@@ -1323,24 +1323,41 @@
         </div>
     </footer>
 
-    <!-- CLAIM LISTING MODAL -->
+    <!-- CLAIM LISTING MODAL (Two-Step: Email → Verification Code) -->
     <div class="claim-modal-overlay" id="claimModalOverlay" onclick="if(event.target===this)closeClaimModal()">
         <div class="claim-modal">
             <button class="claim-close-btn" onclick="closeClaimModal()">&times;</button>
             <h2>CLAIM THIS LISTING</h2>
-            <p class="claim-subtitle">Verify ownership to manage this business listing</p>
+            <p class="claim-subtitle">We'll send a verification code to confirm you own this email</p>
             <div class="claim-listing-name" id="claimListingName"></div>
             <div class="claim-status-msg" id="claimStatusMsg"></div>
-            <form id="claimForm" onsubmit="submitClaim(event)">
+
+            <!-- Step 1: Enter email -->
+            <form id="claimStep1" onsubmit="sendVerificationCode(event)">
                 <input type="hidden" id="claimListingId">
+                <input type="hidden" id="claimWebsite">
                 <label for="claimEmail">Your Business Email</label>
                 <input type="email" id="claimEmail" placeholder="you@yourbusiness.com" required>
                 <label for="claimNote">Why are you claiming this listing? (optional)</label>
                 <textarea id="claimNote" placeholder="e.g. I am the owner / manager of this business"></textarea>
                 <div class="claim-modal-actions">
                     <button type="button" class="claim-btn-cancel" onclick="closeClaimModal()">Cancel</button>
-                    <button type="submit" class="claim-btn-submit" id="claimSubmitBtn">Submit Claim</button>
+                    <button type="submit" class="claim-btn-submit" id="claimSendBtn">Send Verification Code</button>
                 </div>
+            </form>
+
+            <!-- Step 2: Enter verification code -->
+            <form id="claimStep2" style="display:none" onsubmit="verifyClaimCode(event)">
+                <input type="hidden" id="claimIdForVerify">
+                <p style="color:var(--ink-gray);font-size:0.9rem;margin-bottom:16px;">Enter the 6-digit code we sent to <strong id="claimEmailDisplay" style="color:var(--ink-cyan);"></strong></p>
+                <label for="claimCode">Verification Code</label>
+                <input type="text" id="claimCode" placeholder="000000" maxlength="6" pattern="[0-9]{6}" required
+                       style="font-size:1.5rem;text-align:center;letter-spacing:8px;font-weight:700;">
+                <div class="claim-modal-actions">
+                    <button type="button" class="claim-btn-cancel" onclick="closeClaimModal()">Cancel</button>
+                    <button type="submit" class="claim-btn-submit" id="claimVerifyBtn">Verify & Claim</button>
+                </div>
+                <p style="color:var(--ink-gray);font-size:0.8rem;margin-top:12px;text-align:center;">Code expires in 10 minutes. <a href="#" onclick="resendCode(event)" style="color:var(--ink-purple);">Resend code</a></p>
             </form>
         </div>
     </div>
@@ -4501,18 +4518,31 @@
             }
         }
 
+        // Current claim ID for verification step
+        let _pendingClaimId = null;
+        let _pendingListingId = null;
+
         function openClaimModal(listingId, listingName) {
             if (!window._memberProfile) {
                 alert('Please log in to your ASPA+ account to claim a listing.');
                 return;
             }
+            const member = allMembers.find(m => m.id === listingId);
             document.getElementById('claimListingId').value = listingId;
+            document.getElementById('claimWebsite').value = member?.website || '';
             document.getElementById('claimListingName').textContent = listingName;
             document.getElementById('claimEmail').value = window._supabaseSession?.user?.email || '';
             document.getElementById('claimNote').value = '';
             document.getElementById('claimStatusMsg').className = 'claim-status-msg';
             document.getElementById('claimStatusMsg').textContent = '';
-            document.getElementById('claimSubmitBtn').disabled = false;
+            document.getElementById('claimSendBtn').disabled = false;
+            document.getElementById('claimSendBtn').textContent = 'Send Verification Code';
+            // Show step 1, hide step 2
+            document.getElementById('claimStep1').style.display = 'block';
+            document.getElementById('claimStep2').style.display = 'none';
+            document.getElementById('claimCode').value = '';
+            _pendingClaimId = null;
+            _pendingListingId = listingId;
             document.getElementById('claimModalOverlay').classList.add('active');
         }
 
@@ -4520,94 +4550,125 @@
             document.getElementById('claimModalOverlay').classList.remove('active');
         }
 
-        async function submitClaim(e) {
+        // Step 1: Send verification code via Supabase RPC
+        async function sendVerificationCode(e) {
             e.preventDefault();
-            const btn = document.getElementById('claimSubmitBtn');
+            const btn = document.getElementById('claimSendBtn');
             const msg = document.getElementById('claimStatusMsg');
             btn.disabled = true;
-            btn.textContent = 'Submitting...';
+            btn.textContent = 'Sending code...';
 
             const listingId = parseInt(document.getElementById('claimListingId').value);
             const email = document.getElementById('claimEmail').value.trim();
             const note = document.getElementById('claimNote').value.trim();
             const listingName = document.getElementById('claimListingName').textContent;
-
-            // Find the member to get their website for domain matching
-            const member = allMembers.find(m => m.id === listingId);
-            let verificationMethod = 'admin_review';
-            let autoApprove = false;
-
-            // Check email domain match against business website
-            if (member && member.website && email) {
-                try {
-                    const websiteDomain = new URL(member.website).hostname.replace(/^www\./, '');
-                    const emailDomain = email.split('@')[1];
-                    if (emailDomain && websiteDomain && emailDomain.toLowerCase() === websiteDomain.toLowerCase()) {
-                        verificationMethod = 'email_match';
-                        autoApprove = true;
-                    }
-                } catch (err) { /* URL parse fail, fallback to admin_review */ }
-            }
+            const website = document.getElementById('claimWebsite').value;
 
             try {
-                const { data, error } = await window._supabase
-                    .from('directory_claims')
-                    .insert({
-                        user_id: window._supabaseSession.user.id,
-                        listing_id: listingId,
-                        listing_name: listingName,
-                        status: autoApprove ? 'approved' : 'pending',
-                        verification_method: verificationMethod,
-                        user_email: email,
-                        business_email: member?.website ? new URL(member.website).hostname.replace(/^www\./, '') : null,
-                        note: note || null
-                    })
-                    .select()
-                    .single();
+                const { data, error } = await window._supabase.rpc('send_claim_verification', {
+                    p_user_id: window._supabaseSession.user.id,
+                    p_listing_id: listingId,
+                    p_listing_name: listingName,
+                    p_user_email: email,
+                    p_business_website: website || null,
+                    p_note: note || null
+                });
 
                 if (error) throw error;
-
-                // If auto-approved, also create the editable listing entry
-                if (autoApprove) {
-                    await window._supabase.from('directory_listings').insert({
-                        listing_id: listingId,
-                        claimed_by: window._supabaseSession.user.id,
-                        business_name: member.name,
-                        description: member.description,
-                        phone: member.phone,
-                        website: member.website,
-                        location: member.location,
-                        specialties: member.specialties || [],
-                        social_links: member.social || {},
-                        category: member.category
-                    });
-
-                    window._claimStatuses[listingId] = 'approved';
-                    window._claimedListings.add(listingId);
-                    msg.className = 'claim-status-msg success';
-                    msg.textContent = 'Email domain verified! Your listing has been approved. You can now edit it.';
-                } else {
-                    window._claimStatuses[listingId] = 'pending';
-                    msg.className = 'claim-status-msg success';
-                    msg.textContent = 'Claim submitted! An admin will review your request shortly.';
+                if (data.error) {
+                    msg.className = 'claim-status-msg error';
+                    msg.textContent = data.error;
+                    btn.disabled = false;
+                    btn.textContent = 'Send Verification Code';
+                    return;
                 }
 
-                // Re-render to update buttons
-                render();
-
-                // Close modal after a brief delay
-                setTimeout(closeClaimModal, 2500);
+                // Success — switch to step 2
+                _pendingClaimId = data.claim_id;
+                _pendingListingId = listingId;
+                document.getElementById('claimEmailDisplay').textContent = email;
+                document.getElementById('claimStep1').style.display = 'none';
+                document.getElementById('claimStep2').style.display = 'block';
+                msg.className = 'claim-status-msg success';
+                msg.textContent = 'Verification code sent! Check your email.';
 
             } catch (err) {
-                console.error('Claim submission error:', err);
+                console.error('Send verification error:', err);
                 msg.className = 'claim-status-msg error';
                 if (err.message && err.message.includes('duplicate')) {
                     msg.textContent = 'You already have a claim for this listing.';
                 } else {
-                    msg.textContent = 'Error submitting claim. Please try again.';
+                    msg.textContent = 'Error sending code. Please try again.';
                 }
                 btn.disabled = false;
-                btn.textContent = 'Submit Claim';
+                btn.textContent = 'Send Verification Code';
+            }
+        }
+
+        // Step 2: Verify the code
+        async function verifyClaimCode(e) {
+            e.preventDefault();
+            const btn = document.getElementById('claimVerifyBtn');
+            const msg = document.getElementById('claimStatusMsg');
+            btn.disabled = true;
+            btn.textContent = 'Verifying...';
+
+            const code = document.getElementById('claimCode').value.trim();
+
+            try {
+                const { data, error } = await window._supabase.rpc('verify_claim_code', {
+                    p_user_id: window._supabaseSession.user.id,
+                    p_claim_id: _pendingClaimId,
+                    p_code: code
+                });
+
+                if (error) throw error;
+                if (data.error) {
+                    msg.className = 'claim-status-msg error';
+                    msg.textContent = data.error;
+                    btn.disabled = false;
+                    btn.textContent = 'Verify & Claim';
+                    return;
+                }
+
+                // Success!
+                msg.className = 'claim-status-msg success';
+                msg.textContent = data.message;
+
+                // Update local state
+                if (data.status === 'approved') {
+                    window._claimStatuses[_pendingListingId] = 'approved';
+                    window._claimedListings.add(_pendingListingId);
+                } else {
+                    window._claimStatuses[_pendingListingId] = 'pending';
+                }
+
+                render();
+                setTimeout(closeClaimModal, 3000);
+
+            } catch (err) {
+                console.error('Verify code error:', err);
+                msg.className = 'claim-status-msg error';
+                msg.textContent = 'Error verifying code. Please try again.';
+                btn.disabled = false;
+                btn.textContent = 'Verify & Claim';
+            }
+        }
+
+        // Resend code (resubmits step 1)
+        function resendCode(e) {
+            e.preventDefault();
+            document.getElementById('claimStep2').style.display = 'none';
+            document.getElementById('claimStep1').style.display = 'block';
+            document.getElementById('claimSendBtn').disabled = false;
+            document.getElementById('claimSendBtn').textContent = 'Resend Verification Code';
+            document.getElementById('claimStatusMsg').className = 'claim-status-msg';
+            document.getElementById('claimStatusMsg').textContent = '';
+            // Delete the pending claim so we can create a new one
+            if (_pendingClaimId) {
+                window._supabase.from('directory_claims').delete().eq('id', _pendingClaimId).then(() => {
+                    _pendingClaimId = null;
+                });
             }
         }
 
@@ -4915,7 +4976,7 @@
             if (claimStatus === 'approved') {
                 return `<button class="claim-listing-btn claimed" onclick="openEditListing(${listingId})">✓ Your Listing — Edit</button>`;
             }
-            if (claimStatus === 'pending') {
+            if (claimStatus === 'pending' || claimStatus === 'pending_verification') {
                 return `<button class="claim-listing-btn pending" disabled>⏳ Claim Pending Review</button>`;
             }
             // Check if claimed by someone else
