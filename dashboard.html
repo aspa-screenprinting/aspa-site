@@ -1136,6 +1136,153 @@
             letter-spacing: 0.5px;
         }
 
+        /* ── LISTING EDIT FORM ── */
+        .listing-edit-form {
+            display: none;
+        }
+        .listing-edit-form.active {
+            display: block;
+        }
+        .listing-view-mode {
+            display: block;
+        }
+        .listing-view-mode.hidden {
+            display: none;
+        }
+        .edit-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        .edit-form-grid .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+        .listing-edit-form .form-group label {
+            display: block;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--ink-gray);
+            margin-bottom: 0.4rem;
+        }
+        .listing-edit-form .form-group input,
+        .listing-edit-form .form-group textarea,
+        .listing-edit-form .form-group select {
+            width: 100%;
+            padding: 0.7rem 1rem;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            background: rgba(10, 10, 26, 0.6);
+            color: var(--ink-white);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+        .listing-edit-form .form-group input:focus,
+        .listing-edit-form .form-group textarea:focus,
+        .listing-edit-form .form-group select:focus {
+            outline: none;
+            border-color: var(--ink-cyan);
+        }
+        .listing-edit-form .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        .listing-edit-form .form-group select option {
+            background: #1a1a2e;
+        }
+        .edit-form-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            justify-content: flex-end;
+        }
+        .btn-save-listing {
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            border: none;
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            color: var(--ink-black);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .btn-save-listing:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .btn-cancel-edit {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: transparent;
+            color: var(--ink-gray);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .btn-cancel-edit:hover {
+            border-color: rgba(255, 255, 255, 0.4);
+            color: var(--ink-white);
+        }
+        .listing-save-status {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem;
+            margin-top: 0.75rem;
+            text-align: right;
+        }
+        .listing-save-status.success { color: var(--ink-green); }
+        .listing-save-status.error { color: #ff3d5a; }
+        .social-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1rem;
+        }
+        .listing-field-row {
+            display: flex;
+            gap: 0.75rem;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .listing-field-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.8rem;
+            color: var(--ink-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            min-width: 100px;
+        }
+        .listing-field-value {
+            color: var(--ink-white);
+            font-size: 0.9rem;
+        }
+        .listing-field-value a {
+            color: var(--ink-cyan);
+            text-decoration: none;
+        }
+        .listing-no-claim {
+            text-align: center;
+            padding: 2rem;
+            color: var(--ink-gray);
+        }
+        .listing-no-claim p {
+            margin-bottom: 1rem;
+        }
+        @media (max-width: 768px) {
+            .edit-form-grid { grid-template-columns: 1fr; }
+            .social-inputs { grid-template-columns: 1fr; }
+        }
+
         /* ── NEXT STEPS / RECOMMENDED ── */
         .next-steps-grid {
             display: grid;
@@ -1524,13 +1671,20 @@
             </div>
         </section>
 
-        <!-- DIRECTORY LISTING PREVIEW -->
-        <section class="benefits-section">
+        <!-- DIRECTORY LISTING SECTION -->
+        <section class="benefits-section" id="directoryListingSection">
             <h2 class="section-header">YOUR DIRECTORY LISTING</h2>
-            <p class="section-subtitle">How members see your business in the ASPA directory.</p>
+            <p class="section-subtitle">Manage how your business appears in the ASPA directory.</p>
 
+            <!-- NO CLAIM STATE -->
+            <div id="listingNoClaim" class="listing-card listing-no-claim" style="display:none;">
+                <p>You haven't claimed a directory listing yet.</p>
+                <a href="directory.html" class="listing-btn primary">Browse Directory & Claim Your Listing →</a>
+            </div>
+
+            <!-- VIEW MODE -->
             <div class="directory-preview">
-                <div class="listing-card">
+                <div class="listing-card listing-view-mode" id="listingViewMode">
                     <div class="listing-header">
                         <div class="listing-name" id="listingBusinessName">Your Business Name</div>
                         <div class="listing-location" id="listingLocation">City, State</div>
@@ -1540,14 +1694,106 @@
                             <span class="stat-mini-label">Monthly Views</span>
                             <span class="stat-mini-value" id="listingViews">—</span>
                         </div>
+                        <div class="stat-mini">
+                            <span class="stat-mini-label">Category</span>
+                            <span class="stat-mini-value" id="listingCategory" style="font-size:1rem;">—</span>
+                        </div>
+                    </div>
+                    <div id="listingDetailsView">
+                        <div class="listing-field-row" id="listingDescRow" style="display:none;">
+                            <span class="listing-field-label">About</span>
+                            <span class="listing-field-value" id="listingDesc"></span>
+                        </div>
+                        <div class="listing-field-row" id="listingPhoneRow" style="display:none;">
+                            <span class="listing-field-label">Phone</span>
+                            <span class="listing-field-value" id="listingPhone"></span>
+                        </div>
+                        <div class="listing-field-row" id="listingWebRow" style="display:none;">
+                            <span class="listing-field-label">Website</span>
+                            <span class="listing-field-value" id="listingWeb"></span>
+                        </div>
+                        <div class="listing-field-row" id="listingEmailRow" style="display:none;">
+                            <span class="listing-field-label">Email</span>
+                            <span class="listing-field-value" id="listingEmail"></span>
+                        </div>
+                        <div class="listing-field-row" id="listingSocialRow" style="display:none;">
+                            <span class="listing-field-label">Social</span>
+                            <span class="listing-field-value" id="listingSocials"></span>
+                        </div>
                     </div>
                     <div class="listing-specialties" id="listingSpecialties">
                         <span class="specialty-tag">Add your specialties</span>
                     </div>
                     <div class="listing-actions">
-                        <a href="directory.html" class="listing-btn primary">Edit Listing →</a>
+                        <button class="listing-btn primary" onclick="toggleListingEdit(true)">Edit Listing →</button>
                         <span class="boost-badge">ASPA+ Boost Visibility</span>
                     </div>
+                </div>
+
+                <!-- EDIT MODE -->
+                <div class="listing-card listing-edit-form" id="listingEditMode">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;">
+                        <div class="listing-name" style="margin-bottom:0;">Edit Your Listing</div>
+                    </div>
+                    <input type="hidden" id="editListingId">
+
+                    <div class="edit-form-grid">
+                        <div class="form-group">
+                            <label>Business Name *</label>
+                            <input type="text" id="editBusinessName" placeholder="Your business name">
+                        </div>
+                        <div class="form-group">
+                            <label>Category</label>
+                            <select id="editCategory">
+                                <option value="">Select category...</option>
+                                <option value="tshirt">T-Shirt Printer</option>
+                                <option value="screen">Screen Printer</option>
+                                <option value="supplier">Supplier / Distributor</option>
+                                <option value="sign">Signs & Graphics</option>
+                                <option value="embroidery">Embroidery</option>
+                                <option value="dtg">DTG / Digital Printing</option>
+                                <option value="promo">Promotional Products</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Description</label>
+                            <textarea id="editDescription" placeholder="Tell members about your business, equipment, specialties..." rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <input type="tel" id="editPhone" placeholder="(555) 123-4567">
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="editListingEmail" placeholder="contact@yourbusiness.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Website</label>
+                            <input type="url" id="editWebsite" placeholder="https://yourbusiness.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Location</label>
+                            <input type="text" id="editLocation" placeholder="City, State">
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Specialties <span style="color:var(--ink-gray);font-weight:400;text-transform:none;">(comma separated)</span></label>
+                            <input type="text" id="editSpecialties" placeholder="Screen Printing, DTG, Embroidery, Vinyl">
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Social Links</label>
+                            <div class="social-inputs">
+                                <input type="url" id="editLinkedin" placeholder="LinkedIn URL">
+                                <input type="url" id="editInstagram" placeholder="Instagram URL">
+                                <input type="url" id="editFacebook" placeholder="Facebook URL">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="edit-form-actions">
+                        <button class="btn-cancel-edit" onclick="toggleListingEdit(false)">Cancel</button>
+                        <button class="btn-save-listing" id="btnSaveListing" onclick="saveListingEdits()">Save Changes</button>
+                    </div>
+                    <div class="listing-save-status" id="listingSaveStatus"></div>
                 </div>
             </div>
         </section>
@@ -1896,24 +2142,8 @@
             const ceCreditsText = document.getElementById('ceCreditsText');
             if (ceCreditsText) ceCreditsText.textContent = `${Math.min(ceCredits, 12)} / 12`;
 
-            // ── DIRECTORY LISTING PREVIEW ──
-            const businessName = profile.company || 'Your Business Name';
-            const location = profile.city && profile.state ? `${profile.city}, ${profile.state}` : 'Add your location';
-            const dirViews = profile.directory_views || 0;
-
-            document.getElementById('listingBusinessName').textContent = businessName;
-            document.getElementById('listingLocation').textContent = location;
-            document.getElementById('listingViews').textContent = dirViews > 0 ? dirViews : '—';
-
-            const specialties = profile.specialties ? profile.specialties.split(',').map(s => s.trim()) : [];
-            const specialtiesEl = document.getElementById('listingSpecialties');
-            if (specialtiesEl) {
-                if (specialties.length > 0) {
-                    specialtiesEl.innerHTML = specialties.map(s => `<span class="specialty-tag">${s}</span>`).join('');
-                } else {
-                    specialtiesEl.innerHTML = '<span class="specialty-tag">Add your specialties</span>';
-                }
-            }
+            // ── DIRECTORY LISTING ──
+            loadMyDirectoryListing();
 
             // ── CERTIFICATION EXPIRY ──
             const certExpiryEl = document.getElementById('certExpiryLine');
@@ -1921,6 +2151,256 @@
                 certExpiryEl.textContent = `CSP Certified — Expires ${renewDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}`;
             }
 
+        }
+
+        // ==========================================
+        // DIRECTORY LISTING MANAGEMENT
+        // ==========================================
+        var _myListing = null; // cached listing data
+
+        async function loadMyDirectoryListing() {
+            var sb = window._supabase;
+            var session = window._supabaseSession;
+            if (!sb || !session) return;
+
+            try {
+                // First check if user has an approved claim
+                var { data: claims, error: claimErr } = await sb
+                    .from('directory_claims')
+                    .select('listing_id, listing_name, status')
+                    .eq('user_id', session.user.id)
+                    .eq('status', 'approved')
+                    .limit(1);
+
+                if (claimErr) throw claimErr;
+
+                if (!claims || claims.length === 0) {
+                    // No approved claim — show the "claim your listing" state
+                    document.getElementById('listingViewMode').style.display = 'none';
+                    document.getElementById('listingNoClaim').style.display = 'block';
+                    return;
+                }
+
+                var listingId = claims[0].listing_id;
+
+                // Load the full listing from directory_listings
+                var { data: listing, error: listErr } = await sb
+                    .from('directory_listings')
+                    .select('*')
+                    .eq('listing_id', listingId)
+                    .eq('claimed_by', session.user.id)
+                    .maybeSingle();
+
+                if (listErr) throw listErr;
+
+                if (!listing) {
+                    // Claim approved but no listing record yet — use claim data
+                    listing = {
+                        listing_id: listingId,
+                        business_name: claims[0].listing_name,
+                        claimed_by: session.user.id
+                    };
+                }
+
+                _myListing = listing;
+                populateListingView(listing);
+
+            } catch (err) {
+                console.error('Error loading directory listing:', err);
+            }
+        }
+
+        function populateListingView(listing) {
+            // Business name & location
+            document.getElementById('listingBusinessName').textContent = listing.business_name || 'Your Business';
+            document.getElementById('listingLocation').textContent = listing.location || 'Add your location';
+            document.getElementById('listingViews').textContent = listing.monthly_views || '—';
+
+            // Category display
+            var catMap = {
+                tshirt: 'T-Shirt Printer', screen: 'Screen Printer', supplier: 'Supplier',
+                sign: 'Signs & Graphics', embroidery: 'Embroidery', dtg: 'DTG / Digital',
+                promo: 'Promotional', other: 'Other'
+            };
+            document.getElementById('listingCategory').textContent = catMap[listing.category] || '—';
+
+            // Detail rows
+            showField('listingDescRow', 'listingDesc', listing.description);
+            showField('listingPhoneRow', 'listingPhone', listing.phone);
+
+            if (listing.website) {
+                document.getElementById('listingWebRow').style.display = 'flex';
+                document.getElementById('listingWeb').innerHTML = '<a href="' + escHtml(listing.website) + '" target="_blank">' + escHtml(listing.website) + '</a>';
+            } else {
+                document.getElementById('listingWebRow').style.display = 'none';
+            }
+
+            if (listing.email) {
+                document.getElementById('listingEmailRow').style.display = 'flex';
+                document.getElementById('listingEmail').innerHTML = '<a href="mailto:' + escHtml(listing.email) + '">' + escHtml(listing.email) + '</a>';
+            } else {
+                document.getElementById('listingEmailRow').style.display = 'none';
+            }
+
+            // Social links
+            var social = listing.social_links || listing.social || {};
+            var socialHtml = [];
+            if (social.linkedin) socialHtml.push('<a href="' + escHtml(social.linkedin) + '" target="_blank">LinkedIn</a>');
+            if (social.instagram) socialHtml.push('<a href="' + escHtml(social.instagram) + '" target="_blank">Instagram</a>');
+            if (social.facebook) socialHtml.push('<a href="' + escHtml(social.facebook) + '" target="_blank">Facebook</a>');
+            if (socialHtml.length > 0) {
+                document.getElementById('listingSocialRow').style.display = 'flex';
+                document.getElementById('listingSocials').innerHTML = socialHtml.join(' · ');
+            } else {
+                document.getElementById('listingSocialRow').style.display = 'none';
+            }
+
+            // Specialties
+            var specs = listing.specialties || [];
+            if (typeof specs === 'string') specs = specs.split(',').map(function(s) { return s.trim(); }).filter(Boolean);
+            var specialtiesEl = document.getElementById('listingSpecialties');
+            if (specs.length > 0) {
+                specialtiesEl.innerHTML = specs.map(function(s) { return '<span class="specialty-tag">' + escHtml(s) + '</span>'; }).join('');
+            } else {
+                specialtiesEl.innerHTML = '<span class="specialty-tag" style="opacity:0.5;">Add your specialties</span>';
+            }
+
+            // Show view mode
+            document.getElementById('listingViewMode').style.display = 'block';
+            document.getElementById('listingNoClaim').style.display = 'none';
+        }
+
+        function showField(rowId, valueId, value) {
+            if (value) {
+                document.getElementById(rowId).style.display = 'flex';
+                document.getElementById(valueId).textContent = value;
+            } else {
+                document.getElementById(rowId).style.display = 'none';
+            }
+        }
+
+        function escHtml(str) {
+            if (!str) return '';
+            var div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        function toggleListingEdit(showEdit) {
+            var viewMode = document.getElementById('listingViewMode');
+            var editMode = document.getElementById('listingEditMode');
+
+            if (showEdit && _myListing) {
+                // Populate edit form from cached listing
+                document.getElementById('editListingId').value = _myListing.listing_id || '';
+                document.getElementById('editBusinessName').value = _myListing.business_name || '';
+                document.getElementById('editCategory').value = _myListing.category || '';
+                document.getElementById('editDescription').value = _myListing.description || '';
+                document.getElementById('editPhone').value = _myListing.phone || '';
+                document.getElementById('editListingEmail').value = _myListing.email || '';
+                document.getElementById('editWebsite').value = _myListing.website || '';
+                document.getElementById('editLocation').value = _myListing.location || '';
+
+                var specs = _myListing.specialties || [];
+                if (Array.isArray(specs)) specs = specs.join(', ');
+                document.getElementById('editSpecialties').value = specs;
+
+                var social = _myListing.social_links || _myListing.social || {};
+                document.getElementById('editLinkedin').value = social.linkedin || '';
+                document.getElementById('editInstagram').value = social.instagram || '';
+                document.getElementById('editFacebook').value = social.facebook || '';
+
+                viewMode.classList.add('hidden');
+                editMode.classList.add('active');
+                document.getElementById('listingSaveStatus').textContent = '';
+            } else {
+                viewMode.classList.remove('hidden');
+                editMode.classList.remove('active');
+            }
+        }
+
+        async function saveListingEdits() {
+            var sb = window._supabase;
+            var session = window._supabaseSession;
+            if (!sb || !session) return;
+
+            var listingId = document.getElementById('editListingId').value;
+            var businessName = document.getElementById('editBusinessName').value.trim();
+            var statusEl = document.getElementById('listingSaveStatus');
+            var saveBtn = document.getElementById('btnSaveListing');
+
+            if (!businessName) {
+                statusEl.className = 'listing-save-status error';
+                statusEl.textContent = 'Business name is required';
+                return;
+            }
+
+            saveBtn.disabled = true;
+            saveBtn.textContent = 'Saving...';
+            statusEl.textContent = '';
+
+            var specsRaw = document.getElementById('editSpecialties').value;
+            var specialties = specsRaw ? specsRaw.split(',').map(function(s) { return s.trim(); }).filter(Boolean) : [];
+
+            var payload = {
+                business_name: businessName,
+                category: document.getElementById('editCategory').value || null,
+                description: document.getElementById('editDescription').value.trim() || null,
+                phone: document.getElementById('editPhone').value.trim() || null,
+                email: document.getElementById('editListingEmail').value.trim() || null,
+                website: document.getElementById('editWebsite').value.trim() || null,
+                location: document.getElementById('editLocation').value.trim() || null,
+                specialties: specialties,
+                social_links: {
+                    linkedin: document.getElementById('editLinkedin').value.trim() || null,
+                    instagram: document.getElementById('editInstagram').value.trim() || null,
+                    facebook: document.getElementById('editFacebook').value.trim() || null
+                },
+                updated_at: new Date().toISOString()
+            };
+
+            try {
+                var { data, error } = await sb
+                    .from('directory_listings')
+                    .update(payload)
+                    .eq('listing_id', listingId)
+                    .eq('claimed_by', session.user.id)
+                    .select()
+                    .single();
+
+                if (error) throw error;
+
+                // Log edit to history
+                await sb.from('directory_edit_history').insert({
+                    listing_id: parseInt(listingId),
+                    edited_by: session.user.id,
+                    changes: payload
+                }).catch(function(e) { console.warn('Could not log edit:', e); });
+
+                // Update cached data and refresh view
+                _myListing = data;
+                populateListingView(data);
+                toggleListingEdit(false);
+
+                statusEl.className = 'listing-save-status success';
+                statusEl.textContent = '';
+
+                // Show success briefly in view mode
+                var viewMode = document.getElementById('listingViewMode');
+                var successMsg = document.createElement('div');
+                successMsg.style.cssText = 'color:#00e676;font-family:Space Grotesk,sans-serif;font-size:0.85rem;text-align:center;padding:0.5rem;margin-top:0.5rem;';
+                successMsg.textContent = '✓ Listing updated successfully';
+                viewMode.appendChild(successMsg);
+                setTimeout(function() { successMsg.remove(); }, 3000);
+
+            } catch (err) {
+                console.error('Error saving listing:', err);
+                statusEl.className = 'listing-save-status error';
+                statusEl.textContent = 'Error saving: ' + (err.message || 'Unknown error');
+            } finally {
+                saveBtn.disabled = false;
+                saveBtn.textContent = 'Save Changes';
+            }
         }
 
         // Listen for Supabase auth ready event
