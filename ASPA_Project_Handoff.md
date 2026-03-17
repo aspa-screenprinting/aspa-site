@@ -2,8 +2,8 @@
 
 **Project:** screen-printing.us redesign
 **Client:** Dustin Cochran (cochran.dustin@gmail.com)
-**Date:** March 3–16, 2026 (last updated: Session 24)
-**Status:** In Progress — Core Pages Built, Resource Hub COMPLETE (All 18 Articles), **SITE LIVE on GitHub Pages**, Nav Full-Width, **Supabase Backend Live** (Auth + Database + Google OAuth + Storage), ASPA+ Gated Content Live, Admin Dashboard Built, **UI Polish Pass Complete**, **Gamification & Loyalty Points System Live**, **Job Board Live**, **Community Chat Live** (Real-time, Edit/Delete, Search, Profile Edit, Avatar Upload, Admin Moderation), **Full Brand Audit Complete**, **Member Dashboard Fleshed Out**, **Directory Overhauled (210 Real Members)**, **Membership Certificate PDF**, **Directory Location Filter Redesigned**, **Admin Panel Tabs Fixed**, **Directory Claim System Live** (Email Verification via Resend + pg_net), **CRM Member Detail Panel Built**
+**Date:** March 3–17, 2026 (last updated: Session 25)
+**Status:** In Progress — Core Pages Built, Resource Hub COMPLETE (All 18 Articles), **SITE LIVE on GitHub Pages**, Nav Full-Width, **Supabase Backend Live** (Auth + Database + Google OAuth + Storage), ASPA+ Gated Content Live, Admin Dashboard Built, **UI Polish Pass Complete**, **Gamification & Loyalty Points System Live**, **Job Board Live**, **Community Chat Live** (Real-time, Edit/Delete, Search, Profile Edit, Avatar Upload, Admin Moderation), **Full Brand Audit Complete**, **Member Dashboard Fleshed Out**, **Directory Overhauled (210 Real Members)**, **Membership Certificate PDF**, **Directory Location Filter Redesigned**, **Admin Panel Tabs Fixed**, **Directory Claim System Live** (Email Verification via Resend + pg_net), **CRM Member Detail Panel Built**, **Dashboard Self-Service Listing Editing**, **Promo Codes Standalone Admin Tab**
 
 ---
 
@@ -1244,6 +1244,52 @@ Pages needing work (prioritized):
 - Mobile responsive polish pass
 - Glossary page (high SEO value)
 - Payment integration (Stripe/PayPal)
+
+---
+
+## Session 25: Dashboard Listing Editor + Promo Codes Admin Tab (March 17, 2026)
+
+### Per-User Promo Code Limits (`admin.html`, `jobs.html`)
+- **New `max_uses_per_user` column** on `promo_codes` table — limits how many times a single user can redeem a given code
+- **New `promo_code_uses` table** — tracks individual redemptions with `user_id`, `promo_code_id`, `used_at`
+- **Validation in 3-step job posting wizard** (`jobs.html`) — checks per-user limit before applying discount
+- **Admin UI** — new column in promo codes table, editable when creating/editing codes
+
+### Dashboard Self-Service Directory Listing Editing (`dashboard.html`)
+- **"My Business Listing" section** on member dashboard for ASPA+ members with approved directory claims
+- **View mode** — displays business name, category, location, description, contact info, specialties (as tags), and social links with clickable icons
+- **Edit mode** — inline form with all fields pre-populated, toggle between view/edit with a single button
+- **Save flow** — updates `directory_listings` table via Supabase, logs changes to `directory_edit_history`, displays success/error feedback
+- **Schema alignment** — fixed column name mismatches throughout: `claimed_by` → `owner_id`, `business_name` → `name`, `social_links` → `social`
+- **Supabase PostgREST fix** — `.catch()` doesn't exist on PostgREST builder objects; replaced with `try/catch` around `await` for edit history logging
+
+### Promo Codes Standalone Admin Tab (`admin.html`)
+- **Moved Promo Codes out of Job Board tab** into its own first-class admin tab (green tab button)
+- **Stats cards:** Active Codes, Total Redemptions, Job Posting Codes, Membership Codes — all with branded ink colors
+- **`applies_to` field** already existed on `promo_codes` table with values: `job_posting`, `membership`, `both`
+- **Lazy-loaded** via `switchTab()` pattern with `_promoCodesLoaded` flag
+- **Purpose:** Decouple promo codes from job board so they can be used for ASPA+ membership discounts too
+
+### 3-Step Job Posting Wizard (`jobs.html`)
+- **Step 1:** Job details form (title, company, location, description, category, type, salary, application URL)
+- **Step 2:** Select listing tier ($49 Basic / $99 Featured / $149 Premium) with feature comparison
+- **Step 3:** Payment + optional promo code application, with per-user redemption limit enforcement
+
+### Commit History (Session 25)
+- `30e7229` Add per-user promo code usage limits
+- `1c21333` Add self-service directory listing editing to member dashboard
+- `499412d` Fix directory listing column names to match actual schema
+- `3ea20fe` Fix edit history logging crash in saveListingEdits
+- `8b6472f` Move Promo Codes to standalone admin tab
+
+### What's Next
+- [ ] **Wire up membership promo codes** — Membership signup flow doesn't yet validate promo codes (admin structure + `applies_to` field ready)
+- [ ] **One-time point rewards for listing fields** — Award loyalty points when members fill out profile/listing fields for the first time
+- [ ] **Resend custom sending domain** — DNS records (SPF, DKIM, DMARC) once ASPA domain is owned
+- [ ] **Job board enhancements** — Source-specific badges (detect actual source from URL), unified native+external list, zip+radius location filter, strip HTML from description snippets
+- [ ] Mobile responsive polish pass
+- [ ] Glossary page (high SEO value)
+- [ ] Payment integration (Stripe/PayPal)
 
 ---
 

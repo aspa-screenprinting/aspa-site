@@ -519,6 +519,27 @@
                             </div>
                         </div>
 
+                        <!-- Promo Code Section -->
+                        <div style="padding-top:20px; border-top:1px solid rgba(255,255,255,0.08); margin-bottom:20px;">
+                            <label style="display:block; margin-bottom:8px; font-size:0.9rem; color:var(--ink-gray,#888);">Have a promo code?</label>
+                            <div style="display:flex; gap:10px; margin-bottom:8px;">
+                                <input type="text" id="memberPromoCode" placeholder="Enter code" maxlength="20" style="flex:1;">
+                                <button type="button" class="btn" onclick="applyMembershipPromo()" style="padding:10px 20px; background:transparent; border:1px solid var(--ink-green,#00e676); color:var(--ink-green,#00e676); border-radius:8px; cursor:pointer; white-space:nowrap; font-size:0.9rem;">Apply</button>
+                            </div>
+                            <div id="memberPromoStatus" style="font-size:0.85rem; min-height:1.2em;"></div>
+                            <div id="memberPromoSummary" style="display:none; background:rgba(0,230,118,0.08); border:1px solid rgba(0,230,118,0.2); border-radius:8px; padding:12px; margin-top:8px;">
+                                <div style="color:var(--ink-green,#00e676); font-weight:600;" id="memberPromoLabel"></div>
+                                <div style="display:flex; justify-content:space-between; margin-top:6px; font-size:0.9rem;">
+                                    <span style="color:var(--ink-gray,#888);">Original price:</span>
+                                    <span id="memberPromoOriginal" style="color:var(--ink-gray,#888); text-decoration:line-through;"></span>
+                                </div>
+                                <div style="display:flex; justify-content:space-between; margin-top:4px; font-size:1rem; font-weight:600;">
+                                    <span style="color:#fff;">You pay:</span>
+                                    <span id="memberPromoFinal" style="color:var(--ink-green,#00e676);"></span>
+                                </div>
+                            </div>
+                        </div>
+
                         <button type="button" class="btn btn-primary btn-block" onclick="processPayment()" id="payBtn">
                             Complete Enrollment &#8594;
                         </button>
@@ -590,6 +611,7 @@
 
     let selectedPlan = null;
     let memberData = {};
+    let appliedMembershipPromo = null;
 
     // ===== SCREEN 1 =====
     function selectPlan(planKey) {
@@ -597,7 +619,12 @@
         document.getElementById('selectedPlanType').textContent = selectedPlan.type;
         document.getElementById('selectedPlanName').textContent = selectedPlan.name;
         document.getElementById('selectedPlanPrice').textContent = selectedPlan.price;
-        document.getElementById('payBtn').textContent = `Pay ${selectedPlan.price} & Complete Enrollment \u2192`;
+        // Update button — respect any applied promo
+        if (appliedMembershipPromo) {
+            updatePromoSummary();
+        } else {
+            document.getElementById('payBtn').textContent = `Pay ${selectedPlan.price} & Complete Enrollment \u2192`;
+        }
         showScreen('screenSignup');
         window.scrollTo(0, 0);
     }
@@ -624,6 +651,143 @@
         document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
         el.classList.add('selected');
         document.getElementById('mCardFields').style.display = type === 'card' ? 'block' : 'none';
+    }
+
+    // ===== PROMO CODE =====
+    function getMembershipDiscount(promo, originalAmount) {
+        if (!promo) return originalAmount;
+        if (promo.discount_type === 'free') return 0;
+        if (promo.discount_type === 'percentage') return Math.max(0, originalAmount * (1 - promo.discount_value / 100));
+        if (promo.discount_type === 'fixed') return Math.max(0, originalAmount - promo.discount_value);
+        return originalAmount;
+    }
+
+    function updatePromoSummary() {
+        var summaryEl = document.getElementById('memberPromoSummary');
+        if (!appliedMembershipPromo || !selectedPlan) {
+            summaryEl.style.display = 'none';
+            return;
+        }
+        var original = selectedPlan.amount;
+        var final = getMembershipDiscount(appliedMembershipPromo, original);
+        var descText = appliedMembershipPromo.discount_type === 'free' ? 'Free membership!' :
+                       appliedMembershipPromo.discount_type === 'percentage' ? appliedMembershipPromo.discount_value + '% off' :
+                       '$' + appliedMembershipPromo.discount_value + ' off';
+
+        document.getElementById('memberPromoLabel').textContent = '\u2713 ' + appliedMembershipPromo.code + ' — ' + descText;
+        document.getElementById('memberPromoOriginal').textContent = '$' + original;
+        document.getElementById('memberPromoFinal').textContent = final === 0 ? 'FREE' : '$' + final.toFixed(2);
+        summaryEl.style.display = 'block';
+
+        // Update the pay button text
+        var payBtn = document.getElementById('payBtn');
+        if (final === 0) {
+            payBtn.textContent = 'Complete Free Enrollment \u2192';
+        } else {
+            payBtn.textContent = 'Pay $' + final.toFixed(2) + ' & Complete Enrollment \u2192';
+        }
+    }
+
+    async function applyMembershipPromo() {
+        var sb = window._supabase;
+        var statusEl = document.getElementById('memberPromoStatus');
+        var code = document.getElementById('memberPromoCode').value.trim().toUpperCase();
+
+        if (!code) {
+            statusEl.textContent = 'Please enter a code';
+            statusEl.style.color = '#ff3d5a';
+            return;
+        }
+        if (!sb) {
+            statusEl.textContent = 'System loading\u2026 please try again';
+            statusEl.style.color = '#ff3d5a';
+            return;
+        }
+
+        statusEl.textContent = 'Checking\u2026';
+        statusEl.style.color = 'var(--ink-gray,#888)';
+
+        try {
+            var result = await sb
+                .from('promo_codes')
+                .select('*')
+                .eq('code', code)
+                .eq('is_active', true)
+                .maybeSingle();
+
+            if (result.error) throw result.error;
+            var data = result.data;
+
+            if (!data) {
+                statusEl.textContent = 'Invalid or inactive promo code';
+                statusEl.style.color = '#ff3d5a';
+                appliedMembershipPromo = null;
+                updatePromoSummary();
+                return;
+            }
+
+            // Must apply to membership
+            if (data.applies_to !== 'membership' && data.applies_to !== 'both') {
+                statusEl.textContent = 'This code is not valid for membership signups';
+                statusEl.style.color = '#ff3d5a';
+                appliedMembershipPromo = null;
+                updatePromoSummary();
+                return;
+            }
+
+            // Check global usage limit
+            if (data.max_uses && data.current_uses >= data.max_uses) {
+                statusEl.textContent = 'This code has reached its usage limit';
+                statusEl.style.color = '#ff3d5a';
+                appliedMembershipPromo = null;
+                updatePromoSummary();
+                return;
+            }
+
+            // Check expiration
+            if (data.expires_at && new Date(data.expires_at) < new Date()) {
+                statusEl.textContent = 'This promo code has expired';
+                statusEl.style.color = '#ff3d5a';
+                appliedMembershipPromo = null;
+                updatePromoSummary();
+                return;
+            }
+
+            // Per-user limit (only if user already has a session — new signups won't)
+            if (data.max_uses_per_user && window._supabaseSession) {
+                var userId = window._supabaseSession.user.id;
+                var usesResult = await sb
+                    .from('promo_code_uses')
+                    .select('id')
+                    .eq('promo_code_id', data.id)
+                    .eq('user_id', userId);
+
+                if (!usesResult.error && usesResult.data && usesResult.data.length >= data.max_uses_per_user) {
+                    statusEl.textContent = 'You have already used this code the maximum number of times';
+                    statusEl.style.color = '#ff3d5a';
+                    appliedMembershipPromo = null;
+                    updatePromoSummary();
+                    return;
+                }
+            }
+
+            // Valid — store it
+            appliedMembershipPromo = {
+                id: data.id,
+                code: data.code,
+                discount_type: data.discount_type,
+                discount_value: data.discount_value,
+                current_uses: data.current_uses || 0
+            };
+
+            statusEl.textContent = '';
+            updatePromoSummary();
+
+        } catch (err) {
+            console.error('Promo code error:', err);
+            statusEl.textContent = 'Error validating code — please try again';
+            statusEl.style.color = '#ff3d5a';
+        }
     }
 
     function processPayment() {
@@ -675,11 +839,21 @@
 
         memberData = { name: fn + ' ' + ln, email: em, company: co, city, state, website: web, password: password };
 
+        // Attach promo code info if applied
+        if (appliedMembershipPromo) {
+            memberData.promoId = appliedMembershipPromo.id;
+            memberData.promoCode = appliedMembershipPromo.code;
+            memberData.finalAmount = getMembershipDiscount(appliedMembershipPromo, selectedPlan.amount);
+        } else {
+            memberData.promoId = null;
+            memberData.finalAmount = selectedPlan.amount;
+        }
+
         const btn = document.getElementById('payBtn');
         btn.disabled = true;
         btn.innerHTML = '&#9203; Processing Payment...';
         setTimeout(() => {
-            btn.innerHTML = '&#9989; Payment Confirmed!';
+            btn.innerHTML = memberData.finalAmount === 0 ? '&#9989; Enrollment Confirmed!' : '&#9989; Payment Confirmed!';
             setTimeout(() => showWelcome(), 800);
         }, 1500);
     }
@@ -738,10 +912,33 @@
                         join_date: dateStr
                     })
                     .eq('id', result.data.user.id)
-                    .then(function(updateResult) {
+                    .then(async function(updateResult) {
                         if (updateResult.error) {
                             console.error('Profile update error:', updateResult.error);
                         }
+
+                        // Record promo code usage if one was applied
+                        if (memberData.promoId && result.data.user) {
+                            try {
+                                await window._supabase.from('promo_code_uses').insert({
+                                    promo_code_id: memberData.promoId,
+                                    user_id: result.data.user.id
+                                });
+                            } catch(e) { console.warn('Could not record promo usage:', e); }
+
+                            // Increment global usage counter
+                            try {
+                                await window._supabase.rpc('increment_promo_usage', { p_id: memberData.promoId });
+                            } catch(e) {
+                                // Fallback: direct update
+                                try {
+                                    await window._supabase.from('promo_codes')
+                                        .update({ current_uses: (appliedMembershipPromo.current_uses || 0) + 1 })
+                                        .eq('id', memberData.promoId);
+                                } catch(e2) { console.warn('Could not increment promo usage:', e2); }
+                            }
+                        }
+
                         // Update navigation to show logged-in state
                         updateNavigation();
                         showScreen('screenWelcome');
