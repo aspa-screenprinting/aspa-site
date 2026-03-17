@@ -2408,13 +2408,17 @@
             </div>
             <div style="display:flex;gap:1rem;">
                 <div class="form-group" style="flex:1;">
-                    <label>Max Uses</label>
-                    <input type="number" id="promoMaxUsesInput" placeholder="100" min="1">
+                    <label>Max Total Uses</label>
+                    <input type="number" id="promoMaxUsesInput" placeholder="Unlimited" min="1">
                 </div>
                 <div class="form-group" style="flex:1;">
-                    <label>Expires At</label>
-                    <input type="datetime-local" id="promoExpiresInput">
+                    <label>Max Per User</label>
+                    <input type="number" id="promoMaxPerUserInput" placeholder="Unlimited" min="1">
                 </div>
+            </div>
+            <div class="form-group">
+                <label>Expires At</label>
+                <input type="datetime-local" id="promoExpiresInput">
             </div>
             <div class="modal-actions">
                 <button class="modal-btn cancel" onclick="closePromoCodeModal()">Cancel</button>
@@ -3781,7 +3785,7 @@
                         '<td><span style="background:rgba(0,212,255,0.1);padding:2px 8px;border-radius:4px;font-size:0.8rem;">' + esc(c.discount_type) + '</span></td>' +
                         '<td><span style="background:rgba(108,43,217,0.1);padding:2px 8px;border-radius:4px;font-size:0.8rem;">' + esc(c.applies_to) + '</span></td>' +
                         '<td style="color:var(--ink-yellow);font-weight:600;">' + discountVal + '</td>' +
-                        '<td>' + c.current_uses + '/' + (c.max_uses || '∞') + '</td>' +
+                        '<td>' + c.current_uses + '/' + (c.max_uses || '∞') + (c.max_uses_per_user ? ' <span style="color:#b0b0b0;font-size:0.7rem;">(' + c.max_uses_per_user + '/user)</span>' : '') + '</td>' +
                         '<td>' + expiresText + '</td>' +
                         '<td>' + statusBadge + '</td>' +
                         '<td style="display:flex;gap:6px;">' +
@@ -3803,6 +3807,7 @@
             document.getElementById('promoValueInput').value = '';
             document.getElementById('promoAppliesToSelect').value = 'job_posting';
             document.getElementById('promoMaxUsesInput').value = '';
+            document.getElementById('promoMaxPerUserInput').value = '';
             document.getElementById('promoExpiresInput').value = '';
             document.getElementById('promoCodeModal').classList.add('active');
         }
@@ -3828,6 +3833,7 @@
             document.getElementById('promoValueInput').value = code.discount_value || '';
             document.getElementById('promoAppliesToSelect').value = code.applies_to;
             document.getElementById('promoMaxUsesInput').value = code.max_uses || '';
+            document.getElementById('promoMaxPerUserInput').value = code.max_uses_per_user || '';
             if (code.expires_at) {
                 var d = new Date(code.expires_at);
                 var iso = d.toISOString().slice(0, 16);
@@ -3851,6 +3857,7 @@
             var discountValue = parseFloat(document.getElementById('promoValueInput').value) || 0;
             var appliesTo = document.getElementById('promoAppliesToSelect').value;
             var maxUses = parseInt(document.getElementById('promoMaxUsesInput').value) || null;
+            var maxPerUser = parseInt(document.getElementById('promoMaxPerUserInput').value) || null;
             var expiresAt = document.getElementById('promoExpiresInput').value;
 
             if (!code) {
@@ -3870,6 +3877,7 @@
                 discount_value: discountType === 'free' ? 0 : discountValue,
                 applies_to: appliesTo,
                 max_uses: maxUses,
+                max_uses_per_user: maxPerUser,
                 expires_at: expiresAt ? new Date(expiresAt).toISOString() : null
             };
 

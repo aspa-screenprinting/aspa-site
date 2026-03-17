@@ -1481,6 +1481,22 @@
                     return;
                 }
 
+                // Check per-user usage limit
+                if (data.max_uses_per_user && window._supabaseSession) {
+                    var userId = window._supabaseSession.user.id;
+                    var { data: userUses, error: usesErr } = await sb
+                        .from('promo_code_uses')
+                        .select('id')
+                        .eq('promo_code_id', data.id)
+                        .eq('user_id', userId);
+
+                    if (!usesErr && userUses && userUses.length >= data.max_uses_per_user) {
+                        statusEl.className = 'promo-status error';
+                        statusEl.textContent = 'You have already used this code ' + data.max_uses_per_user + ' time' + (data.max_uses_per_user > 1 ? 's' : '');
+                        return;
+                    }
+                }
+
                 // Success
                 appliedPromo = {
                     id: data.id,
@@ -1582,6 +1598,17 @@
                           .update({ current_uses: (appliedPromo.current_uses || 0) + 1 })
                           .eq('id', appliedPromo.id);
                     });
+
+                    // Record per-user usage
+                    if (session && session.user) {
+                        await sb.from('promo_code_uses').insert({
+                            promo_code_id: appliedPromo.id,
+                            user_id: session.user.id,
+                            job_listing_id: data.id
+                        }).catch(function(err) {
+                            console.warn('Could not record per-user promo usage:', err);
+                        });
+                    }
                 }
 
                 if (finalAmount <= 0) {
