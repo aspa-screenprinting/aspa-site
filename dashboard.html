@@ -2188,7 +2188,7 @@
                     .from('directory_listings')
                     .select('*')
                     .eq('listing_id', listingId)
-                    .eq('claimed_by', session.user.id)
+                    .eq('owner_id', session.user.id)
                     .maybeSingle();
 
                 if (listErr) throw listErr;
@@ -2197,8 +2197,8 @@
                     // Claim approved but no listing record yet — use claim data
                     listing = {
                         listing_id: listingId,
-                        business_name: claims[0].listing_name,
-                        claimed_by: session.user.id
+                        name: claims[0].listing_name,
+                        owner_id: session.user.id
                     };
                 }
 
@@ -2212,7 +2212,7 @@
 
         function populateListingView(listing) {
             // Business name & location
-            document.getElementById('listingBusinessName').textContent = listing.business_name || 'Your Business';
+            document.getElementById('listingBusinessName').textContent = listing.name || 'Your Business';
             document.getElementById('listingLocation').textContent = listing.location || 'Add your location';
             document.getElementById('listingViews').textContent = listing.monthly_views || '—';
 
@@ -2243,7 +2243,7 @@
             }
 
             // Social links
-            var social = listing.social_links || listing.social || {};
+            var social = listing.social || {};
             var socialHtml = [];
             if (social.linkedin) socialHtml.push('<a href="' + escHtml(social.linkedin) + '" target="_blank">LinkedIn</a>');
             if (social.instagram) socialHtml.push('<a href="' + escHtml(social.instagram) + '" target="_blank">Instagram</a>');
@@ -2293,7 +2293,7 @@
             if (showEdit && _myListing) {
                 // Populate edit form from cached listing
                 document.getElementById('editListingId').value = _myListing.listing_id || '';
-                document.getElementById('editBusinessName').value = _myListing.business_name || '';
+                document.getElementById('editBusinessName').value = _myListing.name || '';
                 document.getElementById('editCategory').value = _myListing.category || '';
                 document.getElementById('editDescription').value = _myListing.description || '';
                 document.getElementById('editPhone').value = _myListing.phone || '';
@@ -2305,7 +2305,7 @@
                 if (Array.isArray(specs)) specs = specs.join(', ');
                 document.getElementById('editSpecialties').value = specs;
 
-                var social = _myListing.social_links || _myListing.social || {};
+                var social = _myListing.social || {};
                 document.getElementById('editLinkedin').value = social.linkedin || '';
                 document.getElementById('editInstagram').value = social.instagram || '';
                 document.getElementById('editFacebook').value = social.facebook || '';
@@ -2343,7 +2343,7 @@
             var specialties = specsRaw ? specsRaw.split(',').map(function(s) { return s.trim(); }).filter(Boolean) : [];
 
             var payload = {
-                business_name: businessName,
+                name: businessName,
                 category: document.getElementById('editCategory').value || null,
                 description: document.getElementById('editDescription').value.trim() || null,
                 phone: document.getElementById('editPhone').value.trim() || null,
@@ -2351,7 +2351,7 @@
                 website: document.getElementById('editWebsite').value.trim() || null,
                 location: document.getElementById('editLocation').value.trim() || null,
                 specialties: specialties,
-                social_links: {
+                social: {
                     linkedin: document.getElementById('editLinkedin').value.trim() || null,
                     instagram: document.getElementById('editInstagram').value.trim() || null,
                     facebook: document.getElementById('editFacebook').value.trim() || null
@@ -2364,7 +2364,7 @@
                     .from('directory_listings')
                     .update(payload)
                     .eq('listing_id', listingId)
-                    .eq('claimed_by', session.user.id)
+                    .eq('owner_id', session.user.id)
                     .select()
                     .single();
 
