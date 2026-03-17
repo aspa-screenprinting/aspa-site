@@ -2370,12 +2370,14 @@
 
                 if (error) throw error;
 
-                // Log edit to history
-                await sb.from('directory_edit_history').insert({
-                    listing_id: parseInt(listingId),
-                    edited_by: session.user.id,
-                    changes: payload
-                }).catch(function(e) { console.warn('Could not log edit:', e); });
+                // Log edit to history (best-effort, don't block save)
+                try {
+                    await sb.from('directory_edit_history').insert({
+                        listing_id: parseInt(listingId),
+                        edited_by: session.user.id,
+                        changes: payload
+                    });
+                } catch(e) { console.warn('Could not log edit:', e); }
 
                 // Update cached data and refresh view
                 _myListing = data;
