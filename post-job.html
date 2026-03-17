@@ -612,12 +612,260 @@
             font-size: 0.8rem;
         }
 
+        /* Step Indicator */
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            margin-bottom: 2.5rem;
+        }
+
+        .step-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--ink-gray);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            opacity: 0.5;
+            transition: all 0.3s ease;
+        }
+
+        .step-item.active {
+            opacity: 1;
+            color: var(--ink-cyan);
+        }
+
+        .step-item.completed {
+            opacity: 1;
+            color: var(--ink-green);
+        }
+
+        .step-number {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            background: transparent;
+            transition: all 0.3s ease;
+        }
+
+        .step-item.active .step-number {
+            border-color: var(--ink-cyan);
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--ink-cyan);
+        }
+
+        .step-item.completed .step-number {
+            border-color: var(--ink-green);
+            background: rgba(0, 230, 118, 0.15);
+            color: var(--ink-green);
+        }
+
+        .step-connector {
+            width: 60px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 0 1rem;
+            align-self: center;
+        }
+
+        .step-connector.completed { background: var(--ink-green); }
+
+        /* Navigation Buttons */
+        .step-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .btn-back {
+            background: transparent;
+            color: var(--ink-gray);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            padding: 12px 28px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-back:hover { border-color: rgba(255, 255, 255, 0.3); color: var(--ink-white); }
+
+        .btn-next {
+            background: linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));
+            color: var(--ink-black);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            padding: 12px 36px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-next:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn-next:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        /* Review & Pay Step */
+        .order-summary {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .order-summary h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .order-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.6rem 0;
+            font-size: 0.9rem;
+        }
+
+        .order-line .label { color: var(--ink-gray); }
+        .order-line .value { font-weight: 600; }
+
+        .order-line.discount .value { color: var(--ink-green); }
+
+        .order-line.total {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 0.5rem;
+            padding-top: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .order-line.total .value {
+            color: var(--ink-cyan);
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+        }
+
+        /* Promo Code */
+        .promo-section {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .promo-section h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .promo-input-row {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .promo-input-row input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 12px 14px;
+            color: var(--ink-white);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .promo-input-row input:focus {
+            outline: none;
+            border-color: rgba(0, 212, 255, 0.5);
+        }
+
+        .btn-apply-promo {
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--ink-cyan);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 12px 20px;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .btn-apply-promo:hover { background: rgba(0, 212, 255, 0.2); }
+
+        .promo-status {
+            font-size: 0.85rem;
+            margin-top: 0.75rem;
+            min-height: 1.2rem;
+        }
+
+        .promo-status.success { color: var(--ink-green); }
+        .promo-status.error { color: #ff3d5a; }
+
+        /* Review detail */
+        .review-detail {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .review-detail h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .review-row {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            gap: 0.5rem;
+            padding: 0.4rem 0;
+            font-size: 0.88rem;
+        }
+
+        .review-row .rlabel { color: var(--ink-gray); font-weight: 500; }
+        .review-row .rvalue { color: var(--ink-white); }
+
         /* Responsive */
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.5rem; }
             .tier-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
             .form-grid { grid-template-columns: 1fr; }
             .salary-row { grid-template-columns: 1fr; }
+            .step-indicator { flex-wrap: wrap; gap: 0.5rem; }
+            .step-connector { width: 30px; margin: 0 0.5rem; }
+            .promo-input-row { flex-direction: column; }
+            .review-row { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -689,8 +937,26 @@
         <!-- Job Posting Form (shown when logged in) -->
         <div id="postingForm" style="display: none;">
 
+            <!-- Step Indicator -->
+            <div class="step-indicator">
+                <div class="step-item active" id="stepItem1">
+                    <div class="step-number">1</div>
+                    <span>Choose Plan</span>
+                </div>
+                <div class="step-connector" id="stepConn1"></div>
+                <div class="step-item" id="stepItem2">
+                    <div class="step-number">2</div>
+                    <span>Job Details</span>
+                </div>
+                <div class="step-connector" id="stepConn2"></div>
+                <div class="step-item" id="stepItem3">
+                    <div class="step-number">3</div>
+                    <span>Review & Pay</span>
+                </div>
+            </div>
+
             <!-- Step 1: Pricing Tier -->
-            <div class="tier-section">
+            <div class="tier-section" id="step1Content">
                 <h2>Choose Your Listing Plan</h2>
                 <p class="subtitle">All plans include 30-day visibility. ASPA members get 10% off.</p>
                 <div class="tier-grid">
@@ -729,10 +995,13 @@
                         </ul>
                     </div>
                 </div>
+                <div class="step-nav" style="justify-content:flex-end;">
+                    <button class="btn-next" onclick="goToStep(2)">Continue to Job Details</button>
+                </div>
             </div>
 
             <!-- Step 2: Job Details Form -->
-            <div class="form-section" id="jobFormSection">
+            <div class="form-section" id="step2Content" style="display:none;">
                 <h2>Job Details</h2>
                 <div class="form-grid">
                     <div class="form-group">
@@ -868,21 +1137,79 @@
                     </div>
                 </div>
 
-                <!-- Submit -->
+                <div class="step-nav">
+                    <button class="btn-back" onclick="goToStep(1)">Back</button>
+                    <button class="btn-next" onclick="goToStep(3)">Review & Pay</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Review & Pay -->
+            <div id="step3Content" style="display:none;">
+                <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.3rem;margin-bottom:1.5rem;padding-bottom:0.75rem;border-bottom:1px solid rgba(255,255,255,0.06);">Review & Pay</h2>
+
+                <!-- Job Review Summary -->
+                <div class="review-detail">
+                    <h3>Job Listing Summary</h3>
+                    <div class="review-row"><span class="rlabel">Company</span><span class="rvalue" id="reviewCompany">—</span></div>
+                    <div class="review-row"><span class="rlabel">Job Title</span><span class="rvalue" id="reviewTitle">—</span></div>
+                    <div class="review-row"><span class="rlabel">Category</span><span class="rvalue" id="reviewCategory">—</span></div>
+                    <div class="review-row"><span class="rlabel">Job Type</span><span class="rvalue" id="reviewJobType">—</span></div>
+                    <div class="review-row"><span class="rlabel">Location</span><span class="rvalue" id="reviewLocation">—</span></div>
+                    <div class="review-row"><span class="rlabel">Listing Plan</span><span class="rvalue" id="reviewTier">—</span></div>
+                </div>
+
+                <!-- Promo Code -->
+                <div class="promo-section">
+                    <h3>Have a promo code?</h3>
+                    <div class="promo-input-row">
+                        <input type="text" id="promoCodeInput" placeholder="Enter code" maxlength="20">
+                        <button class="btn-apply-promo" onclick="applyPromoCode()">Apply</button>
+                    </div>
+                    <div class="promo-status" id="promoStatus"></div>
+                </div>
+
+                <!-- Order Summary -->
+                <div class="order-summary">
+                    <h3>Order Summary</h3>
+                    <div class="order-line">
+                        <span class="label" id="orderTierLabel">Standard Listing</span>
+                        <span class="value" id="orderSubtotal">$49.00</span>
+                    </div>
+                    <div class="order-line" id="orderMemberDiscount" style="display:none;">
+                        <span class="label">ASPA Member Discount (10%)</span>
+                        <span class="value" style="color:var(--ink-green);" id="orderMemberSavings">-$4.90</span>
+                    </div>
+                    <div class="order-line discount" id="orderPromoLine" style="display:none;">
+                        <span class="label" id="orderPromoLabel">Promo: —</span>
+                        <span class="value" id="orderPromoSavings">-$0</span>
+                    </div>
+                    <div class="order-line total">
+                        <span class="label">Total</span>
+                        <span class="value" id="orderTotal">$49.00</span>
+                    </div>
+                </div>
+
+                <!-- Payment Actions -->
                 <div class="submit-area">
-                    <button class="btn-submit" id="submitBtn" onclick="submitJob()">Submit for Review</button>
-                    <p class="submit-note">Stripe payment integration coming soon. For now, submit your listing and we'll review it within 24 hours.<br>Questions? Email <a href="mailto:info@aspaprinters.com" style="color: var(--ink-cyan);">info@aspaprinters.com</a></p>
+                    <button class="btn-submit" id="submitBtn" onclick="handlePayment()">Pay & Submit</button>
+                    <p class="submit-note" id="paymentNote">Your listing will be reviewed within 24 hours of payment.<br>Questions? Email <a href="mailto:info@aspaprinters.com" style="color: var(--ink-cyan);">info@aspaprinters.com</a></p>
+                </div>
+
+                <div class="step-nav" style="border-top:none;margin-top:0;padding-top:0;">
+                    <button class="btn-back" onclick="goToStep(2)">Back to Edit</button>
+                    <div></div>
                 </div>
             </div>
         </div>
 
         <!-- Success Message -->
         <div class="success-message" id="successMessage">
-            <div class="success-icon">&#10004;</div>
-            <h2>Job Submitted!</h2>
-            <p>Your listing has been submitted for review. We'll notify you by email once it's approved and live on the board.</p>
-            <div class="btn-group" style="display: flex; gap: 1rem; justify-content: center;">
+            <div class="success-icon" style="color:var(--ink-green);">&#10004;</div>
+            <h2>Listing Submitted!</h2>
+            <p>Your job listing has been submitted for review. We'll notify you by email once it's approved and live on the board.</p>
+            <div class="btn-group" style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
                 <a href="jobs.html" class="btn-primary">View Job Board</a>
+                <a href="post-job.html" class="btn-outline">Post Another Job</a>
                 <a href="dashboard.html" class="btn-outline">My Dashboard</a>
             </div>
         </div>
@@ -897,6 +1224,12 @@
 
     <script>
         var selectedTier = null;
+        var currentStep = 1;
+        var appliedPromo = null; // { id, code, discount_type, discount_value }
+        var _isMember = false;
+
+        var tierPrices = { standard: 49, featured: 99, premium: 149 };
+        var tierLabels = { standard: 'Standard Listing', featured: 'Featured Listing', premium: 'Premium Listing' };
 
         // Toggle mobile menu
         function toggleMobileMenu() {
@@ -913,22 +1246,96 @@
                 document.getElementById('authGate').style.display = 'none';
                 document.getElementById('postingForm').style.display = 'block';
 
-                // Pre-fill company name from profile if available
                 if (profile && profile.business_name) {
                     document.getElementById('companyName').value = profile.business_name;
+                }
+                // Check if user is an ASPA member for 10% discount
+                if (profile && profile.membership_status === 'active') {
+                    _isMember = true;
                 }
             } else {
                 document.getElementById('authGate').style.display = 'block';
                 document.getElementById('postingForm').style.display = 'none';
             }
+
+            // Check for returning from Stripe (success or cancel)
+            var params = new URLSearchParams(window.location.search);
+            if (params.get('payment') === 'success') {
+                document.getElementById('postingForm').style.display = 'none';
+                document.getElementById('successMessage').style.display = 'block';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+            if (params.get('payment') === 'cancel') {
+                showToast('Payment was cancelled. You can try again.', true);
+            }
         });
 
-        // If auth doesn't fire within 2s, show auth gate
         setTimeout(function() {
             if (!window._supabaseSession) {
                 document.getElementById('authGate').style.display = 'block';
             }
         }, 2000);
+
+        // ==========================================
+        // STEP NAVIGATION
+        // ==========================================
+        function goToStep(step) {
+            // Validate before advancing
+            if (step > currentStep) {
+                if (currentStep === 1 && !selectedTier) {
+                    showToast('Please select a listing plan', true);
+                    return;
+                }
+                if (currentStep === 2 && !validateJobDetails()) {
+                    return;
+                }
+            }
+
+            currentStep = step;
+
+            // Show/hide step content
+            document.getElementById('step1Content').style.display = step === 1 ? 'block' : 'none';
+            document.getElementById('step2Content').style.display = step === 2 ? 'block' : 'none';
+            document.getElementById('step3Content').style.display = step === 3 ? 'block' : 'none';
+
+            // Update step indicator
+            for (var i = 1; i <= 3; i++) {
+                var item = document.getElementById('stepItem' + i);
+                item.classList.remove('active', 'completed');
+                if (i < step) item.classList.add('completed');
+                if (i === step) item.classList.add('active');
+            }
+            for (var j = 1; j <= 2; j++) {
+                var conn = document.getElementById('stepConn' + j);
+                conn.classList.toggle('completed', j < step);
+            }
+
+            // Populate review on step 3
+            if (step === 3) {
+                populateReview();
+                updateOrderSummary();
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function validateJobDetails() {
+            var company = document.getElementById('companyName').value.trim();
+            var title = document.getElementById('jobTitle').value.trim();
+            var category = document.getElementById('jobCategory').value;
+            var jobType = document.getElementById('jobType').value;
+            var description = document.getElementById('jobDescription').value.trim();
+            var appUrl = document.getElementById('applicationUrl').value.trim();
+            var appEmail = document.getElementById('applicationEmail').value.trim();
+
+            if (!company) { showToast('Company name is required', true); return false; }
+            if (!title) { showToast('Job title is required', true); return false; }
+            if (!category) { showToast('Please select a category', true); return false; }
+            if (!jobType) { showToast('Please select a job type', true); return false; }
+            if (!description) { showToast('Job description is required', true); return false; }
+            if (!appUrl && !appEmail) { showToast('Please provide an application URL or email', true); return false; }
+            return true;
+        }
 
         // Tier selection
         function selectTier(tier) {
@@ -947,44 +1354,198 @@
             setTimeout(function() { toast.className = 'toast'; }, 4000);
         }
 
-        // Submit
-        async function submitJob() {
+        // ==========================================
+        // REVIEW & PAY
+        // ==========================================
+        function populateReview() {
+            var city = document.getElementById('locationCity').value.trim();
+            var state = document.getElementById('locationState').value;
+            var remote = document.getElementById('isRemote').checked;
+            var loc = remote ? 'Remote' : [city, state].filter(Boolean).join(', ') || 'Not specified';
+
+            document.getElementById('reviewCompany').textContent = document.getElementById('companyName').value.trim();
+            document.getElementById('reviewTitle').textContent = document.getElementById('jobTitle').value.trim();
+            document.getElementById('reviewCategory').textContent = document.getElementById('jobCategory').selectedOptions[0].text;
+            document.getElementById('reviewJobType').textContent = document.getElementById('jobType').selectedOptions[0].text;
+            document.getElementById('reviewLocation').textContent = loc;
+            document.getElementById('reviewTier').textContent = tierLabels[selectedTier] || selectedTier;
+        }
+
+        function updateOrderSummary() {
+            var basePrice = tierPrices[selectedTier] || 49;
+
+            document.getElementById('orderTierLabel').textContent = tierLabels[selectedTier] || 'Standard Listing';
+            document.getElementById('orderSubtotal').textContent = '$' + basePrice.toFixed(2);
+
+            var afterMember = basePrice;
+
+            // Member discount
+            if (_isMember) {
+                var memberSavings = basePrice * 0.10;
+                afterMember = basePrice - memberSavings;
+                document.getElementById('orderMemberDiscount').style.display = 'flex';
+                document.getElementById('orderMemberSavings').textContent = '-$' + memberSavings.toFixed(2);
+            } else {
+                document.getElementById('orderMemberDiscount').style.display = 'none';
+            }
+
+            // Promo discount
+            var afterPromo = afterMember;
+            if (appliedPromo) {
+                var promoSavings = 0;
+                if (appliedPromo.discount_type === 'free') {
+                    promoSavings = afterMember;
+                } else if (appliedPromo.discount_type === 'percentage') {
+                    promoSavings = afterMember * (appliedPromo.discount_value / 100);
+                } else if (appliedPromo.discount_type === 'fixed') {
+                    promoSavings = Math.min(appliedPromo.discount_value, afterMember);
+                }
+                afterPromo = Math.max(0, afterMember - promoSavings);
+                document.getElementById('orderPromoLine').style.display = 'flex';
+                document.getElementById('orderPromoLabel').textContent = 'Promo: ' + appliedPromo.code;
+                document.getElementById('orderPromoSavings').textContent = '-$' + promoSavings.toFixed(2);
+            } else {
+                document.getElementById('orderPromoLine').style.display = 'none';
+            }
+
+            var total = afterPromo;
+            document.getElementById('orderTotal').textContent = total <= 0 ? 'FREE' : '$' + total.toFixed(2);
+
+            // Update button text
+            var btn = document.getElementById('submitBtn');
+            var note = document.getElementById('paymentNote');
+            if (total <= 0) {
+                btn.textContent = 'Submit Free Listing';
+                note.innerHTML = 'Your promo code covers the full cost. Your listing will be reviewed within 24 hours.<br>Questions? Email <a href="mailto:info@aspaprinters.com" style="color: var(--ink-cyan);">info@aspaprinters.com</a>';
+            } else {
+                btn.textContent = 'Pay $' + total.toFixed(2) + ' & Submit';
+                note.innerHTML = 'You\'ll be redirected to Stripe for secure payment. Your listing will be reviewed within 24 hours.<br>Questions? Email <a href="mailto:info@aspaprinters.com" style="color: var(--ink-cyan);">info@aspaprinters.com</a>';
+            }
+        }
+
+        // ==========================================
+        // PROMO CODE
+        // ==========================================
+        async function applyPromoCode() {
+            var sb = window._supabase;
+            if (!sb) return;
+
+            var code = document.getElementById('promoCodeInput').value.trim().toUpperCase();
+            var statusEl = document.getElementById('promoStatus');
+
+            if (!code) {
+                statusEl.className = 'promo-status error';
+                statusEl.textContent = 'Please enter a code';
+                return;
+            }
+
+            statusEl.className = 'promo-status';
+            statusEl.textContent = 'Checking...';
+
+            try {
+                var { data, error } = await sb
+                    .from('promo_codes')
+                    .select('*')
+                    .eq('code', code)
+                    .eq('is_active', true)
+                    .maybeSingle();
+
+                if (error) throw error;
+
+                if (!data) {
+                    statusEl.className = 'promo-status error';
+                    statusEl.textContent = 'Invalid or expired promo code';
+                    appliedPromo = null;
+                    updateOrderSummary();
+                    return;
+                }
+
+                // Check applies_to
+                if (data.applies_to !== 'job_posting' && data.applies_to !== 'both') {
+                    statusEl.className = 'promo-status error';
+                    statusEl.textContent = 'This code is not valid for job postings';
+                    return;
+                }
+
+                // Check max uses
+                if (data.max_uses && data.current_uses >= data.max_uses) {
+                    statusEl.className = 'promo-status error';
+                    statusEl.textContent = 'This code has reached its usage limit';
+                    return;
+                }
+
+                // Check expiration
+                if (data.expires_at && new Date(data.expires_at) < new Date()) {
+                    statusEl.className = 'promo-status error';
+                    statusEl.textContent = 'This promo code has expired';
+                    return;
+                }
+
+                // Success
+                appliedPromo = {
+                    id: data.id,
+                    code: data.code,
+                    discount_type: data.discount_type,
+                    discount_value: data.discount_value
+                };
+
+                var desc = data.discount_type === 'free' ? 'Free listing!' :
+                           data.discount_type === 'percentage' ? data.discount_value + '% off' :
+                           '$' + data.discount_value + ' off';
+                statusEl.className = 'promo-status success';
+                statusEl.textContent = 'Code applied: ' + desc;
+                updateOrderSummary();
+
+            } catch (err) {
+                statusEl.className = 'promo-status error';
+                statusEl.textContent = 'Error validating code';
+                console.error(err);
+            }
+        }
+
+        // ==========================================
+        // PAYMENT & SUBMIT
+        // ==========================================
+        async function handlePayment() {
             var sb = window._supabase;
             var session = window._supabaseSession;
             if (!sb || !session) { showToast('Please log in first', true); return; }
 
-            // Validate required fields
-            var company = document.getElementById('companyName').value.trim();
-            var title = document.getElementById('jobTitle').value.trim();
-            var category = document.getElementById('jobCategory').value;
-            var jobType = document.getElementById('jobType').value;
-            var description = document.getElementById('jobDescription').value.trim();
-            var appUrl = document.getElementById('applicationUrl').value.trim();
-            var appEmail = document.getElementById('applicationEmail').value.trim();
-
-            if (!company) { showToast('Company name is required', true); return; }
-            if (!title) { showToast('Job title is required', true); return; }
-            if (!category) { showToast('Please select a category', true); return; }
-            if (!jobType) { showToast('Please select a job type', true); return; }
-            if (!description) { showToast('Job description is required', true); return; }
-            if (!appUrl && !appEmail) { showToast('Please provide an application URL or email', true); return; }
-            if (!selectedTier) { showToast('Please select a listing plan above', true); return; }
-
             var btn = document.getElementById('submitBtn');
             btn.disabled = true;
-            btn.textContent = 'Submitting...';
+            var origText = btn.textContent;
+            btn.textContent = 'Processing...';
 
             try {
+                // Calculate final amount
+                var basePrice = tierPrices[selectedTier] || 49;
+                var afterMember = _isMember ? basePrice * 0.90 : basePrice;
+                var finalAmount = afterMember;
+
+                if (appliedPromo) {
+                    if (appliedPromo.discount_type === 'free') {
+                        finalAmount = 0;
+                    } else if (appliedPromo.discount_type === 'percentage') {
+                        finalAmount = afterMember * (1 - appliedPromo.discount_value / 100);
+                    } else if (appliedPromo.discount_type === 'fixed') {
+                        finalAmount = Math.max(0, afterMember - appliedPromo.discount_value);
+                    }
+                }
+
+                finalAmount = Math.round(finalAmount * 100) / 100;
+
                 var now = new Date();
-                var expires = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000); // 30 days
+                var expires = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000);
+
+                var paymentStatus = finalAmount <= 0 ? 'free' : 'awaiting_payment';
 
                 var listing = {
                     posted_by: session.user.id,
-                    company_name: company,
+                    company_name: document.getElementById('companyName').value.trim(),
                     company_logo_url: document.getElementById('companyLogo').value.trim() || null,
-                    title: title,
-                    description: description,
-                    job_type: jobType,
+                    title: document.getElementById('jobTitle').value.trim(),
+                    description: document.getElementById('jobDescription').value.trim(),
+                    job_type: document.getElementById('jobType').value,
                     experience_level: document.getElementById('experienceLevel').value || 'any',
                     location_city: document.getElementById('locationCity').value.trim() || null,
                     location_state: document.getElementById('locationState').value || null,
@@ -992,16 +1553,19 @@
                     salary_min: document.getElementById('salaryMin').value ? parseInt(document.getElementById('salaryMin').value) : null,
                     salary_max: document.getElementById('salaryMax').value ? parseInt(document.getElementById('salaryMax').value) : null,
                     salary_type: document.getElementById('salaryMin').value ? document.getElementById('salaryType').value : null,
-                    application_url: appUrl || null,
-                    application_email: appEmail || null,
-                    category: category,
+                    application_url: document.getElementById('applicationUrl').value.trim() || null,
+                    application_email: document.getElementById('applicationEmail').value.trim() || null,
+                    category: document.getElementById('jobCategory').value,
                     is_featured: selectedTier === 'featured' || selectedTier === 'premium',
                     status: 'pending',
-                    payment_status: 'unpaid',
+                    payment_status: paymentStatus,
                     listing_tier: selectedTier,
-                    expires_at: expires.toISOString()
+                    expires_at: expires.toISOString(),
+                    amount_paid: finalAmount,
+                    promo_code_id: appliedPromo ? appliedPromo.id : null
                 };
 
+                // Save listing
                 var { data, error } = await sb
                     .from('job_listings')
                     .insert(listing)
@@ -1010,16 +1574,59 @@
 
                 if (error) throw error;
 
-                // Show success
-                document.getElementById('postingForm').style.display = 'none';
-                document.getElementById('successMessage').style.display = 'block';
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                // Increment promo code usage if used
+                if (appliedPromo) {
+                    await sb.rpc('increment_promo_usage', { p_id: appliedPromo.id }).catch(function() {
+                        // Fallback: direct update
+                        sb.from('promo_codes')
+                          .update({ current_uses: (appliedPromo.current_uses || 0) + 1 })
+                          .eq('id', appliedPromo.id);
+                    });
+                }
+
+                if (finalAmount <= 0) {
+                    // Free listing - show success directly
+                    document.getElementById('postingForm').style.display = 'none';
+                    document.getElementById('successMessage').style.display = 'block';
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                } else {
+                    // Paid listing - redirect to Stripe
+                    // For now, save as awaiting_payment and show instructions
+                    // When Stripe is set up, this will call the edge function
+                    document.getElementById('postingForm').style.display = 'none';
+                    document.getElementById('successMessage').style.display = 'block';
+                    document.querySelector('#successMessage h2').textContent = 'Listing Submitted!';
+                    document.querySelector('#successMessage p').textContent =
+                        'Your listing has been saved. Payment of $' + finalAmount.toFixed(2) + ' will be collected when we activate your listing. We\'ll send you a payment link via email within 24 hours.';
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                    /* ── STRIPE CHECKOUT (uncomment when edge function is deployed) ──
+                    var res = await fetch('YOUR_SUPABASE_URL/functions/v1/create-checkout', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer ' + session.access_token
+                        },
+                        body: JSON.stringify({
+                            job_listing_id: data.id,
+                            tier: selectedTier,
+                            amount: Math.round(finalAmount * 100),
+                            success_url: window.location.origin + window.location.pathname + '?payment=success',
+                            cancel_url: window.location.origin + window.location.pathname + '?payment=cancel'
+                        })
+                    });
+                    var checkout = await res.json();
+                    if (checkout.url) {
+                        window.location.href = checkout.url;
+                    }
+                    ── END STRIPE ── */
+                }
 
             } catch (err) {
                 console.error('Submit error:', err);
                 showToast('Error submitting: ' + (err.message || 'Unknown error'), true);
                 btn.disabled = false;
-                btn.textContent = 'Submit for Review';
+                btn.textContent = origText;
             }
         }
     </script>

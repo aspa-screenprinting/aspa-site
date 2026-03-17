@@ -1750,6 +1750,32 @@
                 </table>
                 <div id="externalJobsEmpty" style="text-align:center;padding:2rem;color:var(--ink-gray);display:none;">No external jobs cached. Click "Refresh Now" to pull from Jooble.</div>
             </div>
+
+            <!-- Promo Codes Management -->
+            <div class="content-header" style="margin-top:2rem;">
+                <h3 style="font-family:'Space Grotesk',sans-serif;font-size:1.2rem;">Promo Codes</h3>
+                <button onclick="openPromoCodeModal()" style="background:linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));color:var(--ink-black);font-family:'Space Grotesk',sans-serif;font-size:0.85rem;font-weight:600;padding:8px 20px;border:none;border-radius:6px;cursor:pointer;">+ New Code</button>
+            </div>
+            <div class="table-container">
+                <table id="promoCodesTable" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Description</th>
+                            <th>Type</th>
+                            <th>Applies To</th>
+                            <th>Discount</th>
+                            <th>Usage</th>
+                            <th>Expires</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="promoCodesBody">
+                    </tbody>
+                </table>
+                <div id="promoCodesEmpty" style="text-align:center;padding:2rem;color:var(--ink-gray);display:none;">No promo codes yet. Create one to get started.</div>
+            </div>
         </div>
 
         <!-- Directory Claims Tab -->
@@ -2347,12 +2373,63 @@
         </div>
     </div>
 
+    <div class="modal-overlay" id="promoCodeModal">
+        <div class="modal-content">
+            <h3 id="promoCodeModalTitle">Create Promo Code</h3>
+            <div class="form-group">
+                <label>Code</label>
+                <input type="text" id="promoCodeInput" placeholder="e.g., SUMMER2024" maxlength="20">
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <input type="text" id="promoDescInput" placeholder="e.g., Summer sale offer">
+            </div>
+            <div style="display:flex;gap:1rem;">
+                <div class="form-group" style="flex:1;">
+                    <label>Discount Type</label>
+                    <select id="promoTypeSelect">
+                        <option value="percentage">Percentage (%)</option>
+                        <option value="fixed">Fixed ($)</option>
+                        <option value="free">Free</option>
+                    </select>
+                </div>
+                <div class="form-group" style="flex:1;">
+                    <label>Discount Value</label>
+                    <input type="number" id="promoValueInput" placeholder="10" min="0">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Applies To</label>
+                <select id="promoAppliesToSelect">
+                    <option value="job_posting">Job Posting</option>
+                    <option value="membership">Membership</option>
+                    <option value="both">Both</option>
+                </select>
+            </div>
+            <div style="display:flex;gap:1rem;">
+                <div class="form-group" style="flex:1;">
+                    <label>Max Uses</label>
+                    <input type="number" id="promoMaxUsesInput" placeholder="100" min="1">
+                </div>
+                <div class="form-group" style="flex:1;">
+                    <label>Expires At</label>
+                    <input type="datetime-local" id="promoExpiresInput">
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="modal-btn cancel" onclick="closePromoCodeModal()">Cancel</button>
+                <button class="modal-btn save" onclick="savePromoCode()">Save Code</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Global state
         let currentUser = null;
         let currentEditingMemberId = null;
         let currentEditingCertId = null;
         let currentDeleteCallback = null;
+        let currentEditingPromoCodeId = null;
 
         // Cached data
         let cachedMembers = [];
@@ -3407,6 +3484,7 @@
                 await loadPendingJobs();
                 await loadActiveJobsAdmin();
                 await loadExternalJobsAdmin();
+                await loadPromoCodes();
 
             } catch (err) {
                 console.error('Error loading job board admin:', err);
@@ -3658,6 +3736,179 @@
             await sb.from('external_jobs').delete().neq('id', '00000000-0000-0000-0000-000000000000');
             _jobBoardLoaded = false;
             loadJobBoardAdmin();
+        }
+
+        // ==========================================
+        // PROMO CODES ADMIN FUNCTIONS
+        // ==========================================
+
+        async function loadPromoCodes() {
+            var sb = window._supabase;
+            if (!sb) return;
+
+            try {
+                var { data: codes, error } = await sb
+                    .from('promo_codes')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+
+                var table = document.getElementById('promoCodesTable');
+                var empty = document.getElementById('promoCodesEmpty');
+                var body = document.getElementById('promoCodesBody');
+
+                if (!codes || codes.length === 0) {
+                    table.style.display = 'none';
+                    empty.style.display = 'block';
+                    return;
+                }
+
+                table.style.display = 'table';
+                empty.style.display = 'none';
+                body.innerHTML = codes.map(function(c) {
+                    var discountVal = c.discount_type === 'free' ? 'Free' :
+                                     c.discount_type === 'percentage' ? c.discount_value + '%' :
+                                     '$' + c.discount_value;
+                    var expiresText = c.expires_at ? new Date(c.expires_at).toLocaleDateString() : 'Never';
+                    var statusBadge = c.is_active ?
+                        '<span style="background:rgba(0,230,118,0.15);color:#00e676;padding:2px 8px;border-radius:4px;font-size:0.75rem;">Active</span>' :
+                        '<span style="background:rgba(255,61,90,0.15);color:#ff3d5a;padding:2px 8px;border-radius:4px;font-size:0.75rem;">Inactive</span>';
+
+                    return '<tr>' +
+                        '<td style="font-weight:600;color:var(--ink-cyan);">' + esc(c.code) + '</td>' +
+                        '<td>' + esc(c.description) + '</td>' +
+                        '<td><span style="background:rgba(0,212,255,0.1);padding:2px 8px;border-radius:4px;font-size:0.8rem;">' + esc(c.discount_type) + '</span></td>' +
+                        '<td><span style="background:rgba(108,43,217,0.1);padding:2px 8px;border-radius:4px;font-size:0.8rem;">' + esc(c.applies_to) + '</span></td>' +
+                        '<td style="color:var(--ink-yellow);font-weight:600;">' + discountVal + '</td>' +
+                        '<td>' + c.current_uses + '/' + (c.max_uses || '∞') + '</td>' +
+                        '<td>' + expiresText + '</td>' +
+                        '<td>' + statusBadge + '</td>' +
+                        '<td style="display:flex;gap:6px;">' +
+                            '<button onclick="editPromoCode(\'' + c.id + '\')" style="background:rgba(0,212,255,0.2);color:var(--ink-cyan);border:1px solid rgba(0,212,255,0.3);border-radius:4px;padding:4px 10px;font-size:0.8rem;cursor:pointer;">Edit</button>' +
+                            '<button onclick="togglePromoCodeStatus(\'' + c.id + '\', ' + c.is_active + ')" style="background:' + (c.is_active ? 'rgba(255,61,90,0.15)' : 'rgba(0,230,118,0.2)') + ';color:' + (c.is_active ? '#ff3d5a' : '#00e676') + ';border:1px solid ' + (c.is_active ? 'rgba(255,61,90,0.3)' : 'rgba(0,230,118,0.3)') + ';border-radius:4px;padding:4px 10px;font-size:0.8rem;cursor:pointer;">' + (c.is_active ? 'Deactivate' : 'Activate') + '</button>' +
+                        '</td></tr>';
+                }).join('');
+            } catch (err) {
+                console.error('Error loading promo codes:', err);
+            }
+        }
+
+        function openPromoCodeModal(codeId) {
+            currentEditingPromoCodeId = null;
+            document.getElementById('promoCodeModalTitle').textContent = 'Create Promo Code';
+            document.getElementById('promoCodeInput').value = '';
+            document.getElementById('promoDescInput').value = '';
+            document.getElementById('promoTypeSelect').value = 'percentage';
+            document.getElementById('promoValueInput').value = '';
+            document.getElementById('promoAppliesToSelect').value = 'job_posting';
+            document.getElementById('promoMaxUsesInput').value = '';
+            document.getElementById('promoExpiresInput').value = '';
+            document.getElementById('promoCodeModal').classList.add('active');
+        }
+
+        async function editPromoCode(codeId) {
+            var sb = window._supabase;
+            var { data: code, error } = await sb
+                .from('promo_codes')
+                .select('*')
+                .eq('id', codeId)
+                .single();
+
+            if (error || !code) {
+                alert('Error loading promo code');
+                return;
+            }
+
+            currentEditingPromoCodeId = codeId;
+            document.getElementById('promoCodeModalTitle').textContent = 'Edit Promo Code';
+            document.getElementById('promoCodeInput').value = code.code;
+            document.getElementById('promoDescInput').value = code.description || '';
+            document.getElementById('promoTypeSelect').value = code.discount_type;
+            document.getElementById('promoValueInput').value = code.discount_value || '';
+            document.getElementById('promoAppliesToSelect').value = code.applies_to;
+            document.getElementById('promoMaxUsesInput').value = code.max_uses || '';
+            if (code.expires_at) {
+                var d = new Date(code.expires_at);
+                var iso = d.toISOString().slice(0, 16);
+                document.getElementById('promoExpiresInput').value = iso;
+            } else {
+                document.getElementById('promoExpiresInput').value = '';
+            }
+            document.getElementById('promoCodeModal').classList.add('active');
+        }
+
+        function closePromoCodeModal() {
+            document.getElementById('promoCodeModal').classList.remove('active');
+            currentEditingPromoCodeId = null;
+        }
+
+        async function savePromoCode() {
+            var sb = window._supabase;
+            var code = document.getElementById('promoCodeInput').value.trim().toUpperCase();
+            var description = document.getElementById('promoDescInput').value.trim();
+            var discountType = document.getElementById('promoTypeSelect').value;
+            var discountValue = parseFloat(document.getElementById('promoValueInput').value) || 0;
+            var appliesTo = document.getElementById('promoAppliesToSelect').value;
+            var maxUses = parseInt(document.getElementById('promoMaxUsesInput').value) || null;
+            var expiresAt = document.getElementById('promoExpiresInput').value;
+
+            if (!code) {
+                alert('Please enter a promo code');
+                return;
+            }
+
+            if (discountType !== 'free' && discountValue <= 0) {
+                alert('Please enter a valid discount value');
+                return;
+            }
+
+            var payload = {
+                code: code,
+                description: description,
+                discount_type: discountType,
+                discount_value: discountType === 'free' ? 0 : discountValue,
+                applies_to: appliesTo,
+                max_uses: maxUses,
+                expires_at: expiresAt ? new Date(expiresAt).toISOString() : null
+            };
+
+            try {
+                if (currentEditingPromoCodeId) {
+                    // Update existing code
+                    var { error } = await sb
+                        .from('promo_codes')
+                        .update(payload)
+                        .eq('id', currentEditingPromoCodeId);
+                    if (error) throw error;
+                } else {
+                    // Insert new code
+                    payload.is_active = true;
+                    payload.current_uses = 0;
+                    var { error } = await sb
+                        .from('promo_codes')
+                        .insert([payload]);
+                    if (error) throw error;
+                }
+                closePromoCodeModal();
+                await loadPromoCodes();
+            } catch (err) {
+                alert('Error saving promo code: ' + err.message);
+            }
+        }
+
+        async function togglePromoCodeStatus(codeId, currentStatus) {
+            var sb = window._supabase;
+            try {
+                var { error } = await sb
+                    .from('promo_codes')
+                    .update({ is_active: !currentStatus })
+                    .eq('id', codeId);
+                if (error) throw error;
+                await loadPromoCodes();
+            } catch (err) {
+                alert('Error updating promo code: ' + err.message);
+            }
         }
 
         // ==========================================
