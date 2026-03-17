@@ -1343,6 +1343,7 @@
             <button class="tab-btn" onclick="switchTab('auditLog')">Audit Log</button>
             <button class="tab-btn" onclick="switchTab('pointsRewards')" style="color:var(--ink-cyan);">Points & Rewards</button>
             <button class="tab-btn" onclick="switchTab('jobBoard')" style="color:var(--ink-orange);">Job Board</button>
+            <button class="tab-btn" onclick="switchTab('promoCodes')" style="color:var(--ink-green);">Promo Codes</button>
             <button class="tab-btn" onclick="switchTab('claims')" style="color:var(--ink-purple);">Directory Claims</button>
             <button class="tab-btn" onclick="switchTab('directoryMembers')" style="color:var(--ink-magenta);">Directory Members</button>
         </div>
@@ -1751,9 +1752,31 @@
                 <div id="externalJobsEmpty" style="text-align:center;padding:2rem;color:var(--ink-gray);display:none;">No external jobs cached. Click "Refresh Now" to pull from Jooble.</div>
             </div>
 
-            <!-- Promo Codes Management -->
-            <div class="content-header" style="margin-top:2rem;">
-                <h3 style="font-family:'Space Grotesk',sans-serif;font-size:1.2rem;">Promo Codes</h3>
+        </div>
+
+        <!-- Promo Codes Tab -->
+        <div id="promoCodesTab" class="tab-content">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Active Codes</div>
+                    <div class="stat-value" id="promoActiveCount" style="color:var(--ink-green);">—</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Total Redemptions</div>
+                    <div class="stat-value" id="promoTotalRedemptions" style="color:var(--ink-cyan);">—</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Job Posting Codes</div>
+                    <div class="stat-value" id="promoJobCount" style="color:var(--ink-orange);">—</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Membership Codes</div>
+                    <div class="stat-value" id="promoMembershipCount" style="color:var(--ink-magenta);">—</div>
+                </div>
+            </div>
+
+            <div class="content-header" style="margin-top:1.5rem;">
+                <h3 style="font-family:'Space Grotesk',sans-serif;font-size:1.2rem;">All Promo Codes</h3>
                 <button onclick="openPromoCodeModal()" style="background:linear-gradient(135deg, var(--ink-cyan), var(--ink-magenta));color:var(--ink-black);font-family:'Space Grotesk',sans-serif;font-size:0.85rem;font-weight:600;padding:8px 20px;border:none;border-radius:6px;cursor:pointer;">+ New Code</button>
             </div>
             <div class="table-container">
@@ -3414,6 +3437,7 @@
         // Load points admin data when the tab is first opened
         var _pointsAdminLoaded = false;
         var _jobBoardLoaded = false;
+        var _promoCodesLoaded = false;
         var _claimsLoaded = false;
         var _directoryMembersLoaded = false;
         var _origSwitchTab = switchTab;
@@ -3426,6 +3450,10 @@
             if (tabName === 'jobBoard' && !_jobBoardLoaded) {
                 _jobBoardLoaded = true;
                 loadJobBoardAdmin();
+            }
+            if (tabName === 'promoCodes' && !_promoCodesLoaded) {
+                _promoCodesLoaded = true;
+                loadPromoCodes();
             }
             if (tabName === 'claims' && !_claimsLoaded) {
                 _claimsLoaded = true;
@@ -3488,7 +3516,6 @@
                 await loadPendingJobs();
                 await loadActiveJobsAdmin();
                 await loadExternalJobsAdmin();
-                await loadPromoCodes();
 
             } catch (err) {
                 console.error('Error loading job board admin:', err);
@@ -3761,6 +3788,17 @@
                 var table = document.getElementById('promoCodesTable');
                 var empty = document.getElementById('promoCodesEmpty');
                 var body = document.getElementById('promoCodesBody');
+
+                // Update stats cards
+                var activeCodes = (codes || []).filter(function(c) { return c.is_active; });
+                var totalRedemptions = (codes || []).reduce(function(sum, c) { return sum + (c.current_uses || 0); }, 0);
+                var jobCodes = (codes || []).filter(function(c) { return c.applies_to === 'job_posting' || c.applies_to === 'both'; });
+                var membershipCodes = (codes || []).filter(function(c) { return c.applies_to === 'membership' || c.applies_to === 'both'; });
+                var el;
+                el = document.getElementById('promoActiveCount'); if (el) el.textContent = activeCodes.length;
+                el = document.getElementById('promoTotalRedemptions'); if (el) el.textContent = totalRedemptions;
+                el = document.getElementById('promoJobCount'); if (el) el.textContent = jobCodes.length;
+                el = document.getElementById('promoMembershipCount'); if (el) el.textContent = membershipCodes.length;
 
                 if (!codes || codes.length === 0) {
                     table.style.display = 'none';
