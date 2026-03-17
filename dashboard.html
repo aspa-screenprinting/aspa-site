@@ -2379,6 +2379,18 @@
                     });
                 } catch(e) { console.warn('Could not log edit:', e); }
 
+                // Award one-time points for newly-filled fields
+                var pointsResult = null;
+                if (window.PointsSystem && window.PointsSystem.awardListingFieldPoints) {
+                    try {
+                        pointsResult = await window.PointsSystem.awardListingFieldPoints(
+                            parseInt(listingId),
+                            _myListing,   // previous listing data (before save)
+                            data           // new listing data (after save)
+                        );
+                    } catch(e) { console.warn('Could not award listing field points:', e); }
+                }
+
                 // Update cached data and refresh view
                 _myListing = data;
                 populateListingView(data);
@@ -2391,9 +2403,19 @@
                 var viewMode = document.getElementById('listingViewMode');
                 var successMsg = document.createElement('div');
                 successMsg.style.cssText = 'color:#00e676;font-family:Space Grotesk,sans-serif;font-size:0.85rem;text-align:center;padding:0.5rem;margin-top:0.5rem;';
-                successMsg.textContent = '✓ Listing updated successfully';
+                successMsg.textContent = '\u2713 Listing updated successfully';
+
+                // Add points earned notification
+                if (pointsResult && pointsResult.totalPoints > 0) {
+                    var fieldNames = pointsResult.awarded.map(function(a) { return a.field; }).join(', ');
+                    successMsg.innerHTML = '\u2713 Listing updated successfully<br>' +
+                        '<span style="color:var(--ink-yellow,#ffd400);font-weight:600;">' +
+                        '\u2B50 +' + pointsResult.totalPoints + ' points earned!</span>' +
+                        '<br><span style="color:var(--ink-gray,#888);font-size:0.8rem;">New fields completed: ' + fieldNames + '</span>';
+                }
+
                 viewMode.appendChild(successMsg);
-                setTimeout(function() { successMsg.remove(); }, 3000);
+                setTimeout(function() { successMsg.remove(); }, pointsResult && pointsResult.totalPoints > 0 ? 5000 : 3000);
 
             } catch (err) {
                 console.error('Error saving listing:', err);

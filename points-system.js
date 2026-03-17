@@ -206,6 +206,122 @@
     if (error) throw error;
   }
 
+  // ── Listing Field Completion Rewards ────────────────────────
+
+  /**
+   * Point values for completing each listing field.
+   * Total possible: 5+5+5+5+5+10+10+5+5+5 = 60 points.
+   */
+  var LISTING_FIELD_POINTS = {
+    description:  10,  // Most important for directory quality
+    phone:         5,
+    email:         5,
+    website:       5,
+    location:      5,
+    specialties:  10,  // Helps with search/discovery
+    linkedin:      5,
+    instagram:     5,
+    facebook:      5
+  };
+
+  /**
+   * Cached activity ID for listing_field_complete.
+   * Looked up once per session, then reused.
+   */
+  var _listingFieldActivityId = null;
+
+  /**
+   * Award one-time points for each newly-filled listing field.
+   * Checks points_ledger metadata to prevent duplicate awards.
+   *
+   * @param {number} listingId — the listing being edited
+   * @param {object} previousListing — the listing data BEFORE edit (null fields = not yet filled)
+   * @param {object} newListing — the listing data AFTER edit
+   * @returns {Promise<{awarded: Array, totalPoints: number}>}
+   */
+  async function awardListingFieldPoints(listingId, previousListing, newListing) {
+    var uid = _uid();
+    var sb = _sb();
+
+    // Look up (or cache) the listing_field_complete activity
+    if (!_listingFieldActivityId) {
+      var { data: activity } = await sb
+        .from('activities')
+        .select('id')
+        .eq('type', 'listing_field_complete')
+        .maybeSingle();
+
+      if (activity) {
+        _listingFieldActivityId = activity.id;
+      }
+      // If activity doesn't exist yet, we'll skip the activity_id (nullable)
+    }
+
+    // Check which fields the user has ALREADY been rewarded for
+    var { data: existing } = await sb
+      .from('points_ledger')
+      .select('metadata')
+      .eq('user_id', uid)
+      .eq('description', 'Listing field completed')
+      .not('metadata', 'is', null);
+
+    var alreadyRewarded = {};
+    if (existing) {
+      existing.forEach(function(entry) {
+        if (entry.metadata && entry.metadata.field_name && entry.metadata.listing_id === listingId) {
+          alreadyRewarded[entry.metadata.field_name] = true;
+        }
+      });
+    }
+
+    // Determine which fields are newly filled
+    var awarded = [];
+    var totalPoints = 0;
+
+    Object.keys(LISTING_FIELD_POINTS).forEach(function(fieldName) {
+      // Skip if already rewarded
+      if (alreadyRewarded[fieldName]) return;
+
+      // Get the new value
+      var newVal;
+      if (fieldName === 'linkedin' || fieldName === 'instagram' || fieldName === 'facebook') {
+        newVal = newListing.social ? newListing.social[fieldName] : null;
+      } else if (fieldName === 'specialties') {
+        newVal = newListing.specialties && newListing.specialties.length > 0 ? newListing.specialties : null;
+      } else {
+        newVal = newListing[fieldName];
+      }
+
+      // Check if field is now filled (truthy, non-empty)
+      if (newVal && (typeof newVal !== 'string' || newVal.trim())) {
+        awarded.push({ field: fieldName, points: LISTING_FIELD_POINTS[fieldName] });
+        totalPoints += LISTING_FIELD_POINTS[fieldName];
+      }
+    });
+
+    // Award points for each newly-filled field
+    for (var i = 0; i < awarded.length; i++) {
+      var item = awarded[i];
+      try {
+        var insertPayload = {
+          user_id: uid,
+          transaction_type: 'earn',
+          points_amount: item.points,
+          description: 'Listing field completed',
+          metadata: { field_name: item.field, listing_id: listingId }
+        };
+        if (_listingFieldActivityId) {
+          insertPayload.activity_id = _listingFieldActivityId;
+        }
+        await sb.from('points_ledger').insert(insertPayload);
+      } catch (e) {
+        console.warn('[PointsSystem] Could not award points for field ' + item.field + ':', e);
+      }
+    }
+
+    return { awarded: awarded, totalPoints: totalPoints };
+  }
+
   // ── Activity Claims (Webinars, Supplier Signups) ────────────
 
   /**
@@ -654,6 +770,8 @@
     getSocialLinks: getSocialLinks,
     submitSocialLink: submitSocialLink,
     removeSocialLink: removeSocialLink,
+    awardListingFieldPoints: awardListingFieldPoints,
+    LISTING_FIELD_POINTS: LISTING_FIELD_POINTS,
     submitClaim: submitClaim,
     getMyClaims: getMyClaims,
     getRewards: getRewards,
