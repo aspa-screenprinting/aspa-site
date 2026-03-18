@@ -1290,6 +1290,7 @@ Pages needing work (prioritized):
 - [ ] Mobile responsive polish pass
 - [ ] Glossary page (high SEO value)
 - [ ] Payment integration (Stripe/PayPal)
+- [ ] **301 redirects on domain migration** — If the GitHub Pages site (`aspa-screenprinting.github.io/aspa-site/`) has any Google index presence at migration time, set up 301 redirects to the new domain. Likely unnecessary since no traffic is being driven to the GH Pages URL, but worth checking Google Search Console before switching. All code uses relative URLs so no code changes needed for the domain swap.
 
 ---
 
