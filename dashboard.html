@@ -1720,14 +1720,7 @@
                             <span class="listing-field-label">Founded</span>
                             <span class="listing-field-value" id="listingFounded"></span>
                         </div>
-                        <div class="listing-field-row" id="listingRevenueRow" style="display:none;">
-                            <span class="listing-field-label">Revenue</span>
-                            <span class="listing-field-value" id="listingRevenue"></span>
-                        </div>
-                        <div class="listing-field-row" id="listingEmployeesRow" style="display:none;">
-                            <span class="listing-field-label">Employees</span>
-                            <span class="listing-field-value" id="listingEmployees"></span>
-                        </div>
+                        <!-- Revenue & Employees are admin-only, not shown in directory view -->
                         <div class="listing-field-row" id="listingSocialRow" style="display:none;">
                             <span class="listing-field-label">Social</span>
                             <span class="listing-field-value" id="listingSocials"></span>
@@ -1811,7 +1804,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Employees</label>
+                            <label>Employees <span style="color:var(--ink-gray);font-weight:400;text-transform:none;font-size:0.8rem;">&#128274; Admin only</span></label>
                             <input type="number" id="editEmployees" placeholder="e.g. 12" min="0">
                         </div>
                         <div class="form-group full-width">
@@ -2286,11 +2279,7 @@
             // Founded
             showField('listingFoundedRow', 'listingFounded', listing.founded ? 'Est. ' + listing.founded : null);
 
-            // Revenue (show range only, exact is admin-only)
-            showField('listingRevenueRow', 'listingRevenue', listing.annual_revenue ? revenueToRange(listing.annual_revenue) : null);
-
-            // Employees
-            showField('listingEmployeesRow', 'listingEmployees', listing.employee_count ? employeeToRange(listing.employee_count) : null);
+            // Revenue & Employees — admin-only, not displayed in member view
 
             // Social links
             var social = listing.social || {};
