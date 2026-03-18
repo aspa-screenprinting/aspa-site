@@ -1732,9 +1732,20 @@
 
                 <!-- EDIT MODE -->
                 <div class="listing-card listing-edit-form" id="listingEditMode">
-                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
                         <div class="listing-name" style="margin-bottom:0;">Edit Your Listing</div>
                     </div>
+
+                    <!-- Points Guide Banner -->
+                    <div id="listingPointsGuide" style="display:none; background:linear-gradient(135deg, rgba(255,212,0,0.06) 0%, rgba(0,212,255,0.06) 100%); border:1px solid rgba(255,212,0,0.15); border-radius:10px; padding:14px 16px; margin-bottom:1.5rem;">
+                        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+                            <span style="font-size:1.1rem;">&#11088;</span>
+                            <span style="color:var(--ink-yellow,#ffd400);font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:0.95rem;">Earn Points by Completing Your Listing</span>
+                            <span id="pointsGuideRemaining" style="margin-left:auto;color:var(--ink-green,#00e676);font-family:'Space Grotesk',sans-serif;font-size:0.85rem;font-weight:600;"></span>
+                        </div>
+                        <div id="pointsGuideFields" style="display:flex;flex-wrap:wrap;gap:6px;"></div>
+                    </div>
+
                     <input type="hidden" id="editListingId">
 
                     <div class="edit-form-grid">
@@ -2286,6 +2297,86 @@
             return div.innerHTML;
         }
 
+        // ===== POINTS GUIDE FOR EDIT FORM =====
+        var _fieldDisplayNames = {
+            description: 'Description',
+            specialties: 'Specialties',
+            phone: 'Phone',
+            email: 'Email',
+            website: 'Website',
+            location: 'Location',
+            linkedin: 'LinkedIn',
+            instagram: 'Instagram',
+            facebook: 'Facebook'
+        };
+
+        async function updatePointsGuide(listingId) {
+            var guideEl = document.getElementById('listingPointsGuide');
+            var fieldsEl = document.getElementById('pointsGuideFields');
+            var remainingEl = document.getElementById('pointsGuideRemaining');
+            if (!guideEl || !window.PointsSystem || !window.PointsSystem.LISTING_FIELD_POINTS) {
+                if (guideEl) guideEl.style.display = 'none';
+                return;
+            }
+
+            var fieldPoints = window.PointsSystem.LISTING_FIELD_POINTS;
+            var alreadyRewarded = {};
+
+            // Check which fields already earned points
+            try {
+                var sb = window._supabase;
+                var session = window._supabaseSession;
+                if (sb && session) {
+                    var { data: existing } = await sb
+                        .from('points_ledger')
+                        .select('metadata')
+                        .eq('user_id', session.user.id)
+                        .eq('description', 'Listing field completed');
+
+                    if (existing) {
+                        existing.forEach(function(entry) {
+                            if (entry.metadata && entry.metadata.field_name && entry.metadata.listing_id === listingId) {
+                                alreadyRewarded[entry.metadata.field_name] = true;
+                            }
+                        });
+                    }
+                }
+            } catch(e) { console.warn('Could not check point status:', e); }
+
+            // Build the pill tags
+            var html = '';
+            var remaining = 0;
+            var allEarned = true;
+
+            Object.keys(fieldPoints).forEach(function(field) {
+                var pts = fieldPoints[field];
+                var earned = !!alreadyRewarded[field];
+                var name = _fieldDisplayNames[field] || field;
+
+                if (earned) {
+                    html += '<span style="display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:20px;font-size:0.78rem;font-family:\'Space Grotesk\',sans-serif;background:rgba(0,230,118,0.1);color:var(--ink-green,#00e676);border:1px solid rgba(0,230,118,0.2);">' +
+                        '\u2713 ' + name + '</span>';
+                } else {
+                    allEarned = false;
+                    remaining += pts;
+                    html += '<span style="display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:20px;font-size:0.78rem;font-family:\'Space Grotesk\',sans-serif;background:rgba(255,212,0,0.08);color:var(--ink-yellow,#ffd400);border:1px solid rgba(255,212,0,0.15);">' +
+                        name + ' +' + pts + '</span>';
+                }
+            });
+
+            fieldsEl.innerHTML = html;
+
+            if (allEarned) {
+                remainingEl.textContent = 'All fields complete!';
+                guideEl.style.borderColor = 'rgba(0,230,118,0.2)';
+                guideEl.style.background = 'linear-gradient(135deg, rgba(0,230,118,0.06) 0%, rgba(0,212,255,0.06) 100%)';
+            } else {
+                remainingEl.textContent = remaining + ' pts available';
+            }
+
+            guideEl.style.display = 'block';
+        }
+
         function toggleListingEdit(showEdit) {
             var viewMode = document.getElementById('listingViewMode');
             var editMode = document.getElementById('listingEditMode');
@@ -2313,6 +2404,9 @@
                 viewMode.classList.add('hidden');
                 editMode.classList.add('active');
                 document.getElementById('listingSaveStatus').textContent = '';
+
+                // Load the points guide showing which fields still have rewards
+                updatePointsGuide(parseInt(_myListing.listing_id));
             } else {
                 viewMode.classList.remove('hidden');
                 editMode.classList.remove('active');
