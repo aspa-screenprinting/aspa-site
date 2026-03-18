@@ -1716,6 +1716,18 @@
                             <span class="listing-field-label">Email</span>
                             <span class="listing-field-value" id="listingEmail"></span>
                         </div>
+                        <div class="listing-field-row" id="listingFoundedRow" style="display:none;">
+                            <span class="listing-field-label">Founded</span>
+                            <span class="listing-field-value" id="listingFounded"></span>
+                        </div>
+                        <div class="listing-field-row" id="listingRevenueRow" style="display:none;">
+                            <span class="listing-field-label">Revenue</span>
+                            <span class="listing-field-value" id="listingRevenue"></span>
+                        </div>
+                        <div class="listing-field-row" id="listingEmployeesRow" style="display:none;">
+                            <span class="listing-field-label">Employees</span>
+                            <span class="listing-field-value" id="listingEmployees"></span>
+                        </div>
                         <div class="listing-field-row" id="listingSocialRow" style="display:none;">
                             <span class="listing-field-label">Social</span>
                             <span class="listing-field-value" id="listingSocials"></span>
@@ -1787,6 +1799,21 @@
                             <label>Location</label>
                             <input type="text" id="editLocation" placeholder="City, State">
                         </div>
+                        <div class="form-group">
+                            <label>Year Founded</label>
+                            <input type="number" id="editFounded" placeholder="e.g. 2015" min="1900" max="2099">
+                        </div>
+                        <div class="form-group">
+                            <label>Annual Revenue <span style="color:var(--ink-gray);font-weight:400;text-transform:none;font-size:0.8rem;">&#128274; Exact is admin-only — directory shows range</span></label>
+                            <div style="position:relative;">
+                                <span style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--ink-gray);pointer-events:none;">$</span>
+                                <input type="number" id="editRevenue" placeholder="e.g. 750000" min="0" style="padding-left:24px;">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Employees</label>
+                            <input type="number" id="editEmployees" placeholder="e.g. 12" min="0">
+                        </div>
                         <div class="form-group full-width">
                             <label>Specialties <span style="color:var(--ink-gray);font-weight:400;text-transform:none;">(comma separated)</span></label>
                             <input type="text" id="editSpecialties" placeholder="Screen Printing, DTG, Embroidery, Vinyl">
@@ -1797,6 +1824,9 @@
                                 <input type="url" id="editLinkedin" placeholder="LinkedIn URL">
                                 <input type="url" id="editInstagram" placeholder="Instagram URL">
                                 <input type="url" id="editFacebook" placeholder="Facebook URL">
+                                <input type="url" id="editTiktok" placeholder="TikTok URL">
+                                <input type="url" id="editYoutube" placeholder="YouTube URL">
+                                <input type="url" id="editTwitter" placeholder="X / Twitter URL">
                             </div>
                         </div>
                     </div>
@@ -2253,12 +2283,24 @@
                 document.getElementById('listingEmailRow').style.display = 'none';
             }
 
+            // Founded
+            showField('listingFoundedRow', 'listingFounded', listing.founded ? 'Est. ' + listing.founded : null);
+
+            // Revenue (show range only, exact is admin-only)
+            showField('listingRevenueRow', 'listingRevenue', listing.annual_revenue ? revenueToRange(listing.annual_revenue) : null);
+
+            // Employees
+            showField('listingEmployeesRow', 'listingEmployees', listing.employee_count ? employeeToRange(listing.employee_count) : null);
+
             // Social links
             var social = listing.social || {};
             var socialHtml = [];
             if (social.linkedin) socialHtml.push('<a href="' + escHtml(social.linkedin) + '" target="_blank">LinkedIn</a>');
             if (social.instagram) socialHtml.push('<a href="' + escHtml(social.instagram) + '" target="_blank">Instagram</a>');
             if (social.facebook) socialHtml.push('<a href="' + escHtml(social.facebook) + '" target="_blank">Facebook</a>');
+            if (social.tiktok) socialHtml.push('<a href="' + escHtml(social.tiktok) + '" target="_blank">TikTok</a>');
+            if (social.youtube) socialHtml.push('<a href="' + escHtml(social.youtube) + '" target="_blank">YouTube</a>');
+            if (social.twitter) socialHtml.push('<a href="' + escHtml(social.twitter) + '" target="_blank">X</a>');
             if (socialHtml.length > 0) {
                 document.getElementById('listingSocialRow').style.display = 'flex';
                 document.getElementById('listingSocials').innerHTML = socialHtml.join(' · ');
@@ -2297,6 +2339,25 @@
             return div.innerHTML;
         }
 
+        function revenueToRange(amount) {
+            if (!amount || amount <= 0) return null;
+            if (amount < 250000) return 'Under $250K';
+            if (amount < 500000) return '$250K \u2013 $500K';
+            if (amount < 1000000) return '$500K \u2013 $1M';
+            if (amount < 5000000) return '$1M \u2013 $5M';
+            if (amount < 10000000) return '$5M \u2013 $10M';
+            return '$10M+';
+        }
+
+        function employeeToRange(count) {
+            if (!count || count <= 0) return null;
+            if (count <= 5) return '1 \u2013 5';
+            if (count <= 15) return '6 \u2013 15';
+            if (count <= 50) return '16 \u2013 50';
+            if (count <= 100) return '51 \u2013 100';
+            return '100+';
+        }
+
         // ===== POINTS GUIDE FOR EDIT FORM =====
         var _fieldDisplayNames = {
             description: 'Description',
@@ -2305,9 +2366,15 @@
             email: 'Email',
             website: 'Website',
             location: 'Location',
+            founded: 'Year Founded',
+            annual_revenue: 'Revenue',
+            employee_count: 'Employees',
             linkedin: 'LinkedIn',
             instagram: 'Instagram',
-            facebook: 'Facebook'
+            facebook: 'Facebook',
+            tiktok: 'TikTok',
+            youtube: 'YouTube',
+            twitter: 'X / Twitter'
         };
 
         async function updatePointsGuide(listingId) {
@@ -2396,10 +2463,17 @@
                 if (Array.isArray(specs)) specs = specs.join(', ');
                 document.getElementById('editSpecialties').value = specs;
 
+                document.getElementById('editFounded').value = _myListing.founded || '';
+                document.getElementById('editRevenue').value = _myListing.annual_revenue || '';
+                document.getElementById('editEmployees').value = _myListing.employee_count || '';
+
                 var social = _myListing.social || {};
                 document.getElementById('editLinkedin').value = social.linkedin || '';
                 document.getElementById('editInstagram').value = social.instagram || '';
                 document.getElementById('editFacebook').value = social.facebook || '';
+                document.getElementById('editTiktok').value = social.tiktok || '';
+                document.getElementById('editYoutube').value = social.youtube || '';
+                document.getElementById('editTwitter').value = social.twitter || '';
 
                 viewMode.classList.add('hidden');
                 editMode.classList.add('active');
@@ -2436,6 +2510,9 @@
             var specsRaw = document.getElementById('editSpecialties').value;
             var specialties = specsRaw ? specsRaw.split(',').map(function(s) { return s.trim(); }).filter(Boolean) : [];
 
+            var revenueRaw = document.getElementById('editRevenue').value;
+            var employeesRaw = document.getElementById('editEmployees').value;
+
             var payload = {
                 name: businessName,
                 category: document.getElementById('editCategory').value || null,
@@ -2444,11 +2521,17 @@
                 email: document.getElementById('editListingEmail').value.trim() || null,
                 website: document.getElementById('editWebsite').value.trim() || null,
                 location: document.getElementById('editLocation').value.trim() || null,
+                founded: document.getElementById('editFounded').value ? parseInt(document.getElementById('editFounded').value) : null,
+                annual_revenue: revenueRaw ? parseInt(revenueRaw) : null,
+                employee_count: employeesRaw ? parseInt(employeesRaw) : null,
                 specialties: specialties,
                 social: {
                     linkedin: document.getElementById('editLinkedin').value.trim() || null,
                     instagram: document.getElementById('editInstagram').value.trim() || null,
-                    facebook: document.getElementById('editFacebook').value.trim() || null
+                    facebook: document.getElementById('editFacebook').value.trim() || null,
+                    tiktok: document.getElementById('editTiktok').value.trim() || null,
+                    youtube: document.getElementById('editYoutube').value.trim() || null,
+                    twitter: document.getElementById('editTwitter').value.trim() || null
                 },
                 updated_at: new Date().toISOString()
             };

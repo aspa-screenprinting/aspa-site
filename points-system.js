@@ -210,18 +210,24 @@
 
   /**
    * Point values for completing each listing field.
-   * Total possible: 5+5+5+5+5+10+10+5+5+5 = 60 points.
+   * Total possible: 10+10+10+5+5+5+5+5+5+5+5+5+5+5+5 = 100 points.
    */
   var LISTING_FIELD_POINTS = {
-    description:  10,  // Most important for directory quality
-    phone:         5,
-    email:         5,
-    website:       5,
-    location:      5,
-    specialties:  10,  // Helps with search/discovery
-    linkedin:      5,
-    instagram:     5,
-    facebook:      5
+    description:    10,  // Most important for directory quality
+    specialties:    10,  // Helps with search/discovery
+    annual_revenue: 10,  // Valuable private data for ASPA
+    phone:           5,
+    email:           5,
+    website:         5,
+    location:        5,
+    founded:         5,
+    employee_count:  5,
+    linkedin:        5,
+    instagram:       5,
+    facebook:        5,
+    tiktok:          5,
+    youtube:         5,
+    twitter:         5
   };
 
   /**
@@ -283,8 +289,9 @@
       if (alreadyRewarded[fieldName]) return;
 
       // Get the new value
+      var socialFields = ['linkedin', 'instagram', 'facebook', 'tiktok', 'youtube', 'twitter'];
       var newVal;
-      if (fieldName === 'linkedin' || fieldName === 'instagram' || fieldName === 'facebook') {
+      if (socialFields.indexOf(fieldName) !== -1) {
         newVal = newListing.social ? newListing.social[fieldName] : null;
       } else if (fieldName === 'specialties') {
         newVal = newListing.specialties && newListing.specialties.length > 0 ? newListing.specialties : null;
