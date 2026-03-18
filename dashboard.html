@@ -1092,6 +1092,45 @@
             font-weight: 500;
         }
 
+        /* Specialty toggle buttons in edit form */
+        .specialty-picker {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .specialty-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 7px 14px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.03);
+            color: rgba(255,255,255,0.35);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+        .specialty-btn:hover {
+            border-color: rgba(0, 212, 255, 0.3);
+            color: rgba(255,255,255,0.6);
+        }
+        .specialty-btn.selected {
+            background: rgba(0, 212, 255, 0.12);
+            border-color: rgba(0, 212, 255, 0.4);
+            color: var(--ink-cyan, #00d4ff);
+        }
+        .specialty-btn .check {
+            display: none;
+            font-size: 0.75rem;
+        }
+        .specialty-btn.selected .check {
+            display: inline;
+        }
+
         .listing-actions {
             display: flex;
             align-items: center;
@@ -1808,8 +1847,8 @@
                             <input type="number" id="editEmployees" placeholder="e.g. 12" min="0">
                         </div>
                         <div class="form-group full-width">
-                            <label>Specialties <span style="color:var(--ink-gray);font-weight:400;text-transform:none;">(comma separated)</span></label>
-                            <input type="text" id="editSpecialties" placeholder="Screen Printing, DTG, Embroidery, Vinyl">
+                            <label>Specialties <span style="color:var(--ink-gray);font-weight:400;text-transform:none;">(select all that apply)</span></label>
+                            <div class="specialty-picker" id="editSpecialties"></div>
                         </div>
                         <div class="form-group full-width">
                             <label>Social Links</label>
@@ -2244,6 +2283,46 @@
             }
         }
 
+        // ===== SPECIALTY PICKER =====
+        var SPECIALTY_OPTIONS = [
+            'Screen Printing',
+            'DTG / Direct to Garment',
+            'Embroidery',
+            'Heat Transfer / Vinyl',
+            'Sublimation',
+            'Pad Printing',
+            'Large Format / Signage',
+            'Promotional Products',
+            'Custom Apparel',
+            'Graphic Design',
+            'Contract Printing',
+            'Fulfillment / Distribution'
+        ];
+
+        function renderSpecialtyPicker(selectedSpecs) {
+            var container = document.getElementById('editSpecialties');
+            if (!container) return;
+            var selected = selectedSpecs || [];
+            if (typeof selected === 'string') selected = selected.split(',').map(function(s) { return s.trim(); }).filter(Boolean);
+
+            container.innerHTML = SPECIALTY_OPTIONS.map(function(spec) {
+                var isSelected = selected.indexOf(spec) !== -1;
+                return '<button type="button" class="specialty-btn' + (isSelected ? ' selected' : '') + '" data-spec="' + spec + '" onclick="toggleSpecialty(this)">' +
+                    '<span class="check">\u2713</span>' + spec + '</button>';
+            }).join('');
+        }
+
+        function toggleSpecialty(btn) {
+            btn.classList.toggle('selected');
+        }
+
+        function getSelectedSpecialties() {
+            var btns = document.querySelectorAll('#editSpecialties .specialty-btn.selected');
+            var specs = [];
+            btns.forEach(function(btn) { specs.push(btn.getAttribute('data-spec')); });
+            return specs;
+        }
+
         function populateListingView(listing) {
             // Business name & location
             document.getElementById('listingBusinessName').textContent = listing.name || 'Your Business';
@@ -2448,9 +2527,7 @@
                 document.getElementById('editWebsite').value = _myListing.website || '';
                 document.getElementById('editLocation').value = _myListing.location || '';
 
-                var specs = _myListing.specialties || [];
-                if (Array.isArray(specs)) specs = specs.join(', ');
-                document.getElementById('editSpecialties').value = specs;
+                renderSpecialtyPicker(_myListing.specialties || []);
 
                 document.getElementById('editFounded').value = _myListing.founded || '';
                 document.getElementById('editRevenue').value = _myListing.annual_revenue || '';
@@ -2496,8 +2573,7 @@
             saveBtn.textContent = 'Saving...';
             statusEl.textContent = '';
 
-            var specsRaw = document.getElementById('editSpecialties').value;
-            var specialties = specsRaw ? specsRaw.split(',').map(function(s) { return s.trim(); }).filter(Boolean) : [];
+            var specialties = getSelectedSpecialties();
 
             var revenueRaw = document.getElementById('editRevenue').value;
             var employeesRaw = document.getElementById('editEmployees').value;
