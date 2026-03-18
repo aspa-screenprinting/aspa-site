@@ -4790,7 +4790,7 @@
                 '<a href="directory.html" class="profile-back">\u2190 Back to Directory</a>' +
                 '<div class="profile-card">' +
                     '<div class="profile-top">' +
-                        '<div class="profile-avatar category-' + member.category + '">' + initials + '</div>' +
+                        '<div class="profile-avatar category-' + member.category + '">' + (member.logo_url ? '<img src="' + member.logo_url + '" style="width:100%;height:100%;object-fit:contain;border-radius:50%;" alt="' + member.name + ' logo">' : initials) + '</div>' +
                         '<div class="profile-headline">' +
                             '<h1>' + member.name + '</h1>' +
                             (member.location ? '<div class="profile-location">\uD83D\uDCCD ' + member.location + '</div>' : '') +
@@ -4840,6 +4840,7 @@
             if (member.website) jsonLd.sameAs = [member.website];
             if (member.email) jsonLd.email = member.email;
             if (member.description) jsonLd.description = member.description;
+            if (member.logo_url) jsonLd.image = member.logo_url;
             if (cat) jsonLd.additionalType = cat;
             if (member.founded) jsonLd.foundingDate = String(member.founded);
 
@@ -4893,7 +4894,7 @@
                 if (window._supabase) {
                     const { data: overrides, error } = await window._supabase
                         .from('directory_listings')
-                        .select('listing_id, name, category, location, description, phone, website, email, founded, specialties, social, badges');
+                        .select('listing_id, name, category, location, description, phone, website, email, founded, specialties, social, badges, logo_url');
 
                     if (!error && overrides && overrides.length > 0) {
                         const overrideMap = {};
@@ -4913,6 +4914,7 @@
                                 if (o.specialties && o.specialties.length > 0) member.specialties = o.specialties;
                                 if (o.social && Object.keys(o.social).length > 0) member.social = o.social;
                                 if (o.badges && o.badges.length > 0) member.badges = o.badges;
+                                if (o.logo_url) member.logo_url = o.logo_url;
                             }
                         });
                         console.log('Merged ' + overrides.length + ' directory override(s)');
@@ -4929,7 +4931,7 @@
                     if (window._supabase) {
                         const { data: overrides, error } = await window._supabase
                             .from('directory_listings')
-                            .select('listing_id, name, category, location, description, phone, website, email, founded, specialties, social, badges');
+                            .select('listing_id, name, category, location, description, phone, website, email, founded, specialties, social, badges, logo_url');
 
                         if (!error && overrides && overrides.length > 0) {
                             const overrideMap = {};
@@ -5112,7 +5114,7 @@
             return `
                 <div class="member-card">
                     <div class="member-header">
-                        <div class="member-avatar ${categoryClass}">${initials}</div>
+                        <div class="member-avatar ${categoryClass}">${member.logo_url ? `<img src="${member.logo_url}" style="width:100%;height:100%;object-fit:contain;border-radius:50%;" alt="${member.name} logo">` : initials}</div>
                         <div class="member-info">
                             <div class="member-title-row">
                                 <h3 class="member-name"><a href="directory.html?member=${member.id}" style="color:inherit;text-decoration:none;">${member.name}</a></h3>

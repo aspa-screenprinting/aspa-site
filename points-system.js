@@ -210,12 +210,13 @@
 
   /**
    * Point values for completing each listing field.
-   * Total possible: 10+10+10+5+5+5+5+5+5+5+5+5+5+5+5 = 100 points.
+   * Total possible: 10+10+10+5+5+5+5+5+5+5+5+5+5+5+5+5 = 105 points.
    */
   var LISTING_FIELD_POINTS = {
     description:    10,  // Most important for directory quality
     specialties:    10,  // Helps with search/discovery
     annual_revenue: 10,  // Valuable private data for ASPA
+    logo_url:        5,  // Company logo upload
     phone:           5,
     email:           5,
     website:         5,
