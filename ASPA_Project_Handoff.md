@@ -3,7 +3,7 @@
 **Project:** screen-printing.us redesign
 **Client:** Dustin Cochran (cochran.dustin@gmail.com)
 **Date:** March 3–17, 2026 (last updated: Session 25)
-**Status:** In Progress — Core Pages Built, Resource Hub COMPLETE (All 18 Articles), **SITE LIVE on GitHub Pages**, Nav Full-Width, **Supabase Backend Live** (Auth + Database + Google OAuth + Storage), ASPA+ Gated Content Live, Admin Dashboard Built, **UI Polish Pass Complete**, **Gamification & Loyalty Points System Live**, **Job Board Live**, **Community Chat Live** (Real-time, Edit/Delete, Search, Profile Edit, Avatar Upload, Admin Moderation), **Full Brand Audit Complete**, **Member Dashboard Fleshed Out**, **Directory Overhauled (210 Real Members)**, **Membership Certificate PDF**, **Directory Location Filter Redesigned**, **Admin Panel Tabs Fixed**, **Directory Claim System Live** (Email Verification via Resend + pg_net), **CRM Member Detail Panel Built**, **Dashboard Self-Service Listing Editing**, **Promo Codes Standalone Admin Tab**
+**Status:** In Progress — Core Pages Built, Resource Hub COMPLETE (All 18 Articles), **SITE LIVE on GitHub Pages**, Nav Full-Width, **Supabase Backend Live** (Auth + Database + Google OAuth + Storage), ASPA+ Gated Content Live, Admin Dashboard Built, **UI Polish Pass Complete**, **Gamification & Loyalty Points System Live**, **Job Board Live**, **Community Chat Live** (Real-time, Edit/Delete, Search, Profile Edit, Avatar Upload, Admin Moderation), **Full Brand Audit Complete**, **Member Dashboard Fleshed Out**, **Directory Overhauled (210 Real Members)**, **Membership Certificate PDF**, **Directory Location Filter Redesigned**, **Admin Panel Tabs Fixed**, **Directory Claim System Live** (Email Verification via Resend + pg_net), **CRM Member Detail Panel Built**, **Dashboard Self-Service Listing Editing**, **Promo Codes Standalone Admin Tab**, **Membership Promo Codes Live**, **Listing Field Point Rewards (105pts)**, **Individual Member Profile Pages + JSON-LD SEO**, **Company Logo Upload**, **Directory Data Cleaned**
 
 ---
 
@@ -1275,18 +1275,58 @@ Pages needing work (prioritized):
 - **Step 2:** Select listing tier ($49 Basic / $99 Featured / $149 Premium) with feature comparison
 - **Step 3:** Payment + optional promo code application, with per-user redemption limit enforcement
 
+### Membership Promo Codes (`join.html`)
+- **Promo code input** on membership signup form with Apply button
+- **Validates** `applies_to` (membership/both), expiration, global + per-user limits
+- **Discount summary** shows original price crossed out, final price in green
+- **Records usage** in `promo_code_uses` table after successful signup, increments `current_uses`
+
+### One-Time Point Rewards for Listing Fields (`points-system.js`, `dashboard.html`)
+- **16 fields worth 105 total points**: description (10), specialties (10), revenue (10), logo (5), phone/email/website/location/founded/employees (5 each), 6 social links (5 each)
+- **Duplicate prevention** via `points_ledger` metadata check — each field can only earn points once
+- **Points guide banner** in edit form shows color-coded pills: yellow for unclaimed fields with point value, green checkmark for already-earned
+- **Yellow notification** after save shows total points earned and which fields triggered it
+
+### Expanded Listing Fields (`dashboard.html`, `directory.html`)
+- **New fields:** Year Founded, Annual Revenue (admin-only, exact integer), Employee Count (admin-only), TikTok/YouTube/X social links
+- **Company logo upload** — Supabase Storage `listing-logos` bucket, PNG/JPG/WebP/SVG up to 2MB, displayed on directory cards + profile pages
+- **Specialties multi-select** — 12 predefined toggle buttons (dim when off, cyan+checkmark when on) replacing free-text comma input
+- **Revenue + Employees** marked admin-only with lock icon labels, not displayed on public directory
+
+### Directory Data Cleanup
+- **Stripped all fabricated data** from hardcoded fallback and Supabase: descriptions, phone numbers, websites, badges, specialties, founded dates
+- **Only verified scraped data remains:** name, category, location, initials
+- **Card rendering** now handles empty fields gracefully (conditional description, badges, founded line)
+
+### SEO & Directory Enhancements (`directory.html`)
+- **Individual member profile pages** at `directory.html?member=ID` with full detail view
+- **JSON-LD LocalBusiness schema** on each profile: name, address, phone, website, social sameAs, image (logo), founding date
+- **Internal link structure** — all directory card names link to profile URLs (210+ internal links)
+- **Branded social media badge pills** on cards: LinkedIn (blue), Instagram (pink), Facebook (blue), TikTok (red), YouTube (red), X (white) with SVG icons
+- **`rel="noopener noreferrer"`** on all outbound links
+
 ### Commit History (Session 25)
 - `30e7229` Add per-user promo code usage limits
 - `1c21333` Add self-service directory listing editing to member dashboard
 - `499412d` Fix directory listing column names to match actual schema
 - `3ea20fe` Fix edit history logging crash in saveListingEdits
 - `8b6472f` Move Promo Codes to standalone admin tab
+- `74e5615` Add promo code support to membership signup flow
+- `d9f0dc6` Add one-time point rewards for completing directory listing fields
+- `55a0b4c` Add points guide banner to listing edit form
+- `510c2b8` Add revenue, employees, founded, and 3 new social fields
+- `7855075` Make revenue and employee count admin-only
+- `c940bee` Replace specialties text input with multi-select toggle buttons
+- `8f5029d` Remove hallucinated founded dates from directory fallback data
+- `612c30d` Strip all fabricated data from directory fallback and Supabase
+- `04f079b` Add branded social media badge buttons to directory cards
+- `b1c7fa1` Add individual member profile pages with JSON-LD structured data
+- `d1eb751` Add company logo upload to listing editor with 5pt reward
+- `a2dcef3` Fix revenue label to say 'Admin only'
 
 ### What's Next
-- [ ] **Wire up membership promo codes** — Membership signup flow doesn't yet validate promo codes (admin structure + `applies_to` field ready)
-- [ ] **One-time point rewards for listing fields** — Award loyalty points when members fill out profile/listing fields for the first time
-- [ ] **Resend custom sending domain** — DNS records (SPF, DKIM, DMARC) once ASPA domain is owned
 - [ ] **Job board enhancements** — Source-specific badges (detect actual source from URL), unified native+external list, zip+radius location filter, strip HTML from description snippets
+- [ ] **Resend custom sending domain** — DNS records (SPF, DKIM, DMARC) once ASPA domain is owned
 - [ ] Mobile responsive polish pass
 - [ ] Glossary page (high SEO value)
 - [ ] Payment integration (Stripe/PayPal)
